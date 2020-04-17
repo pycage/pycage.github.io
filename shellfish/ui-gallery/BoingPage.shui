@@ -36,7 +36,7 @@ Page {
 
         page: parent
         title: "Boing Boing Donk!"
-        subtitle: "Having fun with easing-curves..."
+        subtitle: "Having fun with easing-curves..." + __dirname
         codeUrl: moduleLocation
     }
 
@@ -95,7 +95,7 @@ Page {
             x: 0
             y: groundLevel
             height: box.bbox.height * 0.3
-            source: __dirname + "/rabbit.svg"
+            source: "./rabbit.svg"
         }
 
         Label {
