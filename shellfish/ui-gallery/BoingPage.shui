@@ -95,7 +95,7 @@ Page {
             x: 0
             y: groundLevel
             height: box.bbox.height * 0.3
-            source: "./rabbit.svg"
+            source: "rabbit.svg"
         }
 
         Label {
