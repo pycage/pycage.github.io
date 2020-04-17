@@ -96,7 +96,7 @@ Page {
                     marginRight: page.viewMode === 0 ? theme.paddingLarge : 0
                     marginBottom: page.viewMode === 0 ? theme.paddingSmall : 0
 
-                    source: __dirname + "/rabbit.svg"
+                    source: "/shellfish/ui-gallery/rabbit.svg"
                 }
 
                 Label {

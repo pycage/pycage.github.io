@@ -43,7 +43,7 @@ Page {
             text: "Load Image"
 
             onClick: {
-                image.source = __dirname + "/sample.jpg";
+                image.source = "/shellfish/ui-gallery/sample.jpg";
             }
         }
 
