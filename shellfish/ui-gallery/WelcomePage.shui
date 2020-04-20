@@ -89,7 +89,7 @@ Page {
                   "dynamic HTML5 user interfaces.\n\n" +
                   "It also features Shui, a declarative modeling language " +
                   "that transpiles to plain " +
-                  "JavaScript code to run in the browser, either on-the-fly "+
+                  "JavaScript code to run in the browser, either on-the-fly " +
                   "as the code gets loaded, or by precompiling.\n\n" +
                   "See some examples of Shellfish in action and view the " +
                   "Shui source code of each page."
@@ -111,7 +111,8 @@ Page {
                     ["Images", "ImagesPage", "image"],
                     ["List View and Grid View", "BreedingPage", "list1"],
                     ["Animations and Easing Curves", "BoingPage", "video-camera"],
-                    ["Canvas and Pen", "CanvasPage", "pencil"]
+                    ["Canvas and Pen", "CanvasPage", "pencil"],
+                    ["Camera", "CameraPage", "camera"]
                 ]
             }
             delegate: template Button {
