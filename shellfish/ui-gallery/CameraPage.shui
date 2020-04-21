@@ -40,6 +40,59 @@ Page {
         height: documentRoot.windowHeight
 
         Box {
+            marginTop: header.height + theme.paddingSmall
+            fillWidth: true
+            height: theme.itemHeightSmall
+            layout: "center-row"
+
+            Label {
+                marginLeft: theme.paddingLarge
+                text: "Select Camera"
+            }
+
+            SelectionBox {
+                id: cameraSelector
+
+                property deviceId: cam.devices.length > 0 && selection[0] ? cam.devices[selection[0]].deviceId
+                                                                          : ""
+
+                onSelectionChanged: {
+                    console.log("selection: " + selection);
+                }
+
+                marginLeft: theme.paddingSmall
+                fillWidth: true
+                options: cam.devices.map((dev) => { return dev.label; })
+            }
+
+            Label {
+                marginLeft: theme.paddingSmall
+                text: "Max Resolution"
+            }
+
+            SelectionBox {
+                id: resolutionSelector
+
+    	        property res: cam.resolutions[selection[0]]
+                
+                marginLeft: theme.paddingSmall
+                options: cam.resolutions
+            }
+
+            Button {
+                enabled: cam.status !== pending
+                width: theme.itemWidthLarge
+                marginLeft: theme.paddingSmall
+                marginRight: theme.paddingLarge
+                text: cam.active ? "Deactivate" : "Activate"
+                onClick: {
+                    cam.active = ! cam.active;
+                }
+            }
+        }
+
+        Box {
+            marginTop: theme.paddingSmall
             fillWidth: true
             fillHeight: true
             color: "black"
@@ -49,31 +102,30 @@ Page {
 
                 fillWidth: true
                 fillHeight: true
-                marginTop: theme.paddingSmall
-                marginLeft: theme.paddingSmall
-                marginRight: theme.paddingSmall
-                marginBottom: theme.paddingSmall
+
+                deviceId: cameraSelector.deviceId
+                maxResolution: resolutionSelector.res
             }
 
             Label {
-                visible: cam.status === "error"
+                visible: cam.status === "error" || cam.status === "inactive"
                 position: "free"
                 x: (parent.bbox.width - bbox.width) / 2
                 y: (parent.bbox.height - bbox.height) / 2
                 fontSize: theme.fontSizeLarge
                 color: "white"
-                text: "Camera Access Denied"
+                text: cam.status === "error" ? "Camera Access Denied"
+                                             : "Camera Inactive"
             }
+        }//Box
+
+        Label {
+            marginTop: theme.paddingMedium
+            marginLeft: theme.paddingLarge
+            marginBottom: theme.paddingLarge
+            text: "Width: " + cam.originalWidth + " px, Height: " + cam.originalHeight + " px"
         }
 
-        Button {
-            fillWidth: true
-            height: theme.itemHeightLarge
-            text: cam.active ? "Stop Camera" : "Start Camera"
-            onClick: {
-                cam.active = ! cam.active;
-            }
-        }
-    }
-
+    }//Box
+    
 }
