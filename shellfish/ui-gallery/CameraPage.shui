@@ -100,11 +100,32 @@ Page {
             CameraView {
                 id: cam
 
+                visible: false
                 fillWidth: true
                 fillHeight: true
 
                 deviceId: cameraSelector.deviceId
                 maxResolution: resolutionSelector.res
+            }
+
+            Canvas {
+                id: camCnv
+                fillWidth: true
+                fillHeight: true
+                originalWidth: cam.originalWidth
+                originalHeight: cam.originalHeight
+            }
+
+            Timer {
+                running: cam.active
+                interval: 1000 / 24
+                repeat: true
+
+                onTimeout: {
+                    const ctx = camCnv.context2d;
+                    const video = cam.get();
+                    ctx.drawImage(direct video.get(), 0, 0, camCnv.originalWidth, camCnv.originalHeight);
+                }
             }
 
             Label {
