@@ -1,0 +1,6096 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset='utf-8'>
+  <title>  | Documentation</title>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='assets/bass.css' rel='stylesheet'>
+  <link href='assets/style.css' rel='stylesheet'>
+  <link href='assets/github.css' rel='stylesheet'>
+  <link href='assets/split.css' rel='stylesheet'>
+</head>
+<body class='documentation m0'>
+    <div class='flex'>
+      <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
+        <div class='py1 px2'>
+          <h3 class='mb0 no-anchor'></h3>
+          <div class='mb1'><code></code></div>
+          <input
+            placeholder='Filter'
+            id='filter-input'
+            class='col12 block input'
+            spellcheck='false'
+            autocapitalize='off'
+            autocorrect='off'
+            type='text' />
+          <div id='toc'>
+            <ul class='list-reset h5 py1-ul'>
+              
+                
+                <li><a
+                  href='#high'
+                  class=" toggle-sibling">
+                  high
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#highelement'
+                        class='regular pre-open'>
+                        .Element
+                      </a></li>
+                    
+                      <li><a
+                        href='#highelement'
+                        class='regular pre-open'>
+                        .element
+                      </a></li>
+                    
+                      <li><a
+                        href='#highroutedelement'
+                        class='regular pre-open'>
+                        .routedElement
+                      </a></li>
+                    
+                      <li><a
+                        href='#highdynamicvalue'
+                        class='regular pre-open'>
+                        .dynamicValue
+                      </a></li>
+                    
+                      <li><a
+                        href='#highdynamicvalue'
+                        class='regular pre-open'>
+                        .DynamicValue
+                      </a></li>
+                    
+                      <li><a
+                        href='#highbinding'
+                        class='regular pre-open'>
+                        .binding
+                      </a></li>
+                    
+                      <li><a
+                        href='#highchainref'
+                        class='regular pre-open'>
+                        .chainRef
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#low'
+                  class=" toggle-sibling">
+                  low
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#lowescapehtml'
+                        class='regular pre-open'>
+                        .escapeHtml
+                      </a></li>
+                    
+                      <li><a
+                        href='#lowresolveicons'
+                        class='regular pre-open'>
+                        .resolveIcons
+                      </a></li>
+                    
+                      <li><a
+                        href='#lowpxtorem'
+                        class='regular pre-open'>
+                        .pxToRem
+                      </a></li>
+                    
+                      <li><a
+                        href='#lowremtopx'
+                        class='regular pre-open'>
+                        .remToPx
+                      </a></li>
+                    
+                      <li><a
+                        href='#lowcss'
+                        class='regular pre-open'>
+                        .css
+                      </a></li>
+                    
+                      <li><a
+                        href='#lowcss'
+                        class='regular pre-open'>
+                        .css
+                      </a></li>
+                    
+                      <li><a
+                        href='#lowcreateelementtree'
+                        class='regular pre-open'>
+                        .createElementTree
+                      </a></li>
+                    
+                      <li><a
+                        href='#lowtag'
+                        class='regular pre-open'>
+                        .Tag
+                      </a></li>
+                    
+                      <li><a
+                        href='#lowtag'
+                        class='regular pre-open'>
+                        .tag
+                      </a></li>
+                    
+                      <li><a
+                        href='#lowfullscreenstatus'
+                        class='regular pre-open'>
+                        .fullscreenStatus
+                      </a></li>
+                    
+                      <li><a
+                        href='#lowfullscreenenter'
+                        class='regular pre-open'>
+                        .fullscreenEnter
+                      </a></li>
+                    
+                      <li><a
+                        href='#lowfullscreenexit'
+                        class='regular pre-open'>
+                        .fullscreenExit
+                      </a></li>
+                    
+                      <li><a
+                        href='#lowaddframehandler'
+                        class='regular pre-open'>
+                        .addFrameHandler
+                      </a></li>
+                    
+                      <li><a
+                        href='#lowregistertopdownevent'
+                        class='regular pre-open'>
+                        .registerTopDownEvent
+                      </a></li>
+                    
+                      <li><a
+                        href='#lowtriggertopdownevent'
+                        class='regular pre-open'>
+                        .triggerTopDownEvent
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#mid'
+                  class=" toggle-sibling">
+                  mid
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#midbox'
+                        class='regular pre-open'>
+                        .Box
+                      </a></li>
+                    
+                      <li><a
+                        href='#midcameraview'
+                        class='regular pre-open'>
+                        .CameraView
+                      </a></li>
+                    
+                      <li><a
+                        href='#midcanvas'
+                        class='regular pre-open'>
+                        .Canvas
+                      </a></li>
+                    
+                      <li><a
+                        href='#middocument'
+                        class='regular pre-open'>
+                        .Document
+                      </a></li>
+                    
+                      <li><a
+                        href='#miditem'
+                        class='regular pre-open'>
+                        .Item
+                      </a></li>
+                    
+                      <li><a
+                        href='#midlabel'
+                        class='regular pre-open'>
+                        .Label
+                      </a></li>
+                    
+                      <li><a
+                        href='#midlistmodel'
+                        class='regular pre-open'>
+                        .ListModel
+                      </a></li>
+                    
+                      <li><a
+                        href='#midlistview'
+                        class='regular pre-open'>
+                        .ListView
+                      </a></li>
+                    
+                      <li><a
+                        href='#midmousebox'
+                        class='regular pre-open'>
+                        .MouseBox
+                      </a></li>
+                    
+                      <li><a
+                        href='#midnumberanimation'
+                        class='regular pre-open'>
+                        .NumberAnimation
+                      </a></li>
+                    
+                      <li><a
+                        href='#midobject'
+                        class='regular pre-open'>
+                        .Object
+                      </a></li>
+                    
+                      <li><a
+                        href='#midruler'
+                        class='regular pre-open'>
+                        .Ruler
+                      </a></li>
+                    
+                      <li><a
+                        href='#midtextarea'
+                        class='regular pre-open'>
+                        .TextArea
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#ui'
+                  class="">
+                  ui
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#fengshui'
+                  class=" toggle-sibling">
+                  fengshui
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#fengshuicompile'
+                        class='regular pre-open'>
+                        .compile
+                      </a></li>
+                    
+                      <li><a
+                        href='#fengshuiload'
+                        class='regular pre-open'>
+                        .load
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#shrequire'
+                  class="">
+                  shRequire
+                  
+                </a>
+                
+                </li>
+              
+            </ul>
+          </div>
+          <div class='mt1 h6 quiet'>
+            <a href='https://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
+          </div>
+        </div>
+      </div>
+      <div id='split-right' class='relative overflow-auto height-viewport-100'>
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='high'>
+      high
+    </h3>
+    
+    
+  </div>
+  
+
+  <p><strong>Module ID:</strong> <code>shellfish/high</code></p>
+<p>This module provides the high-level Shellfish API.</p>
+<p>The high-level API provides means for declarative programming.</p>
+
+    <div class='pre p1 fill-light mt0'>high</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='highelement'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>new Element(type)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Class representing a high-level element wrapping a mid-level element.</p>
+<p>This class is not exported. Use the function <a href="#highelement">high.element</a> to
+create an element.</p>
+<p>The properties of the underlying mid-level element are exposed as
+dynamic values.</p>
+
+    <div class='pre p1 fill-light mt0'>new Element(type: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>type</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+	    The mid-level object type to wrap.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='highelementget'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>get()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Returns the underlying mid-level element.</p>
+
+    <div class='pre p1 fill-light mt0'>get(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        The mid-level element.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='highelementid'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>id(i, ns)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Sets or returns the ID of this element in the given namespace.</p>
+<p>An element may be present in multiple namespaces with different IDs.
+For example, the root element of a component could have another ID
+within the component, than within the document where the component
+is used.</p>
+
+    <div class='pre p1 fill-light mt0'>id(i: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, ns: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>i</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    (optional) The element ID to set.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>ns</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+            = <code>&quot;&quot;</code>)</code>
+	    (optional) The namespace to use.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        This element for chaining.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='highelementadd'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>add(child)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Adds a child element to this element.</p>
+
+    <div class='pre p1 fill-light mt0'>add(child: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>child</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    The child high-level element.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        This element for chaining.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='highelementcall'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>call(name)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Calls the given method on the underlying mid-level element.
+The method's return value is waived.</p>
+
+    <div class='pre p1 fill-light mt0'>call(name: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the method to call.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        This element for chaining.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='highelementproperty'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>property(name, value)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Adds a custom property to the underlying mid-level element.</p>
+<p>The new property is notifyable, and is transitionable if it is
+a number.</p>
+
+    <div class='pre p1 fill-light mt0'>property(name: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, value: any): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the new property.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(any)</code>
+	    The initial value.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        This element for chaining.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='highelementuse'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>use(el)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Uses the given element subsequently in a chain of commands.</p>
+
+    <div class='pre p1 fill-light mt0'>use(el: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>el</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    A high-level element.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        The given element for chaining.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='highelementfind'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>find(id, ns)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Returns the child element with the given ID in the given namespace.</p>
+
+    <div class='pre p1 fill-light mt0'>find(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, ns: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The ID of the element to look for.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>ns</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The namespace to search.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        The element, or 
+<code>undefined</code>
+ if not found.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='highelement'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>element(type)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Creates and returns a high-level element wrapping the given mid-level
+type.</p>
+<h4>Example:</h4>
+<pre><code>const e = high.element(mid.Box);
+</code></pre>
+<p>Element trees are constructed and parameterized by chaining commands,
+like this:</p>
+<pre><code>const tree = high.element(mid.Box).id("theBox")
+             .color("black")
+             .add(
+                 high.element(mid.MouseBox)
+                 .fillWidth(true)
+                 .fillHeight(true)
+                 .marginLeft(12)
+                 .marginRight(12)
+                 .click((ev) =>
+                 {
+                     console.log("clicked the box");
+                 });
+             );
+</code></pre>
+
+    <div class='pre p1 fill-light mt0'>element(type: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>): <a href="https://developer.mozilla.org/docs/Web/API/Element">Element</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>type</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+	    The element constructor.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/API/Element">Element</a></code>:
+        The high-level element.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='highroutedelement'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>routedElement(el, routeTo)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Creates a routed element from the given element.
+Children added to the routed element are added to the specified
+element instead.</p>
+
+    <div class='pre p1 fill-light mt0'>routedElement(el: <a href="https://developer.mozilla.org/docs/Web/API/Element">Element</a>, routeTo: <a href="https://developer.mozilla.org/docs/Web/API/Element">Element</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>el</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/API/Element">Element</a>)</code>
+	    The element that is routed.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>routeTo</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/API/Element">Element</a>)</code>
+	    The element that is routed to.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        The routed element.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='highdynamicvalue'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>dynamicValue(value)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Creates and returns a dynamic value.</p>
+<p>A dynamic value can be watched for value changes.</p>
+
+    <div class='pre p1 fill-light mt0'>dynamicValue(value: any): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(any)</code>
+	    The initial value.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        The dynamic value.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='highdynamicvalue'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>DynamicValue</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>This constructor is not exported. Use <a href="#highdynamicvalue">high.dynamicValue</a> to
+create a dynamic value.</p>
+<p>A dynamic value may be called like a function and acts as a combined
+getter/setter function this way. Passing a value to the function
+sets the value, while passing no value returns the current value.</p>
+<h4>Example:</h4>
+<pre><code>const dynVal = high.dynamicValue(42);
+console.log(dynVal());  // prints 42
+dynVal(25);             // changes the value to 25 and notifies all watchers.
+console.log(dynVal());  // prints 25
+</code></pre>
+<p>The stored value may also be accessed via the <code>val</code> property.</p>
+<h4>Example:</h4>
+<pre><code>const dynVal = high.dynamicValue(42);
+console.log(dynVal.val);  // prints 42
+dynVal.val = 25;          // changes the value to 25 and notifies all watchers.
+console.log(dynVal.val);  // prints 25
+</code></pre>
+
+    <div class='pre p1 fill-light mt0'>DynamicValue</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>v</span> <code class='quiet'>(any)</code>
+	    The initial value.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>setter</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+          : The overridable setter function.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>getter</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+          : The overridable getter function.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>val</span> <code class='quiet'>(any)</code>
+          : Gives access to the stored value.
+
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='highdynamicvaluewatch'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>watch(watchCallback)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Registers a callback for watching this dynamic value for changes
+and returns the watch handle.</p>
+<p>The callback takes the new stored value as parameter.</p>
+<p>The watch handle has a method <code>unwatch</code> to stop watching the value
+for changes.</p>
+
+    <div class='pre p1 fill-light mt0'>watch(watchCallback: any): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>watchCallback</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        The watch handle.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='highdynamicvalueupdate'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>update()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Notifies all watchers of this dynamic value about a value change.</p>
+
+    <div class='pre p1 fill-light mt0'>update()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='highdynamicvalueunwatched'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>unwatched(callback)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Registers a callback for when the last watcher was removed, meaning
+that this dynamic value is now completely unwatched.</p>
+
+    <div class='pre p1 fill-light mt0'>unwatched(callback: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>callback</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+	    The callback to invoke.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='highbinding'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>binding(deps, callback)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Creates and returns a dynamic value that evaluates whenever one of its
+dependency dynamic values changes.</p>
+<p>The callback takes the watched dynamic values as parameters and acts as
+the value getter of the binding.</p>
+<h4>Example:</h4>
+<pre><code>const b = high.binding([a, b], (a, b) =>
+{
+    return a.val * b.val;
+});
+</code></pre>
+
+    <div class='pre p1 fill-light mt0'>binding(deps: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;DynamicValue>, callback: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>deps</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;DynamicValue>)</code>
+	    The list of dependencies.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>callback</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+	    The evaluation callback to invoke.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='highchainref'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>chainRef(root, chain, resolver)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Creates and returns a dynamic value that references an element's
+property. The element does not have to exist yet at the time of calling
+this function.</p>
+<p>If the referenced parameter cannot be resolved immediately, resolving is
+retried later when the specified <code>root</code> element gets initialized.</p>
+<p>The <code>chain</code> parameter consists of a list of identifiers that address a
+property. For example, to address the property <code>width</code> of an element
+with ID <code>theBox</code>, the chain would be <code>["theBox", "width"]</code>.</p>
+<p>The <code>resolver</code> function takes an element ID string as parameter and
+returns the corresponding high-level element, or <code>undefined</code> if it could
+not be resolved yet (because the element has not yet been created).</p>
+<p>A simple resolver might look like</p>
+<pre><code>(id) => root.find(id);
+</code></pre>
+
+    <div class='pre p1 fill-light mt0'>chainRef(root: <a href="https://developer.mozilla.org/docs/Web/API/Element">Element</a>, chain: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>, resolver: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>root</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/API/Element">Element</a>)</code>
+	    The root element.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>chain</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>)</code>
+	    The chain that makes up the reference.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>resolver</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+	    A resolver function.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='low'>
+      low
+    </h3>
+    
+    
+  </div>
+  
+
+  <p><strong>Module ID:</strong> <code>shellfish/low</code></p>
+<p>This module provides the low-level Shellfish API.</p>
+<p>The low-level API works directly on the HTML DOM and CSS and is usually used
+by the classes of the mid-level API.</p>
+<p>When working with Shui or the high-level API, you normally do not have to
+deal directly with the low-level API.</p>
+
+    <div class='pre p1 fill-light mt0'>low</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='lowescapehtml'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>escapeHtml(text)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Escapes a text string for HTML output.</p>
+<p>This function replaces certain characters in the text string by entities
+(for example, "<code>&#x3C;</code>" becomes "<code>&#x26;gt;</code>") so that the string can safely be output in
+HTML.</p>
+
+    <div class='pre p1 fill-light mt0'>escapeHtml(text: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>text</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The text to escape.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        The escaped text.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowresolveicons'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>resolveIcons(text)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Resolves icons in a text string.</p>
+<p>Icons are encoded by <code>[icon:&#x3C;name>]</code> where <code>&#x3C;name></code> is the name of the icon
+to show. See the Icon Gallery in the
+<a href="https://pycage.github.io/shellfish/ui-gallery">Shellfish UI-Gallery</a>
+for the icons available.</p>
+<p>The icons come from a web font and are rendered as font glyphs.</p>
+
+    <div class='pre p1 fill-light mt0'>resolveIcons(text: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>text</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The text to resolve.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        HTML code containing the icons.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowpxtorem'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>pxToRem(px)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Converts pixels to rem units according to the current user settings.</p>
+
+    <div class='pre p1 fill-light mt0'>pxToRem(px: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>px</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The pixel value to convert.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
+        The amount in rem units.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowremtopx'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>remToPx(rem)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Converts rem units to pixels according to the current user settings.</p>
+
+    <div class='pre p1 fill-light mt0'>remToPx(rem: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>rem</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The rem units to convert.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
+        The amount of pixels.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowcss'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>css(target, key, value)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Returns the current value of a CSS property.</p>
+
+    <div class='pre p1 fill-light mt0'>css(target: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, key: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, value: any): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>target</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    The target DOM element.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>key</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The CSS property key.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        The current value.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowcss'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>css(target, key, value)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Sets the value of a CSS property.</p>
+
+    <div class='pre p1 fill-light mt0'>css(target: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, key: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, value: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>target</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    The target DOM element.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>key</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The CSS property key.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The new value.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
+        nothing
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowcreateelementtree'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>createElementTree(html)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Creates a DOM element tree from HTML code.</p>
+
+    <div class='pre p1 fill-light mt0'>createElementTree(html: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>html</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The HTML code.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        The root node of the DOM element tree.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowtag'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>new Tag(t)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Class representing a tag tree node.</p>
+<p>This constructor is not exported. Use the function <a href="#lowtag">low.tag</a> to
+create a node.</p>
+
+    <div class='pre p1 fill-light mt0'>new Tag(t: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>t</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The tag name.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='lowtagattr'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>attr(key, value)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Sets an attribute value.</p>
+
+    <div class='pre p1 fill-light mt0'>attr(key: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, value: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): Tag</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>key</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The attribute key.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The attribute value.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>Tag</code>:
+        This object for chaining further commands.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowtagstyle'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>style(key, value)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Sets a CSS property.</p>
+
+    <div class='pre p1 fill-light mt0'>style(key: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, value: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): Tag</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>key</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The CSS property key.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The CSS property value.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>Tag</code>:
+        This object for chaining further commands.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowtagid'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>id(id)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Sets the HTML ID value. HTML IDs must be unique within a document.</p>
+
+    <div class='pre p1 fill-light mt0'>id(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): Tag</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The ID value.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>Tag</code>:
+        This object for chaining further commands.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowtagclass'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>class(c)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Adds a CSS class to the node. Multiple classes may be set by calling
+this method multiple times.</p>
+
+    <div class='pre p1 fill-light mt0'>class(c: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): Tag</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>c</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The class name.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>Tag</code>:
+        This object for chaining further commands.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowtagdata'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>data(d, v)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Sets a data attribute.</p>
+<p>Calling <code>tag.data("role", "page")</code> is the same as calling
+<code>tag.attr("data-role", "page")</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>data(d: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, v: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): Tag</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>d</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The data attribute name.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>v</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The data attribute value.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>Tag</code>:
+        This object for chaining further commands.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowtagon'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>on(ev, handler)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Sets a DOM event handler.</p>
+
+    <div class='pre p1 fill-light mt0'>on(ev: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, handler: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): Tag</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>ev</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The event name, e.g. 
+<code>click</code>
+.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>handler</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The event callback as string.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>Tag</code>:
+        This object for chaining further commands.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowtagcontent'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>content(c)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Adds a child node.</p>
+
+    <div class='pre p1 fill-light mt0'>content(c: low.Tag): Tag</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>c</span> <code class='quiet'>(low.Tag)</code>
+	    The child node.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>Tag</code>:
+        This object for chaining further commands.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowtagcontent'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>content(c)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Adds content text on the node.</p>
+
+    <div class='pre p1 fill-light mt0'>content(c: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): Tag</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>c</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The content text.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>Tag</code>:
+        This object for chaining further commands.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowtagchild'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>child(n)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Returns the n-th child of the node.</p>
+<p>Negative values for <code>n</code> may be used to count from the end of the
+list of children. For example, <code>-1</code> returns the last child.</p>
+
+    <div class='pre p1 fill-light mt0'>child(n: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): Tag</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>n</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The number of the child.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>Tag</code>:
+        The n-th child node.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowtaghtml'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>html()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Creates the HTML code representation of the tag node tree.
+Use with <a href="#lowcreateelementtree">low.createElementTree</a> for creating a DOM node tree.</p>
+
+    <div class='pre p1 fill-light mt0'>html(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        The HTML code.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowtag'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>tag(t)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Creates a new tag tree node.</p>
+<p>Node trees are built by chaining commands.</p>
+<h4>Example:</h4>
+<pre><code>const tree = low.tag("div").class("item")
+             .style("background-color", "black")
+             .content(
+                 low.tag("ol")
+                 .content(
+                     low.tag("li")
+                     .content("First Item")
+                 )
+                 .content(
+                     low.tag("li")
+                     .content("Second Item")
+                 )
+             );
+</code></pre>
+
+    <div class='pre p1 fill-light mt0'>tag(t: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): Tag</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>t</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The tag name.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>Tag</code>:
+        The new node.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowfullscreenstatus'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>fullscreenStatus()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Returns whether fullscreen mode is currently active.</p>
+
+    <div class='pre p1 fill-light mt0'>fullscreenStatus(): bool</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>bool</code>:
+        Whether fullscreen mode is active.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowfullscreenenter'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>fullscreenEnter(target)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Enters fullscreen mode with the given target element.</p>
+
+    <div class='pre p1 fill-light mt0'>fullscreenEnter(target: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>target</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    The DOM element to show fullscreen.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowfullscreenexit'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>fullscreenExit()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Leaves fullscreen mode.</p>
+
+    <div class='pre p1 fill-light mt0'>fullscreenExit()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowaddframehandler'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>addFrameHandler(handler)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Adds a repeating frame handler and returns a handle for cancelation.</p>
+<p>If the system load and the screen refresh rate permit, 60 frames are rendered
+per second.</p>
+<h4>Example:</h4>
+<pre><code>const handle = low.addFrameHandler(() =>
+{
+    console.log("next frame");
+});
+
+...
+
+handle.cancel();
+</code></pre>
+<p>For handlers that should only run once, invoke <code>cancel()</code> in the handler
+function itself.</p>
+<pre><code>const handle = low.addFrameHandler(() =>
+{
+    handle.cancel();
+    console.log("this runs only once");
+});
+</code></pre>
+<p>Multiple frame handlers may be active at the same time.</p>
+
+    <div class='pre p1 fill-light mt0'>addFrameHandler(handler: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>handler</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+	    The handler function.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        The handle with a 
+<code>cancel()</code>
+ method.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowregistertopdownevent'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>registerTopDownEvent(node, name, cb)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Registers a custom topdown-event handler on the given DOM node.</p>
+<p>A top-down event trickles down from parent to children, instead of
+bubbling up from child to parent.</p>
+
+    <div class='pre p1 fill-light mt0'>registerTopDownEvent(node: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, name: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, cb: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>node</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    The DOM node.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the event.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>cb</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+	    The callback function.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lowtriggertopdownevent'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>triggerTopDownEvent(node, name)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Triggers the given custom topdown-event on a DOM node.</p>
+
+    <div class='pre p1 fill-light mt0'>triggerTopDownEvent(node: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, name: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>node</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    The DOM node.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the event.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='mid'>
+      mid
+    </h3>
+    
+    
+  </div>
+  
+
+  <p><strong>Module ID:</strong> <code>shellfish/mid</code></p>
+<p>This module provides the mid-level Shellfish API.</p>
+<p>The mid-level API is an object-oriented API with classes for UI elements and
+abstract objects (with no UI representation, such as a timer).</p>
+<p>New abstract objects are created by deriving from the mid.Object class.</p>
+<p>New UI elements are created by deriving from the mid.Item class.</p>
+
+    <div class='pre p1 fill-light mt0'>mid</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='midbox'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>Box</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Class representing a box.</p>
+
+    <div class='pre p1 fill-light mt0'>Box</div>
+  
+  
+    <p>
+      Extends
+      
+        mid.Item
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midcameraview'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>CameraView</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Class representing a camera view finder.</p>
+
+    <div class='pre p1 fill-light mt0'>CameraView</div>
+  
+  
+    <p>
+      Extends
+      
+        mid.Item
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midcanvas'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>Canvas</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Class representing a HTML5 canvas.</p>
+
+    <div class='pre p1 fill-light mt0'>Canvas</div>
+  
+  
+    <p>
+      Extends
+      
+        mid.Item
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>context2d</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+          : [readonly]
+ The 2D canvas context.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>originalHeight</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : The original unscaled height.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>originalWidth</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : The original unscaled width.
+
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='middocument'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>Document</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Class representing the root document.</p>
+
+    <div class='pre p1 fill-light mt0'>Document</div>
+  
+  
+    <p>
+      Extends
+      
+        mid.Object
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>bbox</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+          : [readonly]
+ The current bounding box.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>color</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : The document's background color.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>contentHeight</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : [readonly]
+ The current scrolling viewport height.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>contentWidth</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : [readonly]
+ The current scrolling viewport width.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>contentX</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : The current horizontal scrolling position.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>contentY</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : The current vertical scrolling position.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>inputDevice</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : [readonly]
+ The currently active input device: mouse|touch|pen
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>scrollbars</span> <code class='quiet'>(bool)</code>
+          : Whether to show native scrollbars.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>systemDarkMode</span> <code class='quiet'>(bool)</code>
+          : [readonly]
+ Whether the system is in dark mode (Windows 10, MacOS, Android).
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>title</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : The document's title.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>windowWidth</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : [readonly]
+ The current width of the document window.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>windowHeight</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : [readonly]
+ The current height of the document window.
+
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='miditem'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>Item</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Base class representing a visual mid-level object.</p>
+
+    <div class='pre p1 fill-light mt0'>Item</div>
+  
+  
+    <p>
+      Extends
+      
+        mid.Object
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>bbox</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+          : [readonly]
+ The item's bounding box { x, y, width, height }.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>canFocus</span> <code class='quiet'>(bool)</code>
+          : Whether the item may accept keyboard focus.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>color</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : The item's background color.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>contentHeight</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : [readonly]
+ The current scrolling viewport height.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>contentWidth</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : [readonly]
+ The current scrolling viewport width.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>contentX</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : The current horizontal scrolling position.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>contentY</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : The current vertical scrolling position.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>cursor</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : The mouse cursor shape over the item.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>enabled</span> <code class='quiet'>(bool)</code>
+          : Whether the item accepts user input.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>fillHeight</span> <code class='quiet'>(bool)</code>
+          : Whether to fill the parent's height in "free" and "global" position mode. Ignores the "height" parameter.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>fillWidth</span> <code class='quiet'>(bool)</code>
+          : Whether to fill the parent's width. Ignores the "width" parameter.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>focus</span> <code class='quiet'>(bool)</code>
+          : Whether the item has the keyboard focus. Setting this will move the focus to the item.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>height</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : The nominal height. Set to -1 for auto-height.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>layout</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : The layout method for inlined children: row|column|center|center-row|center-column
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>marginBottom</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : The bottom margin's width.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>marginLeft</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : The left margin's width.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>marginRight</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : The right margin's width.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>marginTop</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : The top margin's width.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>minHeight</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : The item's minimum height. It will not shrink further.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>minWidth</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : The item's minimum width. It will not shrink further.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>opacity</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : The item's opacity between 0 (invisible) and 1 (fully opaque).
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>origin</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : The corner of the coordinates origin in "free" and "global" position mode: top-left|top-right|bottom-right|bottom-left
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>position</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : The positioning mode: inline|free|global
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>rotation</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : The item's rotatation around its center in degrees.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>style</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>)</code>
+          : A list of custom CSS class names.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>visible</span> <code class='quiet'>(bool)</code>
+          : Whether the item is visible.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>width</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : The nominal width. Set to -1 for auto-width.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>x</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : The X coordinate value.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>y</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : The Y coordinate value.
+
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midlabel'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>Label</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Class representing a text label.</p>
+
+    <div class='pre p1 fill-light mt0'>Label</div>
+  
+  
+    <p>
+      Extends
+      
+        mid.Item
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>bold</span> <code class='quiet'>(bool)</code>
+          : Show text in bold face.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>color</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : The text color.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>fontFamily</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : The font family.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>fontSize</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : The font size in CSS pixels.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>horizontalAlignment</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : Horizontal text alignment: left|center|right
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>italic</span> <code class='quiet'>(bool)</code>
+          : Show text in italics.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>literal</span> <code class='quiet'>(bool)</code>
+          : If true, icons are not resolved and line breaks and spaces are preserved.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>overflowBehavior</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : Overflow behavior: clip|ellipsis|wrap
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>text</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : The text to show.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>verticalAlignment</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : Vertical text alignment: top|center|bottom
+
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midlistmodel'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>ListModel</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Class representing a list model.</p>
+
+    <div class='pre p1 fill-light mt0'>ListModel</div>
+  
+  
+    <p>
+      Extends
+      
+        mid.Object
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midlistview'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>ListView</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Class representing a list or grid view fed from a model.</p>
+
+    <div class='pre p1 fill-light mt0'>ListView</div>
+  
+  
+    <p>
+      Extends
+      
+        mid.Item
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midmousebox'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>MouseBox</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Class representing a box with mouse input.</p>
+
+    <div class='pre p1 fill-light mt0'>MouseBox</div>
+  
+  
+    <p>
+      Extends
+      
+        mid.Box
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>containsMouse</span> <code class='quiet'>(bool)</code>
+          : [readonly]
+ Whether the mouse pointer is over the box.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>touched</span> <code class='quiet'>(bool)</code>
+          : [readonly]
+ Whether the box is currently touched on a touch screen.
+
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midnumberanimation'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>NumberAnimation</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Class representing a number animation along an easing curve between
+two values.</p>
+
+    <div class='pre p1 fill-light mt0'>NumberAnimation</div>
+  
+  
+    <p>
+      Extends
+      
+        mid.Object
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midobject'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>Object</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Base class representing a mid-level object.</p>
+
+    <div class='pre p1 fill-light mt0'>Object</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>lifeCycleStatus</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : [readonly]
+ The current life cycle status: new|initialized|destroyed
+
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='midobjectinit'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>init()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Initializes this object. Call this method after creating this object
+and its children.</p>
+
+    <div class='pre p1 fill-light mt0'>init()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midobjectdiscard'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>discard()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Discards this object. Do not use this object afterwards and drop all
+references to it so it may get garbage-collected.</p>
+
+    <div class='pre p1 fill-light mt0'>discard()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midobjectnotifyable'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>notifyable(name, triggerInitially)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Makes the given property notifyable. This adds a <name>Changed event
+for listening to changes.</p>
+
+    <div class='pre p1 fill-light mt0'>notifyable(name: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, triggerInitially: bool)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the property.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>triggerInitially</span> <code class='quiet'>(bool)</code>
+	    Whether to trigger the 
+<name>
+Changed event initially.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midobjectaddproperty'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>addProperty(name, getter, setter)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Adds a custom external property of any type. The property is notifyable.</p>
+
+    <div class='pre p1 fill-light mt0'>addProperty(name: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, getter: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>, setter: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the property.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>getter</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+	    A function returning the property's value.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>setter</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+	    A function accepting the property's new value.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midobjecttransitionable'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>transitionable(name)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Makes the given property transitionable by adding a property
+<name>Transition for defining the transition animation.</p>
+
+    <div class='pre p1 fill-light mt0'>transitionable(name: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the property.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midobjectchange'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>change(name, newValue)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Changes the given property by applying a transition if specified.
+This is the prefered way to change a property's value as it takes
+potential transitioning into account.</p>
+
+    <div class='pre p1 fill-light mt0'>change(name: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, newValue: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the property.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>newValue</span> <code class='quiet'>(any)</code>
+	    The property's new value.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midobjectregisterevent'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>registerEvent(name, connectionCb)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Registers the given event.
+If connectionCb is specified, that callback will be invoked whenever
+a connection to the event is made.</p>
+
+    <div class='pre p1 fill-light mt0'>registerEvent(name: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, connectionCb: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the event.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>connectionCb</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+	    The callback to invoke after each new connection.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midobjectconnect'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>connect(event, source, handler)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Connects a handler to the given event. The handler gets disconnected
+automatically when the source object is discarded.</p>
+
+    <div class='pre p1 fill-light mt0'>connect(event: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, source: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, handler: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>event</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The event name.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>source</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    The source of the handler.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>handler</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+	    The event handler.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midobjectdisconnect'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>disconnect(event, source)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Disconnects an object from the given event.</p>
+
+    <div class='pre p1 fill-light mt0'>disconnect(event: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, source: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>event</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The event name.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>source</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    The object to disconnect.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midobjecttrigger'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>trigger(event, args)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Triggers the given event.</p>
+
+    <div class='pre p1 fill-light mt0'>trigger(event: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, args: ...any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>event</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the event.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>args</span> <code class='quiet'>(...any)</code>
+	    The event arguments.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midobjecthasconnections'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>hasConnections(event)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Returns whether the given event has handlers connected.</p>
+
+    <div class='pre p1 fill-light mt0'>hasConnections(event: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): bool</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>event</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the event.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>bool</code>:
+        Whether the event has handlers connected.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midruler'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>Ruler</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Class representing a ruler for aligning multiple items.</p>
+
+    <div class='pre p1 fill-light mt0'>Ruler</div>
+  
+  
+    <p>
+      Extends
+      
+        mid.Object
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='midtextarea'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>TextArea</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Class representing a text area.</p>
+
+    <div class='pre p1 fill-light mt0'>TextArea</div>
+  
+  
+    <p>
+      Extends
+      
+        mid.Item
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='ui'>
+      ui
+    </h3>
+    
+    
+  </div>
+  
+
+  <p><strong>Module ID:</strong> <code>shellfish/ui</code></p>
+<p>This module provides Shellfish's default Shui elements.</p>
+
+    <div class='pre p1 fill-light mt0'>ui</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='fengshui'>
+      fengshui
+    </h3>
+    
+    
+  </div>
+  
+
+  <p><strong>Module ID:</strong> <code>shellfish/fengshui</code></p>
+<p>Feng Shui is a code processor for translating Shui (Shellfish-UI) code
+into Shellfish high-level API (see <a href="#high">high</a>) JavaScript code.</p>
+<p>This module is also compatible with Node.js and can be used to transpile
+Shui code to JavaScript on the server-side.</p>
+<h4>Node.js:</h4>
+<pre><code>const fengshui = require("./shellfish/fengshui.js");
+const js = fengshui.compile("internal.shui", 'Label { text: "Hello!" }');
+</code></pre>
+<p>This module is usually not needed directly in client-side code.</p>
+
+    <div class='pre p1 fill-light mt0'>fengshui</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='fengshuicompile'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>compile(url, data)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Compiles a Shui document to JavaScript code.</p>
+
+    <div class='pre p1 fill-light mt0'>compile(url: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, data: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>url</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The URL the module came from. The document is only
+compiled if the URL ends with 
+<code>.shui</code>
+. Otherwise, 
+<code>data</code>
+ will be returned
+as is.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>data</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The Shui document.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        JavaScript code.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='fengshuiload'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>load(url, parent, rslv, callback)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Loads a Shui module from URL and invokes a callback with the loaded
+module. A Shui module exports a <code>create()</code> function that creates the
+element tree.</p>
+<h4>Example:</h4>
+<pre><code>fengshui.load("MyElement.shui", null, __rslv__, (module) =>
+{
+    const element = module.create();
+    documentRoot.add(element);
+    element.init();
+});
+</code></pre>
+
+    <div class='pre p1 fill-light mt0'>load(url: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, parent: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, rslv: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>, callback: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>url</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The URL of the document.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>parent</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    Unused.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>rslv</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+	    A function for resolving element IDs.
+If called inside a Shui document, 
+<code>__rslv__</code>
+ is
+the right function to use.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>callback</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+	    The callback that is invoked after the module was loaded.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='shrequire'>
+      shRequire
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Loads the given modules asynchronously and invokes a callback afterwards.</p>
+<p>This function takes a number of Shellfish modules and loads them in the
+background. When all modules have been loaded, a callback function is invoked
+with all module objects.</p>
+<h4>Example:</h4>
+<pre><code>shRequire(["a.js", "b.js", "c.js"], (a, b, c) =>
+{
+    // do something with the modules
+    a.foo();
+});
+</code></pre>
+<p>Modules cannot pollute the global namespace and the modules are only visible
+inside the callback function.</p>
+<p>A module file looks like a normal JavaScript file, but everything that shall
+accessible from outside is assigned to the <code>exports</code> object.</p>
+<h4>Example:</h4>
+<pre><code>exports.foo = function ()
+{
+    console.log("foo");
+};
+</code></pre>
+<p>Modules in turn may load other modules with <code>shRequire</code>.</p>
+<p>The special member <code>exports.__id</code> may be used to register a module ID for
+later reference.</p>
+<pre><code>exports.__id = "mymodule";
+</code></pre>
+<p>For instance, it is easier to write</p>
+<pre><code>shRequire(["shellfish/mid"], (mid) =>
+{
+
+});
+</code></pre>
+<p>than it is to write something like</p>
+<pre><code>shRequire(["../../shellfish/core/mid.js"], (mid) =>
+{
+
+});
+</code></pre>
+<p>The special constant <code>__dirname</code> is available inside a module and points to
+the path of the directory where the module is located. This can,
+for instance, be used to load modules relative to the current module.</p>
+<pre><code>shRequire([__dirname + "/otherModule.js"], (other) =>
+{
+
+});
+</code></pre>
+<p>If a transformer function is specified, the module URL and the module data is
+passed to this function and the returned code will be executed.
+This mechanism is used by the Feng Shui processor to directly load Shui files
+as modules.</p>
+
+    <div class='pre p1 fill-light mt0'>shRequire(modules: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>, callback: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>, transformer: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>modules</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>)</code>
+	    The modules to load.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>callback</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+	    The callback to invoke after loading.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>transformer</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>
+            = <code>null</code>)</code>
+	    An optional function for transforming module data.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+      </div>
+    </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/split.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>
