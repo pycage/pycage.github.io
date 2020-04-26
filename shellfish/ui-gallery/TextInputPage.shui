@@ -101,7 +101,7 @@ Page {
         id: pageHeader
         page: parent
         title: "Text Input"
-        codeUrl: moduleLocation
+        codeUrl: __filename
     }
 
 }

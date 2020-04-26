@@ -32,7 +32,7 @@ Page {
         page: parent
         title: "Shellfish UI Gallery"
         subtitle: "[icon:copyright] 2020 Martin Grimme"
-        codeUrl: moduleLocation
+        codeUrl: __filename
     }
 
     into header Label {

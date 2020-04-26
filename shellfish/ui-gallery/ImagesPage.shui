@@ -139,7 +139,7 @@ Page {
             flat: true
             onClick: {
                 page.pageStack.pushPage(__dirname + "/SourceCodePage.shui", {
-                    url: moduleLocation
+                    url: __filename
                 });
             }
         }

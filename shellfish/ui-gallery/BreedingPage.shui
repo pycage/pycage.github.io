@@ -44,7 +44,7 @@ Page {
         page: parent
         title: "Rabbit Breeding"
         subtitle: "Generation: " + page.generation + ", " + rabbitGrid.count + " rabbits"
-        codeUrl: moduleLocation
+        codeUrl: __filename
 
         into second Button {
             height: header.height
@@ -96,7 +96,7 @@ Page {
                     marginRight: page.viewMode === 0 ? theme.paddingLarge : 0
                     marginBottom: page.viewMode === 0 ? theme.paddingSmall : 0
 
-                    source: "/shellfish/ui-gallery/rabbit.svg"
+                    source: __dirname + "/rabbit.svg"
                 }
 
                 Label {

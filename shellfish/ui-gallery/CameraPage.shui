@@ -32,7 +32,7 @@ Page {
         page: parent
         title: "Camera"
         subtitle: "Status: " + cam.status
-        codeUrl: moduleLocation
+        codeUrl: __filename
     }
 
     Box {

@@ -32,7 +32,7 @@ Page {
 
         title: "Labels"
         page: parent
-        codeUrl: moduleLocation
+        codeUrl: __filename
     }
 
     property contentT: template Box {

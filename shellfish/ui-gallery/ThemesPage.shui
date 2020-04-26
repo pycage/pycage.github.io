@@ -32,7 +32,7 @@ Page {
 
         title: "Themes"
         page: parent
-        codeUrl: moduleLocation
+        codeUrl: __filename
     }
 
     property customTheme: Theme {

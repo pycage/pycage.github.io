@@ -37,7 +37,7 @@ Page {
         page: parent
         title: "Boing Boing Donk!"
         subtitle: "Having fun with easing-curves..."
-        codeUrl: moduleLocation
+        codeUrl: __filename
     }
 
     MouseBox {
@@ -95,7 +95,7 @@ Page {
             x: 0
             y: groundLevel
             height: box.bbox.height * 0.3
-            source: "/shellfish/ui-gallery/rabbit.svg"
+            source: __dirname + "/rabbit.svg"
         }
 
         Label {

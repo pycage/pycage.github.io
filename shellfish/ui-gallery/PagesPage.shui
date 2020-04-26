@@ -94,7 +94,7 @@ Page {
         id: pageHeader
         page: parent
         title: "Pages"
-        codeUrl: moduleLocation
+        codeUrl: __filename
     }
 
     Box {

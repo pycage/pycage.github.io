@@ -36,7 +36,7 @@ Page {
         title: "Icon Gallery"
         subtitle: page.loading ? "" : iconsModel.size + " icons"
         page: parent
-        codeUrl: moduleLocation
+        codeUrl: __filename
     }
 
     ListModel {
@@ -50,7 +50,7 @@ Page {
         running: ! page.frozen && iconsModel.size === 0
 
         onTimeout: {
-            window.fetch("style/icon-map.css")
+            window.fetch(__dirname + "/style/icon-map.css")
             .then(function (response)
             {
                 return direct response.text();

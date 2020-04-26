@@ -35,7 +35,7 @@ Page {
 
         title: "Paint on Canvas"
         page: parent
-        codeUrl: moduleLocation
+        codeUrl: __filename
     }
 
     Box {
