@@ -34,7 +34,7 @@ Page {
         loading = true;
         window.fetch(url)
         .then(function(response) {
-            return direct response.text();
+            return response.text();
         })
         .then(function(data) {
             codeLabel.text = data;

@@ -1,0 +1,291 @@
+/*******************************************************************************
+This file is part of the Shellfish UI toolkit examples.
+Copyright (c) 2020 Martin Grimme <martin.grimme@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*******************************************************************************/
+
+require "shellfish/ui";
+require "./Header.shui";
+
+Page {
+    id: page
+
+    into header Header {
+        id: header
+        title: "Drag and Drop"
+        subtitle: listModel.size + " items"
+        page: parent
+        codeUrl: __filename
+    }
+
+    DropArea {
+        fillWidth: true
+        minHeight: documentRoot.windowHeight
+
+        color: accepted ? theme.highlightBackgroundColor
+                        : theme.contentBackgroundColor
+
+        onDropAccept: (ev) =>
+        {
+            if (ev.types.includes("Files"))
+            {
+                ev.accepted = true;
+                ev.dropEffect = "copy";
+            }
+        }
+
+        onDrop: (ev) => {
+            for (let i = 0; i < ev.items.length; ++i)
+            {
+                const item = ev.items[i];
+                if (item.kind !== "file")
+                {
+                    continue;
+                }
+                const fileItem = item.getAsFile();
+
+                const data = {
+                    name: fileItem.name,
+                    size: fileItem.size,
+                    type: fileItem.type,
+                    obj: fileItem
+                };
+
+                listView.model.insert(listView.model.size, data);
+            }
+        }
+
+        Label {
+            visible: listModel.size === 0
+            position: "free"
+            x: (parent.bbox.width - bbox.width) / 2
+            y: (parent.bbox.height - bbox.height) / 2
+            width: parent.bbox.width - 2 * theme.paddingLarge
+            fontSize: theme.fontSizeLarge
+            overflowBehavior: "wrap"
+            horizontalAlignment: "center"
+            text: "Drop files from your file manager here..."
+        }
+
+        ListView {
+            id: listView
+
+            property currentIndex: -1
+
+            marginTop: header.height
+            marginBottom: theme.itemHeightLarge * 2
+            fillWidth: true
+            height: contentHeight
+            cellWidth: bbox.width
+            cellHeight: theme.itemHeightLarge * 2
+
+            model: ListModel { id: listModel }
+
+            delegate: template Draggable {
+                id: itemBox
+                layout: "center-row"
+
+                color: modelData.index === listView.currentIndex ? theme.highlightBackgroundColor
+                                                                 : "transparent"
+
+                onDragStart: {
+                    const ev = arguments[0];
+                    ev.accepted = true;
+                    ev.setData("application/x-shf-demo", modelData.index);
+                    ev.effectAllowed = "copy";
+                }
+
+                Image {
+                    id: thumbnail
+
+                    visible: status === "success"
+                    width: bbox.height
+                    fillHeight: true
+                    fitMode: "cover"
+
+                    onInitialization: {
+                        // show a thumbnail for images
+                        if (parent.modelData.type.startsWith("image/"))
+                        {
+                            self.fromFile(parent.modelData.obj);
+                        }
+                    }
+                }
+
+                Label {
+                    id: icon
+
+                    visible: ! thumbnail.visible
+                    width: parent.bbox.height
+                    fontSize: theme.itemHeightLarge
+                    horizontalAlignment: "center"
+
+                    // you may use an IIFE if you have a more complex binding
+                    // expression
+                    text: (() =>
+                    {
+                        const t = parent.modelData.type || "";
+                        if (t.startsWith("audio/"))
+                        {
+                            return "[icon:file-music]";
+                        }
+                        else if (t.startsWith("image/"))
+                        {
+                            return "[icon:file-picture]";
+                        }
+                        else if (t.startsWith("text/"))
+                        {
+                            return "[icon:file-text2]";
+                        }
+                        else if (t.startsWith("video/"))
+                        {
+                            return "[icon:file-video]";
+                        }
+                        else
+                        {
+                            return "[icon:file-empty]";
+                        }
+                    })()
+                }
+
+                Box {
+                    marginLeft: theme.paddingLarge
+                    marginRight: theme.paddingLarge
+                    fillWidth: true
+
+                    Label {
+                        bold: true
+                        fillWidth: true
+                        overflowBehavior: "ellipsis"
+                        text: itemBox.modelData.name
+                    }
+
+                    Label {
+                        fillWidth: true
+                        marginTop: theme.paddingSmall
+                        fontSize: theme.fontSizeSmall
+                        text: itemBox.modelData.type
+                    }
+
+                    Label {
+                        fillWidth: true
+                        marginTop: theme.paddingSmall
+                        fontSize: theme.fontSizeSmall
+                        text: itemBox.modelData.size + " Bytes"
+                    }
+                }
+
+                MouseBox {
+                    position: "free"
+                    fillWidth: true
+                    fillHeight: true
+
+                    onMouseDown: () =>
+                    {
+                        listView.currentIndex = itemBox.modelData.index;
+                    }
+
+                    onDoubleClick: () =>
+                    {
+                        if (itemBox.modelData.type.startsWith("image/"))
+                        {
+                            const dlg = imageDialog.create();
+                            dlg.init();
+                            dlg.title = itemBox.modelData.name;
+                            dlg.fromFile(itemBox.modelData.obj);
+                        }
+                    }
+                }
+            }
+
+        }//ListView
+
+    }//DropArea
+
+    DropArea {
+        position: "global"
+        origin: "bottom-left"
+        fillWidth: true
+        height: theme.itemHeightLarge * 2
+        layout: "center"
+
+        color: accepted ? theme.highlightBackgroundColor
+                        : theme.primaryBackgroundColor
+
+        onDropAccept: (ev) => {
+            if (ev.types.includes("application/x-shf-demo"))
+            {
+                ev.accepted = true;
+            }
+        }
+
+        onDrop: (ev) => {
+            for (let i = 0; i < ev.items.length; ++i)
+            {
+                const item = ev.items[i];
+                item.getAsString((s) =>
+                {
+                    listView.model.remove(parseInt(s));
+                });
+            }
+        }
+
+        Label {
+            color: parent.accepted ? theme.highlightColor
+                                   : theme.primaryColor
+            text: "[icon:delete] Drop here to remove from list."
+        }
+    }
+
+    property imageDialog: template Dialog {
+        id: dialog
+
+        property image: img
+        property fromFile: (f) =>
+        {
+            img.fromFile(f);
+        }
+
+        into buttons Button {
+            text: "Close"
+            onClick: () => { dialog.discard(); }
+        }
+
+        Image {
+            id: img
+
+            property maxWidth: documentRoot.windowWidth - 4 * theme.paddingLarge
+            property maxHeight: documentRoot.windowHeight - 8 * theme.paddingLarge
+            property ratio: originalWidth > 0 ? originalHeight / originalWidth
+                                              : 1                       
+            property goForHeight: maxWidth * maxWidth * ratio > (maxHeight / ratio) * maxHeight
+
+            width: status !== "success" ? 100
+                                        : goForHeight ? maxHeight / ratio : maxWidth
+            height: status !== "success" ? 100
+                                         : goForHeight ? maxHeight : maxWidth * ratio
+
+            widthTransition: NumberAnimation { duration: 300 }
+            heightTransition: NumberAnimation { duration: 300 }
+
+            fitMode: "contain"
+        }
+
+    }
+}

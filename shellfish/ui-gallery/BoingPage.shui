@@ -128,7 +128,7 @@ Page {
 
         ScriptAction {
             script: {
-                animation.busy = true
+                animation.busy = true;
 
                 rabbit.rotation = 0;
                 ouch.opacity = 0;

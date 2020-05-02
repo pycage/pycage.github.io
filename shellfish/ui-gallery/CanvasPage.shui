@@ -122,12 +122,12 @@ Page {
 
             onDrag: {
                 const ev = arguments[0];
-                direct ev.accepted = true;
+                ev.accepted = true;
             }
 
             onContextMenu: {
                 const ev = arguments[0];
-                direct ev.accepted = true;
+                ev.accepted = true;
             }
 
             onPointerDown: {
@@ -135,7 +135,7 @@ Page {
 
                 if (typeSelector.type === "" || typeSelector.type === ev.pointerType)
                 {
-                    direct ev.accepted = true;
+                    ev.accepted = true;
 
                     if (ev.buttons === 1)
                     {
@@ -165,7 +165,7 @@ Page {
 
                 if (typeSelector.type === "" || typeSelector.type === ev.pointerType)
                 {
-                    direct ev.accepted = true;
+                    ev.accepted = true;
 
                     if (ev.buttons === 1)
                     {
