@@ -54,8 +54,8 @@ Page {
             SelectionBox {
                 id: cameraSelector
 
-                property deviceId: cam.devices.length > 0 && selection[0] ? cam.devices[selection[0]].deviceId
-                                                                          : "user"
+                property deviceId: cam.devices.length > 0 && selection ? cam.devices[selection].deviceId
+                                                                       : "user"
 
 
                 marginLeft: theme.paddingSmall
@@ -71,10 +71,12 @@ Page {
             SelectionBox {
                 id: resolutionSelector
 
-    	        property res: cam.resolutions[selection[0]]
+    	        property res: cam.resolutions[selection]
                 
                 marginLeft: theme.paddingSmall
                 options: cam.resolutions
+
+                selection: 2
             }
 
             Button {

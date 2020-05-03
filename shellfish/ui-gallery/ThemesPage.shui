@@ -60,12 +60,10 @@ Page {
             text: "Theme"
 
             SelectionBox {
-                property value: selection[0]
-
                 options: ["Bright", "Dark", "Custom"]
 
-                onValueChanged: {
-                    switch (value)
+                onSelectionChanged: {
+                    switch (selection)
                     {
                     case 0:
                         documentRoot.theme = documentRoot.brightTheme;

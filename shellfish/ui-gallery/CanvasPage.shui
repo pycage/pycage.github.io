@@ -101,7 +101,7 @@ Page {
             SelectionBox {
                 id: typeSelector
 
-                property type: ["", "mouse", "pen", "touch"][selection[0]]
+                property type: ["", "mouse", "pen", "touch"][selection]
 
                 marginLeft: theme.paddingSmall
                 marginRight: theme.paddingSmall
