@@ -197,29 +197,31 @@ Page {
             }
         }//Box
 
-        Repeater {
+        Box {
             fillWidth: true
             height: theme.itemHeightMedium
             layout: "row"
 
-            model: ListModel {
-                data: [
-                    ["identity", "Identity"],
-                    ["grey", "Grey"],
-                    ["edge", "Edges"],
-                    ["sharpen", "Sharpen"],
-                    ["emboss", "Emboss"],
-                    ["custom", "Custom"]
-                ]
-            }
+            Repeater {
+                model: ListModel {
+                    data: [
+                        ["identity", "Identity"],
+                        ["grey", "Grey"],
+                        ["edge", "Edges"],
+                        ["sharpen", "Sharpen"],
+                        ["emboss", "Emboss"],
+                        ["custom", "Custom"]
+                    ]
+                }
 
-            delegate: template Button {
-                fillWidth: true
-                fillHeight: true
-                flat: true
-                checked: camCnv.filter === modelData[0]
-                text: modelData[1]
-                onClick: () => { camCnv.filter = modelData[0]; }
+                delegate: template Button {
+                    fillWidth: true
+                    fillHeight: true
+                    flat: true
+                    checked: camCnv.filter === modelData[0]
+                    text: modelData[1]
+                    onClick: () => { camCnv.filter = modelData[0]; }
+                }
             }
         }
 

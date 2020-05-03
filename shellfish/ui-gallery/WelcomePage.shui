@@ -84,6 +84,7 @@ Page {
 
         Label {
             fillWidth: true
+            marginBottom: theme.paddingLarge
             overflowBehavior: "wrap"
             text: "Shellfish is a JavaScript toolkit library for creating " +
                   "dynamic HTML5 user interfaces.\n\n" +
@@ -96,10 +97,6 @@ Page {
         }
 
         Repeater {
-            fillWidth: true
-
-            marginTop: theme.paddingLarge
-
             model: ListModel {
                 data: [
                     ["Pages", "PagesPage", "map1"],

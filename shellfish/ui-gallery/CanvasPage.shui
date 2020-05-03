@@ -204,46 +204,48 @@ Page {
 
         }
 
-        Repeater {
+        Box {
             fillWidth: true
             height: theme.itemHeightLarge
             color: theme.secondaryBackgroundColor
             layout: "row"
 
-            model: ListModel {
-                data: [
-                    ["black"], ["white"], ["grey"], ["red"], ["green"], ["blue"], ["yellow"], ["magenta"], ["teal"]
-                ]
-            }
+            Repeater {
 
-            delegate: template MouseBox {
-                id: swatch
+                model: ListModel {
+                    data: [
+                        ["black"], ["white"], ["grey"], ["red"], ["green"], ["blue"], ["yellow"], ["magenta"], ["teal"]
+                    ]
+                }
 
-                width: bbox.height
-                fillHeight: true
-                marginLeft: theme.paddingSmall
-                marginTop: theme.paddingSmall
-                marginBottom: theme.paddingSmall
+                delegate: template MouseBox {
+                    id: swatch
 
-                borderColor: page.penColor === modelData[0] ? theme.primaryColor
-                                                            : "transparent"
-                borderWidth: 2
-
-                onClick: { page.penColor = modelData[0]; }
-
-                Box {
-                    fillWidth: true
+                    width: bbox.height
                     fillHeight: true
-                    marginTop: 2
-                    marginLeft: 2
-                    marginRight: 2
-                    marginBottom: 2
-                    
-                    color: swatch.modelData[0]
+                    marginLeft: theme.paddingSmall
+                    marginTop: theme.paddingSmall
+                    marginBottom: theme.paddingSmall
+
+                    borderColor: page.penColor === modelData[0] ? theme.primaryColor
+                                                                : "transparent"
+                    borderWidth: 2
+
+                    onClick: { page.penColor = modelData[0]; }
+
+                    Box {
+                        fillWidth: true
+                        fillHeight: true
+                        marginTop: 2
+                        marginLeft: 2
+                        marginRight: 2
+                        marginBottom: 2
+                        
+                        color: swatch.modelData[0]
+                    }
                 }
             }
         }
-
 
     }
 

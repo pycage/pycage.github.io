@@ -29,7 +29,7 @@ Page {
     into header Header {
         id: header
         title: "Drag and Drop"
-        subtitle: listModel.size + " items"
+        subtitle: listView.model.size + " items"
         page: parent
         codeUrl: __filename
     }
@@ -72,7 +72,7 @@ Page {
         }
 
         Label {
-            visible: listModel.size === 0
+            visible: listView.model.size === 0
             position: "free"
             x: (parent.bbox.width - bbox.width) / 2
             y: (parent.bbox.height - bbox.height) / 2
@@ -95,7 +95,7 @@ Page {
             cellWidth: bbox.width
             cellHeight: theme.itemHeightLarge * 2
 
-            model: ListModel { id: listModel }
+            model: ListModel { }
 
             delegate: template Draggable {
                 id: itemBox
