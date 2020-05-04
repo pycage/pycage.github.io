@@ -74,14 +74,17 @@ Page {
 
             SelectionBox {
                 id: fontSelectionBox
-                options: [
-                    "sans-serif",
-                    "serif",
-                    "monospace",
-                    "Arial",
-                    "Times New Roman",
-                    "Comic Sans MS"
-                ]
+                
+                model: ListModel {
+                    data: [
+                        "sans-serif",
+                        "serif",
+                        "monospace",
+                        "Arial",
+                        "Times New Roman",
+                        "Comic Sans MS"
+                    ]
+                }
             }
         }
 
@@ -108,11 +111,14 @@ Page {
 
             SelectionBox {
                 id: overflowSelectionBox
-                options: [
-                    "wrap",
-                    "clip",
-                    "ellipsis"
-                ]
+                
+                model: ListModel {
+                    data: [
+                        "wrap",
+                        "clip",
+                        "ellipsis"
+                    ]
+                }
             }
         }
 
@@ -122,11 +128,14 @@ Page {
 
             SelectionBox {
                 id: alignmentSelectionBox
-                options: [
-                    "left",
-                    "center",
-                    "right"
-                ]
+                
+                model: ListModel {
+                    data: [
+                        "left",
+                        "center",
+                        "right"
+                    ]
+                }
             }
         }
 
@@ -157,16 +166,19 @@ Page {
 
             SelectionBox {
                 id: colorSelectionBox
-                options: [
-                    "black",
-                    "white",
-                    "red",
-                    "green",
-                    "blue",
-                    "yellow",
-                    "cyan",
-                    "magenta"
-                ]
+
+                model: ListModel {
+                    data: [
+                        "black",
+                        "white",
+                        "red",
+                        "green",
+                        "blue",
+                        "yellow",
+                        "cyan",
+                        "magenta"
+                    ]
+                }
             }
         }
 

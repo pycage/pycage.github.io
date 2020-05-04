@@ -60,7 +60,9 @@ Page {
 
                 marginLeft: theme.paddingSmall
                 fillWidth: true
-                options: cam.devices.map((dev) => { return dev.label; })
+                model: ListModel {
+                    data: cam.devices.map((dev) => { return dev.label; })
+                }
             }
 
             Label {
@@ -74,7 +76,7 @@ Page {
     	        property res: cam.resolutions[selection]
                 
                 marginLeft: theme.paddingSmall
-                options: cam.resolutions
+                model: ListModel { data: cam.resolutions }
 
                 selection: 2
             }
@@ -218,9 +220,9 @@ Page {
                     fillWidth: true
                     fillHeight: true
                     flat: true
-                    checked: camCnv.filter === modelData[0]
-                    text: modelData[1]
-                    onClick: () => { camCnv.filter = modelData[0]; }
+                    checked: camCnv.filter === modelData.value[0]
+                    text: modelData.value[1]
+                    onClick: () => { camCnv.filter = modelData.value[0]; }
                 }
             }
         }

@@ -60,7 +60,7 @@ Page {
             text: "Theme"
 
             SelectionBox {
-                options: ["Bright", "Dark", "Custom"]
+                model: ListModel { data: ["Bright", "Dark", "Custom"] }
 
                 onSelectionChanged: {
                     switch (selection)

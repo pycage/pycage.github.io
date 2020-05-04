@@ -118,10 +118,10 @@ Page {
                 fillWidth: true
                 height: theme.itemHeightLarge
 
-                icon: modelData[2]
-                text: modelData[0]
+                icon: modelData.value[2]
+                text: modelData.value[0]
                 onClick: {
-                    page.pageStack.pushPage(__dirname + "/" + modelData[1] + ".shui");
+                    page.pageStack.pushPage(__dirname + "/" + modelData.value[1] + ".shui");
                 }
             }
         }//Repeater

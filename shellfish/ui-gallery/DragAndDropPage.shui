@@ -121,9 +121,9 @@ Page {
 
                     onInitialization: {
                         // show a thumbnail for images
-                        if (parent.modelData.type.startsWith("image/"))
+                        if (parent.modelData.value.type.startsWith("image/"))
                         {
-                            self.fromFile(parent.modelData.obj);
+                            self.fromFile(parent.modelData.value.obj);
                         }
                     }
                 }
@@ -140,7 +140,7 @@ Page {
                     // expression
                     text: (() =>
                     {
-                        const t = parent.modelData.type || "";
+                        const t = parent.modelData.value.type || "";
                         if (t.startsWith("audio/"))
                         {
                             return "[icon:file-music]";
@@ -173,21 +173,21 @@ Page {
                         bold: true
                         fillWidth: true
                         overflowBehavior: "ellipsis"
-                        text: itemBox.modelData.name
+                        text: itemBox.modelData.value.name
                     }
 
                     Label {
                         fillWidth: true
                         marginTop: theme.paddingSmall
                         fontSize: theme.fontSizeSmall
-                        text: itemBox.modelData.type
+                        text: itemBox.modelData.value.type
                     }
 
                     Label {
                         fillWidth: true
                         marginTop: theme.paddingSmall
                         fontSize: theme.fontSizeSmall
-                        text: itemBox.modelData.size + " Bytes"
+                        text: itemBox.modelData.value.size + " Bytes"
                     }
                 }
 
@@ -203,12 +203,12 @@ Page {
 
                     onDoubleClick: () =>
                     {
-                        if (itemBox.modelData.type.startsWith("image/"))
+                        if (itemBox.modelData.value.type.startsWith("image/"))
                         {
                             const dlg = imageDialog.create();
                             dlg.init();
-                            dlg.title = itemBox.modelData.name;
-                            dlg.fromFile(itemBox.modelData.obj);
+                            dlg.title = itemBox.modelData.value.name;
+                            dlg.fromFile(itemBox.modelData.value.obj);
                         }
                     }
                 }

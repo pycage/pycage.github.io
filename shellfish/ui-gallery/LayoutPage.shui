@@ -59,7 +59,8 @@ Page {
 
             SelectionBox {
                 id: positionSelector
-                options: ["inline", "free", "global"]
+
+                model: ListModel { data: ["inline", "free", "global"] }
             }
         }
 
@@ -115,7 +116,8 @@ Page {
 
             SelectionBox {
                 id: layoutSelector
-                options: ["row", "column", "center-row", "center-column"]
+
+                model: ListModel { data: ["row", "column", "center-row", "center-column"] }
             }
         }
 
@@ -162,7 +164,8 @@ Page {
 
             SelectionBox {
                 id: originSelector
-                options: ["top-left", "top-right", "bottom-right", "bottom-left"]
+
+                model: ListModel { data: ["top-left", "top-right", "bottom-right", "bottom-left"] }
             }
         }
 

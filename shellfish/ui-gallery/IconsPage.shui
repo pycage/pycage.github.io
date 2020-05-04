@@ -53,7 +53,7 @@ Page {
             window.fetch(__dirname + "/style/icon-map.css")
             .then(function (response)
             {
-                return direct response.text();
+                return response.text();
             })
             .then(function (css)
             {
@@ -63,7 +63,7 @@ Page {
                 const m = [];
                 for (let i = 0; i < keys.length; ++i)
                 {
-                    direct m.push({ icon: keys[i] });
+                    m.push({ icon: keys[i] });
                 }
 
                 iconsModel.reset(m);
@@ -102,7 +102,7 @@ Page {
             Label {
                 marginLeft: theme.paddingMedium
                 fontSize: item.height / 3
-                text: "[icon:" + item.modelData.icon + "]"
+                text: "[icon:" + item.modelData.value.icon + "]"
             }
 
             Box {
@@ -120,7 +120,7 @@ Page {
                     fontSize: theme.fontSizeSmall
                     overflowBehavior: "ellipsis"
                     horizontalAlignment: "center"
-                    text: item.modelData.icon
+                    text: item.modelData.value.icon
                 }
 
             }
