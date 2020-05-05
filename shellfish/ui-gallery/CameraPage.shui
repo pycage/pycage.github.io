@@ -82,7 +82,7 @@ Page {
             }
 
             Button {
-                enabled: cam.status !== pending
+                enabled: cam.status !== "pending"
                 width: theme.itemWidthLarge
                 marginLeft: theme.paddingSmall
                 marginRight: theme.paddingLarge
