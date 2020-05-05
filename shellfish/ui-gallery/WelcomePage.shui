@@ -107,6 +107,7 @@ Page {
                     ["Icon Gallery", "IconsPage", "grin"],
                     ["Images", "ImagesPage", "image"],
                     ["List View and Grid View", "BreedingPage", "list1"],
+                    ["File Selector", "FileSelectorPage", "folder-open"],
                     ["Drag and Drop", "DragAndDropPage", "copy"],
                     ["Animations and Easing Curves", "BoingPage", "video-camera"],
                     ["Canvas and Pen", "CanvasPage", "pencil"],
