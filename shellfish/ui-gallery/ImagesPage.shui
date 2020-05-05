@@ -57,7 +57,7 @@ Page {
 
             visible: image.status === "success"
             marginTop: theme.paddingSmall
-            property current: options[selection] || "fill" 
+            property current: model.data[selection] || "fill" 
             model: ListModel { data: ["fill", "contain", "cover", "scale-down", "none"] }
         }
 

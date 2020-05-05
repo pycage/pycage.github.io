@@ -104,10 +104,10 @@ Page {
                 color: modelData.index === listView.currentIndex ? theme.highlightBackgroundColor
                                                                  : "transparent"
 
-                onDragStart: {
-                    const ev = arguments[0];
+                onDragStart: (ev) =>
+                {
                     ev.accepted = true;
-                    ev.setData("application/x-shf-demo", modelData.index);
+                    ev.setData("application/x-shf-demo", "" + modelData.index);
                     ev.effectAllowed = "copy";
                 }
 
@@ -219,6 +219,8 @@ Page {
     }//DropArea
 
     DropArea {
+        id: deleteDropArea
+
         position: "global"
         origin: "bottom-left"
         fillWidth: true
@@ -228,14 +230,16 @@ Page {
         color: accepted ? theme.highlightBackgroundColor
                         : theme.primaryBackgroundColor
 
-        onDropAccept: (ev) => {
+        onDropAccept: (ev) =>
+        {
             if (ev.types.includes("application/x-shf-demo"))
             {
                 ev.accepted = true;
             }
         }
 
-        onDrop: (ev) => {
+        onDrop: (ev) =>
+        {
             for (let i = 0; i < ev.items.length; ++i)
             {
                 const item = ev.items[i];
@@ -252,6 +256,9 @@ Page {
             text: "[icon:delete] Drop here to remove from list."
         }
     }
+
+    ScrollIndicator { target: documentRoot; position: "global"; marginTop: header.height; marginBottom: deleteDropArea.height }
+
 
     property imageDialog: template Dialog {
         id: dialog
