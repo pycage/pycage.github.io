@@ -85,8 +85,6 @@ Page {
             {
                 fsel.open((files) =>
                 {
-                    console.log("you selected " + files);
-
                     const items = [];
                     for (let i = 0; i < files.length; ++i)
                     {
@@ -123,7 +121,7 @@ Page {
 
         delegate: template Box {
             id: itemBox
-            
+
             fillWidth: true
             height: theme.itemHeightLarge * 3
             layout: "center-row"

@@ -75,12 +75,15 @@ Page {
 
 
     Box {
+        id: box
+
         fillWidth: true
         marginTop: pageHeader.height + theme.itemHeightMedium
         marginLeft: theme.paddingLarge
         marginRight: theme.paddingLarge
 
-        layout: "center-column"
+        layout: "center-row"
+        overflowBehavior: "wrap"
 
         Label {
             fillWidth: true
@@ -96,6 +99,8 @@ Page {
                   "Shui source code of each page."
         }
 
+        Ruler { id: buttonRuler }
+
         Repeater {
             model: ListModel {
                 data: [
@@ -110,13 +115,17 @@ Page {
                     ["File Selector", "FileSelectorPage", "folder-open"],
                     ["Drag and Drop", "DragAndDropPage", "copy"],
                     ["Animations and Easing Curves", "BoingPage", "video-camera"],
+                    ["Gradients", "GradientPage", "gradient"],
                     ["Canvas and Pen", "CanvasPage", "pencil"],
                     ["Camera", "CameraPage", "camera"]
                 ]
             }
             delegate: template Button {
+                ruler: buttonRuler
+                marginLeft: theme.paddingSmall
+                marginRight: theme.paddingSmall
                 marginBottom: theme.paddingLarge
-                fillWidth: true
+                minWidth: buttonRuler.max.width
                 height: theme.itemHeightLarge
 
                 icon: modelData.value[2]

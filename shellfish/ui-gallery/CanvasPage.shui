@@ -38,7 +38,7 @@ Page {
         codeUrl: __filename
     }
 
-    Box {
+    property contentT: template Box {
         marginTop: header.height
         fillWidth: true
         height: documentRoot.windowHeight - header.height
@@ -256,4 +256,21 @@ Page {
 
     }
 
+    onFrozenChanged: {
+        if (! frozen && ! loader.item)
+        {
+            loader.sourceTemplate = contentT;
+        }
+    }
+
+    Loader {
+        id: loader
+        fillWidth: true
+        height: item ? -1 : documentRoot.windowHeight
+        
+        Placeholder {
+            visible: ! parent.item
+            text: "Loading"
+        }
+    }
 }

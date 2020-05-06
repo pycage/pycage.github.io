@@ -121,6 +121,17 @@ Page {
             }
         }
 
+        Labeled {
+            rulerObj: labelsRuler
+            text: "overflowBehavior"
+
+            SelectionBox {
+                id: overflowBehaviorSelector
+
+                model: ListModel { data: ["none", "wrap"] }
+            }
+        }
+
         Label {
             overflowBehavior: "wrap"
             fontSize: theme.fontSizeSmall
@@ -135,6 +146,7 @@ Page {
             borderColor: theme.borderColor
             borderWidth: 1
             layout: layoutSelector.text
+            overflowBehavior: overflowBehaviorSelector.text
 
             Box {
                 width: theme.itemWidthLarge
@@ -151,9 +163,20 @@ Page {
             Box {
                 width: theme.itemWidthLarge
                 height: theme.itemHeightLarge
+                color: theme.secondaryColor
+            }
+
+            Box {
+                width: theme.itemWidthLarge
+                height: theme.itemHeightLarge
                 color: theme.primaryBackgroundColor
             }
 
+            Box {
+                width: theme.itemWidthLarge
+                height: theme.itemHeightLarge
+                color: theme.secondaryBackgroundColor
+            }
         }
 
 
@@ -364,5 +387,11 @@ Page {
     Loader {
         id: loader
         fillWidth: true
+        height: item ? -1 : documentRoot.windowHeight
+        
+        Placeholder {
+            visible: ! parent.item
+            text: "Loading"
+        }
     }
 }

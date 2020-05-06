@@ -128,17 +128,11 @@ Page {
         }
     }
 
-    Box {
-        visible: page.loading
-        fillWidth: true
+    Placeholder {
+        visible: listView.model.size === 0 //page.loading
+        fillHeight: false
         height: documentRoot.windowHeight
-        layout: "center"
-
-        Label {
-            fontSize: theme.fontSizeLarge
-            color: theme.secondaryColor
-            text: "Loading"
-        }
+        text: "Loading Icons"
     }
 
     ScrollIndicator { target: listView; position: "global"; marginTop: header.height }

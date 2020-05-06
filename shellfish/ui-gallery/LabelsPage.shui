@@ -211,5 +211,11 @@ Page {
     Loader {
         id: loader
         fillWidth: true
+        height: item ? -1 : documentRoot.windowHeight
+        
+        Placeholder {
+            visible: ! parent.item
+            text: "Loading"
+        }
     }
 }
