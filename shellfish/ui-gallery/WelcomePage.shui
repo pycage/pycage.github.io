@@ -117,7 +117,8 @@ Page {
                     ["Animations and Easing Curves", "BoingPage", "video-camera"],
                     ["Gradients", "GradientPage", "gradient"],
                     ["Canvas and Pen", "CanvasPage", "pencil"],
-                    ["Camera", "CameraPage", "camera"]
+                    ["Camera", "CameraPage", "camera"],
+                    ["Virtual Filesystem", "FilesystemPage", "drive"]
                 ]
             }
             delegate: template Button {

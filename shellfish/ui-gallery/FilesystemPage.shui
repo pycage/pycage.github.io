@@ -1,0 +1,309 @@
+/*******************************************************************************
+This file is part of the Shellfish UI toolkit examples.
+Copyright (c) 2020 Martin Grimme <martin.grimme@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*******************************************************************************/
+
+require "shellfish/ui";
+require "./Header.shui";
+require "./Labeled.shui";
+
+Page {
+    id: page
+
+    into header Header {
+        id: pageHeader
+
+        title: "Virtual Filesystem"
+        subtitle: "/"
+        page: parent
+        codeUrl: __filename
+    }
+
+    property contentT: template Box {
+        id: contentBox
+
+        fillWidth: true
+        height: documentRoot.windowHeight
+
+        OfflineFS {
+            id: drive
+            volume: "Shellfish UI-Gallery"
+        }
+
+        Box {
+            marginTop: pageHeader.height
+            fillWidth: true
+            color: theme.secondaryBackgroundColor
+            height: infoLabel.bbox.height + 2 * theme.paddingSmall
+
+            Label {
+                id: infoLabel
+
+                width: parent.bbox.width - 2 * theme.paddingSmall
+                marginTop: theme.paddingSmall
+                marginLeft: theme.paddingSmall
+                marginRight: theme.paddingSmall
+                marginBottom: theme.paddingSmall
+                overflowBehavior: "wrap"
+                color: theme.secondaryColor
+                text: "Shellfish provides a virtual filesystem, powered by HTML5 " +
+                      "Indexed DB technology, for storing local data on the " +
+                      "client side."
+            }
+        }
+
+        Box {
+            fillWidth: true
+            height: theme.itemHeightLarge
+            color: theme.secondaryBackgroundColor
+
+            layout: "row"
+
+            Button {
+                width: bbox.height
+                fillHeight: true
+                flat: true
+                icon: "arrow_upward"
+
+                onClick: () =>
+                {
+                    const pos = filesView.model.path.lastIndexOf("/");
+                    let newPath = filesView.model.path.substring(0, pos);
+
+                    filesView.model.path = newPath !== "" ? newPath
+                                                          : "/";
+                }
+            }
+
+            Button {
+                fillHeight: true
+                flat: true
+                icon: "create_new_folder"
+                //text: "New Directory"
+
+                onClick: () =>
+                {
+                    drive.mkdir(filesView.model.path, "New Directory", (ok) =>
+                    {
+
+                    });
+                }
+            }
+
+            Button {
+                fillHeight: true
+                flat: true
+                icon: "note_add"
+                //text: "New File"
+
+                onClick: () =>
+                {
+                    drive.write(filesView.model.path + "/New File.txt", new Blob([""]), (ok) =>
+                    {
+                        console.log("save ok: " + ok);
+                    });
+                }
+            }
+
+            Button {
+                fillHeight: true
+                flat: true
+                icon: "upload"
+                text: "Upload"
+
+                onClick: {
+                    fsel.open((files) =>
+                    {
+                        for (let i = 0; i < files.length; ++i)
+                        {
+                            const fileItem = files[i];
+                            drive.write(filesView.model.path + "/" + fileItem.name, fileItem, (ok) =>
+                            {
+
+                            });
+                        }
+                    });
+                }
+
+                FileSelector { id: fsel }
+            }
+
+            Box {
+                fillWidth: true
+            }
+
+            Button {
+                width: bbox.height
+                fillHeight: true
+                flat: true
+                checked: filesView.displayMode === 0
+                icon: "list"
+
+                onClick: () =>
+                {
+                    filesView.displayMode = 0;
+                }
+            }
+
+            Button {
+                width: bbox.height
+                fillHeight: true
+                flat: true
+                checked: filesView.displayMode === 1
+                icon: "grid_view"
+
+                onClick: () =>
+                {
+                    filesView.displayMode = 1;
+                }
+            }
+        }
+
+        SplitBox
+        {
+            id: splitter
+            fillWidth: true
+            fillHeight: true
+            height: 600
+
+            into first Box {
+                fillWidth: true
+                fillHeight: true
+                color: theme.contentBackgroundColor
+                scrollbars: true
+
+                FSTreeNode {
+                    fs: drive
+                    path: "/"
+                    name: "[" + drive.volume + "]"
+                    target: filesView.model
+                    collapsed: false
+                }
+            }
+
+            into second DropArea {
+                fillWidth: true
+                fillHeight: true
+                color: theme.contentBackgroundColor
+
+                onDropAccept: (ev) =>
+                {
+                    if (ev.types.includes("Files"))
+                    {
+                        ev.accepted = true;
+                        ev.dropEffect = "copy";
+                    }
+                }
+
+                onDrop: (ev) =>
+                {
+                    for (let i = 0; i < ev.items.length; ++i)
+                    {
+                        const item = ev.items[i];
+                        if (item.kind !== "file")
+                        {
+                            continue;
+                        }
+                        const fileItem = item.getAsFile();
+                        drive.write(filesView.model.path + "/" + fileItem.name, fileItem, (ok) =>
+                        {
+
+                        });
+                    }
+                }
+
+                FSView {
+                    id: filesView
+
+                    fillWidth: true
+                    fillHeight: true
+                    scrollbars: true
+
+                    iconScale: scaleSelector.scale
+
+                    model: FSModel {
+                        fs: drive
+                        path: "/"
+
+                        onPathChanged: () =>
+                        {
+                            filesView.currentIndex = -1;
+                            pageHeader.subtitle = path;
+                        }
+                    }
+
+                    opacity: model.loading ? 0 : 1
+                }
+
+                Box {
+                    visible: filesView.displayMode === 1
+                    fillWidth: true
+                    height: theme.itemHeightMedium
+                    color: theme.secondaryBackgroundColor
+                    layout: "center-row"
+
+                    Box {
+                        fillWidth: true
+                    }
+
+                    Label {
+                        text: "Scale"
+                    }
+
+                    SelectionBox {
+                        id: scaleSelector
+                        property names: ["Small", "Medium", "Large"]
+                        property scales: [0.75, 1, 2]
+                        property scale: scales[selection]
+
+                        marginLeft: theme.paddingSmall
+                        marginRight: theme.paddingSmall
+
+                        selection: 1
+
+                        model: ListModel {
+                            data: scaleSelector.names
+                        }
+                    }
+                }
+            }
+
+        }//SplitBox
+
+    }//template Box
+
+    onFrozenChanged: {
+        if (! frozen && ! loader.item)
+        {
+            loader.sourceTemplate = contentT;
+        }
+    }
+
+    Loader {
+        id: loader
+        fillWidth: true
+        height: item ? -1 : documentRoot.windowHeight
+        
+        Placeholder {
+            visible: ! parent.item
+            text: "Loading"
+        }
+    }
+}
