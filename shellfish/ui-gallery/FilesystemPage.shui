@@ -36,6 +36,15 @@ Page {
         codeUrl: __filename
     }
 
+    // profile objects encapsulate a set of common properties that other
+    // elements can include
+    Object {
+        id: toolButtonProfile
+
+        property flat: true
+        property fillHeight: true
+    }
+
     property contentT: template Box {
         id: contentBox
 
@@ -77,9 +86,8 @@ Page {
             layout: "row"
 
             Button {
+                profiles: [toolButtonProfile]
                 width: bbox.height
-                fillHeight: true
-                flat: true
                 icon: "arrow_upward"
 
                 onClick: () =>
@@ -93,8 +101,7 @@ Page {
             }
 
             Button {
-                fillHeight: true
-                flat: true
+                profiles: [toolButtonProfile]
                 icon: "create_new_folder"
                 //text: "New Directory"
 
@@ -108,8 +115,7 @@ Page {
             }
 
             Button {
-                fillHeight: true
-                flat: true
+                profiles: [toolButtonProfile]
                 icon: "note_add"
                 //text: "New File"
 
@@ -123,8 +129,7 @@ Page {
             }
 
             Button {
-                fillHeight: true
-                flat: true
+                profiles: [toolButtonProfile]
                 icon: "upload"
                 text: "Upload"
 
@@ -150,9 +155,8 @@ Page {
             }
 
             Button {
+                profiles: [toolButtonProfile]
                 width: bbox.height
-                fillHeight: true
-                flat: true
                 checked: filesView.displayMode === 0
                 icon: "list"
 
@@ -163,9 +167,8 @@ Page {
             }
 
             Button {
+                profiles: [toolButtonProfile]
                 width: bbox.height
-                fillHeight: true
-                flat: true
                 checked: filesView.displayMode === 1
                 icon: "grid_view"
 

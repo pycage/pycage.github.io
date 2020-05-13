@@ -109,6 +109,7 @@ Page {
                     ["Layout", "LayoutPage", "tree"],
                     ["Text Input", "TextInputPage", "keyboard1"],
                     ["Themes", "ThemesPage", "contrast"],
+                    ["Profiles", "ProfilesPage", "equalizer1"],
                     ["Icon Gallery", "IconsPage", "grin"],
                     ["Images", "ImagesPage", "image"],
                     ["List View and Grid View", "BreedingPage", "list1"],

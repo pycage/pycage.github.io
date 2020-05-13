@@ -45,7 +45,7 @@ Page {
             Label {
                 overflowBehavior: "wrap"
                 text: "This is a simple page with a header bar. " +
-                      "Push the back button ([icon:arrow-left]) to close " +
+                      "Push the back button ([icon:navigate_before]) to close " +
                       "this page and  go back to the previous page."
             }
 

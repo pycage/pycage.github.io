@@ -34,7 +34,7 @@ PageHeader {
 
     into first Button {
         visible: pageStack.pages.length > 1 && page !== pageStack.pages[0]
-        icon: "arrow-left"
+        icon: "navigate_before"
         width: height
         height: header.height
         flat: true
