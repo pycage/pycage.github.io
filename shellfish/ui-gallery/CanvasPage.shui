@@ -125,11 +125,6 @@ Page {
 
             property penRadius: page.tool === "quill" ? 10 : 3
 
-            onDrag: {
-                const ev = arguments[0];
-                ev.accepted = true;
-            }
-
             onContextMenu: {
                 const ev = arguments[0];
                 ev.accepted = true;
