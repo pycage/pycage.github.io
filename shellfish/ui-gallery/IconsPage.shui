@@ -51,11 +51,11 @@ Page {
 
         onTimeout: {
             window.fetch(__dirname + "/style/icon-map.css")
-            .then(function (response)
+            .then((response) =>
             {
                 return response.text();
             })
-            .then(function (css)
+            .then((css) =>
             {
                 const map = icons.parseIconMap(css);
                 const keys = Object.keys(map);

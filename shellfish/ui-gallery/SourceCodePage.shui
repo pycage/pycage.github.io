@@ -33,10 +33,12 @@ Page {
     onUrlChanged: {
         loading = true;
         window.fetch(url)
-        .then(function(response) {
+        .then((response) =>
+        {
             return response.text();
         })
-        .then(function(data) {
+        .then((data) =>
+        {
             codeLabel.text = data;
             loading = false;
         });

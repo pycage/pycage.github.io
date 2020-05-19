@@ -22,17 +22,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 "use strict";
 
-function shDocLog(message)
-{
-    if (document.body)
-    {
-        const node = document.createElement("pre");
-        node.appendChild(document.createTextNode(message));
-        document.body.appendChild(node);
-    }
-    console.log(message);
-}
-
 /**
  * Loads the given modules asynchronously and invokes a callback afterwards.
  * 
@@ -96,6 +85,16 @@ function shDocLog(message)
  * This mechanism is used by the Feng Shui processor to directly load Shui files
  * as modules.
  * 
+ * The following constants are defined inside modules:
+ * 
+ * #### `__dirname`
+ * 
+ * The name of the directory where the module file is located.
+ * 
+ * #### `__filename`
+ * 
+ * The path of the module file.
+ * 
  * @function
  * @param {string[]} modules - The modules to load.
  * @param {function} callback - The callback to invoke after loading.
@@ -116,6 +115,19 @@ const shRequire = (function ()
     let idsMap = { };
 
     let nextScheduled = false;
+
+    function logError(message)
+    {
+        if (document.body)
+        {
+            const node = document.createElement("pre");
+            node.style.width = "100%";
+            node.style.whiteSpace = "pre-wrap";
+            node.appendChild(document.createTextNode(message));
+            document.body.appendChild(node);
+        }
+        console.error(message);
+    }
 
     /**
      * Normalizes the given URL by resolving "." and ".." and "//".
@@ -152,36 +164,31 @@ const shRequire = (function ()
     function loadBundle(url, callback)
     {
         const now = new Date().getTime();
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", url, true);
-        xhr.onreadystatechange = function ()
+
+        fetch(url)
+        .then(response => response.text())
+        .then(data =>
         {
-            if (xhr.readyState === XMLHttpRequest.DONE)
+            try
             {
-                if (xhr.status === 200)
+                console.log(`Loaded JS bundle '${url}' from server in ${new Date().getTime() - now} ms.`);
+                let bundle = JSON.parse(data);
+                for (let moduleUrl in bundle)
                 {
-                    try
-                    {
-                        console.log("Loaded JS bundle '" + url + "'from server in " + (new Date().getTime() - now) + " ms.");
-                        let bundle = JSON.parse(xhr.responseText);
-                        for (let moduleUrl in bundle)
-                        {
-                            bundleCache[moduleUrl] = bundle[moduleUrl];
-                        }
-                        callback();
-                    }
-                    catch (err)
-                    {
-                        console.error("Failed to load JS bundle '" + url + "' from server: " + err);
-                    }
+                    bundleCache[moduleUrl] = bundle[moduleUrl];
                 }
-                else
-                {
-                    callback();
-                }
+                callback();
             }
-        };
-        xhr.send();
+            catch (err)
+            {
+                logError(`Failed to process JS bundle '${url}': ${err}`);
+            }
+        })
+        .catch(err =>
+        {
+            logError(`Failed to load module '${url}' from server: ${err}.`);
+            callback();
+        });
     }
 
     function loadCode(url, callback)
@@ -194,26 +201,18 @@ const shRequire = (function ()
         }
 
         const now = new Date().getTime();
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", url, true);
-        xhr.onreadystatechange = function ()
+
+        fetch(url)
+        .then(response => response.text())
+        .then(data =>
         {
-            if (xhr.readyState === XMLHttpRequest.DONE)
-            {
-                if (xhr.status === 200)
-                {
-                    console.log("Loaded module '" + url + "' from server in " + (new Date().getTime() - now) + " ms.");
-                    callback(xhr.responseText);
-                }
-                else
-                {
-                    //throw "Failed to load module: status code " + xhr.status;
-                    console.error("Failed to load module '" + url + "' from server, status code = " + xhr.status + ".");
-                    callback("");
-                }
-            }
-        };
-        xhr.send();
+            callback(data);
+        })
+        .catch(err =>
+        {
+            logError(`Failed to load module '${url}' from server: ${err}.`);
+            callback("");
+        });
     }
 
     function loadStyle(url, callback)
@@ -273,6 +272,7 @@ const shRequire = (function ()
                 {
                     const __dirname = "${dirname}";
                     const __filename = "${url}";
+
                     const exports = {
                         include: (mod) => {
                             for (let key in mod)
@@ -285,15 +285,19 @@ const shRequire = (function ()
                         }
                     };
                     ${code}
-                    return exports;
+                    shRequire.register("${url}", exports);
                 })();
             `;
 
-            try
+            const scriptNode = document.createElement("script");
+            scriptNode.type = "text/javascript";
+            scriptNode.charset = "utf-8";
+            scriptNode.async = true;
+
+            stackOfQueues.push([]);
+            scriptNode.addEventListener("load", function ()
             {
-                stackOfQueues.push([]);
-                const jsmodule = eval(js);
-                cache[url] = jsmodule;
+                const jsmodule = cache[url];
 
                 if (jsmodule.__id)
                 {
@@ -302,14 +306,16 @@ const shRequire = (function ()
                 }
 
                 callback(jsmodule);
-            }
-            catch (err)
+            }, false);
+            scriptNode.addEventListener("error", function ()
             {
-                console.error(`Failed to initialize module '${url}': ${err}`);
-                //console.error(js);
-                shDocLog(`Failed to initialize module '${url}': ${err}`);
+                logError(`Failed to initialize module '${url}': ${this}`);
                 callback(null);
-            }
+            }, false);
+
+            scriptNode.src = "data:application/javascript;base64," + btoa(js);
+
+            document.head.appendChild(scriptNode);
         });
     }
 
@@ -397,6 +403,10 @@ const shRequire = (function ()
         next();
     };
 
+    require.register = function (url, module)
+    {
+        cache[url] = module;
+    }
 
     const scripts = document.getElementsByTagName("script");
     for (let i = 0; i < scripts.length; ++i)
