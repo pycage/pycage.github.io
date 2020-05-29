@@ -21,9 +21,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *******************************************************************************/
 
 require "shellfish/ui";
+require "./Header.shui";
 
 Page {
     id: page
+
+    into header Header {
+        id: pageHeader
+
+        page: parent
+        title: "Images"
+        codeUrl: __filename
+    }
 
     Box {
         fillWidth: true
@@ -112,37 +121,4 @@ Page {
             text: "Width: " + image.originalWidth + " px, Height: " + image.originalHeight + " px"
         }
     }
-
-
-    PageHeader {
-        id: pageHeader
-
-        position: "global"
-        marginLeft: page.marginLeft
-        title: "Images"
-        pageStack: page.pageStack
-
-        into first Button {
-            icon: "arrow-left"
-            width: height
-            height: pageHeader.height
-            flat: true
-            onClick: {
-                page.pageStack.popPage();
-            }
-        }
-
-        into second Button {
-            icon: "file-text2"
-            width: height
-            height: pageHeader.height
-            flat: true
-            onClick: {
-                page.pageStack.pushPage(__dirname + "/SourceCodePage.shui", {
-                    url: __filename
-                });
-            }
-        }
-    }
-
 }
