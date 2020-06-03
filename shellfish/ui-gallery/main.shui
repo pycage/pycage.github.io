@@ -23,11 +23,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 require "shellfish/ui";
 
 Document {
-    id: documentRoot
 
     property brightTheme: Theme { }
     property darkTheme: DarkTheme { }
-    property theme: brightTheme
+    theme: brightTheme
 
     title: "UI Gallery"
 
