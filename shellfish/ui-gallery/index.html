@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <script src="../require.js"
-        data-bundle="../shellfish.pkg"
+        data-bundle="../shellfish.pkg, ../shellfish3d.pkg"
         data-main="shui-loader.js"
         data-shui="main.shui"></script>
 </head>
@@ -28,7 +28,10 @@
         if (ok)
         {
             document.body.innerHTML = `
-                <p style="line-height: 100vh; font-family: sans-serif; font-size: 10pt; width: 100vw; text-align: center;">Initializing</p>
+                <p style="line-height: 100vh; font-family: sans-serif; font-size: 10pt; width: 100vw; text-align: center;">
+                    <span id="sh-require-status">Initializing</span>
+                    <span id="sh-require-progress" style="opacity: 0.6;"></span>
+                </p>
             `;
         }
     </script>

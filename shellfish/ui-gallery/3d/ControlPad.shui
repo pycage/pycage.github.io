@@ -1,0 +1,95 @@
+/*******************************************************************************
+This file is part of the Shellfish UI toolkit examples.
+Copyright (c) 2020 Martin Grimme <martin.grimme@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*******************************************************************************/
+
+require "./ControlButton.shui";
+
+Box {
+    property target: null
+
+    width: 3 * theme.itemWidthMedium
+
+    layout: "row"
+    overflowBehavior: "wrap"
+
+    ControlButton {
+        icon: "undo2"
+        action: () => { target.rotationAngle += 1.5; }
+    }
+
+    ControlButton {
+        icon: target.mayMoveForward ? "arrow-up" : ""
+        action: () =>
+        {
+            if (target.mayMoveForward)
+            {
+                target.move(target.vec3(0, 0, -0.02));
+                target.phase += 0.1;
+                if (target.phase > 2 * Math.PI) target.phase = 0;
+            }
+
+        }
+    }
+
+    ControlButton {
+        icon: "redo2"
+        action: () => { target.rotationAngle -= 1.5; }
+    }
+
+    ControlButton {
+        icon: target.mayMoveLeft ? "arrow-left" : ""
+        action: () =>
+        {
+            if (target.mayMoveLeft)
+            {
+                target.move(target.vec3(-0.02, 0, 0));
+                target.phase += 0.1;
+                if (target.phase > 2 * Math.PI) target.phase = 0;
+            }
+        }
+    }
+
+    ControlButton {
+        icon: target.mayMoveBackward ? "arrow-down" : ""
+        action: () =>
+        {
+            if (target.mayMoveBackward)
+            {
+                target.move(target.vec3(0, 0, 0.02));
+                target.phase += 0.1;
+                if (target.phase > 2 * Math.PI) target.phase = 0;
+            }
+        }
+    }
+
+    ControlButton {
+        icon: target.mayMoveRight ? "arrow-right" : ""
+        action: () =>
+        {
+            if (target.mayMoveRight)
+            {
+                target.move(target.vec3(0.02, 0, 0));
+                target.phase += 0.1;
+                if (target.phase > 2 * Math.PI) target.phase = 0;
+            }
+        }
+    }
+}
