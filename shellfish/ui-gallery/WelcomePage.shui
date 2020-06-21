@@ -103,6 +103,20 @@ Page {
             marginTop: theme.paddingLarge
             marginBottom: theme.paddingLarge
             bold: true
+            text: "Capabilities"
+        }
+
+        PageButtons {
+            pageStack: page.pageStack
+            pages: [
+                ["Show Platform Capabilities", "CapabilitiesPage", ""]
+            ]
+        }
+
+        Label {
+            marginTop: theme.paddingLarge
+            marginBottom: theme.paddingLarge
+            bold: true
             text: "UI"
         }
 

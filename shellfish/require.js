@@ -208,7 +208,6 @@ const shRequire = (function ()
 
     function processBundle(bundle)
     {
-        console.log(bundle);
         if (! bundle.version /* bundle version 1 */)
         {
             for (let moduleUrl in bundle)
@@ -412,35 +411,6 @@ const shRequire = (function ()
         });
     }
 
-    function loadWasmModule(url, callback)
-    {
-        if (cache[url])
-        {
-            callback(cache[url]);
-            return;
-        }
-
-        const runtimeUrl = url.replace(/\.wasm$/i, ".js");
-
-        function processor(u, code)
-        {
-            return `
-                exports.init = (Module) =>
-                {
-                    // let the runtime find the wasm file inside a bundle, too
-                    Module["locateFile"] = (path, scriptDirectory) =>
-                    {
-                        return shRequire.resource("${url}");
-                    };
-                    ${code}
-                    return Module;
-                };
-            `;
-        }
-
-        loadModule(runtimeUrl, processor, callback);
-    }
-
     function next()
     {
         if (nextScheduled)
@@ -500,17 +470,6 @@ const shRequire = (function ()
                 next();
             });
         }
-        /*
-        else if (ext === "wasm")
-        {
-            loadWasmModule(url, function (module)
-            {
-                nextScheduled = false;
-                ctx.modules.push(module);
-                next();
-            });
-        }
-        */
         else
         {
             logError(`Cannot load invalid module '${url}'.`);
