@@ -154,6 +154,20 @@ Page {
             marginTop: theme.paddingLarge
             marginBottom: theme.paddingLarge
             bold: true
+            text: "Communication"
+        }
+
+        PageButtons {
+            pageStack: page.pageStack
+            pages: [
+                ["WebSocket", "WebSocketPage", "chat"]
+            ]
+        }
+
+        Label {
+            marginTop: theme.paddingLarge
+            marginBottom: theme.paddingLarge
+            bold: true
             text: "Effects"
         }
 
