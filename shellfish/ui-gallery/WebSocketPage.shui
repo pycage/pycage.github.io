@@ -22,10 +22,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 require "shellfish/ui";
 require "./Header.shui";
-require "./Labeled.shui";
 
 Page {
     id: page
+
+    scrollable: false
 
     into header Header {
         id: pageHeader
@@ -35,36 +36,35 @@ Page {
         codeUrl: __filename
     }
 
-    WebSocket {
-        id: sock
-
-        url: urlEntry.text
-
-        onMessage: (msg) =>
-        {
-            responseModel.insert(responseModel.size, msg);
-            console.log(msg);
-        }
-
-        onError: (err) =>
-        {
-            const dlg = page.errorDialogT.create();
-            dlg.init();
-            dlg.text = err;
-        }
-    }
-
-    FileSelector {
-        id: fsel
-    }
-
-    ListModel {
-        id: responseModel
-    }
-
-    Box {
+    contentTemplate: template Box {
         fillWidth: true
-        height: documentRoot.windowHeight
+        fillHeight: true
+
+        WebSocket {
+            id: sock
+
+            url: urlEntry.text
+
+            onMessage: (msg) =>
+            {
+                responseModel.insert(responseModel.size, msg);
+            }
+
+            onError: (err) =>
+            {
+                const dlg = page.errorDialogT.create();
+                dlg.init();
+                dlg.text = err;
+            }
+        }
+
+        FileSelector {
+            id: fsel
+        }
+
+        ListModel {
+            id: responseModel
+        }
         
         Box {
             marginTop: pageHeader.height
@@ -92,6 +92,7 @@ Page {
                 enabled: sock.status !== "connecting"
                 marginLeft: theme.paddingMedium
                 marginRight: theme.paddingLarge
+                icon: sock.status === "connected" ? "power_off" : "power"
                 text: sock.status === "connected" ? "Disconnect" : "Connect"
 
                 onClick: () => {
@@ -160,6 +161,7 @@ Page {
 
             Button {
                 enabled: sock.status === "connected" && messageBox.text !== ""
+                icon: "chat"
                 text: "Send Message"
 
                 onClick: () =>
@@ -172,6 +174,7 @@ Page {
             Button {
                 enabled: sock.status === "connected"
                 marginLeft: theme.paddingMedium
+                icon: "file_upload"
                 text: "Send File"
 
                 onClick: () =>
@@ -208,7 +211,7 @@ Page {
                 marginLeft: theme.paddingLarge
                 fillWidth: true
                 bold: true
-                text: "Server Response"
+                text: "Server Messages"
             }
 
             Button {
@@ -253,7 +256,7 @@ Page {
                             marginLeft: theme.paddingLarge
                             fontSize: theme.fontSizeSmall
                             bold: true
-                            text: "Time:"
+                            text: "Timestamp:"
                         }
 
                         Label {
@@ -293,7 +296,7 @@ Page {
                                 if (typeof data === "string")
                                 {
                                     return data.length < 1024 ? data
-                                                              : "<String: " + data.length + " Bytes>"
+                                                                : "<String: " + data.length + " Bytes>"
                                 }
                                 else
                                 {
@@ -310,7 +313,12 @@ Page {
 
         }//Box
 
-    }//Box
+    }
+
+    Placeholder {
+        visible: page.loading
+        text: "Loading"
+    }
 
     property errorDialogT: template Dialog {
         id: dlg

@@ -47,18 +47,18 @@ Page {
     Repeater {
         model: ListModel {
             data: [
-                ["Canvas", caps.canvas],
-                ["Fullscreen Elements", caps.fullscreen],
-                ["Game Pad", caps.gamePad],
-                ["Indexed DB", caps.indexedDB],
-                ["Media Devices", caps.mediaDevices],
-                ["Pointer Event", caps.pointerEvent],
-                ["WebAssembly", caps.webAssembly],
-                ["Atomics", caps.atomics],
-                ["Shared Memory", caps.sharedArrayBuffer],
-                ["Virtual Reality", caps.virtualReality],
-                ["WebGL", caps.webGL],
-                ["WebGL 2", caps.webGL2]
+                ["Canvas: 2D pixel graphics", caps.canvas],
+                ["Fullscreen Elements: Fullscreen mode of elements", caps.fullscreen],
+                ["Game Pad: Support for attached game controllers", caps.gamePad],
+                ["Indexed DB: Offline storage of data", caps.indexedDB],
+                ["Media Devices: Camera, video, audio", caps.mediaDevices],
+                ["Pointer Event: Differentiating between mouse, pen, and touch input", caps.pointerEvent],
+                ["WebAssembly: Running compiled byte-code", caps.webAssembly],
+                ["Atomics: Lock-free communication between threads", caps.atomics],
+                ["Shared Memory: Sharing memory between threads", caps.sharedArrayBuffer],
+                ["WebXR: Support for Virtual Reality headsets", caps.webXR],
+                ["WebGL: Hardware-accelerated 3D graphics", caps.webGL],
+                ["WebGL 2: Version 2 of WebGL", caps.webGL2]
             ]
         }
 

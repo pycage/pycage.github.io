@@ -28,10 +28,10 @@ Page {
 
     property url: ""
 
-    property loading: false
+    property loadingCode: false
 
     onUrlChanged: {
-        loading = true;
+        loadingCode = true;
         window.fetch(url)
         .then((response) =>
         {
@@ -40,14 +40,14 @@ Page {
         .then((data) =>
         {
             codeLabel.text = data;
-            loading = false;
+            loadingCode = false;
         });
     }
 
     Label {
         id: codeLabel
 
-        visible: ! page.loading
+        visible: ! page.loadingCode
         marginTop: pageHeader.height + theme.paddingSmall
         marginLeft: theme.paddingMedium
         marginRight: theme.paddingMedium
@@ -57,7 +57,7 @@ Page {
     }
 
     Label {
-        visible: page.loading
+        visible: page.loadingCode
         text: "Loading..."
     }
 

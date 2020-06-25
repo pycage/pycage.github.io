@@ -25,6 +25,7 @@ require "shellfish/ui";
 Box {
     id: pageButtons
 
+    property buttonRuler: null
     property pageStack: null
     property pages: []
 
@@ -32,8 +33,6 @@ Box {
 
     layout: "center-row"
     overflowBehavior: "wrap"
-
-    Ruler { id: buttonRuler }
 
     Repeater {
         model: ListModel {

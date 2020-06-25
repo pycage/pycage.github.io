@@ -27,14 +27,14 @@ require "./icons.js" as icons;
 Page {
     id: page
 
-    property loading: true
+    property loadingIcons: true
 
     color: theme.contentBackgroundColor
 
     into header Header {
         id: header
         title: "Icon Gallery"
-        subtitle: page.loading ? "" : iconsModel.size + " icons"
+        subtitle: page.loadingIcons ? "" : iconsModel.size + " icons"
         page: parent
         codeUrl: __filename
     }
@@ -67,7 +67,7 @@ Page {
                 }
 
                 iconsModel.reset(m);
-                page.loading = false;
+                page.loadingIcons = false;
             });
         }
     }
@@ -76,7 +76,7 @@ Page {
         id: listView
 
 
-        visible: ! page.loading
+        visible: ! page.loadingIcons
         marginTop: header.height + theme.paddingSmall
         fillWidth: true
         height: documentRoot.windowHeight - bbox.y
@@ -129,7 +129,7 @@ Page {
     }
 
     Placeholder {
-        visible: listView.model.size === 0 //page.loading
+        visible: listView.model.size === 0 //page.loadingIcons
         fillHeight: false
         height: documentRoot.windowHeight
         text: "Loading Icons"

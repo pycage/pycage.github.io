@@ -99,123 +99,97 @@ Page {
                   "Shui source code of each page."
         }
 
-        Label {
-            marginTop: theme.paddingLarge
-            marginBottom: theme.paddingLarge
-            bold: true
-            text: "Capabilities"
+        Ruler {
+            id: btnRuler
         }
 
-        PageButtons {
-            pageStack: page.pageStack
-            pages: [
-                ["Show Platform Capabilities", "CapabilitiesPage", ""]
-            ]
-        }
+        Repeater {
+            model: ListModel {
+                data: [
+                    {
+                        section: "Capabilities",
+                        pages: [
+                            ["Test Platform Capabilities", "CapabilitiesPage", "checkmark"]
+                        ]
+                    },
+                    {
+                        section: "UI",
+                        pages: [
+                            ["Pages", "PagesPage", "map1"],
+                            ["Labels", "LabelsPage", "text-color"],
+                            ["Layout", "LayoutPage", "tree"],
+                            ["Text Input", "TextInputPage", "keyboard1"],
+                            ["List View and Grid View", "BreedingPage", "list1"],
+                            ["Profiles", "ProfilesPage", "equalizer1"],
+                            ["Themes", "ThemesPage", "contrast"],
+                            ["Icon Gallery", "IconsPage", "grin"]
+                        ]
+                    },
+                    {
+                        section: "Files",
+                        pages: [
+                            ["File Selector", "FileSelectorPage", "folder-open"],
+                            ["Drag and Drop", "DragAndDropPage", "copy"],
+                            ["Virtual Filesystem", "FilesystemPage", "drive"]
+                        ]
+                    },
+                    {
+                        section: "Communication",
+                        pages: [
+                            ["WebSocket", "WebSocketPage", "chat"]
+                        ]
+                    },
+                    {
+                        section: "Effects",
+                        pages: [
+                            ["Gradients", "GradientPage", "gradient"],
+                            ["Animations and Easing Curves", "BoingPage", "video-camera"]
+                        ]
+                    },
+                    {
+                        section: "Media",
+                        pages: [
+                            ["Images", "ImagesPage", "image"],
+                            ["Canvas and Pen", "CanvasPage", "pencil"],
+                            ["Camera", "CameraPage", "camera"]
+                        ]
+                    },
+                    {
+                        section: "Shellfish 3D",
+                        pages: [
+                            ["Simple 3D Scene", "3d/SimplePage", "codepen"],
+                            ["Texturing", "3d/TexturePage", "codepen"],
+                            ["Light Source", "3d/LightPage", "codepen"],
+                            ["3D Model", "3d/ModelPage", "codepen"],
+                            //["Bump Map", "3d/BumpMapPage", "codepen"],
+                            ["Height Field", "3d/HeightFieldPage", "codepen"],
+                            ["Clones", "3d/ClonesPage", "codepen"],
+                            ["Collision Detection", "3d/CollisionsPage", "codepen"]
+                        ]
+                    }
+                ]
+            }
 
-        Label {
-            marginTop: theme.paddingLarge
-            marginBottom: theme.paddingLarge
-            bold: true
-            text: "UI"
-        }
+            delegate: template Box {
+                fillWidth: true
+                layout: "center-column"
 
-        PageButtons {
-            pageStack: page.pageStack
-            pages: [
-                ["Pages", "PagesPage", "map1"],
-                ["Labels", "LabelsPage", "text-color"],
-                ["Layout", "LayoutPage", "tree"],
-                ["Text Input", "TextInputPage", "keyboard1"],
-                ["List View and Grid View", "BreedingPage", "list1"],
-                ["Profiles", "ProfilesPage", "equalizer1"],
-                ["Themes", "ThemesPage", "contrast"],
-                ["Icon Gallery", "IconsPage", "grin"]
-            ]
-        }
+                Label {
+                    marginTop: theme.paddingLarge
+                    marginBottom: theme.paddingLarge
+                    bold: true
+                    text: parent.modelData.value.section
+                }
 
-        Label {
-            marginTop: theme.paddingLarge
-            marginBottom: theme.paddingLarge
-            bold: true
-            text: "Files"
-        }
+                PageButtons {
+                    pageStack: page.pageStack
+                    buttonRuler: btnRuler
+                    pages: parent.modelData.value.pages
+                }
+            }
+            
+        }//Repeater
 
-        PageButtons {
-            pageStack: page.pageStack
-            pages: [
-                ["File Selector", "FileSelectorPage", "folder-open"],
-                ["Drag and Drop", "DragAndDropPage", "copy"],
-                ["Virtual Filesystem", "FilesystemPage", "drive"]
-            ]
-        }
-
-        Label {
-            marginTop: theme.paddingLarge
-            marginBottom: theme.paddingLarge
-            bold: true
-            text: "Communication"
-        }
-
-        PageButtons {
-            pageStack: page.pageStack
-            pages: [
-                ["WebSocket", "WebSocketPage", "chat"]
-            ]
-        }
-
-        Label {
-            marginTop: theme.paddingLarge
-            marginBottom: theme.paddingLarge
-            bold: true
-            text: "Effects"
-        }
-
-        PageButtons {
-            pageStack: page.pageStack
-            pages: [
-                ["Gradients", "GradientPage", "gradient"],
-                ["Animations and Easing Curves", "BoingPage", "video-camera"]
-            ]
-        }
-
-        Label {
-            marginTop: theme.paddingLarge
-            marginBottom: theme.paddingLarge
-            bold: true
-            text: "Media"
-        }
-
-        PageButtons {
-            pageStack: page.pageStack
-            pages: [
-                ["Images", "ImagesPage", "image"],
-                ["Canvas and Pen", "CanvasPage", "pencil"],
-                ["Camera", "CameraPage", "camera"]
-            ]
-        }
-
-        Label {
-            marginTop: theme.paddingLarge
-            marginBottom: theme.paddingLarge
-            bold: true
-            text: "Shellfish 3D"
-        }
-
-
-        PageButtons {
-            pageStack: page.pageStack
-            pages: [
-                ["Simple 3D Scene", "3d/SimplePage", "codepen"],
-                ["Texturing", "3d/TexturePage", "codepen"],
-                ["Light Source", "3d/LightPage", "codepen"],
-                ["3D Model", "3d/ModelPage", "codepen"],
-                //["Bump Map", "3d/BumpMapPage", "codepen"],
-                ["Height Field", "3d/HeightFieldPage", "codepen"],
-                ["Clones", "3d/ClonesPage", "codepen"],
-                ["Collision Detection", "3d/CollisionsPage", "codepen"]
-            ]
-        }
     }//Box
 
 }
