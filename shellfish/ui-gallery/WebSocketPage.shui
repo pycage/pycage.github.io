@@ -53,7 +53,7 @@ Page {
             onError: (err) =>
             {
                 const dlg = page.errorDialogT.create();
-                dlg.init();
+                dlg.show();
                 dlg.text = err;
             }
         }

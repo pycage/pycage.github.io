@@ -240,7 +240,7 @@ Document {
                 onClick: () =>
                 {
                     const dlg = doc.aboutT.create();
-                    dlg.init();
+                    dlg.show();
                 }
             }
         }

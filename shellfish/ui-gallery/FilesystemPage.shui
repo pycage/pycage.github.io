@@ -107,10 +107,10 @@ Page {
 
                 onClick: () =>
                 {
-                    drive.mkdir(filesView.model.path, "New Directory", (ok) =>
-                    {
-
-                    });
+                    console.log("Clicked New Directory");
+                    drive.mkdir(filesView.model.path, "New Directory")
+                    .then(() => { })
+                    .catch((err) => { });
                 }
             }
 
@@ -121,9 +121,14 @@ Page {
 
                 onClick: () =>
                 {
-                    drive.write(filesView.model.path + "/New File.txt", new Blob([""]), (ok) =>
+                    drive.write(filesView.model.path + "/New File.txt", new Blob([""]))
+                    .then(() =>
                     {
-                        console.log("save ok: " + ok);
+                        console.log("saved file");
+                    })
+                    .catch((err) =>
+                    {
+                        console.log("saving failed: " + err);
                     });
                 }
             }
@@ -139,7 +144,8 @@ Page {
                         for (let i = 0; i < files.length; ++i)
                         {
                             const fileItem = files[i];
-                            drive.write(filesView.model.path + "/" + fileItem.name, fileItem, (ok) =>
+                            drive.write(filesView.model.path + "/" + fileItem.name, fileItem)
+                            .then(() =>
                             {
 
                             });
@@ -225,7 +231,8 @@ Page {
                             continue;
                         }
                         const fileItem = item.getAsFile();
-                        drive.write(filesView.model.path + "/" + fileItem.name, fileItem, (ok) =>
+                        drive.write(filesView.model.path + "/" + fileItem.name, fileItem)
+                        .then(() =>
                         {
 
                         });
