@@ -34,7 +34,7 @@ Page {
 
         title: "Collision Detection"
         subtitle: "Find a way out of the dungeon!"
-        page: parent
+
         codeUrl: __filename
     }
 

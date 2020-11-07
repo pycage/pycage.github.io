@@ -99,7 +99,7 @@ Page {
 
     Header {
         id: pageHeader
-        page: parent
+        
         title: "Text Input"
         codeUrl: __filename
     }

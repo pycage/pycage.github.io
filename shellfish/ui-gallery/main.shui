@@ -21,6 +21,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *******************************************************************************/
 
 require "shellfish/ui";
+require "shellfish/low" as low;
 
 Document {
 
@@ -30,6 +31,25 @@ Document {
 
     title: "UI Gallery"
 
+    onContextMenu: (ev) =>
+    {
+        // prevent the default context menu from showing up
+        ev.accepted = true;
+    }
+
+    onKeyDown: (ev) =>
+    {
+        if (ev.key === "ArrowLeft")
+        {
+            low.focusPrevious();
+            ev.accepted = true;
+        }
+        else if (ev.key === "ArrowRight")
+        {
+            low.focusNext();
+            ev.accepted = true;
+        }
+    }
 
     PageStack {
         id: pageStack
@@ -63,4 +83,14 @@ Document {
         }
     }
 
+    onKeyDown: (ev) =>
+    {
+        // dump debug information
+        if (ev.key === "d" && ev.ctrlKey)
+        {
+            console.log("Objects Dump:");
+            console.log(mid.dumpStatus());
+            ev.accepted = true;
+        }
+    }
 }

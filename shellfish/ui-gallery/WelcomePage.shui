@@ -30,7 +30,6 @@ Page {
     into header Header {
         id: pageHeader
 
-        page: parent
         title: "Shellfish UI Gallery"
         subtitle: "[icon:copyright] 2020 Martin Grimme"
         codeUrl: __filename
@@ -120,6 +119,7 @@ Page {
                             ["Layout", "LayoutPage", "tree"],
                             ["Text Input", "TextInputPage", "keyboard1"],
                             ["List View and Grid View", "BreedingPage", "list1"],
+                            ["Menus and Message Dialogs", "MenusPage", "menu1"],
                             ["Profiles", "ProfilesPage", "equalizer1"],
                             ["Themes", "ThemesPage", "contrast"],
                             ["Icon Gallery", "IconsPage", "grin"]
@@ -150,6 +150,7 @@ Page {
                         section: "Media",
                         pages: [
                             ["Images", "ImagesPage", "image"],
+                            ["Video Player", "VideoPage", "film"],
                             ["Canvas and Pen", "CanvasPage", "pencil"],
                             ["Camera", "CameraPage", "camera"]
                         ]
@@ -158,8 +159,8 @@ Page {
                         section: "Shellfish 3D",
                         pages: [
                             ["Simple 3D Scene", "3d/SimplePage", "codepen"],
-                            ["Texturing", "3d/TexturePage", "codepen"],
-                            ["Light Source", "3d/LightPage", "codepen"],
+                            ["Textured Scene", "3d/TexturePage", "codepen"],
+                            ["Scene with Light", "3d/LightPage", "codepen"],
                             ["3D Model", "3d/ModelPage", "codepen"],
                             //["Bump Map", "3d/BumpMapPage", "codepen"],
                             ["Height Field", "3d/HeightFieldPage", "codepen"],

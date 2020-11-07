@@ -34,7 +34,6 @@ Page {
         id: header
 
         title: "Paint on Canvas"
-        page: parent
         codeUrl: __filename
     }
 
@@ -265,7 +264,7 @@ Page {
         
         Placeholder {
             visible: ! parent.item
-            text: "Loading"
+            text: "[icon:spinner5]"
         }
     }
 }

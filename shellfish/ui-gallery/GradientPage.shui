@@ -29,8 +29,8 @@ Page {
 
     into header Header {
         id: header
+
         title: "Gradients"
-        page: parent
         codeUrl: __filename
     }
 

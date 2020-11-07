@@ -33,9 +33,9 @@ Page {
 
     into header Header {
         id: header
+
         title: "Icon Gallery"
         subtitle: page.loadingIcons ? "" : iconsModel.size + " icons"
-        page: parent
         codeUrl: __filename
     }
 
@@ -82,10 +82,7 @@ Page {
         height: documentRoot.windowHeight - bbox.y
         //contentHeight
 
-        windowY: -1000
-        windowHeight: height + 2000
-        //windowY: documentRoot.contentY - 1000
-        //windowHeight: documentRoot.windowHeight + 2000
+        cacheMargin: bbox.height
 
         //contentYTransition: NumberAnimation { duration: 100; easing: "Linear" }
 
@@ -120,6 +117,7 @@ Page {
                     fontSize: theme.fontSizeSmall
                     overflowBehavior: "ellipsis"
                     horizontalAlignment: "center"
+                    literal: true
                     text: item.modelData.value.icon
                 }
 
@@ -132,7 +130,7 @@ Page {
         visible: listView.model.size === 0 //page.loadingIcons
         fillHeight: false
         height: documentRoot.windowHeight
-        text: "Loading Icons"
+        text: "[icon:spinner5]"
     }
 
     ScrollIndicator { target: listView; position: "global"; marginTop: header.height }

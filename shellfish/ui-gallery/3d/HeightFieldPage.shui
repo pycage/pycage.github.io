@@ -31,7 +31,6 @@ Page {
         id: header
 
         title: "Height Field"
-        page: parent
         codeUrl: __filename
     }
 

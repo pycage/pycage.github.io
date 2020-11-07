@@ -31,7 +31,6 @@ Page {
         id: header
 
         title: "3D Model"
-        page: parent
         codeUrl: __filename
     }
 
@@ -72,7 +71,7 @@ Page {
 
     Placeholder {
         visible: bunny.status === "loading"
-        text: "Loading"
+        text: "[icon:spinner5]"
     }
 
     Label {

@@ -25,21 +25,29 @@ require "shellfish/ui";
 PageHeader {
     id: header
 
-    property page: null
     property codeUrl: ""
 
     position: "global"
-    marginLeft: page.marginLeft
-    pageStack: page.pageStack
+    marginLeft: thisPage.marginLeft
 
     into first Button {
-        visible: pageStack.pages.length > 1 && page !== pageStack.pages[0]
+        visible: pageStack.pages.length > 1 && thisPage !== pageStack.pages[0]
         icon: "navigate_before"
         width: height
         height: header.height
         flat: true
+
         onClick: {
-            header.pageStack.popPage();
+            pageStack.popPage();
+        }
+
+        shortcutReceiver.onKeyDown: (ev) =>
+        {
+            if (ev.key === "Escape" && visible)
+            {
+                pageStack.popPage();
+                ev.accepted = true;
+            }
         }
     }
 
@@ -50,7 +58,7 @@ PageHeader {
         height: header.height
         flat: true
         onClick: {
-            header.pageStack.pushPage(__dirname + "/SourceCodePage.shui", {
+            pageStack.pushPage(__dirname + "/SourceCodePage.shui", {
                 url: header.codeUrl
             });
         }

@@ -29,9 +29,9 @@ Page {
 
     into header Header {
         id: header
+
         title: "File Selector"
         subtitle: listView.model.size + " items"
-        page: parent
         codeUrl: __filename
     }
 

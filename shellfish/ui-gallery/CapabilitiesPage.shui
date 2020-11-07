@@ -28,8 +28,8 @@ Page {
 
     into header Header {
         id: header
-        title: "Platform Capabilities"
-        page: parent
+
+        title: "Platform Capabilities"        
         codeUrl: __filename
     }
 

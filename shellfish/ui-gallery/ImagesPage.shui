@@ -29,7 +29,6 @@ Page {
     into header Header {
         id: pageHeader
 
-        page: parent
         title: "Images"
         codeUrl: __filename
     }
@@ -85,6 +84,7 @@ Page {
                 position: "free"
                 fillWidth: true
                 fillHeight: true
+                overflowBehavior: "scroll"
 
                 Image {
                     id: image
@@ -106,12 +106,12 @@ Page {
                 color: "white"
                 fontSize: theme.fontSizeLarge
                 text: image.status === "empty" ? "No Image Loaded"
-                                            : image.status === "loading" ? "Loading Image..."
+                                               : image.status === "loading" ? "Loading Image..."
                                                                             : "Error"
             }
 
-            ScrollIndicator { target: scrollBox; orientation: "horizontal" }
-            ScrollIndicator { target: scrollBox; orientation: "vertical" }
+            ScrollIndicator { id: hb; other: vb; target: scrollBox; orientation: "horizontal" }
+            ScrollIndicator { id: vb; other: hb; target: scrollBox; orientation: "vertical" }
         }
 
         Label {

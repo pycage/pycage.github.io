@@ -32,7 +32,6 @@ Page {
 
         title: "Virtual Filesystem"
         subtitle: "/"
-        page: parent
         codeUrl: __filename
     }
 
@@ -313,7 +312,7 @@ Page {
         
         Placeholder {
             visible: ! parent.item
-            text: "Loading"
+            text: "[icon:spinner5]"
         }
     }
 }

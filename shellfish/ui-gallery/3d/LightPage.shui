@@ -31,7 +31,6 @@ Page {
         id: header
 
         title: "Scene with a Light Source"
-        page: parent
         codeUrl: __filename
     }
 

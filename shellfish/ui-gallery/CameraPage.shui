@@ -30,7 +30,6 @@ Page {
     into header Header {
         id: header
 
-        page: parent
         title: "Camera"
         subtitle: "Status: " + cam.status
         codeUrl: __filename
@@ -286,7 +285,7 @@ Page {
                     m21.text, m22.text, m23.text,
                     m31.text, m32.text, m33.text,
                 ];
-                dialog.discard();
+                dialog.parent = null;
             }
         }
     }

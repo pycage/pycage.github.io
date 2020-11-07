@@ -31,7 +31,6 @@ Page {
         id: header
 
         title: "Texturing"
-        page: parent
         codeUrl: __filename
     }
 

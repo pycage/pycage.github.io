@@ -31,7 +31,6 @@ Page {
         id: pageHeader
 
         title: "Labels"
-        page: parent
         codeUrl: __filename
     }
 
@@ -43,7 +42,7 @@ Page {
 
         Label {
             overflowBehavior: "wrap"
-            text: "Labels show text and may have inline [icon:star] icons."
+            text: "Labels show text and may have inline [icon:star] icons and _*simple* **markup**_."
         }
 
         Label {
@@ -96,7 +95,7 @@ Page {
                 id: fontSizeSlider
                 minValue: 3
                 maxValue: 128
-                value: 12
+                value: theme.fontSizeMedium
             }
 
             Label {
@@ -143,21 +142,21 @@ Page {
             rulerObj: labelRuler
             text: "Bold"
 
-            Switch { id: boldSwitch }
+            CheckBox { id: boldSwitch }
         }
 
         Labeled {
             rulerObj: labelRuler
             text: "Italic"
 
-            Switch { id: italicSwitch }
+            CheckBox { id: italicSwitch }
         }
 
         Labeled {
             rulerObj: labelRuler
             text: "Literal"
 
-            Switch { id: literalSwitch }
+            CheckBox { id: literalSwitch }
         }
 
         Labeled {
@@ -196,8 +195,8 @@ Page {
             italic: italicSwitch.checked
             literal: literalSwitch.checked
 
-            text: "[icon:info] This is a rather long text label that you can play with. " +
-                  "Adjust the properties [icon:arrow-up] above and see how it affects the label."
+            text: "[icon:info] This is a rather *long* text label that you can play with. " +
+                  "Adjust the _properties_ [icon:arrow-up] above and see **how it affects** the label."
         }
     }
 
@@ -215,7 +214,7 @@ Page {
         
         Placeholder {
             visible: ! parent.item
-            text: "Loading"
+            text: "[icon:spinner5]"
         }
     }
 }

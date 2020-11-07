@@ -31,7 +31,6 @@ Page {
         id: pageHeader
 
         title: "Themes"
-        page: parent
         codeUrl: __filename
     }
 

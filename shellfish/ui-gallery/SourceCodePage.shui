@@ -63,7 +63,7 @@ Page {
 
     Header {
         id: pageHeader
-        page: parent
+        
         title: "Source Code"
         subtitle: url
     }

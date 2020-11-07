@@ -31,9 +31,9 @@ Page {
 
         into header Header {
             id: header
+            
             title: "Example Page"
             subtitle: "A simple page"
-            page: parent
         }
 
         Box {
@@ -64,7 +64,7 @@ Page {
 
         into header Header {
             id: header
-            page: parent
+            
             title: "A Scrollable Page"
             subtitle: "Click or tap on screen to hide header."
         }
@@ -77,7 +77,7 @@ Page {
             horizontalAlignment: "center"
             verticalAlignment: "center"
             fontSize: theme.fontSizeLarge
-            text: "Loading"
+            text: "[icon:spinner5]"
         }
 
         MouseBox {
@@ -92,7 +92,7 @@ Page {
 
     into header Header {
         id: pageHeader
-        page: parent
+        
         title: "Pages"
         codeUrl: __filename
     }

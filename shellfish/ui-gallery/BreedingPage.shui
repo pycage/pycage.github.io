@@ -41,7 +41,6 @@ Page {
     into header Header {
         id: header
         
-        page: parent
         title: "Rabbit Breeding"
         subtitle: "Generation: " + page.generation + ", " + rabbitGrid.count + " rabbits"
         codeUrl: __filename
@@ -74,8 +73,7 @@ Page {
             cellHeight: page.viewMode === 0 ? theme.itemHeightLarge
                                             : cellWidth
 
-            windowY: -500
-            windowHeight: bbox.height + 1000
+            cacheMargin: 500
 
             model: fib.fib(page.generation + 2)
 
@@ -185,7 +183,7 @@ Page {
                     marginLeft: theme.paddingSmall
                     marginRight: theme.paddingSmall / 2
 
-                    text: "Next Generation"
+                    text: "&Next Generation"
 
                     onClick: {
                         ++page.generation;
@@ -199,7 +197,7 @@ Page {
                     marginLeft: theme.paddingSmall / 2
                     marginRight: theme.paddingSmall
 
-                    text: "Cull"
+                    text: "&Cull"
 
                     onClick: {
                         page.generation = 1;

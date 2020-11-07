@@ -32,7 +32,7 @@ Page {
 
         title: "Clones"
         subtitle: "load once, re-use often"
-        page: parent
+        
         codeUrl: __filename
     }
 
@@ -89,7 +89,7 @@ Page {
 
     Placeholder {
         visible: bunny.entity.status === "loading"
-        text: "Loading"
+        text: "[icon:spinner5]"
     }
 
     Label {

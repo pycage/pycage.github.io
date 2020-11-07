@@ -31,7 +31,6 @@ Page {
         id: pageHeader
 
         title: "Layout"
-        page: parent
         codeUrl: __filename
     }
 
@@ -128,7 +127,7 @@ Page {
             SelectionBox {
                 id: overflowBehaviorSelector
 
-                model: ListModel { data: ["none", "wrap"] }
+                model: ListModel { data: ["none", "wrap", "scroll"] }
             }
         }
 
@@ -147,6 +146,7 @@ Page {
             borderWidth: 1
             layout: layoutSelector.text
             overflowBehavior: overflowBehaviorSelector.text
+            scrollbars: true
 
             Box {
                 width: theme.itemWidthLarge
@@ -391,7 +391,7 @@ Page {
         
         Placeholder {
             visible: ! parent.item
-            text: "Loading"
+            text: "[icon:spinner5]"
         }
     }
 }

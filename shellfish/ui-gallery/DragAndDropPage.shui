@@ -28,9 +28,9 @@ Page {
 
     into header Header {
         id: header
+
         title: "Drag and Drop"
         subtitle: listView.model.size + " items"
-        page: parent
         codeUrl: __filename
     }
 
@@ -271,7 +271,7 @@ Page {
 
         into buttons Button {
             text: "Close"
-            onClick: () => { dialog.discard(); }
+            onClick: () => { dialog.parent = null; }
         }
 
         Image {

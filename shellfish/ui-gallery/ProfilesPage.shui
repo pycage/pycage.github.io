@@ -31,7 +31,6 @@ Page {
         id: header
 
         title: "Profiles"
-        page: parent
         codeUrl: __filename
     }
 
@@ -192,7 +191,7 @@ Page {
         
         Placeholder {
             visible: ! parent.item
-            text: "Loading"
+            text: "[icon:spinner5]"
         }
     }
 }
