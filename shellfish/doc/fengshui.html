@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Index</title>
+    <title>Namespace: fengshui</title>
     
     
     
@@ -6254,56 +6254,616 @@
 </div>
 
     <div class="main">
-        <h1 class="page-title" data-filename="index.html">Index</h1>
+        <h1 class="page-title" data-filename="fengshui.html">Namespace: fengshui</h1>
         
 
 
+
+<section>
+    
+<header>
+    <div class="header content-size">
+        <h2>fengshui
+        </h2>
+        
+    </div>
+</header>  
+
+<article class="content-size">
+    
+        <div class="container-overview">
+        
+
+        
+            
+                <div class="description"><p>Feng Shui is the code processor for translating code written in Shui
+to JavaScript code, either at runtime when loading the code, or at build
+time. This module is compatible with Node.js for translating code on the
+server-side and may either be imported as a module, or executed as a
+stand-alone command line tool via node.</p>
+<p>This module is usually not used directly by client-side code.</p></div>
+            
+
+            
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+
+            
+                <h3>Examples</h3>
+                
+        <p class="code-caption">Using Feng Shui with Node.js on the server</p>
+    
+
+    
+    <pre class="prettyprint"><code>const fengshui = require("./shellfish/fengshui.js");
+const js = fengshui.compile("internal.shui", 'Label { text: "Hello!" }');</code></pre>
+    
+
+        <p class="code-caption">Running as a command line tool with Node.js (this example writes MyFile.shui.js)</p>
+    
+
+    
+    <pre class="prettyprint"><code>> node fengshui.js MyFile.shui</code></pre>
+    
+
+        <p class="code-caption">Importing in client-side JavaScript</p>
+    
+
+    
+    <pre class="prettyprint"><code>shRequire("shellfish/fengshui", fengshui =>
+{
+    ...
+});</code></pre>
+    
+
+        <p class="code-caption">Importing in Shui</p>
+    
+
+    
+    <pre class="prettyprint"><code>require "shellfish/fengshui" as fengshui;
+
+Object {
+    ...
+}</code></pre>
+    
+
+            
+        
+        </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl class="list-methods">
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".compile">
+            <a class="share-icon" href="#.compile"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                fengshui.compile
+            </span>
+            <span class="signature">(url, data)</span><span class="type-signature">string</span>
+            
+            <span class="access-signature">static</span>
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Compiles a Shui document to JavaScript code.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The URL the module came from. The document is only
+compiled if the URL ends with <code>.shui</code>. Otherwise, <code>data</code> will be returned
+as is.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The Shui document.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
     
 
 
-    <h3> </h3>
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            <td class="description last">JavaScript code.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".load">
+            <a class="share-icon" href="#.load"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                fengshui.load
+            </span>
+            <span class="signature">(url, parent, rslv, callback)</span>
+            
+            <span class="access-signature">static</span>
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Loads a Shui module from URL and invokes a callback with the loaded
+module. The module exports a <code>create()</code> function that will create the
+element tree.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
 
 
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The URL of the document.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>parent</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
 
 
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>Unused. Simply pass <code>null</code> for now.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>rslv</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
 
 
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>A function for resolving element IDs.
+If called inside a Shui document, the internal
+function <code>__rslv__</code> is the right function to use.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
 
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The callback that will be invoked after the module was loaded.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
 
     
 
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
 
+    
+    <pre class="prettyprint"><code>fengshui.load("MyElement.shui", null, __rslv__, (module) =>
+{
+    const element = module.create();
+    documentRoot.add(element);
+});</code></pre>
+    
 
+    
+</dd>
 
-    <section>
-        <article class="readme content-size"><h1>Shellfish</h1>
-<h2>Introduction</h2>
-<p>Shellfish is a <strong>declarative toolkit library</strong> for creating HTML5 user
-interfaces.
-The runtime has <strong>no additional dependencies</strong> and works on any browser or HTML5
-runtime environment (such as e.g. Electron or Capacitor) that supports
-modern ECMAScript, which pretty much every recent browser out there does.</p>
-<p>It also features Shui, a <strong>UI modeling language</strong> taking full advantage
-of Shellfish's declarative nature, loosely inspired by QML. If you are into
-QML, you will quickly feel at home with Shui.</p>
-<p>This is what the obligatory &quot;Hello, world!&quot; example could look like in Shui code:</p>
-<pre class="prettyprint source"><code>require &quot;shellfish/ui&quot;;
+        </dl>
+    
+    
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+        
+        <dl class="list-definitions">
+                
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".Container">
+            <a class="share-icon" href="#.Container"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">fengshui.Container</span>
+            
+            
+            
+            
+            
+        </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>A container element for holding other elements. Shui components may provide
+several containers for putting child elements into. For instance, a dialog
+window could provide a container for the main content, and another container
+for holding the dialog buttons.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
 
-Document {
+    
+    
+</dd>
 
-    title: &quot;Hello, world of declarative UI programming!&quot;
+            
+                
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".Template">
+            <a class="share-icon" href="#.Template"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">fengshui.Template</span>
+            
+            
+            
+            
+            
+        </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>A template function returning a tree of <a href="high.Element.html">elements</a>.
+Templates are used in Shui code for declaring components that will be created
+dynamically, such as list delegates.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
 
-    Label {
-        text: parent.title
-    }
+    
+    
+</dd>
 
-}
-</code></pre>
-<p>Shui code is translated to JavaScript code before execution. This can either
-be done on the fly as the code gets loaded, or by the web server on demand,
-or even by shipping only pre-translated code. It's your choice.</p></article>
-    </section>
+            </dl>
+    
+    
+    
 
+    
+</article>
+
+</section>  
 
 
 

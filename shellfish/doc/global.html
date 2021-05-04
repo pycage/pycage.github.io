@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Index</title>
+    <title>Global</title>
     
     
     
@@ -6254,56 +6254,341 @@
 </div>
 
     <div class="main">
-        <h1 class="page-title" data-filename="index.html">Index</h1>
+        <h1 class="page-title" data-filename="global.html">Global</h1>
         
 
 
+
+<section>
     
+<header>
+    <div class="header content-size">
+        <h2>Global
+        </h2>
+        
+    </div>
+</header>  
+
+<article class="content-size">
+    
+        <div class="container-overview">
+        
+
+        
+            
+
+            
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
 
 
-    <h3> </h3>
-
-
-
-
-
-
-
+            
+        
+        </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl class="list-methods">
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="shRequire">
+            <a class="share-icon" href="#shRequire"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                shRequire
+            </span>
+            <span class="signature">(modules, callback, <span class="optional">transformer</span>)</span>
+            
+            
+            
+            
+        </h4>
+    
+        
+    </div>
 
     
-
-
-
-
-    <section>
-        <article class="readme content-size"><h1>Shellfish</h1>
-<h2>Introduction</h2>
-<p>Shellfish is a <strong>declarative toolkit library</strong> for creating HTML5 user
-interfaces.
-The runtime has <strong>no additional dependencies</strong> and works on any browser or HTML5
-runtime environment (such as e.g. Electron or Capacitor) that supports
-modern ECMAScript, which pretty much every recent browser out there does.</p>
-<p>It also features Shui, a <strong>UI modeling language</strong> taking full advantage
-of Shellfish's declarative nature, loosely inspired by QML. If you are into
-QML, you will quickly feel at home with Shui.</p>
-<p>This is what the obligatory &quot;Hello, world!&quot; example could look like in Shui code:</p>
-<pre class="prettyprint source"><code>require &quot;shellfish/ui&quot;;
-
-Document {
-
-    title: &quot;Hello, world of declarative UI programming!&quot;
-
-    Label {
-        text: parent.title
-    }
-
-}
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Loads the given modules asynchronously and invokes a callback afterwards.</p>
+<p>This function takes a number of Shellfish modules and loads them in the
+background. When all modules have been loaded, a callback function is invoked
+with all module objects.</p>
+<h4>Example:</h4>
+<pre><code>shRequire([&quot;a.js&quot;, &quot;b.js&quot;, &quot;c.js&quot;], (a, b, c) =&gt;
+{
+    // do something with the modules
+    a.foo();
+});
 </code></pre>
-<p>Shui code is translated to JavaScript code before execution. This can either
-be done on the fly as the code gets loaded, or by the web server on demand,
-or even by shipping only pre-translated code. It's your choice.</p></article>
-    </section>
+<p>Modules cannot pollute the global namespace and the modules are only visible
+inside the callback function.</p>
+<p>A module file looks like a normal JavaScript file, but everything that shall
+accessible from outside is assigned to the <code>exports</code> object.</p>
+<h4>Example:</h4>
+<pre><code>exports.foo = function ()
+{
+    console.log(&quot;foo&quot;);
+};
+</code></pre>
+<p>Modules in turn may load other modules with <code>shRequire</code>.</p>
+<p>The special member <code>exports.__id</code> may be used to register a module ID for
+later reference.</p>
+<pre><code>exports.__id = &quot;mymodule&quot;;
+</code></pre>
+<p>For instance, it is easier to write</p>
+<pre><code>shRequire([&quot;shellfish/mid&quot;], (mid) =&gt;
+{
 
+});
+</code></pre>
+<p>than it is to write something like</p>
+<pre><code>shRequire([&quot;../../shellfish/core/mid.js&quot;], (mid) =&gt;
+{
+
+});
+</code></pre>
+<p>The special constant <code>__dirname</code> is available inside a module and points to
+the path of the directory where the module is located. This can,
+for instance, be used to load modules relative to the current module.</p>
+<pre><code>shRequire([__dirname + &quot;/otherModule.js&quot;], (other) =&gt;
+{
+
+});
+</code></pre>
+<p>If a transformer function is specified, the module URL and the module data is
+passed to this function and the returned code will be executed.
+This mechanism is used by the Feng Shui processor to directly load Shui files
+as modules.</p>
+<p>The following constants are defined inside modules:</p>
+<h4><code>__dirname</code></h4>
+<p>The name of the directory where the module file is located.</p>
+<h4><code>__filename</code></h4>
+<p>The path of the module file.</p>
+<h1>Accessing resources in bundles</h1>
+<p>The function <code>shRequire.resource</code> takes a file URL and returns the
+corresponding resource URL for loading the resource from a bundle.
+If the file URL is not found in one of the loaded bundles, the URL is
+returned as is.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>modules</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                <p>The modules to load.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                <p>The callback to invoke after loading.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>transformer</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>An optional function for transforming module data.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        </dl>
+    
+    
+    
+    
+    
+
+    
+</article>
+
+</section>  
 
 
 

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Index</title>
+    <title>Class: FetchManager</title>
     
     
     
@@ -6254,56 +6254,576 @@
 </div>
 
     <div class="main">
-        <h1 class="page-title" data-filename="index.html">Index</h1>
+        <h1 class="page-title" data-filename="low.FetchManager.html">Class: FetchManager</h1>
         
 
 
+
+<section>
+    
+<header>
+    <div class="header content-size">
+        <h2><span class="ancestors"><a href="low.html">low</a>.</span>FetchManager
+        </h2>
+        
+            <div class="class-description"><p>Class for managing fetch requests.</p>
+<p>Some platforms may bail out if a <code>fetch</code> operation is taking too long, which
+can easily happen if there are requests waiting for their turn in the network
+queue.</p>
+<p>The <code>FetchManager</code> stores waiting requests in an internal queue to keep the
+network queue clear of waiting requests in order to prevent certain platforms
+from bailing out.</p>
+<p>It also allows you to abort all pending requests at once on platforms
+providing the AbortController API.</p></div>
+        
+    </div>
+</header>  
+
+<article class="content-size">
+    
+        <div class="container-overview">
+        
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="FetchManager">
+            <a class="share-icon" href="#FetchManager"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                new low.FetchManager
+            </span>
+            <span class="signature">(<span class="optional">concurrencyLimit</span>)</span>
+            
+            
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
     
 
+    
+    
+    
+    
+    
+        
 
-    <h3> </h3>
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>concurrencyLimit</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
 
 
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    4
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>The maximum amount of simultaneous fetch requests.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
 
-
-
-
-
+    
+    
 
     
 
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+        </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl class="list-methods">
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="abort">
+            <a class="share-icon" href="#abort"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                abort
+            </span>
+            <span class="signature">()</span>
+            
+            
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Aborts all ongoing and queued fetch requests issued by this <code>FetchManager</code>.</p>
+<p>Ongoing requests are only abortable if the environment supports the
+HTML5 AbortController API.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="fetch">
+            <a class="share-icon" href="#fetch"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                fetch
+            </span>
+            <span class="signature">(url, <span class="optional">options</span>)</span>
+            
+            
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Fetches data from the given URL.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
 
 
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                <p>The URL from where to fetch from.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
 
-    <section>
-        <article class="readme content-size"><h1>Shellfish</h1>
-<h2>Introduction</h2>
-<p>Shellfish is a <strong>declarative toolkit library</strong> for creating HTML5 user
-interfaces.
-The runtime has <strong>no additional dependencies</strong> and works on any browser or HTML5
-runtime environment (such as e.g. Electron or Capacitor) that supports
-modern ECMAScript, which pretty much every recent browser out there does.</p>
-<p>It also features Shui, a <strong>UI modeling language</strong> taking full advantage
-of Shellfish's declarative nature, loosely inspired by QML. If you are into
-QML, you will quickly feel at home with Shui.</p>
-<p>This is what the obligatory &quot;Hello, world!&quot; example could look like in Shui code:</p>
-<pre class="prettyprint source"><code>require &quot;shellfish/ui&quot;;
 
-Document {
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>Optional options to the HTML5 <code>fetch</code> command.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
 
-    title: &quot;Hello, world of declarative UI programming!&quot;
+    
+    
 
-    Label {
-        text: parent.title
-    }
+    
 
-}
-</code></pre>
-<p>Shui code is translated to JavaScript code before execution. This can either
-be done on the fly as the code gets loaded, or by the web server on demand,
-or even by shipping only pre-translated code. It's your choice.</p></article>
-    </section>
+    
+    
+    
+    
+    
+    
+    
+</dd>
 
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="fetchPriorized">
+            <a class="share-icon" href="#fetchPriorized"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                fetchPriorized
+            </span>
+            <span class="signature">(url, <span class="optional">options</span>)</span>
+            
+            
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Fetches data from the given URL. The difference to low.FetchManager.fetch
+is that the fetch operation is handled priorized by being prepended to
+the front of the fetch queue.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                <p>The URL from where to fetch from.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>Optional options to the HTML5 <code>fetch</code> command.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        </dl>
+    
+    
+    
+    
+    
+
+    
+</article>
+
+</section>  
 
 
 

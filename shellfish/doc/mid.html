@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Index</title>
+    <title>Namespace: mid</title>
     
     
     
@@ -6254,56 +6254,834 @@
 </div>
 
     <div class="main">
-        <h1 class="page-title" data-filename="index.html">Index</h1>
+        <h1 class="page-title" data-filename="mid.html">Namespace: mid</h1>
         
 
 
+
+<section>
+    
+<header>
+    <div class="header content-size">
+        <h2>mid
+        </h2>
+        
+    </div>
+</header>  
+
+<article class="content-size">
+    
+        <div class="container-overview">
+        
+
+        
+            
+                <div class="description"><p>This module provides the mid-level Shellfish API.</p>
+<p>This is an object-oriented API with classes for UI elements but
+also for abstract objects that have no UI representation (e.g. <a href="mid.Timer.html">Timer</a>).</p>
+<p>New abstract objects may be created by deriving from the <a href="mid.Object.html">Object class</a>.</p>
+<p>New UI elements may be created by deriving from the <a href="mid.Item.html">Item class</a>.</p>
+<p>This module is available by default in Shui code as <code>mid</code> and does not have to be
+imported explicitly. The classes listed here are directly available to Shui code.</p></div>
+            
+
+            
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+
+            
+                <h3>Examples</h3>
+                
+        <p class="code-caption">Importing in JavaScript</p>
+    
+
+    
+    <pre class="prettyprint"><code>shRequire("shellfish/mid", mid =>
+{
+    const myLabel = new mid.Label();
+    myLabel.color = myLabel.rgb(0, 0, 1);
+    myLabel.text = "Some text goes here";
+});</code></pre>
+    
+
+        <p class="code-caption">Instantiating and parameterizing a class in Shui code</p>
+    
+
+    
+    <pre class="prettyprint"><code>Label {
+    color: rgb(0, 0, 1)
+    text: "Some text goes here"
+}</code></pre>
+    
+
+            
+        
+        </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Classes</h3>
+        
+        <dl class="clearfix summary-list list-classes">
+            <dt class=""><a href="mid.Animation.html">Animation</a></dt>
+            
+        
+            <dt class=""><a href="mid.Box.html">Box</a></dt>
+            
+        
+            <dt class=""><a href="mid.CameraView.html">CameraView</a></dt>
+            
+        
+            <dt class=""><a href="mid.Canvas.html">Canvas</a></dt>
+            
+        
+            <dt class=""><a href="mid.Capabilities.html">Capabilities</a></dt>
+            
+        
+            <dt class=""><a href="mid.Console.html">Console</a></dt>
+            
+        
+            <dt class=""><a href="mid.DavFS.html">DavFS</a></dt>
+            
+        
+            <dt class=""><a href="mid.Document.html">Document</a></dt>
+            
+        
+            <dt class=""><a href="mid.Draggable.html">Draggable</a></dt>
+            
+        
+            <dt class=""><a href="mid.DropArea.html">DropArea</a></dt>
+            
+        
+            <dt class=""><a href="mid.FileSelector.html">FileSelector</a></dt>
+            
+        
+            <dt class=""><a href="mid.Filesystem.html">Filesystem</a></dt>
+            
+        
+            <dt class=""><a href="mid.FpsMeter.html">FpsMeter</a></dt>
+            
+        
+            <dt class=""><a href="mid.FrameTimer.html">FrameTimer</a></dt>
+            
+        
+            <dt class=""><a href="mid.Gamepad.html">Gamepad</a></dt>
+            
+        
+            <dt class=""><a href="mid.GamepadModel.html">GamepadModel</a></dt>
+            
+        
+            <dt class=""><a href="mid.GradientStop.html">GradientStop</a></dt>
+            
+        
+            <dt class=""><a href="mid.Image.html">Image</a></dt>
+            
+        
+            <dt class=""><a href="mid.Item.html">Item</a></dt>
+            
+        
+            <dt class=""><a href="mid.Label.html">Label</a></dt>
+            
+        
+            <dt class=""><a href="mid.LinearGradient.html">LinearGradient</a></dt>
+            
+        
+            <dt class=""><a href="mid.ListModel.html">ListModel</a></dt>
+            
+        
+            <dt class=""><a href="mid.ListView.html">ListView</a></dt>
+            
+        
+            <dt class=""><a href="mid.MouseBox.html">MouseBox</a></dt>
+            
+        
+            <dt class=""><a href="mid.NumberAnimation.html">NumberAnimation</a></dt>
+            
+        
+            <dt class=""><a href="mid.Object.html">Object</a></dt>
+            
+        
+            <dt class=""><a href="mid.OfflineFS.html">OfflineFS</a></dt>
+            
+        
+            <dt class=""><a href="mid.ParallelAnimation.html">ParallelAnimation</a></dt>
+            
+        
+            <dt class=""><a href="mid.Repeater.html">Repeater</a></dt>
+            
+        
+            <dt class=""><a href="mid.Ruler.html">Ruler</a></dt>
+            
+        
+            <dt class=""><a href="mid.ScriptAction.html">ScriptAction</a></dt>
+            
+        
+            <dt class=""><a href="mid.SequentialAnimation.html">SequentialAnimation</a></dt>
+            
+        
+            <dt class=""><a href="mid.TextArea.html">TextArea</a></dt>
+            
+        
+            <dt class=""><a href="mid.TextInput.html">TextInput</a></dt>
+            
+        
+            <dt class=""><a href="mid.ThreadPool.html">ThreadPool</a></dt>
+            
+        
+            <dt class=""><a href="mid.TileMap.html">TileMap</a></dt>
+            
+        
+            <dt class=""><a href="mid.TileSet.html">TileSet</a></dt>
+            
+        
+            <dt class=""><a href="mid.Timer.html">Timer</a></dt>
+            
+        
+            <dt class=""><a href="mid.Video.html">Video</a></dt>
+            
+        
+            <dt class=""><a href="mid.WaitAction.html">WaitAction</a></dt>
+            
+        
+            <dt class=""><a href="mid.Wasm.html">Wasm</a></dt>
+            
+        
+            <dt class=""><a href="mid.WebSocket.html">WebSocket</a></dt>
+            
+        </dl>
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl class="list-methods">
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".dirname">
+            <a class="share-icon" href="#.dirname"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                mid.dirname
+            </span>
+            <span class="signature">(path)</span><span class="type-signature">string</span>
+            
+            <span class="access-signature">static</span>
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Returns the directory part of the given path.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The path.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
     
 
 
-    <h3> </h3>
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            <td class="description last">The directory part of the path.</td>
+        </tr>
+    
+    </tbody>
+</table>
 
+    
+    
+    
+</dd>
 
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".dumpStatus">
+            <a class="share-icon" href="#.dumpStatus"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                mid.dumpStatus
+            </span>
+            <span class="signature">()</span><span class="type-signature">Object</span>
+            
+            <span class="access-signature">static</span>
+            
+            
+        </h4>
+    
+        
+    </div>
 
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Creates a dump of the current status for debugging purposes.</p>
+<p>This is a very expensive operation giving you details about the objects,
+their relations, reference counts, and lifecycle status.</p>
+<p>The dump must only be used for debugging purposes as its format may be
+subject to change.</p>
+    </div>
+    
 
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
 
-
-
+    
+    
 
     
 
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
 
 
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            <td class="description last">The dump.</td>
+        </tr>
+    
+    </tbody>
+</table>
 
-    <section>
-        <article class="readme content-size"><h1>Shellfish</h1>
-<h2>Introduction</h2>
-<p>Shellfish is a <strong>declarative toolkit library</strong> for creating HTML5 user
-interfaces.
-The runtime has <strong>no additional dependencies</strong> and works on any browser or HTML5
-runtime environment (such as e.g. Electron or Capacitor) that supports
-modern ECMAScript, which pretty much every recent browser out there does.</p>
-<p>It also features Shui, a <strong>UI modeling language</strong> taking full advantage
-of Shellfish's declarative nature, loosely inspired by QML. If you are into
-QML, you will quickly feel at home with Shui.</p>
-<p>This is what the obligatory &quot;Hello, world!&quot; example could look like in Shui code:</p>
-<pre class="prettyprint source"><code>require &quot;shellfish/ui&quot;;
+    
+    
+    
+        <h5>Examples</h5>
+        
+        <p class="code-caption">Dumping to the console (some browsers allow you to navigate it as a tree)</p>
+    
 
-Document {
+    
+    <pre class="prettyprint"><code>console.log(mid.dumpStatus());</code></pre>
+    
 
-    title: &quot;Hello, world of declarative UI programming!&quot;
+        <p class="code-caption">Dump as string (Warning: the output could become very long!)</p>
+    
 
-    Label {
-        text: parent.title
+    
+    <pre class="prettyprint"><code>console.log(JSON.stringify(mid.dumpStatus()));</code></pre>
+    
+
+        <p class="code-caption">Setup dumping on pressing Ctrl+D in a Shui document</p>
+    
+
+    
+    <pre class="prettyprint"><code>Document {
+    onKeyDown: (ev) =>
+    {
+        if (ev.key === "d" && ev.ctrlKey)
+        {
+            console.log(mid.dumpStatus());
+            ev.accepted = true;  // this key-press was handled and should not bubble up further
+        }
     }
+}</code></pre>
+    
 
-}
-</code></pre>
-<p>Shui code is translated to JavaScript code before execution. This can either
-be done on the fly as the code gets loaded, or by the web server on demand,
-or even by shipping only pre-translated code. It's your choice.</p></article>
-    </section>
+    
+</dd>
 
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".normalizePath">
+            <a class="share-icon" href="#.normalizePath"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                mid.normalizePath
+            </span>
+            <span class="signature">(path)</span><span class="type-signature">string</span>
+            
+            <span class="access-signature">static</span>
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Normalizes the given path.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The path to normalize.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            <td class="description last">The normalized path.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".pathJoin">
+            <a class="share-icon" href="#.pathJoin"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                mid.pathJoin
+            </span>
+            <span class="signature">(args)</span><span class="type-signature">string</span>
+            
+            <span class="access-signature">static</span>
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Joins a list of path components.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                        <span class="repeatable">repeatable</span>
+                    
+                
+                <p>The path components.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            <td class="description last"><ul>
+<li>The resulting path.</li>
+</ul></td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        </dl>
+    
+    
+    
+    
+    
+
+    
+</article>
+
+</section>  
 
 
 

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Index</title>
+    <title>Class: DynamicValue</title>
     
     
     
@@ -6254,56 +6254,923 @@
 </div>
 
     <div class="main">
-        <h1 class="page-title" data-filename="index.html">Index</h1>
+        <h1 class="page-title" data-filename="high.DynamicValue.html">Class: DynamicValue</h1>
         
 
 
+
+<section>
+    
+<header>
+    <div class="header content-size">
+        <h2><span class="ancestors"><a href="high.html">high</a>.</span>DynamicValue
+        </h2>
+        
+    </div>
+</header>  
+
+<article class="content-size">
+    
+        <div class="container-overview">
+        
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="DynamicValue">
+            <a class="share-icon" href="#DynamicValue"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                new high.DynamicValue
+            </span>
+            <span class="signature">(v)</span>
+            
+            
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>This constructor is not exported. Use <a href="high.html#.dynamicValue">high.dynamicValue</a> instead
+to create a dynamic value.</p>
+<p>A dynamic value is a variable that may hold any value and watchers
+can subscribe for monitoring changes.</p>
+<p>It may be called like a function and acts as a combined getter/setter
+function this way. Passing a value to the function sets the value,
+while passing no value returns the current value.</p>
+<p>The stored value may also be accessed via the <code>val</code> property.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">any</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The initial value.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+        <h5 class="subsection-title">Properties:</h5>
+        
+        <dl>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>setter</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>The overridable setter function.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>getter</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>The overridable getter function.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>val</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">any</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>Gives access to the stored value.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table></dl>
+        
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Examples</h5>
+        
+
+    
+    <pre class="prettyprint"><code>const dynVal = high.dynamicValue(42);
+console.log(dynVal());  // prints 42
+dynVal(25);             // changes the value to 25 and notifies all watchers.
+console.log(dynVal());  // prints 25</code></pre>
+    
+
+        <p class="code-caption">The stored value may also be accesed via the 'val' property</p>
+    
+
+    
+    <pre class="prettyprint"><code>const dynVal = high.dynamicValue(42);
+console.log(dynVal.val);  // prints 42
+dynVal.val = 25;          // changes the value to 25 and notifies all watchers.
+console.log(dynVal.val);  // prints 25</code></pre>
+    
+
+    
+</dd>
+
+        
+        </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl class="list-methods">
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="unwatched">
+            <a class="share-icon" href="#unwatched"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                unwatched
+            </span>
+            <span class="signature">(callback)</span>
+            
+            
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Registers a callback for when the last watcher was removed, meaning
+that this dynamic value is now completely unwatched.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The callback to invoke.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="update">
+            <a class="share-icon" href="#update"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                update
+            </span>
+            <span class="signature">()</span>
+            
+            
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Notifies all watchers of this dynamic value about a value change.
+This method must be called explicitly after changing a value directly.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="watch">
+            <a class="share-icon" href="#watch"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                watch
+            </span>
+            <span class="signature">(watchCallback)</span><span class="type-signature"><a href="high.DynamicValue.html#.WatchHandle">high.DynamicValue.WatchHandle</a></span>
+            
+            
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Registers a callback for watching this dynamic value for changes
+and returns a watch handle.</p>
+<p>The watch handle has a method <code>unwatch</code> to stop watching the value
+for changes.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>watchCallback</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The callback to invoke on changes.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
     
 
 
-    <h3> </h3>
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="high.DynamicValue.html#.WatchHandle">high.DynamicValue.WatchHandle</a>
+                        
+                    
+            </td>
+            <td class="description last">The watch handle.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+        <h5>Example</h5>
+        
+        <p class="code-caption">Watch for changes</p>
+    
+
+    
+    <pre class="prettyprint"><code>const dynVal = high.dynamicValue(42);
+dynVal.watch(v => console.log("The value changed to " + v.val);
+++(dynval.val);
+dynVal.update();           // prints "The value changed to 43"</code></pre>
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="watched">
+            <a class="share-icon" href="#watched"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                watched
+            </span>
+            <span class="signature">(callback)</span>
+            
+            
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Registers a callback for when the first watcher was added, meaning
+that this dynamic value is now being watched.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
 
 
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The callback to invoke.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
 
-
-
-
-
+    
+    
 
     
 
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        </dl>
+    
+    
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+        
+        <dl class="list-definitions">
+                
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".WatchHandle">
+            <a class="share-icon" href="#.WatchHandle"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">high.DynamicValue.WatchHandle</span>
+            
+            
+            
+            
+            
+        </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>A dynamic value watch handle.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+        <h5 class="subsection-title">Properties:</h5>
+        
+        <dl>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>setEnabled</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
 
 
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>Enables or disables this watcher.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>unwatch</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
 
-    <section>
-        <article class="readme content-size"><h1>Shellfish</h1>
-<h2>Introduction</h2>
-<p>Shellfish is a <strong>declarative toolkit library</strong> for creating HTML5 user
-interfaces.
-The runtime has <strong>no additional dependencies</strong> and works on any browser or HTML5
-runtime environment (such as e.g. Electron or Capacitor) that supports
-modern ECMAScript, which pretty much every recent browser out there does.</p>
-<p>It also features Shui, a <strong>UI modeling language</strong> taking full advantage
-of Shellfish's declarative nature, loosely inspired by QML. If you are into
-QML, you will quickly feel at home with Shui.</p>
-<p>This is what the obligatory &quot;Hello, world!&quot; example could look like in Shui code:</p>
-<pre class="prettyprint source"><code>require &quot;shellfish/ui&quot;;
 
-Document {
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>Stops watching the dynamic value.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
 
-    title: &quot;Hello, world of declarative UI programming!&quot;
 
-    Label {
-        text: parent.title
-    }
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>Returns the current value.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table></dl>
+        
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
 
-}
-</code></pre>
-<p>Shui code is translated to JavaScript code before execution. This can either
-be done on the fly as the code gets loaded, or by the web server on demand,
-or even by shipping only pre-translated code. It's your choice.</p></article>
-    </section>
+    
+    
+</dd>
 
+            </dl>
+    
+    
+    
+
+    
+</article>
+
+</section>  
 
 
 

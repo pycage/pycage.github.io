@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Index</title>
+    <title>Class: Page</title>
     
     
     
@@ -6254,56 +6254,388 @@
 </div>
 
     <div class="main">
-        <h1 class="page-title" data-filename="index.html">Index</h1>
+        <h1 class="page-title" data-filename="ui.Page.html">Class: Page</h1>
         
 
 
+
+<section>
+    
+<header>
+    <div class="header content-size">
+        <h2><span class="ancestors"><a href="ui.html">ui</a>.</span>Page
+        </h2>
+        
+    </div>
+</header>  
+
+<article class="content-size">
+    
+        <div class="container-overview">
+        
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="Page">
+            <a class="share-icon" href="#Page"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                new ui.Page
+            </span>
+            <span class="signature">()</span>
+            
+            
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Element representing a UI page.</p>
+<p>Stacked pages are a good way of structuring mobile applications. As you
+go deeper into the application (e.g. by entering the settings), new pages
+are stacked on top, and when returning, pages are removed from the stack.</p>
+<p>Page stacking is controlled by the <a href="ui.PageStack.html">PageStack</a> element.</p>
+    </div>
     
 
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+        <h5 class="subsection-title">Properties:</h5>
+        
+        <dl>
 
-    <h3> </h3>
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>header</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="fengshui.html#.Container">fengshui.Container</a></span>
 
 
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>A container for displaying a page header.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>thisPage</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="ui.Page.html">ui.Page</a></span>
 
 
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] A reference to this page.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>shortcutReceiver</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="ui.Page.html">ui.Page</a></span>
 
 
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] A reference to this page for receiving shortcuts.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>scrollable</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
 
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>If <code>true</code>, the page is scrollable with dynamic height. Otherweise, the page's height is fixed to the screen.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>pageStack</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="ui.PageStack.html">ui.PageStack</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>The page stack to use.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>currentPage</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] Whether this page is the currently visible page.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>contentTemplate</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="fengshui.html#.Template">fengshui.Template</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>An optional template for creating the page's content dynamically after the page was brought to front.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>loading</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] Whether the page is currently loading.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>frozen</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] Whether the page is currently frozen. All pages on the page stack except for the current page are frozen.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>openingPercentage</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The transitioning opening percentage as a value between <code>0.0</code> and <code>1.0</code>. You may use this value for implementing custom opening animations.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table></dl>
+        
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
 
     
 
+    
+    
+    
+    
+    
+    
+    
+</dd>
 
+        
+        </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
+    
+</article>
 
-    <section>
-        <article class="readme content-size"><h1>Shellfish</h1>
-<h2>Introduction</h2>
-<p>Shellfish is a <strong>declarative toolkit library</strong> for creating HTML5 user
-interfaces.
-The runtime has <strong>no additional dependencies</strong> and works on any browser or HTML5
-runtime environment (such as e.g. Electron or Capacitor) that supports
-modern ECMAScript, which pretty much every recent browser out there does.</p>
-<p>It also features Shui, a <strong>UI modeling language</strong> taking full advantage
-of Shellfish's declarative nature, loosely inspired by QML. If you are into
-QML, you will quickly feel at home with Shui.</p>
-<p>This is what the obligatory &quot;Hello, world!&quot; example could look like in Shui code:</p>
-<pre class="prettyprint source"><code>require &quot;shellfish/ui&quot;;
-
-Document {
-
-    title: &quot;Hello, world of declarative UI programming!&quot;
-
-    Label {
-        text: parent.title
-    }
-
-}
-</code></pre>
-<p>Shui code is translated to JavaScript code before execution. This can either
-be done on the fly as the code gets loaded, or by the web server on demand,
-or even by shipping only pre-translated code. It's your choice.</p></article>
-    </section>
-
+</section>  
 
 
 
@@ -6313,7 +6645,7 @@ or even by shipping only pre-translated code. It's your choice.</p></article>
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Tue May 04 2021 16:01:45 GMT+0200 (GMT+02:00)
+                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Tue May 04 2021 16:01:47 GMT+0200 (GMT+02:00)
             </div>
         </footer>
     </div>

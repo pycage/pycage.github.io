@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Index</title>
+    <title>Namespace: high</title>
     
     
     
@@ -6254,56 +6254,1158 @@
 </div>
 
     <div class="main">
-        <h1 class="page-title" data-filename="index.html">Index</h1>
+        <h1 class="page-title" data-filename="high.html">Namespace: high</h1>
         
 
 
+
+<section>
+    
+<header>
+    <div class="header content-size">
+        <h2>high
+        </h2>
+        
+    </div>
+</header>  
+
+<article class="content-size">
+    
+        <div class="container-overview">
+        
+
+        
+            
+                <div class="description"><p>This module provides a high-level API with tools for declarative programming
+in JavaScript.</p>
+<p>It is used extensively by the code created created by <a href="fengshui.html">Feng Shui</a>
+and is rarely used directly. So unless you are sure that you absolutely need
+to use this module, <strong>you may safely ignore it.</strong></p></div>
+            
+
+            
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+
+            
+                <h3>Example</h3>
+                
+        <p class="code-caption">Import by module ID</p>
+    
+
+    
+    <pre class="prettyprint"><code>shRequire("shellfish/high", high =>
+{
+    ...
+});</code></pre>
+    
+
+            
+        
+        </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Classes</h3>
+        
+        <dl class="clearfix summary-list list-classes">
+            <dt class=""><a href="high.DynamicValue.html">DynamicValue</a></dt>
+            
+        
+            <dt class=""><a href="high.Element.html">Element</a></dt>
+            
+        </dl>
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl class="list-methods">
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".binding">
+            <a class="share-icon" href="#.binding"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                high.binding
+            </span>
+            <span class="signature">(deps, evaluator, <span class="optional">annotation</span>)</span>
+            
+            <span class="access-signature">static</span>
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Creates and returns a <a href="high.DynamicValue.html">dynamic value</a> acting as
+a binding. This means that it is re-evaluated whenever one of its
+dependency dynamic values changes.</p>
+<p>The evaluation function takes the watched dynamic values as parameters
+and acts as the value getter of the binding.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>deps</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="high.DynamicValue.html">high.DynamicValue</a>></span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                <p>The list of dependencies.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>evaluator</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                <p>The evaluation function to invoke.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>annotation</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    ""
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>A user-defined annotation string that may help for debugging.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+
+    
+    <pre class="prettyprint"><code>const b = high.binding([a, b], (aValue, bValue) =>
+{
+    return aValue.val * bValue.val;
+});</code></pre>
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".chainRef">
+            <a class="share-icon" href="#.chainRef"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                high.chainRef
+            </span>
+            <span class="signature">(root, chain, resolver)</span>
+            
+            <span class="access-signature">static</span>
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Creates and returns a <a href="high.DynamicValue.html">dynamic value</a> that
+references a propery of an <a href="high.Element.html">element</a>.
+The element does not have to exist yet at the time of calling this function.</p>
+<p>If the referenced parameter cannot be resolved immediately, resolving is
+retried later when the specified <code>root</code> element gets initialized.</p>
+<p>The <code>chain</code> parameter consists of a list of identifiers that address a
+property. For example, to address the property <code>width</code> of an element
+with ID <code>theBox</code>, the chain would be <code>[&quot;theBox&quot;, &quot;width&quot;]</code>.</p>
+<p>The <code>resolver</code> function is expected to take an element ID string as parameter and
+return the corresponding high-level element, or <code>undefined</code> if it could
+not be resolved yet (because the element has not yet been created).</p>
+<p>A simple resolver might look like</p>
+<pre><code>(id) =&gt; root.find(id);</code></pre>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>root</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="high.Element.html">high.Element</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The root element.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>chain</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The chain that makes up the reference.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>resolver</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>A resolver function.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+
+    
+    <pre class="prettyprint"><code>high.chainRef(root, ["theBox", "width"], (id) =>
+{
+    // do something to lookup the element by ID
+    ...
+    return element;
+});</code></pre>
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".dynamicValue">
+            <a class="share-icon" href="#.dynamicValue"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                high.dynamicValue
+            </span>
+            <span class="signature">(value)</span><span class="type-signature"><a href="high.DynamicValue.html">high.DynamicValue</a></span>
+            
+            <span class="access-signature">static</span>
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Creates and returns a <a href="high.DynamicValue.html">dynamic value</a>.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">any</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The initial value.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="high.DynamicValue.html">high.DynamicValue</a></li>
+        </ul>
+    </dd>
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
     
 
 
-    <h3> </h3>
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="high.DynamicValue.html">high.DynamicValue</a>
+                        
+                    
+            </td>
+            <td class="description last">The dynamic value.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".element">
+            <a class="share-icon" href="#.element"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                high.element
+            </span>
+            <span class="signature">(type)</span><span class="type-signature"><a href="high.Element.html">high.Element</a></span>
+            
+            <span class="access-signature">static</span>
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Creates and returns a high-level <a href="high.Element.html">element</a> wrapping
+the given mid-level type.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
 
 
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The element constructor.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
 
-
-
-
-
+    
+    
 
     
 
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
 
 
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="high.Element.html">high.Element</a>
+                        
+                    
+            </td>
+            <td class="description last">The high-level element.</td>
+        </tr>
+    
+    </tbody>
+</table>
 
-    <section>
-        <article class="readme content-size"><h1>Shellfish</h1>
-<h2>Introduction</h2>
-<p>Shellfish is a <strong>declarative toolkit library</strong> for creating HTML5 user
-interfaces.
-The runtime has <strong>no additional dependencies</strong> and works on any browser or HTML5
-runtime environment (such as e.g. Electron or Capacitor) that supports
-modern ECMAScript, which pretty much every recent browser out there does.</p>
-<p>It also features Shui, a <strong>UI modeling language</strong> taking full advantage
-of Shellfish's declarative nature, loosely inspired by QML. If you are into
-QML, you will quickly feel at home with Shui.</p>
-<p>This is what the obligatory &quot;Hello, world!&quot; example could look like in Shui code:</p>
-<pre class="prettyprint source"><code>require &quot;shellfish/ui&quot;;
+    
+    
+    
+        <h5>Examples</h5>
+        
 
-Document {
+    
+    <pre class="prettyprint"><code>const e = high.element(mid.Box);</code></pre>
+    
 
-    title: &quot;Hello, world of declarative UI programming!&quot;
+        <p class="code-caption">Trees of elements may be created and parameterized by chaining commands</p>
+    
 
-    Label {
-        text: parent.title
-    }
+    
+    <pre class="prettyprint"><code>const tree = high.element(mid.Box).id("theBox")
+             .color("black")
+             .add(
+                 high.element(mid.MouseBox)
+                 .fillWidth(true)
+                 .fillHeight(true)
+                 .marginLeft(12)
+                 .marginRight(12)
+                 .click((ev) =>
+                 {
+                     console.log("clicked the box");
+                 });
+             );</code></pre>
+    
 
-}
-</code></pre>
-<p>Shui code is translated to JavaScript code before execution. This can either
-be done on the fly as the code gets loaded, or by the web server on demand,
-or even by shipping only pre-translated code. It's your choice.</p></article>
-    </section>
+    
+</dd>
 
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".isDynamicValue">
+            <a class="share-icon" href="#.isDynamicValue"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                high.isDynamicValue
+            </span>
+            <span class="signature">(v)</span><span class="type-signature">bool</span>
+            
+            <span class="access-signature">static</span>
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Returns if the given object is a dynamic value.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        bool
+                        
+                    
+            </td>
+            <td class="description last"><code>true</code> if the object is a dynamic value.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".routedElement">
+            <a class="share-icon" href="#.routedElement"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                high.routedElement
+            </span>
+            <span class="signature">(el, routeTo)</span><span class="type-signature"><a href="high.Element.html">high.Element</a></span>
+            
+            <span class="access-signature">static</span>
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Creates a routed element from the given <a href="high.Element.html">element</a>.
+Children added to the routed element are added to the specified
+element instead.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>el</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="high.Element.html">high.Element</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The element that is routed.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>routeTo</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="high.Element.html">high.Element</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The element that is routed to.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="high.Element.html">high.Element</a>
+                        
+                    
+            </td>
+            <td class="description last">The routed element.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        </dl>
+    
+    
+    
+    
+    
+
+    
+</article>
+
+</section>  
 
 
 

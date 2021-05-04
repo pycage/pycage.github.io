@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Index</title>
+    <title>Class: PageStack</title>
     
     
     
@@ -6254,56 +6254,452 @@
 </div>
 
     <div class="main">
-        <h1 class="page-title" data-filename="index.html">Index</h1>
+        <h1 class="page-title" data-filename="ui.PageStack.html">Class: PageStack</h1>
         
 
 
+
+<section>
+    
+<header>
+    <div class="header content-size">
+        <h2><span class="ancestors"><a href="ui.html">ui</a>.</span>PageStack
+        </h2>
+        
+    </div>
+</header>  
+
+<article class="content-size">
+    
+        <div class="container-overview">
+        
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="PageStack">
+            <a class="share-icon" href="#PageStack"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                new ui.PageStack
+            </span>
+            <span class="signature">()</span>
+            
+            
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Element for managing a stack of <a href="ui.Page.html">Page</a> elements.</p>
+<p>Pages are stacked and only the topmost page is active. New pages get added
+to the top of the stack.</p>
+    </div>
     
 
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+        <h5 class="subsection-title">Properties:</h5>
+        
+        <dl>
 
-    <h3> </h3>
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>initialPage</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
 
 
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>The URL to load the initial page from.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>loading</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
 
 
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] <code>true</code> while a page is being loaded.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>pages</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="ui.Page.html">ui.Page</a>></span>
 
 
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The stack of pages.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table></dl>
+        
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
 
+    
+    
 
     
 
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+        </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl class="list-methods">
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="popPage">
+            <a class="share-icon" href="#popPage"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                popPage
+            </span>
+            <span class="signature">()</span>
+            
+            
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Pops the topmost page off the page stack.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="pushPage">
+            <a class="share-icon" href="#pushPage"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                pushPage
+            </span>
+            <span class="signature">(target, props)</span>
+            
+            
+            
+            
+        </h4>
+    
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Pushes a new page onto the page stack.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
 
 
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The URL of the new page.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>props</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
 
-    <section>
-        <article class="readme content-size"><h1>Shellfish</h1>
-<h2>Introduction</h2>
-<p>Shellfish is a <strong>declarative toolkit library</strong> for creating HTML5 user
-interfaces.
-The runtime has <strong>no additional dependencies</strong> and works on any browser or HTML5
-runtime environment (such as e.g. Electron or Capacitor) that supports
-modern ECMAScript, which pretty much every recent browser out there does.</p>
-<p>It also features Shui, a <strong>UI modeling language</strong> taking full advantage
-of Shellfish's declarative nature, loosely inspired by QML. If you are into
-QML, you will quickly feel at home with Shui.</p>
-<p>This is what the obligatory &quot;Hello, world!&quot; example could look like in Shui code:</p>
-<pre class="prettyprint source"><code>require &quot;shellfish/ui&quot;;
 
-Document {
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The properties to set on the page.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
 
-    title: &quot;Hello, world of declarative UI programming!&quot;
+    
+    
 
-    Label {
-        text: parent.title
-    }
+    
 
-}
-</code></pre>
-<p>Shui code is translated to JavaScript code before execution. This can either
-be done on the fly as the code gets loaded, or by the web server on demand,
-or even by shipping only pre-translated code. It's your choice.</p></article>
-    </section>
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
 
+    
+    <pre class="prettyprint"><code>pageStack.pushPage("MyPage.shui", {
+    title: "My Page",
+    foo: "bar"
+});</code></pre>
+    
+
+    
+</dd>
+
+        </dl>
+    
+    
+    
+    
+    
+
+    
+</article>
+
+</section>  
 
 
 
@@ -6313,7 +6709,7 @@ or even by shipping only pre-translated code. It's your choice.</p></article>
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Tue May 04 2021 16:01:45 GMT+0200 (GMT+02:00)
+                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Tue May 04 2021 16:01:47 GMT+0200 (GMT+02:00)
             </div>
         </footer>
     </div>
