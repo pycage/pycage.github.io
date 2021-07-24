@@ -87,7 +87,7 @@ Page {
             Button {
                 profiles: [toolButtonProfile]
                 width: bbox.height
-                icon: "arrow_upward"
+                icon: "ui-arrow_upward"
 
                 onClick: () =>
                 {
@@ -101,7 +101,7 @@ Page {
 
             Button {
                 profiles: [toolButtonProfile]
-                icon: "create_new_folder"
+                icon: "fs-folder_new"
                 //text: "New Directory"
 
                 onClick: () =>
@@ -115,7 +115,7 @@ Page {
 
             Button {
                 profiles: [toolButtonProfile]
-                icon: "note_add"
+                icon: "fs-file_new"
                 //text: "New File"
 
                 onClick: () =>
@@ -134,7 +134,7 @@ Page {
 
             Button {
                 profiles: [toolButtonProfile]
-                icon: "upload"
+                icon: "fs-upload"
                 text: "Upload"
 
                 onClick: {
@@ -163,7 +163,7 @@ Page {
                 profiles: [toolButtonProfile]
                 width: bbox.height
                 checked: filesView.displayMode === 0
-                icon: "list"
+                icon: "ui-view_list"
 
                 onClick: () =>
                 {
@@ -175,7 +175,7 @@ Page {
                 profiles: [toolButtonProfile]
                 width: bbox.height
                 checked: filesView.displayMode === 1
-                icon: "grid_view"
+                icon: "ui-view_grid"
 
                 onClick: () =>
                 {
@@ -259,6 +259,21 @@ Page {
                     }
 
                     opacity: model.loading ? 0 : 1
+
+                    onFileOpen: (item) =>
+                    {
+                        if (item.mimetype.startsWith("image/"))
+                        {
+                            const dlg = imageDialog.create();
+                            dlg.show();
+                            dlg.title = item.name;
+                            drive.read(item.path)
+                            .then((blob) =>
+                            {
+                                dlg.file = blob;
+                            });
+                        }
+                    }
                 }
 
                 Box {
@@ -314,5 +329,35 @@ Page {
             visible: ! parent.item
             text: "[icon:spinner5]"
         }
+    }
+
+    property imageDialog: template Dialog {
+        id: dialog
+
+        property file: null
+
+        into buttons Button {
+            text: "Close"
+            onClick: () => { dialog.parent = null; }
+        }
+
+        Image {
+            id: img
+
+            property maxWidth: documentRoot.windowWidth - 4 * theme.paddingLarge
+            property maxHeight: documentRoot.windowHeight - 8 * theme.paddingLarge
+            property ratio: originalWidth > 0 ? originalHeight / originalWidth
+                                              : 1                       
+            property goForHeight: maxWidth * maxWidth * ratio > (maxHeight / ratio) * maxHeight
+
+            width: status !== "success" ? 100
+                                        : goForHeight ? maxHeight / ratio : maxWidth
+            height: status !== "success" ? 100
+                                         : goForHeight ? maxHeight : maxWidth * ratio
+
+            fitMode: "contain"
+            source: !! dialog.file ? blobUrl(dialog.file) : ""
+        }
+
     }
 }

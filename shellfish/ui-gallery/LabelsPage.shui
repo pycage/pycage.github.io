@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit examples.
-Copyright (c) 2020 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2020 - 2021 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -42,7 +42,7 @@ Page {
 
         Label {
             overflowBehavior: "wrap"
-            text: "Labels show text and may have inline [icon:star] icons and _*simple* **markup**_."
+            text: "Labels show text and may have inline [icon:ui-star] icons and _*simple* **markup**_."
         }
 
         Label {
@@ -195,8 +195,8 @@ Page {
             italic: italicSwitch.checked
             literal: literalSwitch.checked
 
-            text: "[icon:info] This is a rather *long* text label that you can play with. " +
-                  "Adjust the _properties_ [icon:arrow-up] above and see **how it affects** the label."
+            text: "[icon:ui-info] This is a rather *long* text label that you can play with. " +
+                  "Adjust the _properties_ [icon:ui-arrow_upward] above and see **how it affects** the label."
         }
     }
 

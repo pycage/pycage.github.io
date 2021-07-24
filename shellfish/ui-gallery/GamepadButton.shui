@@ -22,46 +22,21 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 require "shellfish/ui";
 
-PageHeader {
-    id: header
+Box {
+    property value: false
+    property text: "B"
 
-    property codeUrl: ""
-
-    position: "global"
-    marginLeft: thisPage.marginLeft
-
-    into first Button {
-        visible: pageStack.pages.length > 1 && thisPage !== pageStack.pages[0]
-        icon: "ui-arrow_left"
-        width: height
-        height: header.height
-        flat: true
-
-        onClick: {
-            pageStack.popPage();
-        }
-
-        shortcutReceiver.onKeyDown: (ev) =>
-        {
-            if (ev.key === "Escape" && visible)
-            {
-                pageStack.popPage();
-                ev.accepted = true;
-            }
-        }
+    color: value ? theme.highlightBackgroundColor
+                 : theme.secondaryBackgroundColor
+    borderColor: theme.borderColor
+    borderWidth: 1
+    borderRadius: bbox.height / 2
+    layout: "center"
+    
+    Label {
+        fontSize: theme.fontSizeSmall
+        color: parent.value ? theme.highlightColor
+                            : theme.primaryColor
+        text: parent.text
     }
-
-    into second Button {
-        visible: header.codeUrl !== ""
-        icon: "fs-file-text"
-        width: height
-        height: header.height
-        flat: true
-        onClick: {
-            pageStack.pushPage(__dirname + "/SourceCodePage.shui", {
-                url: header.codeUrl
-            });
-        }
-    }
-
 }

@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit examples.
-Copyright (c) 2020 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2020 - 2021 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -22,7 +22,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 require "shellfish/ui";
 require "./Header.shui";
-require "./icons.js" as icons;
 
 Page {
     id: page
@@ -50,46 +49,51 @@ Page {
         running: ! page.frozen && iconsModel.size === 0
 
         onTimeout: {
-            window.fetch(__dirname + "/style/icon-map.css")
-            .then((response) =>
-            {
-                return response.text();
-            })
-            .then((css) =>
-            {
-                const map = icons.parseIconMap(css);
-                const keys = Object.keys(map);
+            const m = [];
 
-                const m = [];
-                for (let i = 0; i < keys.length; ++i)
+            const css = document.styleSheets;
+            for (let i = 0; i < css.length; ++i)
+            {
+                const rules = css[i].cssRules;
+                for (let j = 0; j < rules.length; ++j)
                 {
-                    m.push({ icon: keys[i] });
+                    const selector = rules[j].selectorText;
+                    if (! selector)
+                    {
+                        continue;
+                    }
+                    if (selector.startsWith(".sh-icon-"))
+                    {
+                        let name = selector.replace(".sh-icon-", "");
+                        if (name.startsWith("core-"))
+                        {
+                            continue;
+                        }
+                        const pos = name.indexOf("::");
+                        name = name.substr(0, pos);
+                        m.push({ icon: name });
+                    }
                 }
+            }
 
-                iconsModel.reset(m);
-                page.loadingIcons = false;
-            });
+            iconsModel.reset(m);
+            page.loadingIcons = false;
         }
     }
 
     ListView {
         id: listView
 
-
         visible: ! page.loadingIcons
         marginTop: header.height + theme.paddingSmall
         fillWidth: true
         height: documentRoot.windowHeight - bbox.y
-        //contentHeight
 
         cacheMargin: bbox.height
 
-        //contentYTransition: NumberAnimation { duration: 100; easing: "Linear" }
-
         model: iconsModel
         cellWidth: cellHeight
-        //theme.itemWidthLarge
-        cellHeight: theme.itemHeightLarge * 3
+        cellHeight: theme.itemHeightLarge * 4
 
         delegate: template Box {
             id: item
@@ -124,13 +128,6 @@ Page {
             }
 
         }
-    }
-
-    Placeholder {
-        visible: listView.model.size === 0 //page.loadingIcons
-        fillHeight: false
-        height: documentRoot.windowHeight
-        text: "[icon:spinner5]"
     }
 
     ScrollIndicator { target: listView; position: "global"; marginTop: header.height }

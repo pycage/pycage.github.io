@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit examples.
-Copyright (c) 2020 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2020 - 2021 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -91,7 +91,7 @@ Page {
                 enabled: sock.status !== "connecting"
                 marginLeft: theme.paddingMedium
                 marginRight: theme.paddingLarge
-                icon: sock.status === "connected" ? "power_off" : "power"
+                icon: sock.status === "connected" ? "comm-disconnected" : "comm-connected"
                 text: sock.status === "connected" ? "Disconnect" : "Connect"
 
                 onClick: () => {
@@ -160,7 +160,7 @@ Page {
 
             Button {
                 enabled: sock.status === "connected" && messageBox.text !== ""
-                icon: "chat"
+                icon: "comm-chat"
                 text: "Send Message"
 
                 onClick: () =>
@@ -173,7 +173,7 @@ Page {
             Button {
                 enabled: sock.status === "connected"
                 marginLeft: theme.paddingMedium
-                icon: "file_upload"
+                icon: "fs-upload"
                 text: "Send File"
 
                 onClick: () =>
@@ -316,7 +316,7 @@ Page {
 
     Placeholder {
         visible: page.loading
-        text: "[icon:spinner5]"
+        text: "[icon:ui-spinner5]"
     }
 
     property errorDialogT: template Dialog {

@@ -22,46 +22,26 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 require "shellfish/ui";
 
-PageHeader {
-    id: header
+Box {
+    property xValue: 0.0
+    property yValue: 0.0
+    property value: false
 
-    property codeUrl: ""
+    color: theme.secondaryBackgroundColor
+    borderColor: theme.borderColor
+    borderRadius: bbox.width / 2
+    borderWidth: 1
 
-    position: "global"
-    marginLeft: thisPage.marginLeft
+    Box {
+        position: "free"
 
-    into first Button {
-        visible: pageStack.pages.length > 1 && thisPage !== pageStack.pages[0]
-        icon: "ui-arrow_left"
-        width: height
-        height: header.height
-        flat: true
+        x: (parent.bbox.width - bbox.width) / 2 + (width / 3) * Math.max(-1.0, Math.min(1.0, parent.xValue))
+        y: (parent.bbox.height - bbox.height) / 2 + (height / 3) * Math.max(-1.0, Math.min(1.0, parent.yValue))
 
-        onClick: {
-            pageStack.popPage();
-        }
-
-        shortcutReceiver.onKeyDown: (ev) =>
-        {
-            if (ev.key === "Escape" && visible)
-            {
-                pageStack.popPage();
-                ev.accepted = true;
-            }
-        }
+        width: parent.bbox.width / 2
+        height: parent.bbox.height / 2
+        borderRadius: bbox.width / 2
+        color: parent.value ? theme.highlightBackgroundColor
+                            : theme.primaryColor
     }
-
-    into second Button {
-        visible: header.codeUrl !== ""
-        icon: "fs-file-text"
-        width: height
-        height: header.height
-        flat: true
-        onClick: {
-            pageStack.pushPage(__dirname + "/SourceCodePage.shui", {
-                url: header.codeUrl
-            });
-        }
-    }
-
 }

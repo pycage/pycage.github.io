@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit examples.
-Copyright (c) 2020 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2020 - 2021 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -22,6 +22,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 require "shellfish/ui";
 require "shellfish/low" as low;
+
+// preload the icon fonts
+require "../camera-icons.css";
+require "../comm-icons.css";
+require "../emote-icons.css";
+require "../fs-icons.css";
+require "../input-icons.css";
+require "../map-icons.css";
+require "../media-icons.css";
+require "../text-icons.css";
+require "../ui-icons.css";
 
 Document {
 
@@ -67,7 +78,7 @@ Document {
 
         Label {
             fontSize: 64
-            text: "[icon:hour-glass]"
+            text: "[icon:ui-spinner5]"
         }
 
         Box {

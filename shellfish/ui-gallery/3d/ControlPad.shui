@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit examples.
-Copyright (c) 2020 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2020 - 2021 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,12 +31,12 @@ Box {
     overflowBehavior: "wrap"
 
     ControlButton {
-        icon: "undo2"
+        icon: "ui-undo"
         action: () => { target.rotationAngle += 1.5; }
     }
 
     ControlButton {
-        icon: target.mayMoveForward ? "arrow-up" : ""
+        icon: target.mayMoveForward ? "ui-arrow_upward" : ""
         action: () =>
         {
             if (target.mayMoveForward)
@@ -50,12 +50,12 @@ Box {
     }
 
     ControlButton {
-        icon: "redo2"
+        icon: "ui-redo"
         action: () => { target.rotationAngle -= 1.5; }
     }
 
     ControlButton {
-        icon: target.mayMoveLeft ? "arrow-left" : ""
+        icon: target.mayMoveLeft ? "ui-arrow_back" : ""
         action: () =>
         {
             if (target.mayMoveLeft)
@@ -68,7 +68,7 @@ Box {
     }
 
     ControlButton {
-        icon: target.mayMoveBackward ? "arrow-down" : ""
+        icon: target.mayMoveBackward ? "ui-arrow_downward" : ""
         action: () =>
         {
             if (target.mayMoveBackward)
@@ -81,7 +81,7 @@ Box {
     }
 
     ControlButton {
-        icon: target.mayMoveRight ? "arrow-right" : ""
+        icon: target.mayMoveRight ? "ui-arrow_forward" : ""
         action: () =>
         {
             if (target.mayMoveRight)

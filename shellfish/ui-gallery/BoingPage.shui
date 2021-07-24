@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit examples.
-Copyright (c) 2018 - 2020 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2018 - 2021 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -116,25 +116,21 @@ Page {
             y: theme.itemHeightLarge * 2
             overflowBehavior: "wrap"
             color: "black"
-            text: "Click to get hopping! [icon:pets]"
+            text: "Click to get hopping! [icon:emote-pets]"
         }
     }
 
     SequentialAnimation {
         id: animation
 
-        property busy: false
-
         ScriptAction {
             script: {
-                animation.busy = true;
-
-                rabbit.rotation = 0;
+                rabbit.rotationAngle = 0;
                 ouch.opacity = 0;
 
                 infoLabel.text = "Moving rabbit to the wall using:\n\n" +
-                                 " [icon:point-right] x-easing: InCubic\n"+
-                                 " [icon:point-right] y-easing: InBounce";
+                                 " [icon:ui-arrow_right] x-easing: InCubic\n"+
+                                 " [icon:ui-arrow_right] y-easing: InBounce";
             }
         }
 
@@ -173,9 +169,9 @@ Page {
                 ouch.opacity = 1;
 
                 infoLabel.text = "Dropping rabbit to the ground using:\n\n" +
-                                 " [icon:point-right] rotation-easing: Linear\n"+
-                                 " [icon:point-right] x-easing: OutQuad\n" +
-                                 " [icon:point-right] y-easing: InQuad";
+                                 " [icon:ui-arrow_right] rotation-easing: Linear\n"+
+                                 " [icon:ui-arrow_right] x-easing: OutQuad\n" +
+                                 " [icon:ui-arrow_right] y-easing: InQuad";
             }
         }
 
@@ -189,12 +185,12 @@ Page {
 
             NumberAnimation {
                 from: 0
-                to: -180
+                to: 180
                 duration: 800
                 easing: "Linear"
 
                 onNext: {
-                    rabbit.rotation = arguments[0];
+                    rabbit.rotationAngle = arguments[0];
                 }
             }
 
@@ -224,8 +220,8 @@ Page {
         ScriptAction {
             script: {
                 infoLabel.text = "Rolling rabbit back:\n\n" +
-                                 " [icon:point-right] rotation-easing: OutQuad\n" +
-                                 " [icon:point-right] y-easing: OutQuad";
+                                 " [icon:ui-arrow_right] rotation-easing: OutQuad\n" +
+                                 " [icon:ui-arrow_right] y-easing: OutQuad";
             }
         }
 
@@ -255,13 +251,13 @@ Page {
             }
 
             NumberAnimation {
-                from: -180
-                to: -720
+                from: 180
+                to: 720
                 duration: 1200
                 easing: "OutQuad"
 
                 onNext: {
-                    rabbit.rotation = arguments[0];
+                    rabbit.rotationAngle = arguments[0];
                 }
             }
 
@@ -269,8 +265,7 @@ Page {
 
         ScriptAction {
             script: {
-                animation.busy = false;
-                infoLabel.text = "Click to get hopping again! [icon:evil]";
+                infoLabel.text = "Click to get hopping again! [icon:emote-evil]";
             }
         }
     }

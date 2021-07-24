@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit examples.
-Copyright (c) 2020 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2020 - 2021 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -99,10 +99,13 @@ Page {
 
             delegate: template Draggable {
                 id: itemBox
+
+                property highlighted: modelData.index === listView.currentIndex
+
                 layout: "center-row"
 
-                color: modelData.index === listView.currentIndex ? theme.highlightBackgroundColor
-                                                                 : "transparent"
+                color: highlighted ? theme.highlightBackgroundColor
+                                   : "transparent"
 
                 onDragStart: (ev) =>
                 {
@@ -114,18 +117,12 @@ Page {
                 Image {
                     id: thumbnail
 
-                    visible: status === "success"
+                    visible: status === "success" && source !== ""
                     width: bbox.height
                     fillHeight: true
                     fitMode: "cover"
-
-                    onInitialization: {
-                        // show a thumbnail for images
-                        if (parent.modelData.value.type.startsWith("image/"))
-                        {
-                            self.fromFile(parent.modelData.value.obj);
-                        }
-                    }
+                    source: parent.modelData.value.type.startsWith("image/") ? blobUrl(parent.modelData.value.obj)
+                                                                             : ""
                 }
 
                 Label {
@@ -135,6 +132,8 @@ Page {
                     width: parent.bbox.height
                     fontSize: theme.itemHeightLarge
                     horizontalAlignment: "center"
+                    color: itemBox.highlighted ? theme.highlightColor
+                                               : theme.primaryColor
 
                     // you may use an IIFE if you have a more complex binding
                     // expression
@@ -143,23 +142,23 @@ Page {
                         const t = parent.modelData.value.type || "";
                         if (t.startsWith("audio/"))
                         {
-                            return "[icon:file-music]";
+                            return "[icon:fs-file-music]";
                         }
                         else if (t.startsWith("image/"))
                         {
-                            return "[icon:file-picture]";
+                            return "[icon:fs-file-image]";
                         }
                         else if (t.startsWith("text/"))
                         {
-                            return "[icon:file-text2]";
+                            return "[icon:fs-file-text]";
                         }
                         else if (t.startsWith("video/"))
                         {
-                            return "[icon:file-video]";
+                            return "[icon:fs-file-video]";
                         }
                         else
                         {
-                            return "[icon:file-empty]";
+                            return "[icon:fs-file-empty]";
                         }
                     })()
                 }
@@ -173,6 +172,10 @@ Page {
                         bold: true
                         fillWidth: true
                         overflowBehavior: "ellipsis"
+                        literal: true
+                        color: itemBox.highlighted ? theme.highlightColor
+                                                   : theme.primaryColor
+
                         text: itemBox.modelData.value.name
                     }
 
@@ -180,6 +183,8 @@ Page {
                         fillWidth: true
                         marginTop: theme.paddingSmall
                         fontSize: theme.fontSizeSmall
+                        color: itemBox.highlighted ? theme.highlightColor
+                                                   : theme.primaryColor
                         text: itemBox.modelData.value.type
                     }
 
@@ -187,6 +192,8 @@ Page {
                         fillWidth: true
                         marginTop: theme.paddingSmall
                         fontSize: theme.fontSizeSmall
+                        color: itemBox.highlighted ? theme.highlightColor
+                                                   : theme.primaryColor
                         text: itemBox.modelData.value.size + " Bytes"
                     }
                 }
@@ -208,7 +215,7 @@ Page {
                             const dlg = imageDialog.create();
                             dlg.show();
                             dlg.title = itemBox.modelData.value.name;
-                            dlg.fromFile(itemBox.modelData.value.obj);
+                            dlg.file = itemBox.modelData.value.obj;
                         }
                     }
                 }
@@ -263,11 +270,7 @@ Page {
     property imageDialog: template Dialog {
         id: dialog
 
-        property image: img
-        property fromFile: (f) =>
-        {
-            img.fromFile(f);
-        }
+        property file: null
 
         into buttons Button {
             text: "Close"
@@ -288,10 +291,8 @@ Page {
             height: status !== "success" ? 100
                                          : goForHeight ? maxHeight : maxWidth * ratio
 
-            widthTransition: NumberAnimation { duration: 300 }
-            heightTransition: NumberAnimation { duration: 300 }
-
             fitMode: "contain"
+            source: !! dialog.file ? blobUrl(dialog.file) : ""
         }
 
     }

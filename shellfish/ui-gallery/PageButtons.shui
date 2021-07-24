@@ -31,7 +31,7 @@ Box {
 
     fillWidth: true
 
-    layout: "center-row"
+    layout: "row"
     overflowBehavior: "wrap"
 
     Repeater {

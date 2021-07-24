@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit examples.
-Copyright (c) 2020 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2020 - 2021 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -45,18 +45,10 @@ Page {
             Label {
                 overflowBehavior: "wrap"
                 text: "This is a simple page with a header bar. " +
-                      "Push the back button ([icon:navigate_before]) to close " +
-                      "this page and  go back to the previous page."
-            }
-
-            Label {
-                marginTop: theme.paddingMedium
-                overflowBehavior: "wrap"
-                text: "You can also swipe the page to the right to close."
+                      "Pushing the back button ([icon:ui-arrow_left]) closes " +
+                      "this page and takes the user back to the previous page."
             }
         }
-
-
     }
 
     property imagePageT: template Page {
@@ -90,6 +82,121 @@ Page {
         }
     }
 
+    property customPageT: template Page {
+        id: page
+
+        marginTop: (1 - openingPercentage) * height
+        marginLeft: (1 - openingPercentage) * width
+
+        into header Header {
+            id: header
+            
+            marginTop: page.marginTop
+            title: "Example Page"
+        }
+
+        Box {
+            fillWidth: true
+            marginTop: header.height + theme.paddingSmall
+            marginLeft: theme.paddingLarge
+            marginRight: theme.paddingLarge
+            
+            Label {
+                overflowBehavior: "wrap"
+                text: "This page has a custom opening animation." +
+                      "\n\n" +
+                      "By attaching to the property **openingPercentage**, you can " +
+                      "implement any opening animation you like."
+            }
+        }
+    }
+
+    property customPage2T: template Page {
+        id: page
+
+        marginLeft: 0
+        opacity: openingPercentage * 1.0
+
+        into header Header {
+            id: header
+            
+            title: "Example Page"
+        }
+
+        Box {
+            fillWidth: true
+            marginTop: header.height + theme.paddingSmall
+            marginLeft: theme.paddingLarge
+            marginRight: theme.paddingLarge
+            
+            Label {
+                overflowBehavior: "wrap"
+                text: "This page has a custom opening animation." +
+                      "\n\n" +
+                      "By attaching to the property **openingPercentage**, you can " +
+                      "implement any opening animation you like."
+            }
+        }
+    }
+
+    property customPage3T: template Page {
+        id: page
+
+        rotationAxis: vec3(1, 0, 0)
+        rotationAngle: (1 - openingPercentage) * 90
+
+        into header Header {
+            id: header
+
+            marginLeft: page.marginLeft    
+            rotationAxis: page.rotationAxis
+            rotationAngle: page.rotationAngle
+            title: "Example Page"
+        }
+
+        Box {
+            fillWidth: true
+            marginTop: header.height + theme.paddingSmall
+            marginLeft: theme.paddingLarge
+            marginRight: theme.paddingLarge
+            
+            Label {
+                overflowBehavior: "wrap"
+                text: "This page has a custom opening animation." +
+                      "\n\n" +
+                      "By attaching to the property **openingPercentage**, you can " +
+                      "implement any opening animation you like."
+            }
+        }
+    }
+
+    property customPage4T: template Page {
+        id: page
+
+        openingPercentageTransition: null
+
+        into header Header {
+            id: header
+
+            title: "Example Page"
+        }
+
+        Box {
+            fillWidth: true
+            marginTop: header.height + theme.paddingSmall
+            marginLeft: theme.paddingLarge
+            marginRight: theme.paddingLarge
+            
+            Label {
+                overflowBehavior: "wrap"
+                text: "This page has no opening animation." +
+                      "\n\n" +
+                      "By setting the property **openingPercentageTransition** to **null**, " +
+                      "you can disable the opening animation completely."
+            }
+        }
+    }
+
     into header Header {
         id: pageHeader
         
@@ -105,12 +212,16 @@ Page {
         Label {
             fillWidth: true
             overflowBehavior: "wrap"
-            text: "Pages are the prefered way of structuring mobile applications."
+            text: "Pages on a PageStack are the prefered way of structuring " +
+                  "mobile applications hierarchically." +
+                  "\n\n" +
+                  "You can push new Pages on top of the PageStack, or pop off " +
+                  "the topmost Page."
         }
 
         Button {
             marginTop: theme.paddingMedium
-            text: "Show Example Page"
+            text: "Push Page"
             onClick: {
                 page.pageStack.pushPage(page.simplePageT);
             }
@@ -118,16 +229,65 @@ Page {
 
         Label {
             marginTop: theme.paddingLarge
-            text: "And here is a page with scrollable content."
+            text: "This is a page with scrollable content."
         }
 
         Button {
             marginTop: theme.paddingMedium
-            text: "Show Page"
+            text: "Push Page"
             onClick: {
                 page.pageStack.pushPage(page.imagePageT);
             }
         }
+
+        Label {
+            marginTop: theme.paddingLarge
+            text: "These are pages with custom opening animations."
+        }
+
+        Box {
+            layout: "row"
+            overflowBehavior: "wrap"
+            fillWidth: true
+            marginTop: theme.paddingSmall
+
+            Button {
+                marginTop: theme.paddingSmall
+                marginRight: theme.paddingSmall
+                text: "Push Page"
+                onClick: {
+                    page.pageStack.pushPage(page.customPageT);
+                }
+            }
+
+            Button {
+                marginTop: theme.paddingSmall
+                marginRight: theme.paddingSmall
+                text: "Push Page"
+                onClick: {
+                    page.pageStack.pushPage(page.customPage2T);
+                }
+            }
+
+            Button {
+                marginTop: theme.paddingSmall
+                marginRight: theme.paddingSmall
+                text: "Push Page"
+                onClick: {
+                    page.pageStack.pushPage(page.customPage3T);
+                }
+            }
+
+            Button {
+                marginTop: theme.paddingSmall
+                marginRight: theme.paddingSmall
+                text: "Push Page"
+                onClick: {
+                    page.pageStack.pushPage(page.customPage4T);
+                }
+            }
+        }
+
     }
 
 }

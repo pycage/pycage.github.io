@@ -119,7 +119,7 @@ Page {
         function actionAbout()
         {
             showMessageDialog("About",
-                              "pen",
+                              "input-pen",
                               "A quick-and-dirty text editor.\n" +
                               "Example of a menu-driven Shellfish application.",
                               [{ label: "Ok" }]);
@@ -141,16 +141,16 @@ Page {
                 text: "&File"
 
                 menu: template Menu {
-                    MenuItem { icon: "star_outline"; text: "New";  shortcut: "Ctrl+N"; onClick: () => { console.log("NEW"); editor.actionNew(); } }
-                    MenuItem { icon: "folder_open"; text: "Open..."; shortcut: "Ctrl+O"; onClick: () => { editor.actionOpen(); } }
+                    MenuItem { icon: "fs-file_new"; text: "New";  shortcut: "Ctrl+N"; onClick: () => { console.log("NEW"); editor.actionNew(); } }
+                    MenuItem { icon: "fs-folder_open"; text: "Open..."; shortcut: "Ctrl+O"; onClick: () => { editor.actionOpen(); } }
                     MenuItem {
-                        icon: "file_download"
+                        icon: "fs-save"
                         text: "Save"
                         shortcut: "Ctrl+S"
                         onClick: () => { editor.actionSave(); }
                     }
                     MenuSeparator { }
-                    MenuItem { icon: "exit_to_app"; text: "Quit"; onClick: () => { editor.actionQuit(); } }
+                    MenuItem { icon: "ui-exit"; text: "Quit"; onClick: () => { editor.actionQuit(); } }
                 }
             }
 
@@ -158,9 +158,9 @@ Page {
                 text: "&Edit"
 
                 menu: template Menu {
-                    MenuItem { enabled: editorArea.textSelected; icon: "content_cut"; text: "Cut"; shortcut: "Ctrl+X"; onClick: () => { editor.actionCut(); } }
-                    MenuItem { enabled: editorArea.textSelected; icon: "content_copy"; text: "Copy"; shortcut: "Crtl+C"; onClick: () => { editor.actionCopy(); } }
-                    MenuItem { icon: "content_paste"; text: "Paste"; shortcut: "Ctrl+V"; onClick: () => { editor.actionPaste(); } }
+                    MenuItem { enabled: editorArea.textSelected; icon: "ui-content_cut"; text: "Cut"; shortcut: "Ctrl+X"; onClick: () => { editor.actionCut(); } }
+                    MenuItem { enabled: editorArea.textSelected; icon: "ui-content_copy"; text: "Copy"; shortcut: "Crtl+C"; onClick: () => { editor.actionCopy(); } }
+                    MenuItem { icon: "ui-content_paste"; text: "Paste"; shortcut: "Ctrl+V"; onClick: () => { editor.actionPaste(); } }
                 }
             }
 
@@ -247,6 +247,6 @@ Page {
 
     Placeholder {
         visible: page.loading
-        text: "[icon:spinner5]"
+        text: "[icon:ui-spinner5]"
     }
 }

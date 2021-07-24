@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit examples.
-Copyright (c) 2018 - 2020 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2018 - 2021 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -48,7 +48,7 @@ Page {
         into second Button {
             height: header.height
             flat: true
-            icon: page.viewMode === 0 ? "list" : "grid_view"
+            icon: page.viewMode === 0 ? "ui-view_list" : "ui-view_grid"
             text: "View"
 
             onClick: {

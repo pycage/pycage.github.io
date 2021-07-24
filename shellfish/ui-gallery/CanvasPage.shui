@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit examples.
-Copyright (c) 2020 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2020 - 2021 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -56,7 +56,7 @@ Page {
                 flat: true
                 width: bbox.height
                 fillHeight: true
-                icon: "pencil2"
+                icon: "input-pen"
                 checked: page.tool === "pencil"
                 onClick: { page.tool = "pencil"; }
             }
@@ -65,7 +65,7 @@ Page {
                 flat: true
                 width: bbox.height
                 fillHeight: true
-                icon: "quill"
+                icon: "input-quill"
                 checked: page.tool === "quill"
                 onClick: { page.tool = "quill"; }
             }
@@ -84,7 +84,7 @@ Page {
                 flat: true
                 width: bbox.height
                 fillHeight: true
-                icon: "delete"
+                icon: "ui-delete"
 
                 onClick: {
                     const ctx = cnv.context2d;
@@ -107,9 +107,9 @@ Page {
                 model: ListModel {
                     data: [
                         "With All",
-                        "[icon:mouse] Mouse Only",
-                        "[icon:pencil] Pen Only",
-                        "[icon:touch_app] Touch Only"
+                        "[icon:input-mouse] Mouse Only",
+                        "[icon:input-pen] Pen Only",
+                        "[icon:input-touch] Touch Only"
                     ]
                 }
             }

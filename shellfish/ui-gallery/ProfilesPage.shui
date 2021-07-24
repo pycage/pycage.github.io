@@ -49,7 +49,7 @@ Page {
             property marginLeft: theme.paddingSmall
             property marginRight: theme.paddingSmall
             property marginBottom: theme.paddingSmall
-            property rotation: 0
+            property rotationAngle: 0
             property opacity: 1
         }
 
@@ -59,7 +59,7 @@ Page {
             property marginLeft: theme.paddingLarge
             property marginRight: theme.paddingLarge
             property marginBottom: theme.paddingLarge
-            property rotation: 0
+            property rotationAngle: 0
             property opacity: 1
         }
 
@@ -69,7 +69,7 @@ Page {
             property marginLeft: theme.paddingSmall
             property marginRight: theme.paddingSmall
             property marginBottom: theme.paddingSmall
-            property rotation: rotationSlider.value
+            property rotationAngle: rotationSlider.value
             property opacity: 1
         }
 
@@ -79,7 +79,7 @@ Page {
             property marginLeft: theme.paddingSmall
             property marginRight: theme.paddingSmall
             property marginBottom: theme.paddingSmall
-            property rotation: 0
+            property rotationAngle: 0
             property opacity: opacitySlider.value
         }
 

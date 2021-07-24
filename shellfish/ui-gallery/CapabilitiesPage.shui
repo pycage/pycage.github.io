@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit examples.
-Copyright (c) 2020 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2020 - 2021 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -41,31 +41,39 @@ Page {
         marginTop: header.height + theme.paddingLarge
         marginLeft: theme.paddingLarge
         marginBottom: theme.paddingSmall
-        text: "Your platform supports:"
+        overflowBehavior: "wrap"
+        text: "The **Capabilities** element provides a clean way to check the " +
+              "capabilities of the environment in which your application is running.\n" +
+              "\nThis environment supports:"
     }
 
     Repeater {
         model: ListModel {
             data: [
-                ["Canvas: 2D pixel graphics", caps.canvas],
-                ["Fullscreen Elements: Fullscreen mode of elements", caps.fullscreen],
-                ["Game Pad: Support for attached game controllers", caps.gamePad],
-                ["Indexed DB: Offline storage of data", caps.indexedDB],
-                ["Media Devices: Camera, video, audio", caps.mediaDevices],
-                ["Pointer Event: Differentiating between mouse, pen, and touch input", caps.pointerEvent],
-                ["WebAssembly: Running compiled byte-code", caps.webAssembly],
-                ["Atomics: Lock-free communication between threads", caps.atomics],
-                ["Shared Memory: Sharing memory between threads", caps.sharedArrayBuffer],
-                ["WebXR: Support for Virtual Reality headsets", caps.webXR],
-                ["WebGL: Hardware-accelerated 3D graphics", caps.webGL],
-                ["WebGL 2: Version 2 of WebGL", caps.webGL2]
+                ["**Canvas:** 2D pixel graphics", caps.canvas],
+                ["**Fullscreen Elements:** Fullscreen mode of elements", caps.fullscreen],
+                ["**Game Pad:** Support for attached game controllers", caps.gamePad],
+                ["**Indexed DB:** Offline storage of data", caps.indexedDB],
+                ["**Media Devices:** Camera, video, audio", caps.mediaDevices],
+                ["**PointerEvent:** Differentiating between mouse, pen, and touch input", caps.pointerEvent],
+                ["**WebAssembly:** Running compiled byte-code", caps.webAssembly],
+                ["**Workers:** Running asynchronous tasks in threads", caps.webWorkers],
+                ["**SharedArrayBuffer:** Sharing memory between threads (may require Cross Origin Isolation as well)", caps.sharedArrayBuffer],
+                ["**Atomics:** Lock-free communication between threads based on SharedArrayBuffer", caps.atomics],
+                ["**Cross Origin Isolation:** Unlocks potentially exploitable technologies that are locked for security reasons otherwise (requires explicit support by the web server and a secure context)", caps.crossOriginIsolated],
+                ["**WebXR:** Support for Virtual Reality headsets", caps.webXR],
+                ["**WebGL:** Hardware-accelerated 3D graphics", caps.webGL],
+                ["**WebGL 2:** Version 2 of WebGL", caps.webGL2]
             ]
         }
 
         delegate: template Label {
             marginTop: theme.paddingMedium
             marginLeft: theme.paddingLarge * 2
-            text: (modelData.value[1] ? "[icon:checkmark]" : "[icon:cross]") +
+            fillWidth: true
+            overflowBehavior: "wrap"
+            color: modelData.value[1] ? theme.primaryColor : theme.secondaryColor
+            text: (modelData.value[1] ? "[icon:ui-check_box]" : "[icon:ui-check_box_blank]") +
                   " " + modelData.value[0]
         }
 

@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit.
-Copyright (c) 2017 - 2020 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2017 - 2021 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /**
  * Loads the given modules asynchronously and invokes a callback afterwards.
  * 
- * This function takes a number of Shellfish modules and loads them in the
+ * This function takes a number of Shellfish module paths and loads them in the
  * background. When all modules have been loaded, a callback function is invoked
  * with all module objects.
  * 
@@ -41,7 +41,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * inside the callback function.
  * 
  * A module file looks like a normal JavaScript file, but everything that shall
- * accessible from outside is assigned to the `exports` object.
+ * be accessible from outside is assigned to the `exports` object.
  * 
  * #### Example:
  * 
@@ -80,7 +80,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * 
  *     });
  * 
- * If a transformer function is specified, the module URL and the module data is
+ * If a transformer function is specified, the module URL and the module data are
  * passed to this function and the returned code will be executed.
  * This mechanism is used by the Feng Shui processor to directly load Shui files
  * as modules.
@@ -95,25 +95,24 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * 
  * The path of the module file.
  * 
- * # Accessing resources in bundles
- * 
- * The function `shRequire.resource` takes a file URL and returns the
- * corresponding resource URL for loading the resource from a bundle.
- * If the file URL is not found in one of the loaded bundles, the URL is
- * returned as is.
- * 
+ * @name shRequire
  * @function
- * @param {string[]} modules - The modules to load.
+ * @param {string[]} modules - The paths of the modules to load.
  * @param {function} callback - The callback to invoke after loading.
- * @param {function} [transformer = null] - An optional function for transforming module data.
+ * @param {function} [transformer = null] - An optional function for transforming module data. See {@link fengshui.compile} for the signature.
  */
 const shRequire = (function ()
 {
+    // this UUID helps to find the require.js module in the set of loaded JS resources
+    const UUID = "e206484a-d6ee-4d3c-ac0e-eaed2fe350b5";
+
     const MIMETYPES = {
         "jpg": "image/jpeg",
         "png": "image/png",
         "wasm": "application/wasm"
     };
+
+    const hasDom = (typeof document !== "undefined");
 
     // stack of task queues
     const stackOfQueues = [];
@@ -140,12 +139,26 @@ const shRequire = (function ()
 
     function logError(message)
     {
-        if (document.body)
+        if (hasDom)
         {
+            // remember the good old days..?
             const node = document.createElement("pre");
             node.style.width = "100%";
+            node.style.position = "fixed";
+            node.style.top = "0px";
+            node.style.left = "0px";
             node.style.whiteSpace = "pre-wrap";
-            node.appendChild(document.createTextNode(message));
+            node.style.color = "red";
+            node.style.backgroundColor = "black";
+            node.style.borderWidth = "0.5em";
+            node.style.borderStyle = "solid";
+            node.style.padding = "1em";
+            node.style.borderColor = "red";
+            node.style.textAlign = "center";
+            node.style.fontWeight = "bold";
+            node.style.zIndex = 9999;
+            node.appendChild(document.createTextNode("Software Failure. Click here to continue.\n" + message));
+            node.onclick = () => { node.remove(); }
             document.body.appendChild(node);
         }
         console.error(message);
@@ -193,27 +206,46 @@ const shRequire = (function ()
      */
     function importScript(code, loadAsync, callback)
     {
-        const scriptNode = document.createElement("script");
-        scriptNode.type = "application/javascript";
-        scriptNode.charset = "utf-8";
-        scriptNode.async = loadAsync;
-        const codeUrl = URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
-
-        scriptNode.addEventListener("load", function ()
+        if (hasDom)
         {
-            URL.revokeObjectURL(codeUrl);
-            callback(true);
-        }, false);
-
-        scriptNode.addEventListener("error", function ()
+            const scriptNode = document.createElement("script");
+            scriptNode.type = "application/javascript";
+            scriptNode.charset = "utf-8";
+            scriptNode.async = loadAsync;
+            const codeUrl = URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
+    
+            scriptNode.addEventListener("load", function ()
+            {
+                URL.revokeObjectURL(codeUrl);
+                callback(true);
+            }, false);
+    
+            scriptNode.addEventListener("error", function ()
+            {
+                URL.revokeObjectURL(codeUrl);
+                logError(`Failed to import script.`);
+                callback(false);
+            }, false);
+    
+            scriptNode.src = codeUrl;
+            document.head.appendChild(scriptNode);
+        }
+        else
         {
-            URL.revokeObjectURL(codeUrl);
-            logError(`Failed to import script.`);
-            callback(false);
-        }, false);
-
-        scriptNode.src = codeUrl;
-        document.head.appendChild(scriptNode);
+            const codeUrl = URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
+            try
+            {
+                importScripts(codeUrl);
+                URL.revokeObjectURL(codeUrl);
+                callback(true);
+            }
+            catch (err)
+            {
+                URL.revokeObjectURL(codeUrl);
+                logError(`Failed to import script: ${err}`);
+                callback(false);
+            }
+        }
     }
 
     /**
@@ -225,15 +257,22 @@ const shRequire = (function ()
      */
     function loadBundle(url, callback)
     {
-        const now = new Date().getTime();
+        const now = Date.now();
 
         fetch(url, { cache: "no-cache" })
-        .then(response => response.text())
+        .then(response =>
+        {
+            if (! response.ok)
+            {
+                throw `${response.status} ${response.statusText}`;
+            }
+            return response.text();
+        })
         .then(data =>
         {
             try
             {
-                console.log(`Loaded JS bundle '${url}' from server in ${new Date().getTime() - now} ms.`);
+                console.log(`Loaded JS bundle '${url}' from server in ${Date.now() - now} ms.`);
                 const bundleName = url;
                 processBundle(bundleName, JSON.parse(data), () =>
                 {
@@ -247,7 +286,7 @@ const shRequire = (function ()
         })
         .catch(err =>
         {
-            logError(`Failed to load module '${url}' from server: ${err}.`);
+            logError(`Failed to load bundle from '${url}': ${err}`);
         });
     }
 
@@ -322,7 +361,7 @@ const shRequire = (function ()
                 {
                     if (! ok)
                     {
-                        logError(`Failed to load bundle.`);
+                        logError(`Failed to load bundle '${name}'.`);
                     }
                     else
                     {
@@ -357,14 +396,21 @@ const shRequire = (function ()
         }
 
         fetch(url, { cache: "no-cache" })
-        .then(response => response.text())
+        .then(response =>
+        {
+            if (! response.ok)
+            {
+                throw `${response.status} ${response.statusText}`;
+            }
+            return response.text();
+        })
         .then(data =>
         {
             callback(data);
         })
         .catch(err =>
         {
-            logError(`Failed to load module '${url}' from server: ${err}.`);
+            logError(`Failed to load module '${url}': ${err}`);
             callback("");
         });
     }
@@ -381,6 +427,11 @@ const shRequire = (function ()
         if (bundleCache[url])
         {
             url = "data:text/css;base64," + btoa(bundleCache[url]);
+        }
+
+        if (! hasDom)
+        {
+            throw "CSS style sheets require a DOM to load.";
         }
 
         let link = document.createElement("link");
@@ -411,8 +462,8 @@ const shRequire = (function ()
             return;
         }
 
-        const progressNode = document.getElementById("sh-require-progress");
-        const statusNode = document.getElementById("sh-require-status");
+        const progressNode = hasDom ? document.getElementById("sh-require-progress") : null;
+        const statusNode = hasDom ? document.getElementById("sh-require-status") : null;
         if (progressNode)
         {
             const pos = url.lastIndexOf("/");
@@ -609,6 +660,15 @@ const shRequire = (function ()
                 next();
             });
         }
+        else if (url.startsWith("blob:"))
+        {
+            loadModule(url, ctx.processor, function (module)
+            {
+                nextScheduled = false;
+                ctx.modules.push(module);
+                next();
+            });
+        }
         else
         {
             logError(`Cannot load invalid module '${url}'.`);
@@ -635,29 +695,73 @@ const shRequire = (function ()
         queue.push(ctx);
     }
 
-    const require = function (urls, callback, processor)
+    /**
+     * Imports a module.
+     * 
+     * @param {string} urls 
+     * @param {function} callback - A callback with the imported modules as parameters.
+     * @param {function} [processor = null] - An optional code processor.
+     */
+    function require(urls, callback, processor)
     {
-        if (typeof urls === "string")
+        function f(urls, callback, processor)
         {
-            addTask([urls], callback, processor);
+            if (typeof urls === "string" && urls.length > 200)
+            {
+                const blob = new Blob([urls], { type: "application/javascript" });
+                const objUrl = URL.createObjectURL(blob);
+                addTask([objUrl], (...args) =>
+                {
+                    URL.revokeObjectURL(objUrl);
+                    callback(...args);
+                }, processor);
+            }
+            else if (typeof urls === "string")
+            {
+                addTask([urls], callback, processor);
+            }
+            else
+            {
+                addTask(urls, callback, processor);
+            }
+            next();
         }
-        else
-        {
-            addTask(urls, callback, processor);
-        }
-        next();
-    };
 
+        f(urls, callback, processor);
+    }
+
+    /**
+     * Registers a module for the given URL.
+     * 
+     * @private
+     * @param {string} url - The URL.
+     * @param {object} module - The module to register.
+     */
     require.registerModule = function (url, module)
     {
        cache[url] = module;
     };
 
+    /**
+     * Registers a module loader function for the given URL.
+     * 
+     * @private
+     * @param {string} url - The URL.
+     * @param {function} loader - The module loader function.
+     */
     require.registerLoader = function (url, loader)
     {
         loadersMap[url] = loader;
     };
 
+    /**
+     * Returns a ressource URL for accessing a ressource.
+     * The ressource URL enables to load data transparently from bundle files.
+     * 
+     * @private
+     * @param {string} url - The URL.
+     * @returns The ressource URL.
+     */
     require.resource = function (url)
     {
         if (idsMap[url])
@@ -701,39 +805,74 @@ const shRequire = (function ()
         return blobCache[url];
     };
 
-    const scripts = document.getElementsByTagName("script");
-    for (let i = 0; i < scripts.length; ++i)
+    /**
+     * Returns a Promise object resolving to the URL of this require.js file.
+     * 
+     * @private
+     * @returns {Promise} - The Promise object.
+     */
+    require.selfUrl = async function ()
     {
-        let script = scripts[i];
-
-        // load bundles
-        const bundlesString = script.getAttribute("data-bundle");
-        if (bundlesString && bundlesString !== "")
+        if (! hasDom)
         {
-            const bundles = bundlesString.split(",");
-            let count = bundles.length;
-            bundles.forEach((bundle) =>
+            return "";
+        }
+
+        const tags = document.scripts;
+        for (let i = 0; i < tags.length; ++i)
+        {
+            const tag = tags[i];
+            const response = await fetch(tag.src);
+            if (! response.ok)
             {
-                nextScheduled = true;
-                loadBundle(bundle.trim(), () =>
-                {
-                    --count;
-                    if (count === 0)
-                    {
-                        nextScheduled = false;
-                        next();
-                    }
-                });
-            });
+                continue;
+            }
+            const code = await response.text();
+            if (code.indexOf(UUID) !== -1)
+            {
+                return tag.src;
+            }
         }
+        return "";
+    };
 
-        // load main entry point
-        const main = script.getAttribute("data-main");
-        if (main && main !== "")
+    if (hasDom)
+    {
+        const scripts = document.getElementsByTagName("script");
+        for (let i = 0; i < scripts.length; ++i)
         {
-            require([main], function (module) { });
+            let script = scripts[i];
+    
+            // load bundles
+            const bundlesString = script.getAttribute("data-bundle");
+            if (bundlesString && bundlesString !== "")
+            {
+                const bundles = bundlesString.split(",");
+                let count = bundles.length;
+                bundles.forEach((bundle) =>
+                {
+                    nextScheduled = true;
+                    loadBundle(bundle.trim(), () =>
+                    {
+                        --count;
+                        if (count === 0)
+                        {
+                            nextScheduled = false;
+                            next();
+                        }
+                    });
+                });
+            }
+    
+            // load main entry point
+            const main = script.getAttribute("data-main");
+            if (main && main !== "")
+            {
+                require([main], function (module) { });
+            }
         }
-    }
+    }// if (hasDom)
 
+    console.log("Initialized Shellfish module manager.");
     return require;
 })();

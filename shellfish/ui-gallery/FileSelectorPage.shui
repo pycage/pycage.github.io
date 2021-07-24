@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit examples.
-Copyright (c) 2020 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2020 - 2021 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,7 +31,7 @@ Page {
         id: header
 
         title: "File Selector"
-        subtitle: listView.model.size + " items"
+        subtitle: filesRepeater.model.size + " items"
         codeUrl: __filename
     }
 
@@ -134,13 +134,8 @@ Page {
                 fillHeight: true
                 fitMode: "cover"
 
-                onInitialization: {
-                    // show a thumbnail for images
-                    if (parent.modelData.value.type.startsWith("image/"))
-                    {
-                        self.fromFile(parent.modelData.value.obj);
-                    }
-                }
+                source: parent.modelData.value.type.startsWith("image/") ? blobUrl(parent.modelData.value.obj)
+                                                                         : ""
             }
 
             Label {
@@ -158,23 +153,23 @@ Page {
                     const t = parent.modelData.value.type || "";
                     if (t.startsWith("audio/"))
                     {
-                        return "[icon:file-music]";
+                        return "[icon:fs-file-music]";
                     }
                     else if (t.startsWith("image/"))
                     {
-                        return "[icon:file-picture]";
+                        return "[icon:fs-file-image]";
                     }
                     else if (t.startsWith("text/"))
                     {
-                        return "[icon:file-text2]";
+                        return "[icon:fs-file-text]";
                     }
                     else if (t.startsWith("video/"))
                     {
-                        return "[icon:file-video]";
+                        return "[icon:fs-file-video]";
                     }
                     else
                     {
-                        return "[icon:file-empty]";
+                        return "[icon:fs-file-empty]";
                     }
                 })()
             }
@@ -188,6 +183,7 @@ Page {
                     bold: true
                     fillWidth: true
                     overflowBehavior: "ellipsis"
+                    literal: true
                     text: itemBox.modelData.value.name
                 }
 

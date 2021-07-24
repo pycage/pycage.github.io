@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit examples.
-Copyright (c) 2020 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2020 - 2021 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -151,9 +151,12 @@ Page {
             layout: "center"
 
             Label {
+                fillWidth: true
                 color: "black"
                 bold: true
                 fontSize: theme.fontSizeSmall
+                literal: true
+                overflowBehavior: "ellipsis"
                 text: video.name
             }
         }
@@ -225,7 +228,7 @@ Page {
             Button {
                 profiles: [buttonProfile]
                 labelProfile: buttonLabelProfile
-                icon: "eject"
+                icon: "media-eject"
 
                 onClick: () =>
                 {
@@ -236,7 +239,7 @@ Page {
             Button {
                 profiles: [buttonProfile]
                 labelProfile: buttonLabelProfile
-                icon: video.playing ? "pause" : "play_arrow"
+                icon: video.playing ? "media-pause" : "media-play"
                 onClick: () =>
                 {
                     if (video.playing)
@@ -253,7 +256,7 @@ Page {
             Button {
                 profiles: [buttonProfile]
                 labelProfile: buttonLabelProfile
-                icon: "replay_10"
+                icon: "media-replay_10"
                 onClick: () => 
                 {
                     if (video.currentTime > 10)
@@ -270,7 +273,7 @@ Page {
             Button {
                 profiles: [buttonProfile]
                 labelProfile: buttonLabelProfile
-                icon: "forward_30"
+                icon: "media-forward_30"
                 onClick: () =>
                 {
                     if (video.currentTime < video.duration - 30)
@@ -326,7 +329,7 @@ Page {
                 profiles: [buttonProfile]
                 labelProfile: buttonLabelProfile
                 width: bbox.height
-                icon: "fullscreen"
+                icon: "ui-fullscreen"
 
                 onClick: () =>
                 {
