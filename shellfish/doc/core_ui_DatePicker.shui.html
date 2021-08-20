@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Source: core/mid/offlinefs.js</title>
+    <title>Source: core/ui/DatePicker.shui</title>
     
     
     
@@ -6600,7 +6600,7 @@
 </div>
 
     <div class="main">
-        <h1 class="page-title" data-filename="core_mid_offlinefs.js.html">Source: core/mid/offlinefs.js</h1>
+        <h1 class="page-title" data-filename="core_ui_DatePicker.shui.html">Source: core/ui/DatePicker.shui</h1>
         
 
 
@@ -6608,13 +6608,13 @@
     <section>
         <header>
             <div class="header content-size">
-                <h2>core/mid/offlinefs.js</h2>
+                <h2>core/ui/DatePicker.shui</h2>
             </div>
         </header>
         <article>
             <pre id="source-code" class="prettyprint source "><code>/*******************************************************************************
 This file is part of the Shellfish UI toolkit.
-Copyright (c) 2020 Martin Grimme &lt;martin.grimme@gmail.com>
+Copyright (c) 2021 Martin Grimme &lt;martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -6634,413 +6634,171 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *******************************************************************************/
 
-"use strict";
+require "shellfish/ui";
 
-shRequire([__dirname + "/filesystem.js", __dirname + "/util/mime.js"], function (fs, mime)
-{
-    const VERSION = 1;
-    
-    const indexedDB = window.indexedDB ||
-                      window.mozIndexedDB ||
-                      window.webkitIndexedDB ||
-                      window.msIndexedDB;
+/**
+ * Element representing a date picker button.
+ *
+ * @memberof ui
+ * @name DatePicker
+ * @class
+ * @extends ui.Button
+ *
+ * @property {number[]} date - The currently selected date as a tuple of `[year, month, day]`.
+ */
+Button {
+    id: dateButton
 
-    function upgradeDatabase(db)
-    {
-        const tocStore = db.createObjectStore("toc", { keyPath: "path" });
-        tocStore.createIndex("name", "name", { unique: false });
-        tocStore.createIndex("dir", "dir", { unique: false });
-    
-        const resStore = db.createObjectStore("res");
-    }
-
-    function recursiveList(tx, paths, resultSet, callback)
-    {
-        if (paths.length === 0)
+    property menuT: template Menu {
+        function setDate(date)
         {
-            callback(resultSet);
-            return;
+            cal.date = date;
         }
-    
-        const path = paths.pop();
-    
-        tx
-        .objectStore("toc")
-        .openCursor(IDBKeyRange.only(path))
-        .onsuccess = (ev) =>
-        {
-            const csr = ev.target.result;
-            if (csr)
-            {
-                resultSet.push(csr.value);
-                if (csr.value.type === "d")
-                {
-                    paths.push(csr.value.path);
-                }
-                csr.continue();
-            }
-            else
-            {
-                //finished
-                recursiveList(tx, paths, resultSet, callback);
-            }
-        };
-    }
-    
-    function removeFromRes(tx, paths)
-    {
-        paths.forEach((path) =>
-        {
-            tx
-            .objectStore("res")
-            .delete(path);
-        });
-    }
-    
-    function removeFromToc(tx, paths)
-    {
-        paths.forEach((path) =>
-        {
-            tx
-            .objectStore("toc")
-            .delete(path);
-        });
-    }
 
-
-    let d = new WeakMap();
-
-    /**
-     * Class representing a virtual offline filesystem drive on top of the
-     * HTML5 Indexed DB.
-     * 
-     * @extends mid.Filesystem
-     * @memberof mid
-     * 
-     * @property {string} volume - (default: `""`) The name of the drive volume.
-     */
-    class OfflineFS extends fs.Filesystem
-    {
-        constructor()
-        {
-            super();
-            d.set(this, {
-                volume: ""
-            });
+        MouseBox {
+            width: theme.itemWidthSmall * 7
+            height: theme.itemHeightMedium * 7
+            color: theme.contentBackgroundColor
             
-            this.notifyable("volume");
-        }
+            onPointerDown: (ev) => { ev.accepted = true; }
 
-        get volume() { return d.get(this).volume; }
-        set volume(v)
-        {
-            d.get(this).volume = v;
-            this.volumeChanged();
-        }
+            Box {
+                fillWidth: true
+                height: theme.itemHeightMedium
+                color: theme.secondaryBackgroundColor
+                layout: "row"
 
-        open()
-        {
-            return new Promise((resolve, reject) =>
-            {
-                const req = indexedDB.open(d.get(this).volume, VERSION);
-                req.onupgradeneeded = (ev) =>
-                {
-                    upgradeDatabase(ev.target.result);
-                };
-                req.onsuccess = (ev) =>
-                {
-                    const db = ev.target.result;
-                    db.onerror = (ev) =>
+                Button {
+                    labelProfile: Object { property bold: true }
+                    fillHeight: true
+                    flat: true
+                    text: ["Jan", "Feb", "Mar", "Apr",
+                           "May", "Jun", "Jul", "Aug",
+                           "Sep", "Oct", "Nov", "Dec"][cal.date[1]]
+
+                    onClick: (ev) =>
                     {
-                        console.error("DB Error: " + ev.target.error.message);
-                    };
-                    resolve(db);
-                };
-                req.onerror = (ev) =>
-                {
-                    // IndexedDB is not available (privacy-settings, etc.)
-                    console.error("Failed to open IndexedDB: " + ev.target.errorCode);
-                    reject(ev);
-                };
-            });
-        }
-
-        exists(path)
-        {
-            return new Promise(async (resolve, reject) =>
-            {
-                path = fs.normalizePath(path);
-
-                const db = await this.open();
-                const tx = db.transaction(["toc"], "readonly");
-                tx.oncomplete = (ev) =>
-                {
-    
-                };
-                tx.onabort = (ev) =>
-                {
-                    console.error("exists: Transaction aborted: " + ev.target.error.message);
-                    reject(ev);
-                };
-                tx.onerror = (ev) =>
-                {
-                    resolve(false);
-                };
-    
-                tx
-                .objectStore("toc")
-                .get(path)
-                .onsuccess = (ev) =>
-                {
-                    resolve(!! ev.target.result);
-                };    
-            });
-        }
-
-        list(path)
-        {
-            return new Promise(async (resolve, reject) =>
-            {
-                path = fs.normalizePath(path);
-        
-                const db = await this.open();
-                const items = [];
-                
-                const tx = db.transaction(["toc"], "readonly");
-                tx.oncomplete = (ev) =>
-                {
-                    //console.log("Listing directory '" + path + "' complete: " + JSON.stringify(items));
-                    resolve(items);
-                };
-                tx.onabort = (ev) =>
-                {
-                    console.error("Aborted listing directory: " + ev.target.error.message);
-                    reject(ev);
-                };
-                tx.onerror = (ev) =>
-                {
-                    console.error("Error listing directory: " + ev.target.error.message);
-                    reject(ev);
-                };
-    
-                tx
-                .objectStore("toc")
-                .index("dir")
-                .openCursor(IDBKeyRange.only(path))
-                .onsuccess = (ev) =>
-                {
-                    const csr = ev.target.result;
-                    if (csr)
-                    {
-                        //console.log("found item " + JSON.stringify(csr.value));
-                        items.push(csr.value);
-                        csr.continue();
+                        cal.pickMonth();
+                        ev.accepted = true;
                     }
-                };
-            });
-        }
-
-        mkdir(path, name)
-        {
-            return new Promise(async (resolve, reject) =>
-            {
-                path = fs.normalizePath(path);
-                console.log("mkdir: " + path);
-                const db = await this.open();
-                const tx = db.transaction(["toc"], "readwrite");
-    
-                tx.oncomplete = (ev) =>
-                {
-                    console.log("mkdir: Created directory.");
-                    resolve();
-                    this.fsChange(path);
-                };
-                tx.onabort = (ev) =>
-                {
-                    console.error("mkdir: Transaction aborted.");
-                    reject(ev);
-                };
-                tx.onerror = (ev) =>
-                {
-                    console.error("mkdir: Failed to create directory: " +
-                                  ev.target.error.message);
-                    reject(ev);
-                };
-    
-                const dirPath = fs.pathJoin(path, name);
-    
-                tx.objectStore("toc")
-                .add({
-                    path: dirPath,
-                    dir: path,
-                    name: name,
-                    type: "d",
-                    size: 0,
-                    res: 0,
-                    mimetype: "application/x-folder"
-                });
-    
-            });
-        }
-
-        remove(path)
-        {
-            return new Promise(async (resolve, reject) =>
-            {
-                path = fs.normalizePath(path);
-                const db = await this.open();
-                const tx = db.transaction(["toc", "res"], "readwrite");
-                tx.oncomplete = (ev) =>
-                {
-                    resolve();
-                    this.fsChange(path);
-                    this.fsChange(fs.dirname(path));
-                };
-                tx.onabort = (ev) =>
-                {
-                    console.error("remove: Transaction aborted.");
-                    reject(ev);
-                };
-                tx.onerror = (ev) =>
-                {
-                    console.error("remove: Failed to create directory: " +
-                                    ev.target.error.message);
-                    reject(ev);
-                };
-    
-                // collect paths, remove ressources, remove from toc
-                recursiveList(tx, [path], [], (resultSet) =>
-                {
-                    const paths = resultSet.map(r => r.path);
-                    removeFromRes(tx, paths);
-                    removeFromToc(tx, paths);
-                });
-    
-            });
-        }
-    
-        read(path)
-        {
-            return new Promise(async (resolve, reject) =>
-            {
-                path = fs.normalizePath(path);
-                const db = await this.open();
-                const tx = db.transaction(["toc", "res"], "readonly");
-                tx.oncomplete = (ev) =>
-                {
-    
-                };
-                tx.onabort = (ev) =>
-                {
-                    console.error("read: Transaction aborted: " + ev.target.error.message);
-                    reject(ev);
-                };
-                tx.onerror = (ev) =>
-                {
-                    console.error("read: Failed to read file: " +
-                                    ev.target.error.message);
-                    reject(ev);
-                };
-    
-                tx
-                .objectStore("res")
-                .get(path)
-                .onsuccess = (ev) =>
-                {
-                    const blob = ev.target.result;
-                    if (blob)
-                    {
-                        resolve(blob);
-                    }
-                    else
-                    {
-                        console.error("read: Failed to read file: " + path);
-                        reject(blob);
-                    }
-                };
-            });
-        }
-    
-        write(path, blob)
-        {
-            return new Promise(async (resolve, reject) =>
-            {
-                if (! blob instanceof Blob)
-                {
-                    console.error("Write error: Blob expected.");
-                    reject(null);
-                    return;
                 }
-        
-                path = fs.normalizePath(path);
-                const db = await this.open();
-                const tx = db.transaction(["toc", "res"], "readwrite");
-                tx.oncomplete = (ev) =>
-                {
-                    resolve();
-                    this.fsChange(path);
-                    this.fsChange(fs.dirname(path));
-                };
-                tx.onabort = (ev) =>
-                {
-                    console.error("write: Transaction aborted.");
-                    reject(ev);
-                };
-                tx.onerror = (ev) =>
-                {
-                    console.error("write: Failed to write file: " +
-                                  ev.target.error.message);
-                    reject(ev);
-                };
-    
-                tx
-                .objectStore("toc")
-                .get(path)
-                .onsuccess = (ev) => 
-                {
-                    const result = ev.target.result;
-    
-                    const pos = path.lastIndexOf("/");
-                    const dir = path.substr(0, pos);
-                    const name = pos !== -1 ? path.substr(pos + 1) : path;
-    
-                    const item = {
-                        path: path,
-                        dir: fs.normalizePath(dir),
-                        name: name,
-                        type: "f",
-                        size: blob.size,
-                        mimetype: mime.mimeType(name)
-                    };
-    
-                    if (result === null)
+
+                Button {
+                    labelProfile: Object { property bold: true }
+                    fillHeight: true
+                    flat: true
+                    text: "" + cal.date[0]
+
+                    onClick: (ev) =>
                     {
-                        // add new entry
-                        console.log("file is new: " + path);
-                        tx
-                        .objectStore("toc")
-                        .add(item);
-                        tx
-                        .objectStore("res")
-                        .add(blob.slice(), path);
+                        cal.pickYear();
+                        ev.accepted = true;
                     }
-                    else
+                }
+
+                Box { fillWidth: true }
+
+                Button {
+                    icon: "core-calendar"
+                    fillHeight: true
+                    flat: true
+                    onClick: (ev) =>
                     {
-                        // modify existing
-                        console.log("overwriting file: " + path);
-                        tx
-                        .objectStore("toc")
-                        .put(item);
-                        tx
-                        .objectStore("res")
-                        .put(blob.slice(), path);
+                        cal.toToday();
+                        ev.accepted = true;
                     }
-                };
-            });
+                }
+
+                Button {
+                    icon: "core-arrow_up"
+                    fillHeight: true
+                    flat: true
+                    onClick: (ev) =>
+                    {
+                        cal.toPreviousMonth();
+                        ev.accepted = true;
+                    }
+                }
+
+                Button {
+                    icon: "core-arrow_down"
+                    fillHeight: true
+                    flat: true
+                    onClick: (ev) =>
+                    {
+                        cal.toNextMonth();
+                        ev.accepted = true;
+                    }
+                }
+            }
+
+            Calendar {
+                id: cal
+
+                function isToday(year, month, day)
+                {
+                    const now = new Date();
+                    return now.getFullYear() === year &amp;&amp;
+                        now.getMonth() === month &amp;&amp;
+                        now.getDate() === day;
+                }
+
+                fillWidth: true
+                fillHeight: true
+
+                dayDelegate: template Button {
+                    id: dayButton
+
+                    labelProfile: Object {
+                        property horizontalAlignment: "right"
+                        property fontSize: theme.fontSizeSmall
+                        property bold: cal.isToday(dayButton.modelData.value.year,
+                                                   dayButton.modelData.value.month,
+                                                   dayButton.modelData.value.day)
+                    }
+
+                    visible: modelData.value.day !== 0
+                    opacity: modelData.value.month === cal.date[1] ? 1.0 : 0.4
+
+                    flat: true
+                    text: "" + modelData.value.day
+
+                    onClick: (ev) =>
+                    {
+                        dateButton.date = [modelData.value.year,
+                                           modelData.value.month,
+                                           modelData.value.day];
+                        thisMenu.parent = null;
+                        ev.accepted = true;
+                    }
+                }
+            }
         }
     }
-    exports.OfflineFS = OfflineFS;
-});
+
+    property date: (() =>
+                   {
+                       const d = new Date();
+                       return [d.getFullYear(), d.getMonth(), d.getDate()];
+                   })()
+
+    function formatDate(y, m, d)
+    {
+        const n = new Date(y, m, d);
+        return n.toLocaleDateString();
+    }
+
+    icon: "core-calendar"
+    text: formatDate(...date)
+
+    onClick: (ev) =>
+    {
+        const m = menuT();
+        m.setDate(date);
+        m.popup(self);
+        ev.accepted = true;
+    }
+}
 </code></pre>
         </article>
     </section>
@@ -7054,7 +6812,7 @@ shRequire([__dirname + "/filesystem.js", __dirname + "/util/mime.js"], function 
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri Aug 20 2021 09:55:20 GMT+0200 (GMT+02:00)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri Aug 20 2021 09:55:21 GMT+0200 (GMT+02:00)
             </div>
         </footer>
     </div>

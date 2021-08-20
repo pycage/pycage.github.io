@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Source: core/mid/offlinefs.js</title>
+    <title>Source: core/ui/TimePicker.shui</title>
     
     
     
@@ -6600,7 +6600,7 @@
 </div>
 
     <div class="main">
-        <h1 class="page-title" data-filename="core_mid_offlinefs.js.html">Source: core/mid/offlinefs.js</h1>
+        <h1 class="page-title" data-filename="core_ui_TimePicker.shui.html">Source: core/ui/TimePicker.shui</h1>
         
 
 
@@ -6608,13 +6608,13 @@
     <section>
         <header>
             <div class="header content-size">
-                <h2>core/mid/offlinefs.js</h2>
+                <h2>core/ui/TimePicker.shui</h2>
             </div>
         </header>
         <article>
             <pre id="source-code" class="prettyprint source "><code>/*******************************************************************************
 This file is part of the Shellfish UI toolkit.
-Copyright (c) 2020 Martin Grimme &lt;martin.grimme@gmail.com>
+Copyright (c) 2021 Martin Grimme &lt;martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -6634,414 +6634,147 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *******************************************************************************/
 
-"use strict";
+require "shellfish/ui";
 
-shRequire([__dirname + "/filesystem.js", __dirname + "/util/mime.js"], function (fs, mime)
-{
-    const VERSION = 1;
-    
-    const indexedDB = window.indexedDB ||
-                      window.mozIndexedDB ||
-                      window.webkitIndexedDB ||
-                      window.msIndexedDB;
+/**
+ * Element representing a time picker button.
+ *
+ * @memberof ui
+ * @name TimePicker
+ * @class
+ * @extends ui.Button
+ *
+ * @property {number[]} time - The currently selected time as a tuple of `[hours, minutes]`.
+ * @property {bool} twentyFourHours - (default: `false`) Whether to display the time in 24h mode.
+ */
+Button {
+    id: timeButton
 
-    function upgradeDatabase(db)
-    {
-        const tocStore = db.createObjectStore("toc", { keyPath: "path" });
-        tocStore.createIndex("name", "name", { unique: false });
-        tocStore.createIndex("dir", "dir", { unique: false });
-    
-        const resStore = db.createObjectStore("res");
-    }
+    property menuT: template Menu {
+        id: menu
 
-    function recursiveList(tx, paths, resultSet, callback)
-    {
-        if (paths.length === 0)
+        function setTime(h, m)
         {
-            callback(resultSet);
-            return;
+            hoursSlider.value = h;
+            minutesSlider.value = m;
         }
-    
-        const path = paths.pop();
-    
-        tx
-        .objectStore("toc")
-        .openCursor(IDBKeyRange.only(path))
-        .onsuccess = (ev) =>
+
+        onCascadingClose: () =>
         {
-            const csr = ev.target.result;
-            if (csr)
-            {
-                resultSet.push(csr.value);
-                if (csr.value.type === "d")
-                {
-                    paths.push(csr.value.path);
+            timeButton.time = [
+                Math.floor(hoursSlider.value),
+                Math.floor(minutesSlider.value)
+            ];
+        }
+
+        MouseBox {
+            width: theme.itemWidthLarge * 2
+            color: theme.primaryBackgroundColor
+
+            onPointerDown: (ev) => { ev.accepted = true; }
+
+            Box {
+                fillWidth: true
+                height: theme.itemHeightMedium
+                color: theme.secondaryBackgroundColor
+                layout: "center-row"
+
+                Label {
+                    fillWidth: true
+                    marginLeft: theme.paddingSmall
+                    bold: true
+                    text: timeButton.formatTime(hoursSlider.value | 0,
+                                                minutesSlider.value | 0,
+                                                timeButton.twentyFourHours)
                 }
-                csr.continue();
-            }
-            else
-            {
-                //finished
-                recursiveList(tx, paths, resultSet, callback);
-            }
-        };
-    }
-    
-    function removeFromRes(tx, paths)
-    {
-        paths.forEach((path) =>
-        {
-            tx
-            .objectStore("res")
-            .delete(path);
-        });
-    }
-    
-    function removeFromToc(tx, paths)
-    {
-        paths.forEach((path) =>
-        {
-            tx
-            .objectStore("toc")
-            .delete(path);
-        });
-    }
 
+                Button {
+                    fillHeight: true
+                    icon: "core-time"
+                    flat: true
 
-    let d = new WeakMap();
-
-    /**
-     * Class representing a virtual offline filesystem drive on top of the
-     * HTML5 Indexed DB.
-     * 
-     * @extends mid.Filesystem
-     * @memberof mid
-     * 
-     * @property {string} volume - (default: `""`) The name of the drive volume.
-     */
-    class OfflineFS extends fs.Filesystem
-    {
-        constructor()
-        {
-            super();
-            d.set(this, {
-                volume: ""
-            });
-            
-            this.notifyable("volume");
-        }
-
-        get volume() { return d.get(this).volume; }
-        set volume(v)
-        {
-            d.get(this).volume = v;
-            this.volumeChanged();
-        }
-
-        open()
-        {
-            return new Promise((resolve, reject) =>
-            {
-                const req = indexedDB.open(d.get(this).volume, VERSION);
-                req.onupgradeneeded = (ev) =>
-                {
-                    upgradeDatabase(ev.target.result);
-                };
-                req.onsuccess = (ev) =>
-                {
-                    const db = ev.target.result;
-                    db.onerror = (ev) =>
+                    onClick: () =>
                     {
-                        console.error("DB Error: " + ev.target.error.message);
-                    };
-                    resolve(db);
-                };
-                req.onerror = (ev) =>
-                {
-                    // IndexedDB is not available (privacy-settings, etc.)
-                    console.error("Failed to open IndexedDB: " + ev.target.errorCode);
-                    reject(ev);
-                };
-            });
-        }
-
-        exists(path)
-        {
-            return new Promise(async (resolve, reject) =>
-            {
-                path = fs.normalizePath(path);
-
-                const db = await this.open();
-                const tx = db.transaction(["toc"], "readonly");
-                tx.oncomplete = (ev) =>
-                {
-    
-                };
-                tx.onabort = (ev) =>
-                {
-                    console.error("exists: Transaction aborted: " + ev.target.error.message);
-                    reject(ev);
-                };
-                tx.onerror = (ev) =>
-                {
-                    resolve(false);
-                };
-    
-                tx
-                .objectStore("toc")
-                .get(path)
-                .onsuccess = (ev) =>
-                {
-                    resolve(!! ev.target.result);
-                };    
-            });
-        }
-
-        list(path)
-        {
-            return new Promise(async (resolve, reject) =>
-            {
-                path = fs.normalizePath(path);
-        
-                const db = await this.open();
-                const items = [];
-                
-                const tx = db.transaction(["toc"], "readonly");
-                tx.oncomplete = (ev) =>
-                {
-                    //console.log("Listing directory '" + path + "' complete: " + JSON.stringify(items));
-                    resolve(items);
-                };
-                tx.onabort = (ev) =>
-                {
-                    console.error("Aborted listing directory: " + ev.target.error.message);
-                    reject(ev);
-                };
-                tx.onerror = (ev) =>
-                {
-                    console.error("Error listing directory: " + ev.target.error.message);
-                    reject(ev);
-                };
-    
-                tx
-                .objectStore("toc")
-                .index("dir")
-                .openCursor(IDBKeyRange.only(path))
-                .onsuccess = (ev) =>
-                {
-                    const csr = ev.target.result;
-                    if (csr)
-                    {
-                        //console.log("found item " + JSON.stringify(csr.value));
-                        items.push(csr.value);
-                        csr.continue();
+                        const now = new Date();
+                        menu.setTime(now.getHours(), now.getMinutes());
                     }
-                };
-            });
-        }
-
-        mkdir(path, name)
-        {
-            return new Promise(async (resolve, reject) =>
-            {
-                path = fs.normalizePath(path);
-                console.log("mkdir: " + path);
-                const db = await this.open();
-                const tx = db.transaction(["toc"], "readwrite");
-    
-                tx.oncomplete = (ev) =>
-                {
-                    console.log("mkdir: Created directory.");
-                    resolve();
-                    this.fsChange(path);
-                };
-                tx.onabort = (ev) =>
-                {
-                    console.error("mkdir: Transaction aborted.");
-                    reject(ev);
-                };
-                tx.onerror = (ev) =>
-                {
-                    console.error("mkdir: Failed to create directory: " +
-                                  ev.target.error.message);
-                    reject(ev);
-                };
-    
-                const dirPath = fs.pathJoin(path, name);
-    
-                tx.objectStore("toc")
-                .add({
-                    path: dirPath,
-                    dir: path,
-                    name: name,
-                    type: "d",
-                    size: 0,
-                    res: 0,
-                    mimetype: "application/x-folder"
-                });
-    
-            });
-        }
-
-        remove(path)
-        {
-            return new Promise(async (resolve, reject) =>
-            {
-                path = fs.normalizePath(path);
-                const db = await this.open();
-                const tx = db.transaction(["toc", "res"], "readwrite");
-                tx.oncomplete = (ev) =>
-                {
-                    resolve();
-                    this.fsChange(path);
-                    this.fsChange(fs.dirname(path));
-                };
-                tx.onabort = (ev) =>
-                {
-                    console.error("remove: Transaction aborted.");
-                    reject(ev);
-                };
-                tx.onerror = (ev) =>
-                {
-                    console.error("remove: Failed to create directory: " +
-                                    ev.target.error.message);
-                    reject(ev);
-                };
-    
-                // collect paths, remove ressources, remove from toc
-                recursiveList(tx, [path], [], (resultSet) =>
-                {
-                    const paths = resultSet.map(r => r.path);
-                    removeFromRes(tx, paths);
-                    removeFromToc(tx, paths);
-                });
-    
-            });
-        }
-    
-        read(path)
-        {
-            return new Promise(async (resolve, reject) =>
-            {
-                path = fs.normalizePath(path);
-                const db = await this.open();
-                const tx = db.transaction(["toc", "res"], "readonly");
-                tx.oncomplete = (ev) =>
-                {
-    
-                };
-                tx.onabort = (ev) =>
-                {
-                    console.error("read: Transaction aborted: " + ev.target.error.message);
-                    reject(ev);
-                };
-                tx.onerror = (ev) =>
-                {
-                    console.error("read: Failed to read file: " +
-                                    ev.target.error.message);
-                    reject(ev);
-                };
-    
-                tx
-                .objectStore("res")
-                .get(path)
-                .onsuccess = (ev) =>
-                {
-                    const blob = ev.target.result;
-                    if (blob)
-                    {
-                        resolve(blob);
-                    }
-                    else
-                    {
-                        console.error("read: Failed to read file: " + path);
-                        reject(blob);
-                    }
-                };
-            });
-        }
-    
-        write(path, blob)
-        {
-            return new Promise(async (resolve, reject) =>
-            {
-                if (! blob instanceof Blob)
-                {
-                    console.error("Write error: Blob expected.");
-                    reject(null);
-                    return;
                 }
-        
-                path = fs.normalizePath(path);
-                const db = await this.open();
-                const tx = db.transaction(["toc", "res"], "readwrite");
-                tx.oncomplete = (ev) =>
-                {
-                    resolve();
-                    this.fsChange(path);
-                    this.fsChange(fs.dirname(path));
-                };
-                tx.onabort = (ev) =>
-                {
-                    console.error("write: Transaction aborted.");
-                    reject(ev);
-                };
-                tx.onerror = (ev) =>
-                {
-                    console.error("write: Failed to write file: " +
-                                  ev.target.error.message);
-                    reject(ev);
-                };
-    
-                tx
-                .objectStore("toc")
-                .get(path)
-                .onsuccess = (ev) => 
-                {
-                    const result = ev.target.result;
-    
-                    const pos = path.lastIndexOf("/");
-                    const dir = path.substr(0, pos);
-                    const name = pos !== -1 ? path.substr(pos + 1) : path;
-    
-                    const item = {
-                        path: path,
-                        dir: fs.normalizePath(dir),
-                        name: name,
-                        type: "f",
-                        size: blob.size,
-                        mimetype: mime.mimeType(name)
-                    };
-    
-                    if (result === null)
+
+                Button {
+                    enabled: Math.floor(hoursSlider.value) !== timeButton.time[0] ||
+                             Math.floor(minutesSlider.value) !== timeButton.time[1]
+                    fillHeight: true
+                    icon: "core-reset"
+                    flat: true
+
+                    onClick: () =>
                     {
-                        // add new entry
-                        console.log("file is new: " + path);
-                        tx
-                        .objectStore("toc")
-                        .add(item);
-                        tx
-                        .objectStore("res")
-                        .add(blob.slice(), path);
+                        menu.setTime(timeButton.time[0], timeButton.time[1]);
                     }
-                    else
-                    {
-                        // modify existing
-                        console.log("overwriting file: " + path);
-                        tx
-                        .objectStore("toc")
-                        .put(item);
-                        tx
-                        .objectStore("res")
-                        .put(blob.slice(), path);
-                    }
-                };
-            });
+                }
+            }
+
+            Slider {
+                id: hoursSlider
+
+                fillWidth: true
+                marginTop: theme.paddingSmall
+                marginLeft: theme.paddingSmall
+                marginRight: theme.paddingSmall
+                minValue: 0
+                maxValue: 23
+                value: 0
+            }
+
+            Slider {
+                id: minutesSlider
+
+                fillWidth: true
+                marginTop: theme.paddingSmall
+                marginLeft: theme.paddingSmall
+                marginRight: theme.paddingSmall
+                marginBottom: theme.paddingSmall
+                minValue: 0
+                maxValue: 59
+                value: 0
+            }
         }
     }
-    exports.OfflineFS = OfflineFS;
-});
-</code></pre>
+
+    property time: (() =>
+                   {
+                       const d = new Date();
+                       return [d.getHours(), d.getMinutes()];
+                   })()
+
+    property twentyFourHours: false
+
+    function formatTime(h, m, mode24h)
+    {
+        let h2 = h;
+        if (! mode24h &amp;&amp; h > 12)
+        {
+            h2 = h % 12;
+        }
+        return (h2 &lt;= 9 ? "0" : "") +
+               h2 +
+               ":" +
+               (m &lt;= 9 ? "0" : "") +
+               m +
+               (! mode24h ? (h &lt; 12 ? " am" : " pm") : "");
+    }
+
+    icon: "core-time"
+    text: formatTime(time[0], time[1], twentyFourHours)
+
+    onClick: (ev) =>
+    {
+        const m = menuT();
+        m.setTime(time[0], time[1]);
+        m.popup(self);
+        ev.accepted = true;
+    }
+}</code></pre>
         </article>
     </section>
 
@@ -7054,7 +6787,7 @@ shRequire([__dirname + "/filesystem.js", __dirname + "/util/mime.js"], function 
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri Aug 20 2021 09:55:20 GMT+0200 (GMT+02:00)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri Aug 20 2021 09:55:21 GMT+0200 (GMT+02:00)
             </div>
         </footer>
     </div>
