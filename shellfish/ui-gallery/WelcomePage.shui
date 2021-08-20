@@ -121,7 +121,8 @@ Page {
                             ["Profiles", "ProfilesPage", "ui-toggle_on"],
                             ["Themes", "ThemesPage", "ui-star"],
                             ["Icon Gallery", "IconsPage", "emote-grin"],
-                            ["Calendar", "CalendarPage", "core-calendar"]
+                            ["Calendar", "CalendarPage", "core-calendar"],
+                            ["Date and Time", "DateTimePage", "core-time"]
                         ]
                     },
                     {
