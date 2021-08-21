@@ -128,7 +128,7 @@ Page {
                 {
                     if (camCnv.filter === "custom")
                     {
-                        const dlg = kernelDialog.create();
+                        const dlg = kernelDialog();
                         dlg.show();
                     }
                 }

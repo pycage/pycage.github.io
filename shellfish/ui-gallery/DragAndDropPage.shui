@@ -212,7 +212,7 @@ Page {
                     {
                         if (itemBox.modelData.value.type.startsWith("image/"))
                         {
-                            const dlg = imageDialog.create();
+                            const dlg = imageDialog();
                             dlg.show();
                             dlg.title = itemBox.modelData.value.name;
                             dlg.file = itemBox.modelData.value.obj;

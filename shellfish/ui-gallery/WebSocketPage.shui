@@ -51,7 +51,7 @@ Page {
 
             onError: (err) =>
             {
-                const dlg = page.errorDialogT.create();
+                const dlg = page.errorDialogT();
                 dlg.show();
                 dlg.text = err;
             }

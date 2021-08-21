@@ -264,7 +264,7 @@ Page {
                     {
                         if (item.mimetype.startsWith("image/"))
                         {
-                            const dlg = imageDialog.create();
+                            const dlg = imageDialog();
                             dlg.show();
                             dlg.title = item.name;
                             drive.read(item.path)
