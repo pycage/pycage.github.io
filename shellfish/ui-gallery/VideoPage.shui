@@ -114,18 +114,11 @@ Page {
             id: video
 
             property name: ""
-            property ratio: -1
-            property aspectWidth: originalHeight * ratio
-            property aspectHeight: originalHeight
-            property aspectScale: Math.min(parent.bbox.width / aspectWidth,
-                                           parent.bbox.height / aspectHeight)
 
-            fillWidth: ratio === -1
-            fillHeight: ratio === -1
-            width: ratio === -1 ? 0 : (aspectWidth * aspectScale)
-            height: ratio === -1 ? 0 : (aspectHeight * aspectScale)
+            width: parent.bbox.width
+            height: parent.bbox.height
 
-            fitMode: ratio === -1 ? "contain" : "fill"
+            fitMode: aspectRatio === 0 ? "contain" : "fill"
         }
     }
 
@@ -302,27 +295,27 @@ Page {
             Button {
                 profiles: [button2Profile]
                 labelProfile: buttonSmallLabelProfile
-                checked: video.ratio === -1
+                checked: video.aspectRatio === 0
                 text: "Auto"
-                onClick: () => { video.ratio = -1; }
+                onClick: () => { video.aspectRatio = 0; }
             }
 
             Button {
                 profiles: [button2Profile]
                 labelProfile: buttonSmallLabelProfile
                 width: bbox.height
-                checked: video.ratio === 4/3
+                checked: video.aspectRatio === 4/3
                 text: "4:3"
-                onClick: () => { video.ratio = 4/3; }
+                onClick: () => { video.aspectRatio = 4/3; }
             }
 
             Button {
                 profiles: [button2Profile]
                 labelProfile: buttonSmallLabelProfile
                 width: bbox.height
-                checked: video.ratio === 16/9
+                checked: video.aspectRatio === 16/9
                 text: "16:9"
-                onClick: () => { video.ratio = 16/9; }
+                onClick: () => { video.aspectRatio = 16/9; }
             }
 
             Button {

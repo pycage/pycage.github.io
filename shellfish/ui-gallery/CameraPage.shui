@@ -97,6 +97,7 @@ Page {
             fillWidth: true
             fillHeight: true
             color: "black"
+            layout: "center"
 
             CameraView {
                 id: cam
@@ -119,8 +120,9 @@ Page {
                     0, 0, 0
                 ]
 
-                fillWidth: true
-                fillHeight: true
+                aspectRatio: originalHeight > 0 ? originalWidth / originalHeight : 0
+                width: parent.bbox.width
+                height: parent.bbox.height
                 originalWidth: cam.originalWidth
                 originalHeight: cam.originalHeight
 
