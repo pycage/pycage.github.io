@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Source: core/ui/MenuItemBase.shui</title>
+    <title>Class: Tooltip</title>
     
     
     
@@ -6816,452 +6816,3623 @@
 </div>
 
     <div class="main">
-        <h1 class="page-title" data-filename="core_ui_MenuItemBase.shui.html">Source: core/ui/MenuItemBase.shui</h1>
+        <h1 class="page-title" data-filename="ui.Tooltip.html">Class: Tooltip</h1>
         
 
 
+
+<section>
     
-    <section>
-        <header>
-            <div class="header content-size">
-                <h2>core/ui/MenuItemBase.shui</h2>
-            </div>
-        </header>
-        <article>
-            <pre id="source-code" class="prettyprint source "><code>/*******************************************************************************
-This file is part of the Shellfish UI toolkit.
-Copyright (c) 2020 - 2021 Martin Grimme &lt;martin.grimme@gmail.com>
+<header>
+    <div class="header content-size">
+        <h2><span class="ancestors"><a href="ui.html">ui</a>.</span>Tooltip
+        </h2>
+        
+    </div>
+</header>  
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
+<article class="content-size">
+    
+        <div class="container-overview">
+        
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="Tooltip">
+            <a class="share-icon" href="#Tooltip"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                new ui.Tooltip
+            </span>
+            <span class="signature">()</span>
+            
+            
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_ui_Tooltip.shui.html#line36">Tooltip.shui:36</a>
+        </div>
+        
+    </div>
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*******************************************************************************/
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Element representing a tooltip popup.</p>
+<p>By default, the visibility of the tooltip is controlled by the <code>hovered</code>
+status of the target element, but may also be controlled manually by changing
+the <code>visible</code> property.</p>
+    </div>
+    
 
-require "shellfish/ui";
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+        <h5 class="subsection-title">Properties:</h5>
+        
+        <dl>
 
-/**
- * Element representing the base class for menu items.
- *
- * @memberof ui
- * @name MenuItemBase
- * @class
- * @extends mid.MouseBox
- *
- * @property {bool} isMenuItem - (always `true`) Sub-elements may use this property to check if they are within a menu item.
- * @property {bool} selected - (default: `false`) Whether the menu item is currently selected.
- * @property {bool} highlighted - (default: `false`) Whether the menu item is currently highlighted.
- * @property {fengshui.Template} menu - (default: `null`) A template for a submenu.
- * @property {bool} menuOpened - [readonly] Whether the submenu is currently opened.
- */
-MouseBox {
-    id: item
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="mid.Item.html">mid.Item</a></span>
 
-    property isMenuItem: true
 
-    property selected: false
-    property highlighted: false
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>(default: <code>parent</code>) The target element of the tooltip.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>text</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
 
-    property menu: null
-    property menuOpened: false
 
-    property _menu: null
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>The text to display.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>visible</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
 
-    function _createMenu()
-    {
-        if (! menu)
-        {
-            return;
-        }
 
-        _menu = menu();
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>Whether the tooltip is visible. This property may be controlled externally, if needed.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table></dl>
+        
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
 
-        // unhighlight when menu clicked away
-        _menu.get().onVisibleChanged = () =>
-        {
-            if (! _menu.visible)
-            {
-                menuOpened = false;
-                if (thisMenu)
-                {
-                    selected = true;
-                }
-            }
-        };
+    
+    
 
-        _menu.get().onPointerMove = (ev) =>
-        {
-            let onItem = false;
-            // test the sibling menu items on the menu bar
-            parent.children()
-            .filter((c) => { return c.enabled &amp;&amp; c.visible; })
-            .forEach((child) =>
-            {
-                const cBox = child.bbox;
-                if (ev.x >= cBox.x &amp;&amp; ev.x &lt; cBox.x + cBox.width &amp;&amp;
-                    ev.y >= cBox.y &amp;&amp; ev.y &lt; cBox.y + cBox.height)
-                {
-                    if (child !== self)
-                    {
-                        child.selectItem(true);
-                    }
-                    onItem = true;
-                }
-            });
+    
 
-            if (! onItem &amp;&amp; !! thisMenu)
-            {
-                thisMenu.pointerMove(ev);
-            }
-        };
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
 
-        _menu.get().onKeyDown = (ev) =>
-        {
-            if (thisMenu)
-            {
-                if (ev.key === "ArrowLeft")
-                {
-                    // cursor-left close the submenu
-                    _menu.visible = false;
-                    ev.accepted = true;
-                }
-            }
-            else
-            {
-                if (ev.key === "ArrowLeft")
-                {
-                    // cursor-left opens the previous menu
-                    toSibling(-1, (sibling) =>
-                    {
-                        sibling.selectItem(true);
-                    });
-                    ev.accepted = true;
-                }
-                else if (ev.key === "ArrowRight")
-                {
-                    // cursor-right opens the next menu
-                    toSibling(1, (sibling) =>
-                    {
-                        sibling.selectItem(true);
-                    });
-                    ev.accepted = true;
-                }
-            }
-        };
+    
+    <pre class="prettyprint"><code>Button {
+    text: "Click Me"
 
-        _menu.get().onCascadingClose = () =>
-        {
-            if (thisMenu)
-            {
-                thisMenu.visible = false;
-                thisMenu.cascadingClose();
-            }
-        };
-    }
+    Tooltip { text: "I am a tooltip." }
+}</code></pre>
+    
 
-    /**
-     * Shows the submenu if there is one.
-     *
-     * @memberof ui.MenuItemBase.prototype
-     * @name showMenu
-     * @method
-     */
-    function showMenu()
-    {
-        selected = false;
+    
+</dd>
 
-        if (! menu)
-        {
-            return;
-        }
+        
+        </div>
+    
+    
+    
+        <h3 class="subsection-title">Extends</h3>
+        
+        <ul>
+            <li><a href="mid.Object.html">mid.Object</a></li>
+        </ul>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl class="list-methods">
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="add">
+            <a class="share-icon" href="#add"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                add
+            </span>
+            <span class="signature">(child)</span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#add">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line1162">object.js:1162</a>
+        </div>
+        
+    </div>
 
-        if (! _menu)
-        {
-            _createMenu();
-        }
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Adds a child object to this object.</p>
+    </div>
+    
 
-        if (!! thisMenu)
-        {
-            _menu.popup(self, { horizontal: true });
-        }
-        else
-        {
-            _menu.popup(self, { horizontal: false });
-        }
+    
+    
+    
+    
+    
+        
 
-        menuOpened = true;
-    }
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>child</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="mid.Object.html">mid.Object</a></span>
 
-    /**
-     * Closes the submenu.
-     *
-     * @memberof ui.MenuItemBase.prototype
-     * @name closeMenu
-     * @method
-     */
-    function closeMenu()
-    {
-        _menu.visible = false;
-    }
 
-    /**
-     * Unselects all sibling menu items.
-     *
-     * @memberof ui.MenuItemBase.prototype
-     * @name unselectSiblings
-     * @method
-     */
-    function unselectSiblings()
-    {
-        // unhighlight siblings and close menu
-        parent.children()
-        .filter((c) => { return c !== self &amp;&amp; c.isMenuItem; })
-        .forEach((c) =>
-        {
-            c.selected = false;
-            if (c.menuOpened)
-            {
-                c.closeMenu();
-            }
-        });
-    }
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The child object.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
 
-    /**
-     * Selects this menu item.
-     *
-     * @memberof ui.MenuItemBase.prototype
-     * @name selectItem
-     * @method
-     *
-     * @param {bool} activate - Whether the item should be activated to open its submenu.
-     */
-    function selectItem(activate)
-    {
-        unselectSiblings();
+    
+    
 
-        if (menu &amp;&amp; activate)
-        {
-            if (! menuOpened)
-            {
-                showMenu();
-            }
-        }
-        else
-        {
-            selected = true;
-        }
-    }
+    
 
-    /**
-     * Returns whether one of the sibling menu items has a submenu opened.
-     *
-     * @memberof ui.MenuItemBase.prototype
-     * @name hasSiblingMenuOpen
-     * @method
-     *
-     * @return {bool} Whether a sibling menu item has a submenu opened.
-     */
-    function hasSiblingMenuOpen()
-    {
-        return parent.children()
-               .filter((c) => { return c !== self &amp;&amp; c.menuOpened; })
-               .length > 0;
-    }
+    
+    
+    
+    
+    
+    
+    
+</dd>
 
-    /**
-     * Directs a function to the previous or next sibling.
-     *
-     * @memberof ui.MenuItemBase.prototype
-     * @name toSibling
-     * @method
-     *
-     * @param {number} direction - If `-1`, targets the previous sibling. If `1`, targets the next sibling.
-     * @param {function} f - The function to execute. Takes the sibling instance as parameter.
-     */
-    function toSibling(direction, f)
-    {
-        const siblings = parent.children().filter((c) => { return c.isMenuItem &amp;&amp; c.enabled; });
-        let selfPos = -1;
-        for (let i = 0; i &lt; siblings.length; ++i)
-        {
-            if (siblings[i] === self)
-            {
-                selfPos = i;
-                break;
-            }
-        }
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="addHtmlEventListener">
+            <a class="share-icon" href="#addHtmlEventListener"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                addHtmlEventListener
+            </span>
+            <span class="signature">(target, type, listener, <span class="optional">options</span>)</span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#addHtmlEventListener">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line1105">object.js:1105</a>
+        </div>
+        
+    </div>
 
-        if (selfPos !== -1)
-        {
-            if (direction === -1)
-            {
-                f(siblings[(siblings.length + selfPos - 1) % siblings.length]);
-            }
-            else if (direction === 1)
-            {
-                f(siblings[(selfPos + 1) % siblings.length]);
-            }
-        }
-    }
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Adds a HTML event listener and registers it for proper removal when this
+object gets destroyed.
+This method is prefered to just using <code>addEventListener</code>, which may leak
+event listener callbacks along with their closures.</p>
+    </div>
+    
 
-    onInitialization: () =>
-    {
-        if (menu &amp;&amp; ! _menu)
-        {
-            _createMenu();
-        }
-    }
+    
+    
+    
+    
+    
+        
 
-    onAncestorsVisibleChanged: () =>
-    {
-        if (! ancestorsVisible)
-        {
-            if (menuOpened)
-            {
-                _menu.visible = false;
-            }
-            selected = false;
-        }
-    }
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
 
-    onSelectedChanged: () =>
-    {
-        if (selected)
-        {
-            focus = true;
-        }
-    }
 
-    onFocusChanged: () =>
-    {
-        if (! thisMenu)
-        {
-            if (focus)
-            {
-                selectItem(false);
-            }
-            else
-            {
-                selected = false;
-            }
-        }
-    }
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                <p>The target HTML element.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
 
-    onContainsMouseChanged: () =>
-    {
-        if (containsMouse)
-        {
-            if (thisMenu)
-            {
-                selectItem(true);
-            }
-            else
-            {
-                if (hasSiblingMenuOpen())
-                {
-                    selectItem(true);
-                }
-                else
-                {
-                    selectItem(false);
-                }
-            }
-        }
-        else
-        {
-            selected = false;
-        }
-    }
 
-    onPointerDown: (ev) =>
-    {
-        if (thisMenu)
-        {
-            if (menu)
-            {
-                ev.accepted = true;
-            }
-        }
-        else
-        {
-            if (menu &amp;&amp; ! menuOpened)
-            {
-                showMenu();
-                ev.accepted = true;
-            }
-            else if (menuOpened)
-            {
-                ev.accepted = true;
-            }
-        }
-    }
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                <p>The event type.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>listener</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
 
-    onKeyDown: (ev) =>
-    {
-        if (thisMenu)
-        {
-            if (selected &amp;&amp; ev.key === "ArrowRight" &amp;&amp; menu)
-            {
-                // cursor-right opens the submenu
-                showMenu();
-                ev.accepted = true;
-            }
-            else if (ev.key === " " || ev.key === "Enter")
-            {
-                if (selected)
-                {
-                    item.click(ev);
-                }
-                else
-                {
-                    ev.accepted = true;
-                }
-            }
-        }
-        else
-        {
-            // parent is not a menu
 
-            if (ev.key === " " || ev.key === "Enter" || ev.key === "ArrowDown")
-            {
-                if (selected)
-                {
-                    item.click(ev);
-                }
-                ev.accepted = true;
-            }
-        }
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                <p>The listener function.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
 
-    }
 
-    canFocus: !! thisMenu
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>Optional HTML event listener options.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="mid.Object.html#removeHtmlEventListener">removeHtmlEventListener</a></li>
+        </ul>
+    </dd>
+    
+    
+    
+</dl>
 
-    width: !! thisMenu ? thisMenu.menuRuler.max.width : -1
-    height: theme.itemHeightMedium
+    
+    
 
-    highlighted: selected || menuOpened
+    
 
-    color: highlighted ? theme.highlightBackgroundColor
-                       : "transparent"
+    
+    
+    
+    
+    
+    
+    
+</dd>
 
-    //FocusIndicator { visible: parent.selected; borderColor: "red" }
-}
-</code></pre>
-        </article>
-    </section>
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="addProperty">
+            <a class="share-icon" href="#addProperty"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                addProperty
+            </span>
+            <span class="signature">(name, getter, setter)</span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#addProperty">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line858">object.js:858</a>
+        </div>
+        
+    </div>
 
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Adds a custom external property of any type. The property is notifyable.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The name of the property.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>getter</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>A function returning the property's value.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>setter</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>A function accepting the property's new value.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="blobUrl">
+            <a class="share-icon" href="#blobUrl"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                blobUrl
+            </span>
+            <span class="signature">(blob)</span><span class="type-signature">string</span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#blobUrl">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line1149">object.js:1149</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Creates an URL for the given blob. The URL is automatically revoked
+on destruction of this object.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>blob</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Blob</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The blob to create an URL for.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            <td class="description last"><ul>
+<li>The URL.</li>
+</ul></td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="change">
+            <a class="share-icon" href="#change"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                change
+            </span>
+            <span class="signature">(name, newValue)</span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#change">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line937">object.js:937</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Changes the given property by applying a transition if specified.
+This is the prefered way to change a property's value as it takes
+potential transitioning into account.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The name of the property.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>newValue</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">any</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The property's new value.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="mid.Object.html#transitionable">transitionable</a></li>
+        </ul>
+    </dd>
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="colorName">
+            <a class="share-icon" href="#colorName"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                colorName
+            </span>
+            <span class="signature">(name)</span><span class="type-signature"><a href="mid.html#.Color">mid.Color</a></span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#colorName">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line531">object.js:531</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Creates a color from a CSS color name.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The color name.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="mid.html#.Color">mid.Color</a>
+                        
+                    
+            </td>
+            <td class="description last"><ul>
+<li>The color.</li>
+</ul></td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="connect">
+            <a class="share-icon" href="#connect"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                connect
+            </span>
+            <span class="signature">(event, receiver, handler)</span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#connect">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line1051">object.js:1051</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Connects a handler to the given event. The handler gets disconnected
+automatically when the receiver object is discarded.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The event name.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>receiver</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="mid.Object.html">mid.Object</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The receiver object that owns the handler.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>handler</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The event handler.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="mid.Object.html#registerEvent">registerEvent</a></li>
+        
+            <li><a href="mid.Object.html#disconnect">disconnect</a></li>
+        
+            <li><a href="mid.Object.html#hasConnections">hasConnections</a></li>
+        </ul>
+    </dd>
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="discard">
+            <a class="share-icon" href="#discard"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="status-deprecated">
+                discard
+            </span>
+            <span class="signature">()</span>
+            
+                <span class="access-signature deprecated">Deprecated
+                    : <span class="deprecated-info">Objects are discarded automatically once the reference count reaches 0.</span>
+                    
+                </span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#discard">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line556">object.js:556</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Discards this object.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="disconnect">
+            <a class="share-icon" href="#disconnect"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                disconnect
+            </span>
+            <span class="signature">(event, receiver)</span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#disconnect">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line1063">object.js:1063</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Disconnects an object from the given event.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The event name.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>receiver</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="mid.Object.html">mid.Object</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The object to disconnect.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="mid.Object.html#connect">connect</a></li>
+        </ul>
+    </dd>
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="hasConnections">
+            <a class="share-icon" href="#hasConnections"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                hasConnections
+            </span>
+            <span class="signature">(event)</span><span class="type-signature">bool</span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#hasConnections">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line1088">object.js:1088</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Returns whether the given event has handlers connected.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The name of the event.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="mid.Object.html#connect">connect</a></li>
+        </ul>
+    </dd>
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        bool
+                        
+                    
+            </td>
+            <td class="description last">Whether the event has handlers connected.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="init">
+            <a class="share-icon" href="#init"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                init
+            </span>
+            <span class="signature">()</span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#init">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line538">object.js:538</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Initializes this object. Call this method after creating the object
+and its children.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="notifyable">
+            <a class="share-icon" href="#notifyable"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                notifyable
+            </span>
+            <span class="signature">(name)</span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#notifyable">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line787">object.js:787</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Makes the given property notifyable.
+This adds a <code>&lt;name&gt;Changed</code> event to the object for watching the
+property for changes.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The name of the property.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="mid.Object.html#connect">connect</a></li>
+        </ul>
+    </dd>
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="referenceAdd">
+            <a class="share-icon" href="#referenceAdd"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                referenceAdd
+            </span>
+            <span class="signature">(which)</span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#referenceAdd">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line658">object.js:658</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Adds a reference to this object, which means that another object is
+holding a reference to this object from then on. Objects are not
+discarded while still being referenced.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>which</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="mid.Object.html">mid.Object</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The referencing object.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="mid.Object.html#referenceRemove">referenceRemove</a></li>
+        </ul>
+    </dd>
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="referenceRemove">
+            <a class="share-icon" href="#referenceRemove"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                referenceRemove
+            </span>
+            <span class="signature">(which)</span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#referenceRemove">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line721">object.js:721</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Removes a reference from this object. When there are no references
+left, the object will be discarded automatically.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>which</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="mid.Object.html">mid.Object</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The referencing object.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="mid.Object.html#referenceAdd">referenceAdd</a></li>
+        </ul>
+    </dd>
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="registerEvent">
+            <a class="share-icon" href="#registerEvent"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                registerEvent
+            </span>
+            <span class="signature">(name, connectionMonitor)</span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#registerEvent">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line969">object.js:969</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Registers the given event.
+If <code>connectionMonitor</code> is specified, that callback will be invoked
+whenever a connection to the event is made.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The name of the event.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>connectionMonitor</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The callback to invoke after each new connection.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="mid.Object.html#connect">connect</a></li>
+        </ul>
+    </dd>
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="releaseLater">
+            <a class="share-icon" href="#releaseLater"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                releaseLater
+            </span>
+            <span class="signature">()</span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#releaseLater">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line621">object.js:621</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Releases this object from its parent at a later point when idle.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="removeHtmlEventListener">
+            <a class="share-icon" href="#removeHtmlEventListener"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                removeHtmlEventListener
+            </span>
+            <span class="signature">(target, type, listener, <span class="optional">options</span>)</span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#removeHtmlEventListener">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line1123">object.js:1123</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Removes the given HTML event listener. This is prefered to just using
+<code>removeEventListener</code>.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                <p>The target HTML element.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                <p>The event type.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>listener</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                <p>The listener function.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>Optional HTML event listener options.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="mid.Object.html#addHtmlEventListener">addHtmlEventListener</a></li>
+        </ul>
+    </dd>
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="rgb">
+            <a class="share-icon" href="#rgb"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                rgb
+            </span>
+            <span class="signature">(r, g, b)</span><span class="type-signature"><a href="mid.html#.Color">mid.Color</a></span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#rgb">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line524">object.js:524</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Creates a color from RGB values.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>r</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The red value between 0.0 and 1.0.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>g</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The green value between 0.0 and 1.0.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The blue value between 0.0 and 1.0.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="mid.html#.Color">mid.Color</a>
+                        
+                    
+            </td>
+            <td class="description last"><ul>
+<li>The color.</li>
+</ul></td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="rgba">
+            <a class="share-icon" href="#rgba"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                rgba
+            </span>
+            <span class="signature">(r, g, b, a)</span><span class="type-signature"><a href="mid.html#.Color">mid.Color</a></span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#rgba">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line515">object.js:515</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Creates a color from RGBA values.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>r</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The red value between 0.0 and 1.0.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>g</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The green value between 0.0 and 1.0.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The blue value between 0.0 and 1.0.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The alpha value between 0.0 and 1.0.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="mid.html#.Color">mid.Color</a>
+                        
+                    
+            </td>
+            <td class="description last"><ul>
+<li>The color.</li>
+</ul></td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="safeCallback">
+            <a class="share-icon" href="#safeCallback"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                safeCallback
+            </span>
+            <span class="signature">(callback)</span><span class="type-signature">function</span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#safeCallback">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line639">object.js:639</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Wraps a callback function to be save, i.e. it will only be invoked
+if the object is still alive. This helps when working with asynchronous
+code.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The callback function.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        function
+                        
+                    
+            </td>
+            <td class="description last"><ul>
+<li>The safe-made callback function.</li>
+</ul></td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="transitionable">
+            <a class="share-icon" href="#transitionable"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                transitionable
+            </span>
+            <span class="signature">(name, interpolate)</span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#transitionable">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line915">object.js:915</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Makes the given property transitionable by adding a property
+<code>&lt;name&gt;Transition</code> for defining a transition animation.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The name of the property.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>interpolate</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>An optional interpolation function.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="mid.Object.html#change">change</a></li>
+        </ul>
+    </dd>
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="typeOf">
+            <a class="share-icon" href="#typeOf"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                typeOf
+            </span>
+            <span class="signature">(name)</span><span class="type-signature">string</span>
+            
+            
+            
+                <span class="access-signature inherited"><a href="mid.Object.html#typeOf">inherited</a></span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_mid_object.js.html#line799">object.js:799</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Returns the role type of the given property. The type is <code>undefined</code> if the
+property does not exist.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The name of the property.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            <td class="description last">The type, one of <code>property|method|event|eventhandler|undefined</code></td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        </dl>
+    
+    
+    
+    
+    
+
+    
+</article>
+
+</section>  
 
 
 
@@ -7271,7 +10442,7 @@ MouseBox {
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Sat Sep 11 2021 12:35:29 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Sat Sep 11 2021 12:35:32 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>
