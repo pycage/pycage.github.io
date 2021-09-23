@@ -6812,6 +6812,141 @@
             
         </li>
     
+        <li class="item" data-name="tutorial-concepts">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-concepts.html">Concepts of Shellfish</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-levels">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-levels.html">Levels of Abstraction</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-modules">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-modules.html">Module Management</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-setup">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-setup.html">Setup the SDK</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-code">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-code.html">Code Blocks</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-elements">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-elements.html">Elements, Properties, and Comments</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-events">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-events.html">Events and Event Handlers</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-methods">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-methods.html">Methods</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-modules">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-modules.html">Modules and Components</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
     </ul>
 </div>
 
@@ -6893,6 +7028,9 @@ to occupy the worker thread it was assigned to.</p>
 <p>Functions may be passed between threads as callbacks. Invoking a callback
 guarantees that the function will be executed in the thread where it came
 from.</p>
+<p>Since callback functions may be called more than once, they are not
+freed while the task is running. In order to free a callback function
+immediately, have it return <code>true</code> explicitly.</p>
 <h3>Atomic Integers</h3>
 <p>Atomic integers are 32bit integer values that may be shared and modified
 by several threads safely. Usually the CPU supports atomic operations on
@@ -6904,8 +7042,8 @@ a flag.</p>
 function or method parameter, a copy of the object will be made for passing.
 This can be quite expensive for large objects.</p>
 <p>Some types, however, support being transfered directly between threads without
-copying. A transfered object is no longer usable in thread where it was
-transfered from.</p>
+copying. A transfered object is no longer usable in the thread where it
+was transfered from.</p>
 <p>This mechanism is comparable to the <code>std::move()</code> semantics of C++.</p></div>
         
     </div>
@@ -6934,7 +7072,7 @@ transfered from.</p>
     
         
         <div class="tag-source">
-            <a href="core_mid_threadpool.js.html#line678">threadpool.js:678</a>
+            <a href="core_mid_threadpool.js.html#line686">threadpool.js:686</a>
         </div>
         
     </div>
@@ -7711,7 +7849,7 @@ event listener callbacks along with their closures.</p>
     
         
         <div class="tag-source">
-            <a href="core_mid_threadpool.js.html#line760">threadpool.js:760</a>
+            <a href="core_mid_threadpool.js.html#line768">threadpool.js:768</a>
         </div>
         
     </div>
@@ -9132,7 +9270,7 @@ property for changes.</p>
     
         
         <div class="tag-source">
-            <a href="core_mid_threadpool.js.html#line1054">threadpool.js:1054</a>
+            <a href="core_mid_threadpool.js.html#line1062">threadpool.js:1062</a>
         </div>
         
     </div>
@@ -9321,7 +9459,7 @@ worker thread by marking the parameter with <code>transfer()</code>.</p>
     
         
         <div class="tag-source">
-            <a href="core_mid_threadpool.js.html#line1093">threadpool.js:1093</a>
+            <a href="core_mid_threadpool.js.html#line1101">threadpool.js:1101</a>
         </div>
         
     </div>
@@ -10820,7 +10958,7 @@ code.</p>
     
         
         <div class="tag-source">
-            <a href="core_mid_threadpool.js.html#line746">threadpool.js:746</a>
+            <a href="core_mid_threadpool.js.html#line754">threadpool.js:754</a>
         </div>
         
     </div>
@@ -11285,7 +11423,7 @@ property does not exist.</p>
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Sat Sep 11 2021 12:35:31 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Thu Sep 23 2021 19:32:32 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>
