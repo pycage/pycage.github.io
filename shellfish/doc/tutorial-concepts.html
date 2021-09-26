@@ -1718,6 +1718,8 @@
             
                 <li class="  " data-name="mid.FpsMeter#safeCallback"><a href="mid.FpsMeter.html#safeCallback">safeCallback</a></li>
             
+                <li class="parent  " data-name="mid.FpsMeter#takeFrame"><a href="mid.FpsMeter.html#takeFrame">takeFrame</a></li>
+            
                 <li class="  " data-name="mid.FpsMeter#transitionable"><a href="mid.FpsMeter.html#transitionable">transitionable</a></li>
             
                 <li class="  " data-name="mid.FpsMeter#typeOf"><a href="mid.FpsMeter.html#typeOf">typeOf</a></li>
@@ -3490,13 +3492,19 @@
             
                 <li class="  " data-name="mid.TextArea#disconnect"><a href="mid.TextArea.html#disconnect">disconnect</a></li>
             
+                <li class="parent  " data-name="mid.TextArea#eraseAt"><a href="mid.TextArea.html#eraseAt">eraseAt</a></li>
+            
                 <li class="  " data-name="mid.TextArea#get"><a href="mid.TextArea.html#get">get</a></li>
             
                 <li class="  " data-name="mid.TextArea#hasConnections"><a href="mid.TextArea.html#hasConnections">hasConnections</a></li>
             
                 <li class="  " data-name="mid.TextArea#init"><a href="mid.TextArea.html#init">init</a></li>
             
+                <li class="parent  " data-name="mid.TextArea#insertAt"><a href="mid.TextArea.html#insertAt">insertAt</a></li>
+            
                 <li class="  " data-name="mid.TextArea#notifyable"><a href="mid.TextArea.html#notifyable">notifyable</a></li>
+            
+                <li class="parent  " data-name="mid.TextArea#positionAt"><a href="mid.TextArea.html#positionAt">positionAt</a></li>
             
                 <li class="  " data-name="mid.TextArea#referenceAdd"><a href="mid.TextArea.html#referenceAdd">referenceAdd</a></li>
             
@@ -3513,6 +3521,8 @@
                 <li class="  " data-name="mid.TextArea#rgba"><a href="mid.TextArea.html#rgba">rgba</a></li>
             
                 <li class="  " data-name="mid.TextArea#safeCallback"><a href="mid.TextArea.html#safeCallback">safeCallback</a></li>
+            
+                <li class="parent  " data-name="mid.TextArea#setCursor"><a href="mid.TextArea.html#setCursor">setCursor</a></li>
             
                 <li class="  " data-name="mid.TextArea#transitionable"><a href="mid.TextArea.html#transitionable">transitionable</a></li>
             
@@ -6827,6 +6837,66 @@
             
         </li>
     
+        <li class="item" data-name="tutorial-layout-flow">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-flow.html">Controlling the Layout Flow</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-layout-position">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-position.html">Positioning Elements</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-layout-scrolling">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-scrolling.html">Scrolling</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-layout-size">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-size.html">Controlling the Size</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="tutorial-levels">
             <span class="title  ">
                 
@@ -6878,6 +6948,21 @@
                 
                     <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
                     <a href="tutorial-shui-code.html">Code Blocks</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-containers">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-containers.html">Component Containers</a>
                 
             </span>
             
@@ -6947,6 +7032,36 @@
             
         </li>
     
+        <li class="item" data-name="tutorial-shui-scope">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-scope.html">Understanding Identifier Scope and Namespaces</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-templates">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-templates.html">Templates</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
     </ul>
 </div>
 
@@ -6991,7 +7106,7 @@ while watching the dynamic value holding the width.</p>
 <h1>Bindings</h1>
 <p>Remember the spreadsheet application example from above? Besides fields with simple
 values, there were also fields holding formula expressions.
-In Shellfish, the analogy to such a field is be a <em>binding</em>.</p>
+In Shellfish, the analogy to such a field is a <em>binding</em>.</p>
 <p>Bindings may hold complex expressions dealing with many dynamic values or
 constant values and yield a result that changes whenever one of the dynamic
 values changes. By nature, bindings are dynamic values themselves, so other
@@ -7030,7 +7145,7 @@ Label {
 </code></pre>
 <p>Note how <code>label2</code> incorporates the value of a property of <code>label1</code> in its own
 <code>text</code> property. The value of <code>label2</code>'s <code>text</code> property is a binding, expressed
-by a line of code written in JavaScript.</p>
+by code written in JavaScript.</p>
 <p>Elements that may contain other elements nested inside are called <em>container elements</em>.
 Let's nest a label inside a box:</p>
 <pre><code>Box {
@@ -7039,6 +7154,11 @@ Let's nest a label inside a box:</p>
     }
 }
 </code></pre>
+<div class="navstrip"><span class="go-home"><a href="index.html">Contents</a></span><span class="go-previous">
+<a href="tutorial-setup.html">Setup the SDK</a>
+</span><span class="go-next">
+<a href="tutorial-levels.html">Levels of Abstraction</a>
+</span></div>
 </article>
 
 </section>  
@@ -7048,7 +7168,7 @@ Let's nest a label inside a box:</p>
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Thu Sep 23 2021 19:32:33 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Sun Sep 26 2021 11:55:24 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

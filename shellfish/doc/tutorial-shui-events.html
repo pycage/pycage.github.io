@@ -1718,6 +1718,8 @@
             
                 <li class="  " data-name="mid.FpsMeter#safeCallback"><a href="mid.FpsMeter.html#safeCallback">safeCallback</a></li>
             
+                <li class="parent  " data-name="mid.FpsMeter#takeFrame"><a href="mid.FpsMeter.html#takeFrame">takeFrame</a></li>
+            
                 <li class="  " data-name="mid.FpsMeter#transitionable"><a href="mid.FpsMeter.html#transitionable">transitionable</a></li>
             
                 <li class="  " data-name="mid.FpsMeter#typeOf"><a href="mid.FpsMeter.html#typeOf">typeOf</a></li>
@@ -3490,13 +3492,19 @@
             
                 <li class="  " data-name="mid.TextArea#disconnect"><a href="mid.TextArea.html#disconnect">disconnect</a></li>
             
+                <li class="parent  " data-name="mid.TextArea#eraseAt"><a href="mid.TextArea.html#eraseAt">eraseAt</a></li>
+            
                 <li class="  " data-name="mid.TextArea#get"><a href="mid.TextArea.html#get">get</a></li>
             
                 <li class="  " data-name="mid.TextArea#hasConnections"><a href="mid.TextArea.html#hasConnections">hasConnections</a></li>
             
                 <li class="  " data-name="mid.TextArea#init"><a href="mid.TextArea.html#init">init</a></li>
             
+                <li class="parent  " data-name="mid.TextArea#insertAt"><a href="mid.TextArea.html#insertAt">insertAt</a></li>
+            
                 <li class="  " data-name="mid.TextArea#notifyable"><a href="mid.TextArea.html#notifyable">notifyable</a></li>
+            
+                <li class="parent  " data-name="mid.TextArea#positionAt"><a href="mid.TextArea.html#positionAt">positionAt</a></li>
             
                 <li class="  " data-name="mid.TextArea#referenceAdd"><a href="mid.TextArea.html#referenceAdd">referenceAdd</a></li>
             
@@ -3513,6 +3521,8 @@
                 <li class="  " data-name="mid.TextArea#rgba"><a href="mid.TextArea.html#rgba">rgba</a></li>
             
                 <li class="  " data-name="mid.TextArea#safeCallback"><a href="mid.TextArea.html#safeCallback">safeCallback</a></li>
+            
+                <li class="parent  " data-name="mid.TextArea#setCursor"><a href="mid.TextArea.html#setCursor">setCursor</a></li>
             
                 <li class="  " data-name="mid.TextArea#transitionable"><a href="mid.TextArea.html#transitionable">transitionable</a></li>
             
@@ -6827,6 +6837,66 @@
             
         </li>
     
+        <li class="item" data-name="tutorial-layout-flow">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-flow.html">Controlling the Layout Flow</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-layout-position">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-position.html">Positioning Elements</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-layout-scrolling">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-scrolling.html">Scrolling</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-layout-size">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-size.html">Controlling the Size</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="tutorial-levels">
             <span class="title  ">
                 
@@ -6878,6 +6948,21 @@
                 
                     <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
                     <a href="tutorial-shui-code.html">Code Blocks</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-containers">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-containers.html">Component Containers</a>
                 
             </span>
             
@@ -6947,6 +7032,36 @@
             
         </li>
     
+        <li class="item" data-name="tutorial-shui-scope">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-scope.html">Understanding Identifier Scope and Namespaces</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-templates">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-templates.html">Templates</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
     </ul>
 </div>
 
@@ -6969,8 +7084,9 @@ the user clicked the mouse button inside the element.</p>
 with the first character of the event's name being capitalized and prepended
 by <code>on</code>. E.g. the handler for the <code>click</code> event is assigned to the <code>onClick</code>
 property.</p>
-<pre><code>MouseBox {
-    onClick: () =&gt;
+<p>JavaScript's arrow function notation is used for event handlers.</p>
+<pre class="prettyprint source"><code>MouseBox {
+    onClick: () =>
     {
         // some code
     }
@@ -6978,26 +7094,32 @@ property.</p>
 </code></pre>
 <p>Some events call their handler function with parameters which you can name and access by
 using function parameters.</p>
-<pre><code>MouseBox {
-    onClick: (ev) =&gt;
+<pre class="prettyprint source"><code>MouseBox {
+    onClick: (ev) =>
     {
         console.log(&quot;You clicked at (&quot; + ev.x + &quot;, &quot; + ev.y + &quot;).&quot;);
         ev.accepted = true;
     }
 }
 </code></pre>
+<p>If you don't use the parameters, you may omit them.</p>
+<pre class="prettyprint source"><code>onClick: () =>
+{
+
+}
+</code></pre>
 <h1>Custom Events</h1>
 <p>You may define custom events on an element by using the <code>event</code> keyword together with a valid identifier name.
 Trigger the event by invoking it like a function.</p>
-<pre><code>MouseBox {
+<pre class="prettyprint source"><code>MouseBox {
     event somethingHappened
 
-    onClick: (ev) =&gt;
+    onClick: (ev) =>
     {
         somethingHappened(ev.x, ev.y);
     }
 
-    onSomethingHappened: (x, y) =&gt;
+    onSomethingHappened: (x, y) =>
     {
         console.log(&quot;You clicked at (&quot; + x + &quot;, &quot; + y + &quot;).&quot;);
     }
@@ -7006,21 +7128,56 @@ Trigger the event by invoking it like a function.</p>
 <h1>Foreign Events</h1>
 <p>Elements may connect handler functions to events of another element. To do so,
 use the identifier of the other element.</p>
-<pre><code>MouseBox {
-    id: mbox
-}
+<pre class="prettyprint source"><code>Document {
 
-Box {
-    mbox.onClick: (ev) =&gt;
-    {
-        console.log(&quot;You clicked a button.&quot;);
+    MouseBox {
+        id: mbox
     }
+
+    Box {
+        mbox.onClick: () =>
+        {
+            console.log(&quot;You clicked a button.&quot;);
+        }
+    }
+
 }
 </code></pre>
-<h1>Multiple Event Handlers</h1>
+<h1>Assigning Multiple Event Handlers</h1>
 <p>Event handlers are different from properties in that assigning a new handler function will
 not replace the previous handler function. Instead, both functions will be called when
 the event triggers. This way you can monitor the same event at various locations.</p>
+<pre class="prettyprint source"><code>Document {
+
+    MouseBox {
+        id: mbox
+
+        width: 100
+        height: 100
+        color: &quot;red&quot;
+
+        onClick: () =>
+        {
+            console.log(&quot;You clicked a button.&quot;);
+        }
+    }
+
+    Box {
+        mbox.onClick: () =>
+        {
+            console.log(&quot;I saw you click a button.&quot;);
+        }
+    }
+
+}
+</code></pre>
+<p><strong>Attention:</strong> Parameters passed to the multiple handlers are the same objects for each handler function.
+Keep this in mind when modifying a parameter object.</p>
+<div class="navstrip"><span class="go-home"><a href="index.html">Contents</a></span><span class="go-previous">
+<a href="tutorial-shui-elements.html">Elements, Properties, and Comments</a>
+</span><span class="go-next">
+<a href="tutorial-shui-methods.html">Methods</a>
+</span></div>
 </article>
 
 </section>  
@@ -7030,7 +7187,7 @@ the event triggers. This way you can monitor the same event at various locations
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Thu Sep 23 2021 19:32:33 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Sun Sep 26 2021 11:55:24 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

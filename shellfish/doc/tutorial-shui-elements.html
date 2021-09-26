@@ -1718,6 +1718,8 @@
             
                 <li class="  " data-name="mid.FpsMeter#safeCallback"><a href="mid.FpsMeter.html#safeCallback">safeCallback</a></li>
             
+                <li class="parent  " data-name="mid.FpsMeter#takeFrame"><a href="mid.FpsMeter.html#takeFrame">takeFrame</a></li>
+            
                 <li class="  " data-name="mid.FpsMeter#transitionable"><a href="mid.FpsMeter.html#transitionable">transitionable</a></li>
             
                 <li class="  " data-name="mid.FpsMeter#typeOf"><a href="mid.FpsMeter.html#typeOf">typeOf</a></li>
@@ -3490,13 +3492,19 @@
             
                 <li class="  " data-name="mid.TextArea#disconnect"><a href="mid.TextArea.html#disconnect">disconnect</a></li>
             
+                <li class="parent  " data-name="mid.TextArea#eraseAt"><a href="mid.TextArea.html#eraseAt">eraseAt</a></li>
+            
                 <li class="  " data-name="mid.TextArea#get"><a href="mid.TextArea.html#get">get</a></li>
             
                 <li class="  " data-name="mid.TextArea#hasConnections"><a href="mid.TextArea.html#hasConnections">hasConnections</a></li>
             
                 <li class="  " data-name="mid.TextArea#init"><a href="mid.TextArea.html#init">init</a></li>
             
+                <li class="parent  " data-name="mid.TextArea#insertAt"><a href="mid.TextArea.html#insertAt">insertAt</a></li>
+            
                 <li class="  " data-name="mid.TextArea#notifyable"><a href="mid.TextArea.html#notifyable">notifyable</a></li>
+            
+                <li class="parent  " data-name="mid.TextArea#positionAt"><a href="mid.TextArea.html#positionAt">positionAt</a></li>
             
                 <li class="  " data-name="mid.TextArea#referenceAdd"><a href="mid.TextArea.html#referenceAdd">referenceAdd</a></li>
             
@@ -3513,6 +3521,8 @@
                 <li class="  " data-name="mid.TextArea#rgba"><a href="mid.TextArea.html#rgba">rgba</a></li>
             
                 <li class="  " data-name="mid.TextArea#safeCallback"><a href="mid.TextArea.html#safeCallback">safeCallback</a></li>
+            
+                <li class="parent  " data-name="mid.TextArea#setCursor"><a href="mid.TextArea.html#setCursor">setCursor</a></li>
             
                 <li class="  " data-name="mid.TextArea#transitionable"><a href="mid.TextArea.html#transitionable">transitionable</a></li>
             
@@ -6827,6 +6837,66 @@
             
         </li>
     
+        <li class="item" data-name="tutorial-layout-flow">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-flow.html">Controlling the Layout Flow</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-layout-position">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-position.html">Positioning Elements</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-layout-scrolling">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-scrolling.html">Scrolling</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-layout-size">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-size.html">Controlling the Size</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="tutorial-levels">
             <span class="title  ">
                 
@@ -6878,6 +6948,21 @@
                 
                     <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
                     <a href="tutorial-shui-code.html">Code Blocks</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-containers">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-containers.html">Component Containers</a>
                 
             </span>
             
@@ -6947,6 +7032,36 @@
             
         </li>
     
+        <li class="item" data-name="tutorial-shui-scope">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-scope.html">Understanding Identifier Scope and Namespaces</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-templates">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-templates.html">Templates</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
     </ul>
 </div>
 
@@ -6964,12 +7079,12 @@
     <h1>Elements</h1>
 <p>A Shui file (or document) consists of a tree of nested elements. To create an element,
 put its class name with curly braces.</p>
-<pre><code>Document { }
+<pre class="prettyprint source"><code>Document { }
 </code></pre>
 <p>Many elements may contain child elements. These are placed within the curly braces
 of their parent. It is usually a good idea to indent the children by spaces in order
 to make the code more readable.</p>
-<pre><code>Document {
+<pre class="prettyprint source"><code>Document {
 
     Label { }
 
@@ -6979,12 +7094,13 @@ to make the code more readable.</p>
 
 }
 </code></pre>
-<p>Every Shui file consists of exactly one root element, which contains child elements.</p>
+<p>Every Shui file consists of exactly one root element, which in turn may contain child elements.
+The root element of the main file must be <code>Document</code> for things to appear on screen.</p>
 <h1>Properties</h1>
 <p>Elements are parameterized by properties. In order to assign a value to a property,
 name that property inside its element, and put a colon (<code>:</code>) followed by the
 property's value.</p>
-<pre><code>Label {
+<pre class="prettyprint source"><code>Label {
     fontSize: 16
     color: &quot;blue&quot;
     text: &quot;I am a label.&quot;
@@ -6994,10 +7110,18 @@ property's value.</p>
 <p>You may put several properties on a single line by separating them with semi-colons (<code>;</code>).</p>
 <pre><code>Label { color: &quot;red&quot;; text: &quot;I am a red label.&quot; }
 </code></pre>
+<p>Strings quoted with <code>&quot;&quot;&quot;</code> instead of <code>&quot;</code> may span multiple lines and may contain
+<code>&quot;</code> characters.</p>
+<pre class="prettyprint source"><code>Label {
+    text: &quot;&quot;&quot;This is a 
+             multiline string
+             containing &quot;quotes&quot;.&quot;&quot;&quot;
+}
+</code></pre>
 <h1>Custom Properties</h1>
 <p>You may define custom properties on any element by using the <code>property</code> keyword before
 the assignment.</p>
-<pre><code>Label {
+<pre class="prettyprint source"><code>Label {
     property myVeryOwnProperty: 42
 }
 </code></pre>
@@ -7005,47 +7129,61 @@ the assignment.</p>
 <p>The <code>id</code> property is a special property for assigning a document-unique name to an element.
 Its value must be a valid identifier consisting of alphanumeric characters and the
 underscore (<code>_</code>) only. Do not put quotes around the identifier.</p>
-<pre><code>Label {
-    id: label1
-}
+<pre class="prettyprint source"><code>Document {
 
-Label {
-    id: label2
+    Label {
+        id: label1
+    }
+
+    Label {
+        id: label2
+    }
+
 }
 </code></pre>
 <p>Identifiers are used to reference an element or its properties. To access a property's current
 value, put a dot (<code>.</code>) between the identifier and the property name.</p>
-<pre><code>Label {
-    id: label1
-    text: &quot;I am a label.&quot;
-}
+<pre class="prettyprint source"><code>Document {
 
-Label {
-    text: label1.text
+    Label {
+        id: label1
+        text: &quot;I am a label.&quot;
+    }
+
+    Label {
+        text: label1.text
+    }
+
 }
 </code></pre>
 <p>You cannot reference an element's identifier as a property. In other words,
 this will <strong>not</strong> work:</p>
-<pre><code>Label {
+<pre class="prettyprint source"><code>Label {
     text: label1.id
 }
 </code></pre>
 <h1>Property Bindings</h1>
 <p>Instead of values you may also assign JavaScript expressions to properties.</p>
-<pre><code>Box {
+<pre class="prettyprint source"><code>Box {
     width: 3 * 128
 }
 </code></pre>
 <p>You may also reference other properties within a JavaScript expression.</p>
-<pre><code>Box {
-    id: box1
-    width: 256
-    height: width
-}
+<pre class="prettyprint source"><code>Document {
 
-Box {
-    width: Math.max(box1.width, 128)
-    height: width
+    Box {
+        id: box1
+        width: 256
+        height: width
+        color: &quot;green&quot;
+    }
+
+    Box {
+        width: Math.max(box1.width, 128)
+        height: width
+        color: &quot;red&quot;
+    }
+
 }
 </code></pre>
 <p>Whenever one of the referenced properties changes, the expression gets re-evaluated
@@ -7055,7 +7193,7 @@ at runtime and breaks the infinite update loop, they print an error message to t
 and serve no purpose.</p>
 <p>References consisting of only the property name without an element identifier access the element they are
 used within, or one of its ancestors if the property is not found.</p>
-<pre><code>Box {
+<pre class="prettyprint source"><code>Box {
     property foo: &quot;bar&quot;
 
     Box {
@@ -7067,21 +7205,45 @@ used within, or one of its ancestors if the property is not found.</p>
     }
 }
 </code></pre>
+<h1>Parent and Children</h1>
+<p>The elements placed inside an element are child elements. Each child element references
+the element it is contained in by the <code>parent</code> property.</p>
+<pre class="prettyprint source"><code>Box {
+    height: 100
+
+    Label {
+        text: &quot;My parent's height is: &quot; + parent.height
+    }
+}
+</code></pre>
+<p>The method <code>children()</code> of the parent element returns the list of children.</p>
+<pre class="prettyprint source"><code>Box {
+    height: children().length * 32
+    color: &quot;green&quot;
+
+    Label { text: &quot;1&quot; }
+    Label { text: &quot;2&quot; }
+    Label { text: &quot;This box has &quot; + parent.children().length + &quot; children.&quot; }
+}
+</code></pre>
 <h1>Comments</h1>
 <p>Comments in Shui are written in JavaScript style (i.e. C++ style).</p>
 <p><code>//</code> makes all characters right to it ignored until the end of the line.</p>
-<pre><code>Box {
+<pre class="prettyprint source"><code>Box {
     width: 42 // this is a comment
 }
 </code></pre>
 <p><code>/*</code> and <code>*/</code> are used to make everything inbetween ignored, even when spanning
 multiple lines.</p>
-<pre><code>Box {
+<pre class="prettyprint source"><code>Box {
     /* This is a
        multiline
        comment. */
 }
 </code></pre>
+<div class="navstrip"><span class="go-home"><a href="index.html">Contents</a></span><span class="go-next">
+<a href="tutorial-shui-events.html">Events and Event Handlers</a>
+</span></div>
 </article>
 
 </section>  
@@ -7091,7 +7253,7 @@ multiple lines.</p>
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Thu Sep 23 2021 19:32:33 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Sun Sep 26 2021 11:55:24 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

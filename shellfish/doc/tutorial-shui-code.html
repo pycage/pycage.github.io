@@ -1718,6 +1718,8 @@
             
                 <li class="  " data-name="mid.FpsMeter#safeCallback"><a href="mid.FpsMeter.html#safeCallback">safeCallback</a></li>
             
+                <li class="parent  " data-name="mid.FpsMeter#takeFrame"><a href="mid.FpsMeter.html#takeFrame">takeFrame</a></li>
+            
                 <li class="  " data-name="mid.FpsMeter#transitionable"><a href="mid.FpsMeter.html#transitionable">transitionable</a></li>
             
                 <li class="  " data-name="mid.FpsMeter#typeOf"><a href="mid.FpsMeter.html#typeOf">typeOf</a></li>
@@ -3490,13 +3492,19 @@
             
                 <li class="  " data-name="mid.TextArea#disconnect"><a href="mid.TextArea.html#disconnect">disconnect</a></li>
             
+                <li class="parent  " data-name="mid.TextArea#eraseAt"><a href="mid.TextArea.html#eraseAt">eraseAt</a></li>
+            
                 <li class="  " data-name="mid.TextArea#get"><a href="mid.TextArea.html#get">get</a></li>
             
                 <li class="  " data-name="mid.TextArea#hasConnections"><a href="mid.TextArea.html#hasConnections">hasConnections</a></li>
             
                 <li class="  " data-name="mid.TextArea#init"><a href="mid.TextArea.html#init">init</a></li>
             
+                <li class="parent  " data-name="mid.TextArea#insertAt"><a href="mid.TextArea.html#insertAt">insertAt</a></li>
+            
                 <li class="  " data-name="mid.TextArea#notifyable"><a href="mid.TextArea.html#notifyable">notifyable</a></li>
+            
+                <li class="parent  " data-name="mid.TextArea#positionAt"><a href="mid.TextArea.html#positionAt">positionAt</a></li>
             
                 <li class="  " data-name="mid.TextArea#referenceAdd"><a href="mid.TextArea.html#referenceAdd">referenceAdd</a></li>
             
@@ -3513,6 +3521,8 @@
                 <li class="  " data-name="mid.TextArea#rgba"><a href="mid.TextArea.html#rgba">rgba</a></li>
             
                 <li class="  " data-name="mid.TextArea#safeCallback"><a href="mid.TextArea.html#safeCallback">safeCallback</a></li>
+            
+                <li class="parent  " data-name="mid.TextArea#setCursor"><a href="mid.TextArea.html#setCursor">setCursor</a></li>
             
                 <li class="  " data-name="mid.TextArea#transitionable"><a href="mid.TextArea.html#transitionable">transitionable</a></li>
             
@@ -6827,6 +6837,66 @@
             
         </li>
     
+        <li class="item" data-name="tutorial-layout-flow">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-flow.html">Controlling the Layout Flow</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-layout-position">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-position.html">Positioning Elements</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-layout-scrolling">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-scrolling.html">Scrolling</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-layout-size">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-size.html">Controlling the Size</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="tutorial-levels">
             <span class="title  ">
                 
@@ -6878,6 +6948,21 @@
                 
                     <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
                     <a href="tutorial-shui-code.html">Code Blocks</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-containers">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-containers.html">Component Containers</a>
                 
             </span>
             
@@ -6947,6 +7032,36 @@
             
         </li>
     
+        <li class="item" data-name="tutorial-shui-scope">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-scope.html">Understanding Identifier Scope and Namespaces</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-templates">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-templates.html">Templates</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
     </ul>
 </div>
 
@@ -6965,32 +7080,32 @@
 blocks are written in JavaScript language.</p>
 <h1>Accessing Elements</h1>
 <p>Elements may be accessed by their identifier and used like normal objects.</p>
-<pre><code>const myBox = box;
+<pre class="prettyprint source"><code>const myBox = box;
 </code></pre>
 <p>Methods may be invoked just like normal object methods.</p>
-<pre><code>myBox.foo(42);
+<pre class="prettyprint source"><code>myBox.foo(42);
 </code></pre>
 <p>Properties of an element may be accessed and modified as if they were normal variables.</p>
-<pre><code>box.width = 100;
+<pre class="prettyprint source"><code>box.width = 100;
 console.log(box.height);
 </code></pre>
 <p>Changing the value of a property this way will cause all bindings depending on that
 property to re-evaluate immediately.</p>
 <p>If you omit the identifier, the property is looked up in its scope consisting of the
-element containing the code block and its ancestors.</p>
-<pre><code>width = 100;
+element containing the code block and its ancestors (see <a href="tutorial-shui-scope.html">Understanding Identifier Scope and Namespaces</a> for details).</p>
+<pre class="prettyprint source"><code>width = 100;
 </code></pre>
 <p>The special identifier <code>self</code> may be used to reference the element that contains the
 code block. <code>self</code> may be omitted in this case, though.</p>
-<pre><code>self.width = 100;
+<pre class="prettyprint source"><code>self.width = 100;
 </code></pre>
 <h1>Local Variables</h1>
 <p>Local variables may be declared with the JavaScript keywords <code>var</code>, <code>let</code>, and <code>const</code>.</p>
 <ul>
 <li>
 <p><code>var</code> declares a variable with function scope. Even if declared inside a block body,
-a variable declared this way will be visible outside the block. Since <code>var</code> uses
-function scope, its use is deprecated in JavaScript.</p>
+a variable declared this way will be visible outside the block, even before it was
+declared. Since <code>var</code> uses this weird function scope, its use is <strong>deprecated</strong> in JavaScript.</p>
 </li>
 <li>
 <p><code>let</code> declares a variable with block scope. It is not visible outside its block body.</p>
@@ -7001,6 +7116,11 @@ to a <code>const</code> after its declaration, but it is allowed to modify the v
 (for example, you may append elements to a <code>const</code> list).</p>
 </li>
 </ul>
+<div class="navstrip"><span class="go-home"><a href="index.html">Contents</a></span><span class="go-previous">
+<a href="tutorial-shui-methods.html">Methods</a>
+</span><span class="go-next">
+<a href="tutorial-shui-modules.html">Modules and Components</a>
+</span></div>
 </article>
 
 </section>  
@@ -7010,7 +7130,7 @@ to a <code>const</code> after its declaration, but it is allowed to modify the v
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Thu Sep 23 2021 19:32:33 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Sun Sep 26 2021 11:55:24 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>
