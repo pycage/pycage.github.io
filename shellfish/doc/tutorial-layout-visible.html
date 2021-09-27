@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Source: core/ui/MenuItem.shui</title>
+    <title>Tutorial: Visibility</title>
     
     
     
@@ -7111,209 +7111,82 @@
 </div>
 
     <div class="main">
-        <h1 class="page-title" data-filename="core_ui_MenuItem.shui.html">Source: core/ui/MenuItem.shui</h1>
-        
-
-
+        <h1 class="page-title" data-filename="tutorial-layout-visible.html">Tutorial: Visibility</h1>
+        <section>
     
-    <section>
-        <header>
-            <div class="header content-size">
-                <h2>core/ui/MenuItem.shui</h2>
-            </div>
-        </header>
-        <article>
-            <pre id="source-code" class="prettyprint source "><code>/*******************************************************************************
-This file is part of the Shellfish UI toolkit.
-Copyright (c) 2020 - 2021 Martin Grimme &lt;martin.grimme@gmail.com>
+<header>
+	<div class="header content-size">
+    <h2>Visibility</h2>
+    </div>
+</header>  
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
+<article class="content-size">
+    <p>The boolean property <code>visible</code> controls the visibility of elements. Setting
+this value to <code>false</code> makes elements disappear from the screen.</p>
+<pre class="prettyprint source"><code>Document {
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*******************************************************************************/
-
-require "shellfish/ui";
-
-/**
- * Element representing a regular menu item.
- *
- * @memberof ui
- * @name MenuItem
- * @class
- * @extends ui.MenuItemBase
- *
- * @property {string} icon - (default: `""`) The ID of an optional icon.
- * @property {string} text - (default: `""`) The menu item label text.
- * @property {string} shortcut - (default: `""`) A keyboard shortcut. Separate the modifer and key with `+`, e.g. `"Ctrl+N"`.
- *                                               Valid modifiers are `Ctrl`, `Alt`, and `Shift`.
- */
-MenuItemBase {
-    id: item
-
-    property icon: ""
-    property text: ""
-    property shortcut: ""
-
-    function format(t)
-    {
-        const pos = t.indexOf("&amp;");
-        if (pos === -1)
-        {
-            return t;
-        }
-        else
-        {
-            return t.substr(0, pos) + "_" + t[pos + 1] + "_" + t.substr(pos + 2);
-        }
+    Label {
+        text: &quot;I am a label.&quot;
     }
 
-    shortcutReceiver.onKeyDown: (ev) =>
-    {
-        if (ev.altKey)
-        {
-            const idx = text.indexOf("&amp;");
-            if (idx !== -1)
-            {
-                const key = text[idx + 1].toLowerCase();
-                if (ev.key === key)
-                {
-                    click(ev);
-                    ev.accepted = true;
-                }
-            }
-        }
-        else if (shortcut !== "")
-        {
-            const parts = shortcut.split("+").filter((key) =>
-            {
-                if (key === "Ctrl")
-                {
-                    return ! ev.ctrlKey;
-                }
-                else if (key === "Alt")
-                {
-                    return ! ev.altKey;
-                }
-                else if (key === "Shift")
-                {
-                    return ! ev.shiftKey;
-                }
-                else
-                {
-                    return ev.key !== key.toLowerCase();
-                }
-            });
-            if (parts.length === 0)
-            {
-                click(ev);
-                ev.accepted = true;
-            }
-        }
+    Label {
+        visible: false
+        text: &quot;You cannot see me.&quot;
     }
 
-    Box {
-        fillWidth: true
-        fillHeight: true
-        layout: "center-row"
-
-        Label {
-            id: iconLabel
-
-            visible: item.icon !== ""
-            marginLeft: theme.paddingSmall
-            width: label.bbox.height
-            height: width
-            color: label.color
-            text: visible ? "[icon:" + item.icon + "]" : ""
-        }
-
-        Label {
-            id: label
-
-            marginLeft: theme.paddingSmall
-            color: ancestorsEnabled ? (item.highlighted ? theme.highlightColor : theme.primaryColor)
-                                    : theme.disabledColor
-            text: item.format(item.text)
-        }
-
-        Box { fillWidth: true }
-
-        Box {
-            id: shortcutLabel
-
-            visible: item.shortcut !== ""
-            marginLeft: theme.paddingLarge
-            color: theme.secondaryColor
-            borderRadius: theme.borderRadius
-
-            Label {
-                marginTop: 2
-                marginLeft: 2
-                marginRight: 2
-                marginBottom: 2
-                fontSize: theme.fontSizeSmall
-                color: theme.primaryBackgroundColor
-                text: item.shortcut
-            }
-        }
-
-        Label {
-            id: arrowLabel
-
-            visible: !! item.menu &amp;&amp; !! thisMenu
-            marginLeft: 2
-            marginRight: 2
-            width: theme.paddingMedium
-            fontSize: theme.fontSizeSmall
-            color: label.color
-            text: "[icon:core-arrow_right]"
-        }
-
-        Box {
-            visible: ! item.menu &amp;&amp; !! thisMenu
-            marginLeft: 2
-            marginRight: 2
-            width: theme.paddingMedium
-        }
+    Label {
+        text: &quot;I am another label.&quot;
     }
 
-    Box {
-        ruler: !! thisMenu ? thisMenu.menuRuler : null
-        width: (iconLabel.visible ? iconLabel.bbox.width + theme.paddingSmall : 0) +
-               (label.visible ? label.bbox.width + theme.paddingSmall : 0) +
-               (shortcutLabel.visible ? shortcutLabel.bbox.width + theme.paddingLarge : 0) +
-               (!! thisMenu ? theme.paddingMedium + 4 : theme.paddingSmall)
-        //height: 1
-        //color: "red"
-    }
 }
 </code></pre>
-        </article>
-    </section>
+<p>The default value for <code>visible</code> is <code>true</code>.</p>
+<p>If an element containing child elements becomes invisible, the child elements
+become invisible as well, even though their <code>visible</code> property is <code>true</code>.</p>
+<pre class="prettyprint source"><code>Document {
 
+    Box {
+        visible: false
 
+        Label {
+            text: &quot;You cannot see me.&quot;
+        }
+    }
 
+}
+</code></pre>
+<p>Therefore, this property alone is not sufficient to determine if an element
+is actually visible, or not.</p>
+<p>The actual visibility of an element also depends on the visibility of all of
+its ancestors. The read-only property <code>ancestorsVisible</code> tells if all
+ancestors are actually visible.</p>
+<p>So, in order to check for the actual visibility of an element, you have to
+look at both properties, <code>ancestorsVisible</code> as well as <code>visible</code>.</p>
+<pre class="prettyprint source"><code>Document {
 
+    Box {
+        Label {
+            text: &quot;Am I really visible? &quot; +
+                  (ancestorsVisible && visible ? &quot;Yes.&quot; : &quot;No.&quot;)
+        }
+    }
+
+}
+</code></pre>
+<div class="navstrip">
+<span class="go-home"><a href="index.html">Contents</a></span>
+<span class="go-next"><a href="tutorial-layout-size.html">Controlling the Size</a></span>
+</div>
+</article>
+
+</section>  
 
 
         
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Mon Sep 27 2021 17:16:32 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Mon Sep 27 2021 17:16:36 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

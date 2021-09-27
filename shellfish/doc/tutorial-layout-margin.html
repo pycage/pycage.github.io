@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Source: core/ui/MenuItem.shui</title>
+    <title>Tutorial: Margins around Elements</title>
     
     
     
@@ -7111,209 +7111,85 @@
 </div>
 
     <div class="main">
-        <h1 class="page-title" data-filename="core_ui_MenuItem.shui.html">Source: core/ui/MenuItem.shui</h1>
-        
-
-
+        <h1 class="page-title" data-filename="tutorial-layout-margin.html">Tutorial: Margins around Elements</h1>
+        <section>
     
-    <section>
-        <header>
-            <div class="header content-size">
-                <h2>core/ui/MenuItem.shui</h2>
-            </div>
-        </header>
-        <article>
-            <pre id="source-code" class="prettyprint source "><code>/*******************************************************************************
-This file is part of the Shellfish UI toolkit.
-Copyright (c) 2020 - 2021 Martin Grimme &lt;martin.grimme@gmail.com>
+<header>
+	<div class="header content-size">
+    <h2>Margins around Elements</h2>
+    </div>
+</header>  
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*******************************************************************************/
-
-require "shellfish/ui";
-
-/**
- * Element representing a regular menu item.
- *
- * @memberof ui
- * @name MenuItem
- * @class
- * @extends ui.MenuItemBase
- *
- * @property {string} icon - (default: `""`) The ID of an optional icon.
- * @property {string} text - (default: `""`) The menu item label text.
- * @property {string} shortcut - (default: `""`) A keyboard shortcut. Separate the modifer and key with `+`, e.g. `"Ctrl+N"`.
- *                                               Valid modifiers are `Ctrl`, `Alt`, and `Shift`.
- */
-MenuItemBase {
-    id: item
-
-    property icon: ""
-    property text: ""
-    property shortcut: ""
-
-    function format(t)
-    {
-        const pos = t.indexOf("&amp;");
-        if (pos === -1)
-        {
-            return t;
-        }
-        else
-        {
-            return t.substr(0, pos) + "_" + t[pos + 1] + "_" + t.substr(pos + 2);
-        }
-    }
-
-    shortcutReceiver.onKeyDown: (ev) =>
-    {
-        if (ev.altKey)
-        {
-            const idx = text.indexOf("&amp;");
-            if (idx !== -1)
-            {
-                const key = text[idx + 1].toLowerCase();
-                if (ev.key === key)
-                {
-                    click(ev);
-                    ev.accepted = true;
-                }
-            }
-        }
-        else if (shortcut !== "")
-        {
-            const parts = shortcut.split("+").filter((key) =>
-            {
-                if (key === "Ctrl")
-                {
-                    return ! ev.ctrlKey;
-                }
-                else if (key === "Alt")
-                {
-                    return ! ev.altKey;
-                }
-                else if (key === "Shift")
-                {
-                    return ! ev.shiftKey;
-                }
-                else
-                {
-                    return ev.key !== key.toLowerCase();
-                }
-            });
-            if (parts.length === 0)
-            {
-                click(ev);
-                ev.accepted = true;
-            }
-        }
-    }
+<article class="content-size">
+    <p>When elements are laid out according to the layout flow, there are by default
+no gaps inbetween. By specifying margins, you can add some gaps.</p>
+<p>The margin properties control the margin of an element to its neighbors.</p>
+<ul>
+<li><code>marginLeft</code> controls the margin to the left.</li>
+<li><code>marginRight</code>: controls the margin to the right.</li>
+<li><code>marginTop</code> controls the margin above.</li>
+<li><code>marginBottom</code> controls the margin below.</li>
+</ul>
+<p>By default, all margins are set to <code>0</code>.</p>
+<pre class="prettyprint source"><code>Document {
 
     Box {
         fillWidth: true
-        fillHeight: true
-        layout: "center-row"
+        marginTop: 12
+        marginLeft: 12
+        marginRight: 12
 
-        Label {
-            id: iconLabel
-
-            visible: item.icon !== ""
-            marginLeft: theme.paddingSmall
-            width: label.bbox.height
-            height: width
-            color: label.color
-            text: visible ? "[icon:" + item.icon + "]" : ""
-        }
-
-        Label {
-            id: label
-
-            marginLeft: theme.paddingSmall
-            color: ancestorsEnabled ? (item.highlighted ? theme.highlightColor : theme.primaryColor)
-                                    : theme.disabledColor
-            text: item.format(item.text)
-        }
-
-        Box { fillWidth: true }
+        color: &quot;white&quot;
+        
+        layout: &quot;row&quot;
 
         Box {
-            id: shortcutLabel
-
-            visible: item.shortcut !== ""
-            marginLeft: theme.paddingLarge
-            color: theme.secondaryColor
-            borderRadius: theme.borderRadius
-
-            Label {
-                marginTop: 2
-                marginLeft: 2
-                marginRight: 2
-                marginBottom: 2
-                fontSize: theme.fontSizeSmall
-                color: theme.primaryBackgroundColor
-                text: item.shortcut
-            }
-        }
-
-        Label {
-            id: arrowLabel
-
-            visible: !! item.menu &amp;&amp; !! thisMenu
-            marginLeft: 2
-            marginRight: 2
-            width: theme.paddingMedium
-            fontSize: theme.fontSizeSmall
-            color: label.color
-            text: "[icon:core-arrow_right]"
+            marginRight: 6
+            width: 100
+            height: 100
+            color: &quot;red&quot;
         }
 
         Box {
-            visible: ! item.menu &amp;&amp; !! thisMenu
-            marginLeft: 2
-            marginRight: 2
-            width: theme.paddingMedium
+            marginRight: 6
+            width: 100
+            height: 100
+            color: &quot;green&quot;
+        }
+
+        Box {
+            marginRight: 6
+            width: 100
+            height: 100
+            color: &quot;blue&quot;
         }
     }
 
     Box {
-        ruler: !! thisMenu ? thisMenu.menuRuler : null
-        width: (iconLabel.visible ? iconLabel.bbox.width + theme.paddingSmall : 0) +
-               (label.visible ? label.bbox.width + theme.paddingSmall : 0) +
-               (shortcutLabel.visible ? shortcutLabel.bbox.width + theme.paddingLarge : 0) +
-               (!! thisMenu ? theme.paddingMedium + 4 : theme.paddingSmall)
-        //height: 1
-        //color: "red"
+        marginTop: 8
+        marginLeft: 12
+        width: 300
+        height: 100
+        color: &quot;orange&quot;
     }
+
 }
 </code></pre>
-        </article>
-    </section>
+<div class="navstrip">
+<span class="go-home"><a href="index.html">Contents</a></span>
+<span class="go-previous"><a href="tutorial-layout-flow.html">Controlling the Layout Flow</a></span>
+<span class="go-next"><a href="tutorial-layout-position.html">Positioning Elements</a></span>
+</div>
+</article>
 
-
-
-
+</section>  
 
 
         
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Mon Sep 27 2021 17:16:32 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Mon Sep 27 2021 17:16:35 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

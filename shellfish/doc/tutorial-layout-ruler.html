@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Source: core/ui/MenuItem.shui</title>
+    <title>Tutorial: Aligning with Rulers</title>
     
     
     
@@ -7111,209 +7111,180 @@
 </div>
 
     <div class="main">
-        <h1 class="page-title" data-filename="core_ui_MenuItem.shui.html">Source: core/ui/MenuItem.shui</h1>
-        
-
-
+        <h1 class="page-title" data-filename="tutorial-layout-ruler.html">Tutorial: Aligning with Rulers</h1>
+        <section>
     
-    <section>
-        <header>
-            <div class="header content-size">
-                <h2>core/ui/MenuItem.shui</h2>
-            </div>
-        </header>
-        <article>
-            <pre id="source-code" class="prettyprint source "><code>/*******************************************************************************
-This file is part of the Shellfish UI toolkit.
-Copyright (c) 2020 - 2021 Martin Grimme &lt;martin.grimme@gmail.com>
+<header>
+	<div class="header content-size">
+    <h2>Aligning with Rulers</h2>
+    </div>
+</header>  
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
+<article class="content-size">
+    <p>Imagine you want to display a number of vertical labels.</p>
+<pre class="prettyprint source"><code>require &quot;shellfish/ui&quot;;
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Document {
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*******************************************************************************/
+    Box {
+        fillWidth: true
+        layout: &quot;row&quot;
 
-require "shellfish/ui";
-
-/**
- * Element representing a regular menu item.
- *
- * @memberof ui
- * @name MenuItem
- * @class
- * @extends ui.MenuItemBase
- *
- * @property {string} icon - (default: `""`) The ID of an optional icon.
- * @property {string} text - (default: `""`) The menu item label text.
- * @property {string} shortcut - (default: `""`) A keyboard shortcut. Separate the modifer and key with `+`, e.g. `"Ctrl+N"`.
- *                                               Valid modifiers are `Ctrl`, `Alt`, and `Shift`.
- */
-MenuItemBase {
-    id: item
-
-    property icon: ""
-    property text: ""
-    property shortcut: ""
-
-    function format(t)
-    {
-        const pos = t.indexOf("&amp;");
-        if (pos === -1)
-        {
-            return t;
-        }
-        else
-        {
-            return t.substr(0, pos) + "_" + t[pos + 1] + "_" + t.substr(pos + 2);
-        }
-    }
-
-    shortcutReceiver.onKeyDown: (ev) =>
-    {
-        if (ev.altKey)
-        {
-            const idx = text.indexOf("&amp;");
-            if (idx !== -1)
-            {
-                const key = text[idx + 1].toLowerCase();
-                if (ev.key === key)
-                {
-                    click(ev);
-                    ev.accepted = true;
-                }
-            }
-        }
-        else if (shortcut !== "")
-        {
-            const parts = shortcut.split("+").filter((key) =>
-            {
-                if (key === "Ctrl")
-                {
-                    return ! ev.ctrlKey;
-                }
-                else if (key === "Alt")
-                {
-                    return ! ev.altKey;
-                }
-                else if (key === "Shift")
-                {
-                    return ! ev.shiftKey;
-                }
-                else
-                {
-                    return ev.key !== key.toLowerCase();
-                }
-            });
-            if (parts.length === 0)
-            {
-                click(ev);
-                ev.accepted = true;
-            }
-        }
+        Label { text: &quot;Name&quot; }
+        TextEntry { }
     }
 
     Box {
         fillWidth: true
-        fillHeight: true
-        layout: "center-row"
+        layout: &quot;row&quot;
 
-        Label {
-            id: iconLabel
-
-            visible: item.icon !== ""
-            marginLeft: theme.paddingSmall
-            width: label.bbox.height
-            height: width
-            color: label.color
-            text: visible ? "[icon:" + item.icon + "]" : ""
-        }
-
-        Label {
-            id: label
-
-            marginLeft: theme.paddingSmall
-            color: ancestorsEnabled ? (item.highlighted ? theme.highlightColor : theme.primaryColor)
-                                    : theme.disabledColor
-            text: item.format(item.text)
-        }
-
-        Box { fillWidth: true }
-
-        Box {
-            id: shortcutLabel
-
-            visible: item.shortcut !== ""
-            marginLeft: theme.paddingLarge
-            color: theme.secondaryColor
-            borderRadius: theme.borderRadius
-
-            Label {
-                marginTop: 2
-                marginLeft: 2
-                marginRight: 2
-                marginBottom: 2
-                fontSize: theme.fontSizeSmall
-                color: theme.primaryBackgroundColor
-                text: item.shortcut
-            }
-        }
-
-        Label {
-            id: arrowLabel
-
-            visible: !! item.menu &amp;&amp; !! thisMenu
-            marginLeft: 2
-            marginRight: 2
-            width: theme.paddingMedium
-            fontSize: theme.fontSizeSmall
-            color: label.color
-            text: "[icon:core-arrow_right]"
-        }
-
-        Box {
-            visible: ! item.menu &amp;&amp; !! thisMenu
-            marginLeft: 2
-            marginRight: 2
-            width: theme.paddingMedium
-        }
+        Label { text: &quot;Description&quot; }
+        TextEntry { }
     }
 
     Box {
-        ruler: !! thisMenu ? thisMenu.menuRuler : null
-        width: (iconLabel.visible ? iconLabel.bbox.width + theme.paddingSmall : 0) +
-               (label.visible ? label.bbox.width + theme.paddingSmall : 0) +
-               (shortcutLabel.visible ? shortcutLabel.bbox.width + theme.paddingLarge : 0) +
-               (!! thisMenu ? theme.paddingMedium + 4 : theme.paddingSmall)
-        //height: 1
-        //color: "red"
+        fillWidth: true
+        layout: &quot;row&quot;
+
+        Label { text: &quot;Enabled&quot; }
+        Switch { }
     }
 }
 </code></pre>
-        </article>
-    </section>
+<p>This does not quite look the way it should. The labels and input boxes are
+not aligned. For a proper alignment, you would have to stretch every label
+to the width of the longest label. An elegant way of doing this is by using
+a <a href="mid.Ruler.html">mid.Ruler</a> element.</p>
+<p>The <a href="mid.Ruler.html">mid.Ruler</a> is an abstract element that collects bounding boxes and computes
+maximum and minimum bounding boxes from the collected values, exposed as read-only
+properties <code>min</code> and <code>max</code>.</p>
+<p>Every element has a property <code>ruler</code> where you can assign the ruler to get its
+bounding box collected.</p>
+<pre class="prettyprint source"><code>Box {
+    Ruler { id: labelRuler}
 
+    Label { ruler: labelRuler; text: &quot;Label 1&quot; }
+    Label { ruler: labelRuler; text: &quot;Label 2&quot; }
+    Label { ruler: labelRuler; text: &quot;A long label 3&quot; }
+}
+</code></pre>
+<p>Now by using the ruler, you may stretch each label according to the maximum bounding box.</p>
+<pre class="prettyprint source"><code>require &quot;shellfish/ui&quot;;
 
+Document {
 
+    Ruler { id: labelRuler }
 
+    Box {
+        fillWidth: true
+        layout: &quot;row&quot;
+
+        Label {
+            ruler: labelRuler
+            minWidth: labelRuler.max.width
+            text: &quot;Name&quot;
+        }
+        TextEntry { }
+    }
+
+    Box {
+        fillWidth: true
+        layout: &quot;row&quot;
+
+        Label {
+            ruler: labelRuler
+            minWidth: labelRuler.max.width
+            text: &quot;Description&quot;
+        }
+        TextEntry { }
+    }
+
+    Box {
+        fillWidth: true
+        layout: &quot;row&quot;
+
+        Label {
+            ruler: labelRuler
+            minWidth: labelRuler.max.width
+            text: &quot;Enabled&quot;
+        }
+        Switch { }
+    }
+}
+</code></pre>
+<p>Finally, let's apply what you have learned so far, to make this a really fine
+layout.</p>
+<pre class="prettyprint source"><code>require &quot;shellfish/ui&quot;;
+
+Document {
+
+    Box {
+        fillWidth: true
+        marginTop: 12
+        marginLeft: 12
+        marginRight: 12
+        marginBottom: 12
+
+        Ruler { id: labelRuler }
+
+        Box {
+            fillWidth: true
+            layout: &quot;center-row&quot;
+
+            Label {
+                ruler: labelRuler
+                minWidth: labelRuler.max.width
+                text: &quot;Name&quot;
+            }
+            TextEntry { marginLeft: 6 }
+            Box { fillWidth: true }
+        }
+
+        Box {
+            fillWidth: true
+            marginTop: 6
+            layout: &quot;center-row&quot;
+
+            Label {
+                ruler: labelRuler
+                minWidth: labelRuler.max.width
+                text: &quot;Description&quot;
+            }
+            TextEntry { marginLeft: 6 }
+            Box { fillWidth: true }
+        }
+
+        Box {
+            fillWidth: true
+            marginTop: 6
+            layout: &quot;center-row&quot;
+
+            Label {
+                ruler: labelRuler
+                minWidth: labelRuler.max.width
+                text: &quot;Enabled&quot;
+            }
+            Switch { marginLeft: 6 }
+            Box { fillWidth: true }
+        }
+    }
+
+}
+</code></pre>
+<div class="navstrip">
+<span class="go-home"><a href="index.html">Contents</a></span>
+<span class="go-previous"><a href="tutorial-layout-scrolling.html">Scrolling</a></span>
+</div>
+</article>
+
+</section>  
 
 
         
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Mon Sep 27 2021 17:16:32 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Mon Sep 27 2021 17:16:35 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>
