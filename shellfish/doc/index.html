@@ -334,6 +334,8 @@
             
                 <li class="parent  " data-name="mid.dumpStatus"><a href="mid.html#.dumpStatus">dumpStatus</a></li>
             
+                <li class="parent  " data-name="mid.filename"><a href="mid.html#.filename">filename</a></li>
+            
                 <li class="parent  " data-name="mid.normalizePath"><a href="mid.html#.normalizePath">normalizePath</a></li>
             
                 <li class="parent  " data-name="mid.pathJoin"><a href="mid.html#.pathJoin">pathJoin</a></li>
@@ -407,6 +409,8 @@
             <ul class="methods itemMembers">
             
             <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="later"><a href="global.html#later">later</a></li>
             
                 <li class="parent  " data-name="shRequire"><a href="global.html#shRequire">shRequire</a></li>
             
@@ -1145,6 +1149,8 @@
                 <li class="  " data-name="mid.DavFS#blobUrl"><a href="mid.DavFS.html#blobUrl">blobUrl</a></li>
             
                 <li class="  " data-name="mid.DavFS#change"><a href="mid.DavFS.html#change">change</a></li>
+            
+                <li class="parent  " data-name="mid.DavFS#clearCache"><a href="mid.DavFS.html#clearCache">clearCache</a></li>
             
                 <li class="  " data-name="mid.DavFS#colorName"><a href="mid.DavFS.html#colorName">colorName</a></li>
             
@@ -3273,6 +3279,8 @@
                 <li class="  " data-name="mid.Ruler#removeHtmlEventListener"><a href="mid.Ruler.html#removeHtmlEventListener">removeHtmlEventListener</a></li>
             
                 <li class="parent  " data-name="mid.Ruler#request"><a href="mid.Ruler.html#request">request</a></li>
+            
+                <li class="parent  " data-name="mid.Ruler#reset"><a href="mid.Ruler.html#reset">reset</a></li>
             
                 <li class="  " data-name="mid.Ruler#rgb"><a href="mid.Ruler.html#rgb">rgb</a></li>
             
@@ -7107,6 +7115,81 @@
             
         </li>
     
+        <li class="item" data-name="tutorial-ui-animations">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-ui-animations.html">Complex Animations</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-ui-colors">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-ui-colors.html">Working with Colors</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-ui-profiles">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-ui-profiles.html">Using Profiles</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-ui-theme">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-ui-theme.html">Using the Theme for a Uniform Look</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-ui-transitions">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-ui-transitions.html">Transitions</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
     </ul>
 </div>
 
@@ -7166,7 +7249,7 @@ or even by shipping only pre-translated code. It's your choice.</p>
 <li><a href="tutorial-concepts.html">Concepts of Shellfish</a></li>
 <li><a href="tutorial-levels.html">Levels of Abstraction</a></li>
 </ul>
-<h3>Shui</h3>
+<h3>Introduction to Shui</h3>
 <p>Shui is the declarative UI description language used by Shellfish.</p>
 <ul>
 <li><a href="tutorial-shui-elements.html">Elements, Properties, and Comments</a></li>
@@ -7188,6 +7271,14 @@ or even by shipping only pre-translated code. It's your choice.</p>
 <li><a href="tutorial-layout-position.html">Positioning Elements</a></li>
 <li><a href="tutorial-layout-scrolling.html">Scrolling</a></li>
 <li><a href="tutorial-layout-ruler.html">Aligning with Rulers</a></li>
+</ul>
+<h3>UI</h3>
+<ul>
+<li><a href="tutorial-ui-colors.html">Working with Colors</a></li>
+<li><a href="tutorial-ui-theme.html">Using the Theme for a Uniform Look</a></li>
+<li><a href="tutorial-ui-profiles.html">Using Profiles</a></li>
+<li><a href="tutorial-ui-transitions.html">Transitions</a></li>
+<li><a href="tutorial-ui-animations.html">Complex Animations</a></li>
 </ul>
 <!--
 ### UI
@@ -7245,6 +7336,15 @@ or even by shipping only pre-translated code. It's your choice.</p>
 * The Debug Dump
 -->
 <h2>News</h2>
+<h3>October 2021</h3>
+<ul>
+<li>The new function low.later returns a Promise object that resolves when
+idle.</li>
+<li><a href="mid.DavFS.html">mid.DavFS</a> has a new property <code>cache</code> for caching list results.</li>
+<li><a href="mid.DavFS.html">mid.DavFS</a> has a new property <code>fetchManager</code> for using a <a href="low.FetchManager.html">low.FetchManager</a>
+instance.</li>
+<li>The <code>click</code> event of <a href="mid.MouseBox.html">mid.MouseBox</a> reports the pressed buttons now.</li>
+</ul>
 <h3>September 2021</h3>
 <ul>
 <li><a href="mid.TextArea.html">mid.TextArea</a> has new methods <a href="mid.TextArea.html#eraseAt">eraseAt</a>,
@@ -7278,7 +7378,7 @@ during keyboard-based navigation.</li>
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Mon Sep 27 2021 17:16:33 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Mon Oct 11 2021 16:53:46 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>
