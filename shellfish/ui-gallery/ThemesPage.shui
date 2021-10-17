@@ -31,12 +31,12 @@ Page {
         id: pageHeader
 
         title: "Themes"
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui", "Labeled.shui"]
     }
 
     property customTheme: Theme {
-        primaryColor: "red"
-        secondaryColor: "darkRed"
+        primaryColor: colorName("red")
+        secondaryColor: colorName("darkRed")
         itemHeightSmall: 48
         itemHeightMedium: 64
         itemHeightLarge: 84

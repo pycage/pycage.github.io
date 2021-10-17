@@ -101,7 +101,7 @@ Page {
         id: pageHeader
         
         title: "Text Input"
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui", "Labeled.shui"]
     }
 
 }

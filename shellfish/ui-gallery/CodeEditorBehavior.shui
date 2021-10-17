@@ -1,0 +1,76 @@
+/*******************************************************************************
+This file is part of the Shellfish UI toolkit examples.
+Copyright (c) 2021 Martin Grimme <martin.grimme@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*******************************************************************************/
+
+Object {
+
+    property target: parent
+
+    target.onKeyDown: (ev) =>
+    {
+        if (ev.key === "Tab")
+        {
+            const newCol = target.column + 4;
+            const pos = newCol - (newCol % 4);
+            const advance = pos - target.column;
+
+            let s = "";
+            for (let i = 0; i < advance; ++i)
+            {
+                s += " ";
+            }
+
+            const r = target.row;
+            const c = target.column;
+            target.insertAt(target.selectionStart, s);
+            target.setCursor(r, c + advance);
+            ev.accepted = true;
+        }
+        else if (ev.key === "Enter")
+        {
+            // find indentation of current line
+            const r = target.row;
+            const c = target.column;
+            const line = target.text.substr(target.positionAt(r, 0), c);
+            const indentation = line.length - line.trimStart().length;
+            let s = "";
+            for (let i = 0; i < indentation; ++i)
+            {
+                s += " ";
+            }
+            target.insertAt(target.selectionStart, "\n" + s);
+            target.setCursor(r + 1, s.length);
+            ev.accepted = true;
+        }
+        else if (ev.key === "Backspace")
+        {
+            const prefix = target.text.substr(positionAt(target.row, 0), target.column).trim();
+            if (target.column > 0 && target.column % 4 === 0 && prefix.length === 0)
+            {
+                const r = target.row;
+                const c = target.column;
+                target.eraseAt(target.selectionStart - 4, 4);
+                target.setCursor(r, c - 4);
+                ev.accepted = true;
+            }
+        }
+    }
+}

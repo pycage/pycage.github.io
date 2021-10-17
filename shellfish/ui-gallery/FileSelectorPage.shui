@@ -32,7 +32,7 @@ Page {
 
         title: "File Selector"
         subtitle: filesRepeater.model.size + " items"
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui", "Labeled.shui"]
     }
 
     FileSelector {

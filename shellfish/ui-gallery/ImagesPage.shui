@@ -30,7 +30,7 @@ Page {
         id: pageHeader
 
         title: "Images"
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui"]
     }
 
     Box {

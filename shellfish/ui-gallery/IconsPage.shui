@@ -35,7 +35,7 @@ Page {
 
         title: "Icon Gallery"
         subtitle: page.loadingIcons ? "" : iconsModel.size + " icons"
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui"]
     }
 
     ListModel {

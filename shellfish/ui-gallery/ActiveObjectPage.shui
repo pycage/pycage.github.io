@@ -130,7 +130,7 @@ Page {
 
         title: "Active Object Pattern"
         subtitle: ""
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui"]
     }
 
     ThreadPool {

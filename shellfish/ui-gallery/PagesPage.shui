@@ -201,7 +201,7 @@ Page {
         id: pageHeader
         
         title: "Pages"
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui"]
     }
 
     Box {

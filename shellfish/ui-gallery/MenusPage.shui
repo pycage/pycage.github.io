@@ -31,7 +31,7 @@ Page {
         id: pageHeader
 
         title: "Quick-and-Dirty Text Editor"
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui"]
     }
 
     scrollable: false

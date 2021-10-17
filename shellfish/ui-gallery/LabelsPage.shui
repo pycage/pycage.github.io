@@ -31,7 +31,7 @@ Page {
         id: pageHeader
 
         title: "Labels"
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui", "Labeled.shui"]
     }
 
     property contentT: template Box {

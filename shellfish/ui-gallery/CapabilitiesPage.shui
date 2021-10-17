@@ -30,7 +30,7 @@ Page {
         id: header
 
         title: "Platform Capabilities"        
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui"]
     }
 
     Capabilities {

@@ -32,7 +32,7 @@ Page {
 
         title: "Camera"
         subtitle: "Status: " + cam.status
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui", "imagefilter.js"]
     }
 
     Box {

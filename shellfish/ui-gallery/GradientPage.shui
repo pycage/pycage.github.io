@@ -31,7 +31,7 @@ Page {
         id: header
 
         title: "Gradients"
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui", "Labeled.shui"]
     }
 
     Box {

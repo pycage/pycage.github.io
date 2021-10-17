@@ -25,7 +25,7 @@ require "shellfish/ui";
 PageHeader {
     id: header
 
-    property codeUrl: ""
+    property codeUrls: []
 
     position: "global"
     marginLeft: thisPage.marginLeft
@@ -59,7 +59,7 @@ PageHeader {
         flat: true
         onClick: {
             pageStack.pushPage(__dirname + "/SourceCodePage.shui", {
-                url: header.codeUrl
+                urls: header.codeUrls
             });
         }
 

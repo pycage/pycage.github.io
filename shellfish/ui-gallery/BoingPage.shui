@@ -36,7 +36,7 @@ Page {
         
         title: "Boing Boing Donk!"
         subtitle: "Having fun with easing-curves..."
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui"]
     }
 
     MouseBox {
@@ -58,6 +58,7 @@ Page {
 
         Box {
             id: sun
+            
             position: "free"
             x: box.bbox.width / 20
             y: x

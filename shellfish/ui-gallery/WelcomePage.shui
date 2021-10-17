@@ -32,7 +32,7 @@ Page {
 
         title: "Shellfish Gallery"
         subtitle: "[icon:ui-copyright] 2020 - 2021 Martin Grimme"
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui", "PageButtons.shui"]
     }
 
     into header Label {
@@ -101,9 +101,16 @@ Page {
             model: ListModel {
                 data: [
                     {
-                        section: "Capabilities",
+                        section: "Try It Out Live",
+                        description: "Fiddle around with Shui code and see the results live.",
+                        pages: [
+                            ["Fiddle Box", "FiddlePage", "media-equalizer"]
+                        ]
+                    },
+                    {
+                        section: "Platform Capabilities",
                         description: "Easily check the capabilities of the environment your application " +
-                                     "is running in. Dynamically adapt to what's available and what's not.",                       
+                                     "is running in. Dynamically adapt to what's available and what's not.",
                         pages: [
                             ["Test Platform Capabilities", "CapabilitiesPage", "ui-check_box"]
                         ]
@@ -167,7 +174,6 @@ Page {
                             ["Camera", "CameraPage", "camera-camera"]
                         ]
                     },
-                    /*
                     {
                         section: "Map Rendering",
                         description: "Scroll over large or endless maps on screen. Not only useful for arcade games.",
@@ -176,7 +182,6 @@ Page {
                             ["Running Dynamic Tiles", "DynamicTileSetPage", "ui-view_grid"]
                         ]
                     },
-                    */
                     {
                         section: "Lock-free Concurrent Programming",
                         description: "Take full advantage of the multiple cores the CPU has to offer.",

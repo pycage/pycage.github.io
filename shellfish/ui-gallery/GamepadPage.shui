@@ -35,7 +35,11 @@ Page {
 
         title: "Gamepad Input"
         subtitle: gamepadModel.size + " gamepads found"
-        codeUrl: __filename
+        codeUrls: [
+            __filename, "Header.shui", "Labeled.shui", "GamepadGeneric.shui",
+            "GamepadPSClassic.shui", "GamepadXBox360.shui", "GamepadButton.shui",
+            "GamepadDPad.shui", "GamepadStick.shui", "GamepadTrigger.shui"
+        ]
     }
 
     GamepadModel {

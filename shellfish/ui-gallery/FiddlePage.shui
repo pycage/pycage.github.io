@@ -1,0 +1,183 @@
+/*******************************************************************************
+This file is part of the Shellfish UI toolkit examples.
+Copyright (c) 2021 Martin Grimme <martin.grimme@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*******************************************************************************/
+
+require "shellfish/ui";
+require "./Header.shui";
+require "./CodeEditorBehavior.shui";
+require "./ShuiSyntaxHighlighter.shui";
+
+Page {
+    id: page
+
+    into header Header {
+        id: pageHeader
+
+        title: "Fiddle Box"
+        subtitle: "Fiddle around with Shui code"
+        codeUrls: [__filename, "Header.shui", "CodeEditorBehavior.shui", "ShuiSyntaxHighlighter.shui"]
+    }
+
+    scrollable: false
+
+    ShuiSyntaxHighlighter {
+        id: shuiHighlighter
+    }
+
+    SplitBox {
+        marginTop: pageHeader.height
+        fillWidth: true
+        fillHeight: true
+        orientation: "vertical"
+
+        into first Box {
+            fillWidth: true
+            fillHeight: true
+
+            Label {
+                marginTop: theme.paddingSmall
+                marginLeft: theme.paddingSmall
+                bold: true
+                text: "Shui Code"
+            }
+
+            TextArea {
+                id: codeBox
+
+                fillWidth: true
+                fillHeight: true
+                marginTop: theme.paddingSmall
+                marginLeft: theme.paddingSmall
+                marginRight: theme.paddingSmall
+
+                syntaxHighlighter: shuiHighlighter
+
+                fontFamily: "monospace"
+                text: """require "shellfish/ui";
+
+Box {
+
+    Label {
+        rotationAxis: vec3(1, 0, 0)
+        fontSize: theme.fontSizeLarge
+        color: rotationAngle < 90 || rotationAngle > 270 ? "green"
+                                                         : "red"
+        text: "Hello World!"
+
+        NumberAnimation {
+            running: true
+            repeat: true
+            from: 0
+            to: 360
+            duration: 3000
+            easing: "Linear"
+            onNext: (v) => { parent.rotationAngle = v; }
+        }
+
+    }
+    
+}
+"""
+
+                CodeEditorBehavior { }
+            }
+
+            Box {
+                fillWidth: true
+                height: theme.itemHeightSmall
+                layout: "center-row"
+
+                Label {
+                    marginLeft: theme.paddingSmall
+                    bold: true
+                    text: "Row:"
+                }
+
+                Label {
+                    marginLeft: theme.paddingSmall
+                    text: codeBox.row + 1
+                }
+
+                Label {
+                    marginLeft: theme.paddingSmall
+                    bold: true
+                    text: "Column:"
+                }
+
+                Label {
+                    marginLeft: theme.paddingSmall
+                    text: codeBox.column + 1
+                }
+
+                Box { fillWidth: true }
+            }
+        }
+
+        into second Box {
+            fillWidth: true
+            fillHeight: true
+
+            Label {
+                marginTop: theme.paddingSmall
+                marginLeft: theme.paddingSmall
+                bold: true
+                text: "Live View"
+            }
+
+            Loader {
+                id: fiddleLoader
+
+                fillWidth: true
+                fillHeight: true
+                marginTop: theme.paddingSmall
+                marginLeft: theme.paddingSmall
+                marginRight: theme.paddingSmall
+                marginBottom: theme.paddingSmall
+
+                // a Loader is a Box...
+                borderColor: theme.borderColor
+                borderRadius: theme.borderRadius
+                borderWidth: 1
+                color: theme.contentBackgroundColor
+            }
+        }
+    }
+
+    codeBox.onTextChanged: () => fiddleTimer.start()
+    onInitialization: () => fiddleTimer.start()
+
+    Timer {
+        id: fiddleTimer
+        running: false
+        interval: 500
+        repeat: false
+
+        onTimeout: () =>
+        {
+            // for the time being, this is using private API. look away
+            const code = 'require "./EmbeddedDocument.shui"; ' +
+                         codeBox.text.replace(new RegExp("Document[\n ]*{"), "EmbeddedDocument {");
+            shRequire.registerData("__Fiddle.shui", code);
+            fiddleLoader.source = "";
+            fiddleLoader.source = "__Fiddle.shui";
+        }
+    }
+}

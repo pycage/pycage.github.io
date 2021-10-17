@@ -68,7 +68,7 @@ Page {
         visible: opacity > 0
         
         title: "Video Player Example"
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui"]
 
         opacity: page.showControls ? 1 : 0
         opacityTransition: NumberAnimation { duration: 700; easing: "InOutQuad" }

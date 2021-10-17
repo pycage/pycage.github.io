@@ -31,7 +31,7 @@ Page {
 
         title: "Date and Time"
         subtitle: ""
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui"]
     }
 
     scrollable: false

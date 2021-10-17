@@ -32,7 +32,7 @@ Page {
         id: pageHeader
 
         title: "WebSocket"
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui"]
     }
 
     contentTemplate: template Box {

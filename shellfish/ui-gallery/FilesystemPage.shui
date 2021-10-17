@@ -32,7 +32,7 @@ Page {
 
         title: "Virtual Filesystem"
         subtitle: "/"
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui", "Labeled.shui"]
     }
 
     // profile objects encapsulate a set of common properties that other

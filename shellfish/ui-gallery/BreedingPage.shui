@@ -43,7 +43,7 @@ Page {
         
         title: "Rabbit Breeding"
         subtitle: "Generation: " + page.generation + ", " + rabbitGrid.count + " rabbits"
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui", "fib.js"]
 
         into second Button {
             height: header.height

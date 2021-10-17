@@ -34,7 +34,7 @@ Page {
         id: header
 
         title: "Paint on Canvas"
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui"]
     }
 
     property contentT: template Box {

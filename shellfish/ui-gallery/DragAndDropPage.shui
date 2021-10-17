@@ -31,7 +31,7 @@ Page {
 
         title: "Drag and Drop"
         subtitle: listView.model.size + " items"
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui"]
     }
 
     DropArea {
