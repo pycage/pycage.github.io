@@ -28,6 +28,32 @@ require "./ShuiSyntaxHighlighter.shui";
 Page {
     id: page
 
+    property exampleCode: """require "shellfish/ui";
+
+Box {
+
+    Label {
+        rotationAxis: vec3(1, 0, 0)
+        fontSize: theme.fontSizeLarge
+        color: rotationAngle < 90 || rotationAngle > 270 ? "green"
+                                                         : "red"
+        text: "Hello World!"
+
+        NumberAnimation {
+            running: true
+            repeat: true
+            from: 0
+            to: 360
+            duration: 3000
+            easing: "Linear"
+            onNext: (v) => { parent.rotationAngle = v; }
+        }
+
+    }
+    
+}
+"""
+
     into header Header {
         id: pageHeader
 
@@ -59,77 +85,137 @@ Page {
                 text: "Shui Code"
             }
 
-            TextArea {
-                id: codeBox
-
-                fillWidth: true
-                fillHeight: true
+            Box {
                 marginTop: theme.paddingSmall
                 marginLeft: theme.paddingSmall
                 marginRight: theme.paddingSmall
-
-                syntaxHighlighter: shuiHighlighter
-
-                fontFamily: "monospace"
-                text: """require "shellfish/ui";
-
-Box {
-
-    Label {
-        rotationAxis: vec3(1, 0, 0)
-        fontSize: theme.fontSizeLarge
-        color: rotationAngle < 90 || rotationAngle > 270 ? "green"
-                                                         : "red"
-        text: "Hello World!"
-
-        NumberAnimation {
-            running: true
-            repeat: true
-            from: 0
-            to: 360
-            duration: 3000
-            easing: "Linear"
-            onNext: (v) => { parent.rotationAngle = v; }
-        }
-
-    }
-    
-}
-"""
-
-                CodeEditorBehavior { }
-            }
-
-            Box {
+                marginBottom: theme.paddingSmall
                 fillWidth: true
-                height: theme.itemHeightSmall
-                layout: "center-row"
+                fillHeight: true
+                layout: "row"
 
-                Label {
-                    marginLeft: theme.paddingSmall
-                    bold: true
-                    text: "Row:"
-                }
+                // Let's create a fancy code editor with line numbers,
+                // syntax highlighting, current line highlighting, and
+                // auto indentation behavior.
+                TextArea {
+                    id: codeBox
 
-                Label {
-                    marginLeft: theme.paddingSmall
-                    text: codeBox.row + 1
-                }
+                    fillWidth: true
+                    fillHeight: true
 
-                Label {
-                    marginLeft: theme.paddingSmall
-                    bold: true
-                    text: "Column:"
-                }
+                    syntaxHighlighter: shuiHighlighter
+                    textColor: "transparent" // handled by the syntax highlighting label
+                    caretColor: theme.primaryColor
 
-                Label {
-                    marginLeft: theme.paddingSmall
-                    text: codeBox.column + 1
-                }
+                    fontFamily: "monospace"
+                    text: page.exampleCode
 
-                Box { fillWidth: true }
-            }
-        }
+                    // auto indentation, etc.
+                    CodeEditorBehavior { }
+
+                    // current line highlighting
+                    into backgroundContainer Label {
+                        position: "free"
+                        fillWidth: true
+                        fillHeight: true
+                        marginTop: -codeBox.scrollY
+                        fontSize: codeBox.fontSize
+                        fontFamily: codeBox.fontFamily
+                        bold: codeBox.bold
+                        color: codeBox.textColor
+                        literal: false
+                        text: codeBox.row && codeBox.bbox && codeBox.selectionStart === codeBox.selectionEnd ? codeBox.text : ""
+
+                        filter: (s) =>
+                        {
+                            const lines = s.split("\n");
+                            let maxLength = codeBox.bbox.width / (fontSize / 2);
+                            
+                            let out = "";
+                            lines.forEach((l, row) =>
+                            {
+                                if (row === codeBox.row)
+                                {
+                                    out += "<span style=\"background-color: " + theme.secondaryBackgroundColor.alpha(0.5).toCss() + "\">";
+                                    for (let i = 0; i < maxLength; ++i)
+                                    {
+                                        out += "&nbsp;";
+                                    }
+                                    out += "</span>";
+                                }
+                                out += "<br>";
+                            });
+                            return out;
+                        }
+                    }
+
+                    // syntax highlighting
+                    into backgroundContainer Label {
+                        position: "free"
+                        fillWidth: true
+                        fillHeight: true
+                        marginTop: -codeBox.scrollY
+                        marginLeft: -codeBox.scrollX
+                        fontSize: codeBox.fontSize
+                        fontFamily: codeBox.fontFamily
+                        bold: codeBox.bold
+                        color: theme.primaryColor
+                        literal: false
+                        text: codeBox.text
+
+                        filter: shuiHighlighter.filter
+                    }
+
+                    // line numbers
+                    into leftMarginContainer Box {
+                        width: lineNoLabel.bbox.width + 8
+                        fillHeight: true
+                        color: theme.secondaryBackgroundColor
+
+                        Label {
+                            id: lineNoLabel
+
+                            marginTop: -codeBox.scrollY
+                            marginLeft: 4
+                            fontSize: codeBox.fontSize
+                            fontFamily: codeBox.fontFamily
+                            horizontalAlignment: "right"
+                            color: theme.secondaryColor
+
+                            text: (() =>
+                            {
+                                let out = "";
+                                codeBox.text.split("\n").forEach((line, i) =>
+                                {
+                                    out += "" + (i + 1) + "\n";
+                                })
+                                return out;
+                            })()
+                        }
+                    }
+
+                    // status bar
+                    into bottomMarginContainer Box {
+                        fillWidth: true
+                        height: theme.itemHeightSmall
+                        layout: "center-row"
+
+                        Box { fillWidth: true }
+
+                        Label {
+                            marginRight: theme.paddingSmall
+                            fontSize: theme.fontSizeSmall
+                            text: "Line " + (codeBox.row + 1) + ", " +
+                                  "Column " + (codeBox.column + 1)
+                        }
+
+                    }
+
+                }//TextArea
+
+            }//Box
+
+        }//Box
 
         into second Box {
             fillWidth: true

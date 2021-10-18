@@ -23,25 +23,88 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 Object {
 
     property target: parent
+    property tabWidth: 4
+
+    function indentRow(row, col)
+    {
+        const newCol = col + tabWidth;
+        const pos = newCol - (newCol % tabWidth);
+        const advance = pos - col;
+
+        let s = "";
+        for (let i = 0; i < advance; ++i)
+        {
+            s += " ";
+        }
+        target.insertAt(target.positionAt(row, col), s);
+    }
+
+    function deindentRow(row)
+    {
+        const rowStart = target.positionAt(row, 0);
+        let pos = rowStart;
+        while (target.text[pos] === " " && pos < rowStart + tabWidth)
+        {
+            ++pos;
+        }
+        target.eraseAt(rowStart, pos - rowStart);
+    }
+
+    function rowIndentation(row)
+    {
+        const rowStart = target.positionAt(row, 0);
+        let pos = rowStart;
+        let i = 0;
+        while (target.text[pos] === " ")
+        {
+            ++pos;
+            ++i;
+        }
+        return i;
+    }
+
+    function lineAt(row)
+    {
+        const pos1 = target.positionAt(target.row, 0);
+        let pos2 = target.text.indexOf("\n", pos1);
+        if (pos2 === -1)
+        {
+            pos2 = target.text.length - 1;
+        }
+        return target.text.substring(pos1, pos2);
+    }
 
     target.onKeyDown: (ev) =>
     {
         if (ev.key === "Tab")
         {
-            const newCol = target.column + 4;
-            const pos = newCol - (newCol % 4);
-            const advance = pos - target.column;
-
-            let s = "";
-            for (let i = 0; i < advance; ++i)
-            {
-                s += " ";
-            }
-
             const r = target.row;
             const c = target.column;
-            target.insertAt(target.selectionStart, s);
-            target.setCursor(r, c + advance);
+
+            if (target.selectionStart < target.selectionEnd)
+            {
+                // indent selected block
+                const firstRow = target.rowAt(target.selectionStart);
+                const lastRow = target.rowAt(target.selectionEnd - 1);
+
+                for (let row = lastRow; row >= firstRow; --row)
+                {
+                    if (ev.shiftKey)
+                    {
+                        // de-indent
+                        deindentRow(row);
+                    }
+                    else
+                    {
+                        indentRow(row, 0);
+                    }
+                }
+            }
+            else
+            {
+                indentRow(r, c);
+            }
+
             ev.accepted = true;
         }
         else if (ev.key === "Enter")
@@ -50,27 +113,78 @@ Object {
             const r = target.row;
             const c = target.column;
             const line = target.text.substr(target.positionAt(r, 0), c);
-            const indentation = line.length - line.trimStart().length;
-            let s = "";
-            for (let i = 0; i < indentation; ++i)
+
+            // is the last character a '{'?
+            const blockOpened = line.trimRight().endsWith("{");
+
+            const indentation = rowIndentation(target.row) + 
+                                (blockOpened ? tabWidth : 0);
+
+            if (indentation > 0)
             {
-                s += " ";
+                let s = "";
+                for (let i = 0; i < indentation; ++i)
+                {
+                    s += " ";
+                }
+
+                window.setTimeout(() =>
+                {
+                    target.insertAt(target.positionAt(r, c) + 1, s);
+                    target.setCursor(r + 1, s.length);
+                }, 50 /* must not be 0 for the sake of Mozilla */);
             }
-            target.insertAt(target.selectionStart, "\n" + s);
-            target.setCursor(r + 1, s.length);
-            ev.accepted = true;
         }
         else if (ev.key === "Backspace")
         {
             const prefix = target.text.substr(positionAt(target.row, 0), target.column).trim();
-            if (target.column > 0 && target.column % 4 === 0 && prefix.length === 0)
+            if (target.column > 0 && target.column % tabWidth === 0 && prefix.length === 0)
             {
                 const r = target.row;
                 const c = target.column;
-                target.eraseAt(target.selectionStart - 4, 4);
-                target.setCursor(r, c - 4);
+                target.eraseAt(target.selectionStart - tabWidth, tabWidth);
                 ev.accepted = true;
             }
         }
+        else if (ev.key === "Home")
+        {
+            const col = rowIndentation(target.row);
+
+            if (target.column !== col)
+            {
+                target.setCursor(target.row, col);
+            }
+            else
+            {
+                target.setCursor(target.row, 0);
+            }
+
+            ev.accepted = true;
+        }
+        else if (ev.key === "}" && target.row > 0)
+        {
+            if (lineAt(target.row).trim().length === 0)
+            {
+                const wantedIndentation = Math.max(0, rowIndentation(target.row - 1) - tabWidth);
+                const thisIndentation = rowIndentation(target.row);
+                const rowStart = target.positionAt(target.row, 0);
+
+                if (thisIndentation > wantedIndentation)
+                {
+                    target.eraseAt(rowStart, thisIndentation - wantedIndentation);
+                }
+                else if (thisIndentation < wantedIndentation)
+                {
+                    let s = "";
+                    for (let i = thisIndentation; i < wantedIndentation; ++i)
+                    {
+                        s += " ";
+                    }
+                    target.insertAt(rowStart, s);
+                }
+            }
+
+        }
+        
     }
 }

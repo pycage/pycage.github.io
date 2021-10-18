@@ -52,7 +52,7 @@ PageHeader {
     }
 
     into second Button {
-        visible: header.codeUrl !== ""
+        visible: header.codeUrls.length > 0
         icon: "fs-file-text"
         width: height
         height: header.height
