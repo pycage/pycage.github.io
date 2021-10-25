@@ -154,6 +154,7 @@ Page {
                         description: "Read input from various devices.",
                         pages: [
                             ["Mouse, Touch, and Pen", "CanvasPage", "input-pen"],
+                            ["Multi Touch", "TouchPage", "input-touch"],
                             ["Gamepad Input", "GamepadPage", "input-gamecontroller"]
                         ]
                     },
