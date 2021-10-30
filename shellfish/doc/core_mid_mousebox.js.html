@@ -3928,6 +3928,8 @@
             
                 <li class="parent  " data-name="mid.TextArea#setCursor"><a href="mid.TextArea.html#setCursor">setCursor</a></li>
             
+                <li class="parent  " data-name="mid.TextArea#shiftRows"><a href="mid.TextArea.html#shiftRows">shiftRows</a></li>
+            
                 <li class="  " data-name="mid.TextArea#transitionable"><a href="mid.TextArea.html#transitionable">transitionable</a></li>
             
                 <li class="  " data-name="mid.TextArea#typeOf"><a href="mid.TextArea.html#typeOf">typeOf</a></li>
@@ -7624,6 +7626,21 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *******************************************************************************/
 
+/*
+Working with input can be quite tricky as there are three browser APIs which may
+not all be supported at the same time.
+
+The PointerEvent API covers mouse, pen, and (multiple) touch points and should
+be the way to go on modern browers. Some versions of Firefox don't support this
+API, however.
+
+The MouseEvent API is the oldest of the APIs and supported everywhere. Touch and
+pen input are mapped to mouse events if not prevented by "preventDefault()".
+
+The TouchEvent API supports the detection of multiple touch points and must be
+used where the PointerEvent API is not available for this task.
+*/
+
 "use strict";
 
 shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
@@ -7798,6 +7815,7 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
             /**
              * Is triggered when the mouse enters the item.
              * @event mouseOver
+             * @deprecated Use the pointer events instead.
              * @param {mid.MouseBox.PointerEvent} event - The event object.
              * @memberof mid.MouseBox
              */
@@ -7805,6 +7823,7 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
             /**
              * Is triggered when the mouse leaves the item.
              * @event mouseOut
+             * @deprecated Use the pointer events instead.
              * @param {mid.MouseBox.PointerEvent} event - The event object.
              * @memberof mid.MouseBox
              */
@@ -7812,6 +7831,7 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
             /**
              * Is triggered when a mouse button is pressed.
              * @event mouseDown
+             * @deprecated Use the pointer events instead.
              * @param {mid.MouseBox.PointerEvent} event - The event object.
              * @memberof mid.MouseBox
              */
@@ -7819,6 +7839,7 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
             /**
              * Is triggered when a mouse button is released.
              * @event mouseUp
+             * @deprecated Use the pointer events instead.
              * @param {mid.MouseBox.PointerEvent} event - The event object.
              * @memberof mid.MouseBox
              */
@@ -7826,6 +7847,7 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
             /**
              * Is triggered when the mouse is being moved.
              * @event mouseMove
+             * @deprecated Use the pointer events instead.
              * @param {mid.MouseBox.PointerEvent} event - The event object.
              * @memberof mid.MouseBox
              */
@@ -7911,9 +7933,8 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
                 {
                     this.ensureListener("touchstart", (ev) =>
                     {
+                        ev.pointerType = "touch";
                         this.pointerDown(ev);
-                        // don't synthesize mouse events
-                        ev.original.preventDefault();
                     }, makePointerEvent);
                 }
             });
@@ -7928,7 +7949,11 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
                 this.ensureListener(POINTER_EVENT ? "pointerup" : "mouseup", this.pointerUp, makePointerEvent);
                 if (! POINTER_EVENT)
                 {
-                    this.ensureListener("touchend", this.pointerUp, makePointerEvent);
+                    this.ensureListener("touchend", (ev) =>
+                    {
+                        ev.pointerType = "touch";
+                        this.pointerUp(ev);
+                    }, makePointerEvent);
                 }
             });
             /**
@@ -7939,10 +7964,17 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
              */
             this.registerEvent("pointerMove", () =>
             {
+                // disable disturbing browser touch actions
+                this.css("touch-action", "none");
+
                 this.ensureListener(POINTER_EVENT ? "pointermove" : "mousemove", this.pointerMove, makePointerEvent);
                 if (! POINTER_EVENT)
                 {
-                    this.ensureListener("touchmove", this.pointerMove, makePointerEvent);   
+                    this.ensureListener("touchmove", (ev) =>
+                    {
+                        ev.pointerType = "touch";
+                        this.pointerMove(ev);
+                    }, makePointerEvent);
                 }
             });
 
@@ -7970,11 +8002,12 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
              */
             this.registerEvent("dragEnd");
 
-
+            // use passive event handlers for monitoring status and touch points
             if (POINTER_EVENT)
             {
                 this.addHtmlEventListener(item, "pointerdown", (ev) =>
                 {
+                    //console.log("passive pointer down, type " + ev.pointerType);
                     priv.pressed = true;
                     this.pressedChanged();
 
@@ -7983,7 +8016,6 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
                         priv.touchPoints.push(ev);
                         this.touchPointsChanged();
                     }
-                    
                 }, { passive: true });
 
                 this.addHtmlEventListener(item, "pointerup", (ev) =>
@@ -8066,43 +8098,103 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
             }
             else
             {
+                let legacyPointerType = "mouse";
+
                 this.addHtmlEventListener(item, "mousedown", () =>
                 {
-                    priv.pressed = true;
-                    this.pressedChanged();
-                });
+                    if (legacyPointerType === "mouse")
+                    {
+                        //console.log("passive mouse down");
+                        legacyPointerType = "mouse";
+                        priv.pressed = true;
+                        this.pressedChanged();
+                    }
+                }, { passive: true });
 
                 this.addHtmlEventListener(item, "mouseup", () =>
                 {
-                    priv.pressed = false;
-                    this.pressedChanged();
-                });
+                    if (legacyPointerType === "mouse")
+                    {
+                        priv.pressed = false;
+                        this.pressedChanged();
+                    }
+                }, { passive: true });
 
                 this.addHtmlEventListener(item, "mouseover", () =>
                 {
-                    priv.containsMouse = true;
-                    this.containsMouseChanged();
+                    if (legacyPointerType === "mouse")
+                    {
+                        priv.containsMouse = true;
+                        this.containsMouseChanged();
+                    }
                 }, { passive: true });
                 
                 this.addHtmlEventListener(item, "mouseout", () =>
                 {
-                    priv.containsMouse = false;
-                    this.containsMouseChanged();
+                    if (legacyPointerType === "mouse")
+                    {
+                        priv.containsMouse = false;
+                        this.containsMouseChanged();
+                    }
                 }, { passive: true });
 
-                this.addHtmlEventListener(item, "touchstart", () =>
+                this.addHtmlEventListener(item, "touchstart", (ev) =>
                 {
+                    console.log("passive touch down");
+                    legacyPointerType = "touch";
+
+                    priv.containsMouse = true;
+                    this.containsMouseChanged();
+
                     priv.pressed = true;
                     this.pressedChanged();
+
+                    priv.touchPoints = [];
+                    for (let i = 0; i &lt; ev.touches.length; ++i)
+                    {
+                        const tp = ev.touches[i];
+                        priv.touchPoints.push({
+                            clientX: tp.clientX,
+                            clientY: tp.clientY,
+                            pointerId: tp.identifier
+                        });
+                    }
+                    this.touchPointsChanged();
                 }, { passive: true });
-               
-                this.addHtmlEventListener(item, "touchend", () =>
+
+                this.addHtmlEventListener(item, "touchmove", (ev) =>
+                {
+                    priv.touchPoints = [];
+                    for (let i = 0; i &lt; ev.touches.length; ++i)
+                    {
+                        const tp = ev.touches[i];
+                        priv.touchPoints.push({
+                            clientX: tp.clientX,
+                            clientY: tp.clientY,
+                            pointerId: tp.identifier
+                        });
+                    }      
+                }, { passive: true });
+
+                this.addHtmlEventListener(item, "touchend", (ev) =>
                 {
                     priv.containsMouse = false;
                     this.containsMouseChanged();
 
                     priv.pressed = false;
-                    this.pressedChanged();                    
+                    this.pressedChanged();
+
+                    priv.touchPoints = [];
+                    for (let i = 0; i &lt; ev.touches.length; ++i)
+                    {
+                        const tp = ev.touches[i];
+                        priv.touchPoints.push({
+                            clientX: tp.clientX,
+                            clientY: tp.clientY,
+                            pointerId: tp.identifier
+                        });
+                    }
+                    this.touchPointsChanged();
                 }, { passive: true });
             }
         }
@@ -8128,13 +8220,14 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
 
                 const h = (ev) =>
                 {
+                    //console.log("Event: " + name);
                     const e = makeEvent(ev, item);
                     handler(e);
                     if (e.accepted)
                     {
                         ev.stopPropagation();
-                        ev.preventDefault();
                     }
+                    ev.preventDefault();
                 };
 
                 this.addHtmlEventListener(item, name, h, false);
@@ -8156,21 +8249,23 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
             const downHandler = (ev) =>
             {
                 downIsClick = true;
-                buttons = ev.buttons;
-                downPos = [ev.clientX, ev.clientY];
+                buttons = ev.buttons !== undefined ? ev.buttons : 1;
+                downPos = [
+                    (ev.touches ? ev.touches[0].clientX : ev.clientX),
+                    (ev.touches ? ev.touches[0].clientY : ev.clientY)
+                ];
             };
-            this.addHtmlEventListener(item, POINTER_EVENT ? "pointerdown" : "mousedown", downHandler, { passive: true });
 
             const moveHandler = (ev) =>
             {
-                const distX = Math.abs(ev.clientX - downPos[0]);
-                const distY = Math.abs(ev.clientY - downPos[1]);
+                const distX = Math.abs((ev.touches ? ev.touches[0].clientX : ev.clientX) - downPos[0]);
+                const distY = Math.abs((ev.touches ? ev.touches[0].clientY : ev.clientY) - downPos[1]);
+
                 if (distX > 10 || distY > 10)
                 {
                     downIsClick = false;
                 }
             };
-            this.addHtmlEventListener(item, POINTER_EVENT ? "pointermove" : "mousemove", moveHandler, { passive: true });
 
             const upHandler = (ev) =>
             {
@@ -8185,7 +8280,6 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
                         if (e.accepted)
                         {
                             ev.stopPropagation();
-                            ev.preventDefault();
                         }
                         lastClickTime = 0;
                     }
@@ -8197,14 +8291,31 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
                         if (e.accepted)
                         {
                             ev.stopPropagation();
-                            ev.preventDefault();
                         }
                         lastClickTime = now;
                     }
                     downIsClick = false;
+                    ev.preventDefault();
                 }                    
             };
-            this.addHtmlEventListener(item, POINTER_EVENT ? "pointerup" : "mouseup", upHandler, false);
+
+            if (POINTER_EVENT)
+            {
+                this.addHtmlEventListener(item, "pointerdown", downHandler, { passive: true });
+                this.addHtmlEventListener(item, "pointermove", moveHandler, { passive: true });
+                this.addHtmlEventListener(item, "pointerup", upHandler, false);
+            }
+            else
+            {
+                this.addHtmlEventListener(item, "mousedown", downHandler, { passive: true });
+                this.addHtmlEventListener(item, "mousemove", moveHandler, { passive: true });
+                this.addHtmlEventListener(item, "mouseup", upHandler, false);
+
+                // touch overrides mouse, using preventDefault()
+                this.addHtmlEventListener(item, "touchstart", downHandler, { passive: true });
+                this.addHtmlEventListener(item, "touchmove", moveHandler, { passive: true });
+                this.addHtmlEventListener(item, "touchend", upHandler, false);
+            }
         }
 
         setupDragDetection()
@@ -8281,6 +8392,9 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
                 window.removeEventListener(POINTER_EVENT ? "pointermove" : "mousemove", drag, true);
                 window.removeEventListener(POINTER_EVENT ? "pointerup" : "mouseup", stopDrag, true);
                 
+                priv.pressed = false;
+                this.pressedChanged();
+
                 this.dragEnd();
 
                 event.stopPropagation();
@@ -8292,6 +8406,12 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
                 window.removeEventListener("touchmove", touchDrag, true);
                 window.removeEventListener("touchend", stopTouchDrag, true);
                 
+                priv.containsMouse = false;
+                this.containsMouseChanged();
+
+                priv.pressed = false;
+                this.pressedChanged();
+
                 this.dragEnd();
 
                 event.stopPropagation();
@@ -8311,6 +8431,7 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
                     window.addEventListener(POINTER_EVENT ? "pointerup" : "mouseup", stopDrag, true);
 
                     event.stopPropagation();
+                    // don't synthesize mouse events
                     event.preventDefault();
                 }
             };
@@ -8355,8 +8476,8 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
                 const tp = d.get(this).touchPoints[n];
                 return {
                     id: tp.pointerId,
-                    x: tp.x - this.bbox.x,
-                    y: tp.y - this.bbox.y
+                    x: tp.clientX - this.bbox.x,
+                    y: tp.clientY - this.bbox.y
                 };
             }
             else
@@ -8380,7 +8501,7 @@ shRequire([__dirname + "/../low.js", __dirname + "/box.js"], function (low, box)
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Mon Oct 18 2021 16:00:52 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Sat Oct 30 2021 16:03:42 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

@@ -3928,6 +3928,8 @@
             
                 <li class="parent  " data-name="mid.TextArea#setCursor"><a href="mid.TextArea.html#setCursor">setCursor</a></li>
             
+                <li class="parent  " data-name="mid.TextArea#shiftRows"><a href="mid.TextArea.html#shiftRows">shiftRows</a></li>
+            
                 <li class="  " data-name="mid.TextArea#transitionable"><a href="mid.TextArea.html#transitionable">transitionable</a></li>
             
                 <li class="  " data-name="mid.TextArea#typeOf"><a href="mid.TextArea.html#typeOf">typeOf</a></li>
@@ -7652,7 +7654,8 @@ shRequire([__dirname + "/../low.js", __dirname + "/object.js", __dirname + "/lis
      * @extends mid.Object
      * @memberof mid
      * 
-     * @property {mid.Template} delegate - (default: `null`) The delegate template. This does not need to be a visual element.
+     * @property {number} count - [readonly] The amount of items.
+     * @property {fengshui.Template} delegate - (default: `null`) The delegate template. This does not need to be a visual element.
      * @property {mid.Object[]} items - [readonly] The list of items.
      * @property {mid.ListModel} model - (default: `null`) The list model.
      */
@@ -7664,9 +7667,11 @@ shRequire([__dirname + "/../low.js", __dirname + "/object.js", __dirname + "/lis
             d.set(this, {
                 model: null,
                 delegate: () => null,
-                items: []
+                items: [],
+                recycleBin: []
             });
 
+            this.notifyable("count");
             this.notifyable("model");
 
             this.onInitialization = () =>
@@ -7674,12 +7679,33 @@ shRequire([__dirname + "/../low.js", __dirname + "/object.js", __dirname + "/lis
                 this.clear();
                 this.renderAll();
             };
+
+            this.onDestruction = () =>
+            {
+                this.clear();
+            }
         }
+
+        get count() { return !! d.get(this).model ? d.get(this).model.size : 0; }
 
         get model() { return d.get(this).model; }
         set model(m)
         {
             const priv = d.get(this);
+
+            // clear old content
+            const toDestroy = [];
+            priv.items.forEach((item, idx) =>
+            {
+                toDestroy.push(idx);
+            });
+            toDestroy
+            .sort((a, b) => b &lt; a ? -1 : 1)
+            .forEach((idx) =>
+            {
+                this.destroyItem(idx);
+            });
+            this.dumpRecycleBin();
 
             let mObj = null;
             if (typeof m === "number")
@@ -7709,43 +7735,158 @@ shRequire([__dirname + "/../low.js", __dirname + "/object.js", __dirname + "/lis
                 mObj.referenceAdd(this);
                 mObj.connect("modelReset", this, () =>
                 {
-                    this.clear();
+                    const toDestroy = [];
+                    priv.items.forEach((item, idx) =>
+                    {
+                        toDestroy.push(idx);
+                    });
+                    toDestroy
+                    .sort((a, b) => b &lt; a ? -1 : 1)
+                    .forEach(idx =>
+                    {
+                        this.destroyItem(idx);
+                    });
+
+                    priv.items = [];
+                    for (let i = 0; i &lt; mObj.size; ++i)
+                    {
+                        priv.items.push(undefined);
+                    }
+
+                    this.dumpRecycleBin();
                     this.renderAll();
+                    this.countChanged();
                 });
                 mObj.connect("modelInsert", this, (at, size) =>
                 {
-                    this.clear();
+                    for (let i = 0; i &lt; size; ++i)
+                    {
+                        priv.items = priv.items.slice(0, at)
+                                     .concat([undefined])
+                                     .concat(priv.items.slice(at));
+                    }
+                    // the index of the following alive items increases
+                    for (let i = at + size; i &lt; priv.items.length; ++i)
+                    {
+                        this.updateItem(i);
+                    }
                     this.renderAll();
+                    this.countChanged();
                 });
                 mObj.connect("modelRemove", this, (at) =>
                 {
-                    this.clear();
+                    this.destroyItem(at);
+                    // the index of the following items decreases
+                    priv.items.forEach((item, idx) =>
+                    {
+                        if (idx >= at)
+                        {
+                            this.updateItem(idx);
+                        }
+                    });
+                    priv.items.splice(at, 1);
                     this.renderAll();
+                    this.countChanged();
                 });
                 mObj.connect("modelReplace", this, (at) =>
                 {
-                    d.get(this).items[at].dataChange(model.at(at));
+                    this.updateItem(at);
+                    this.renderAll();
                 });
             }
 
-            this.modelChanged();
-            this.clear();
             this.renderAll();
+            this.modelChanged();
+            this.countChanged();
         }
 
         get delegate() { return d.get(this).delegate; }
         set delegate(del)
         {
             d.get(this).delegate = del;
-            this.clear();
             this.renderAll();
         }
 
         get items() { return d.get(this).items.slice(); }
 
+        dumpRecycleBin()
+        {
+            const priv = d.get(this);
+            priv.recycleBin.forEach((item) =>
+            {
+                item.referenceRemove(this);
+            });
+            priv.recycleBin = [];
+        }
+
+        createItem(idx)
+        {
+            const priv = d.get(this);
+            const modelData = {
+                index: idx,
+                value: priv.model.at(idx)
+            };
+
+            let item = null;
+            if (priv.recycleBin.length > 0)
+            {
+                item = priv.recycleBin.pop();
+                item.dataChange(modelData);
+            }
+            else
+            {
+                item = priv.delegate();
+                item.modelData = modelData;
+                item.onDataChange = data => { item.modelData = data; };
+                item.referenceAdd(this);
+            }
+
+            return item;
+        }
+
+        updateItem(idx)
+        {
+            const priv = d.get(this);
+            const modelData = {
+                index: idx,
+                value: priv.model.at(idx)
+            };
+            if (modelData.value !== undefined)
+            {
+                const item = this.getItem(idx);
+                if (item)
+                {
+                    item.dataChange(modelData);
+                }
+            }
+        }
+
+        destroyItem(idx)
+        {
+            const priv = d.get(this);
+            const item = this.getItem(idx);
+            if (item)
+            {
+                priv.recycleBin.push(item);
+                item.parent = null;
+            }
+        }
+
+        getItem(idx)
+        {
+            return d.get(this).items[idx];
+        }
+
         clear()
         {
-            d.get(this).items.forEach((item) => { item.parent = null; });
+            d.get(this).items.forEach(item =>
+            {
+                if (item !== undefined)
+                {
+                    item.parent = null;
+                    item.referenceRemove(this);
+                }
+            });
             d.get(this).items = [];
         }
 
@@ -7770,17 +7911,14 @@ shRequire([__dirname + "/../low.js", __dirname + "/object.js", __dirname + "/lis
             {
                 for (let i = 0; i &lt; model.size; ++i)
                 {
-                    const modelData = {
-                        index: i,
-                        value: model.at(i)
-                    };
-                    const item = delegate();
-                    if (item)
+                    if (items[i] === undefined)
                     {
-                        item.modelData = modelData;
-                        item.onDataChange = data => { item.modelData = data; };
-                        items.push(item);
-                        this.parent.add(item);
+                        const item = this.createItem(i);
+                        if (item)
+                        {
+                            this.parent.add(item);
+                            items[i] = item;
+                        }
                     }
                 }
             };
@@ -7812,7 +7950,7 @@ shRequire([__dirname + "/../low.js", __dirname + "/object.js", __dirname + "/lis
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Mon Oct 18 2021 16:00:52 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Sat Oct 30 2021 16:03:42 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>
