@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Namespace: fengshui</title>
+    <title>Source: core/ui/Slider.shui</title>
     
     
     
@@ -7680,681 +7680,210 @@
 </div>
 
     <div class="main">
-        <h1 class="page-title" data-filename="fengshui.html">Namespace: fengshui</h1>
+        <h1 class="page-title" data-filename="core_ui_Slider.shui.html">Source: core/ui/Slider.shui</h1>
         
 
 
+    
+    <section>
+        <header>
+            <div class="header content-size">
+                <h2>core/ui/Slider.shui</h2>
+            </div>
+        </header>
+        <article>
+            <pre id="source-code" class="prettyprint source "><code>/*******************************************************************************
+This file is part of the Shellfish UI toolkit.
+Copyright (c) 2020 - 2021 Martin Grimme &lt;martin.grimme@gmail.com>
 
-<section>
-    
-<header>
-    <div class="header content-size">
-        <h2>fengshui
-        </h2>
-        
-    </div>
-</header>  
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
-<article class="content-size">
-    
-        <div class="container-overview">
-        
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-        
-            
-                <div class="description"><p>Feng Shui is the code processor for translating code written in Shui
-to JavaScript code, either at runtime when loading the code, or at build
-time. This module is compatible with Node.js for translating code on the
-server-side and may either be imported as a module, or executed as a
-stand-alone command line tool via node.</p>
-<p>This module is usually not used directly by client-side code.</p></div>
-            
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*******************************************************************************/
 
-            
-<dl class="details">
-    
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
+require "shellfish/ui";
 
+/**
+ * Element representing a UI value slider.
+ *
+ * `value` is a decimal number within the range of `minValue` and `maxValue`.
+ * Remember to round or truncate it if you need integer values.
+ *
+ * @memberof ui
+ * @name Slider
+ * @class
+ * @extends mid.MouseBox
+ *
+ * @property {number} minValue - (default: `0`) The minimum allowed value.
+ * @property {number} maxValue - (default: `100`) The maximum allowed value.
+ * @property {number} value - (default: `0`) The current value.
+ * @property {number} stepSize - (default: `5`) The step size between value changes. The step size only applies to value changes with the PgUp/PgDown keyboard keys.
+ */
+MouseBox {
+    id: slider
 
-            
-                <h3>Examples</h3>
-                
-        <p class="code-caption">Using Feng Shui with Node.js on the server</p>
-    
+    property minValue: 0
+    property maxValue: 100
+    property value: 0
+    property stepSize: 5
 
-    
-    <pre class="prettyprint"><code>const fengshui = require("./shellfish/fengshui.js");
-const js = fengshui.compile("internal.shui", 'Label { text: "Hello!" }');</code></pre>
-    
+    /**
+     * Sets the current value.
+     *
+     * @memberof ui.Slider.prototype
+     * @name setValue
+     * @method
+     *
+     * @param {number} v - The new value.
+     */
+    function setValue(v)
+    {
+        const nv = Math.max(minValue, Math.min(maxValue, v));
+        if (nv !== value)
+        {
+            value = nv;
+        }
+    }
 
-        <p class="code-caption">Running as a command line tool with Node.js (this example writes MyFile.shui.js)</p>
-    
+    onMinValueChanged: () => { setValue(value); }
+    onMaxValueChanged: () => { setValue(value); }
+    onValueChanged: () => { setValue(value); }
 
-    
-    <pre class="prettyprint"><code>> node fengshui.js MyFile.shui</code></pre>
-    
+    canFocus: true
 
-        <p class="code-caption">Importing in client-side JavaScript</p>
-    
+    layout: "center"
 
-    
-    <pre class="prettyprint"><code>shRequire("shellfish/fengshui", fengshui =>
-{
-    ...
-});</code></pre>
-    
-
-        <p class="code-caption">Importing in Shui</p>
-    
-
-    
-    <pre class="prettyprint"><code>require "shellfish/fengshui" as fengshui;
-
-Object {
-    ...
-}</code></pre>
-    
-
-            
-        
-        </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        <h3 class="subsection-title">Methods</h3>
-        
-        <dl class="list-methods">
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".compile">
-            <a class="share-icon" href="#.compile"><span class="glyphicon glyphicon-link"></span></a>
-            <span class="">
-                fengshui.compile
-            </span>
-            <span class="signature">(url, data)</span><span class="type-signature">string</span>
-            
-            <span class="access-signature">static</span>
-            
-            
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="fengshui.js.html#line330">fengshui.js:330</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        <p>Compiles a Shui document to JavaScript code.</p>
-<p>This function may be used as a transformer function in <a href="global.html#shRequire">shRequire</a>.</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>url</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>The URL the module came from. The document is only
-compiled if the URL ends with <code>.shui</code>. Otherwise, <code>data</code> will be returned
-as is.</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>data</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>The Shui document.</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    <h5>Throws:</h5>
-    
-            
-
-    <div class="param-desc">
-    
-        <p>A parser error.</p>
-    
-    </div>
-
-
-        
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        string
-                        
-                    
-            </td>
-            <td class="description last">JavaScript code.</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".load">
-            <a class="share-icon" href="#.load"><span class="glyphicon glyphicon-link"></span></a>
-            <span class="">
-                fengshui.load
-            </span>
-            <span class="signature">(url, rslv)</span><span class="type-signature">Promise</span>
-            
-            <span class="access-signature">static</span>
-            
-            
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="fengshui.js.html#line373">fengshui.js:373</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        <p>Loads a Shui module from URL and returns a Promise for the loaded
-module. The module exports a <code>create()</code> function that will create the
-element tree.</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>url</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>The URL of the document.</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>rslv</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>A function for resolving element IDs.
-If called inside a Shui document, the internal
-function <code>__rslv__</code> is the right function to use.</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        Promise
-                        
-                    
-            </td>
-            <td class="description last">The Promise for the loaded module.</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-        <h5>Example</h5>
-        
-
-    
-    <pre class="prettyprint"><code>fengshui.load("MyElement.shui", __rslv__)
-.then(module =>
-{
-    const element = module.create();
-    documentRoot.add(element);
-});</code></pre>
-    
-
-    
-</dd>
-
-        </dl>
-    
-    
-    
-        <h3 class="subsection-title">Type Definitions</h3>
-        
-        <dl class="list-definitions">
-                
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".Container">
-            <a class="share-icon" href="#.Container"><span class="glyphicon glyphicon-link"></span></a>
-            <span class="">fengshui.Container</span>
-            
-            
-            
-            
-            
-        </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>A <strong>Container</strong> is a Shui concept for complex components of elements to
-contain child elements.</p>
-<p>Shui components may provide several containers for putting child elements
-into. For instance, a dialog window could provide a container for the
-main content as well as a container for holding the dialog buttons.</p>
-<p>Use the <code>container</code> keyword to define containers, and the <code>into</code> keyword
-to put elements into containers.</p>
-<p>The container called <code>default</code> is the default container that is used if
-you do not put elements into a container explicitly.</p>
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-        <h5>Examples</h5>
-        
-        <p class="code-caption">Defining containers in Shui</p>
-    
-
-    
-    <pre class="prettyprint"><code>Overlay {
-    container default: contentArea
-    container buttons: buttonBox
-
-    ...
+    width: theme.itemWidthLarge
+    height: theme.itemHeightSmall
+    opacity: enabled &amp;&amp; ancestorsEnabled ? 1 : 0.6
 
     Box {
-        id: contentArea
-        ...
+        fillWidth: true
+        height: theme.paddingSmall / 2
+
+        borderWidth: 1
+        borderColor: theme.borderColor
+        borderRadius: 3
+
+        color: theme.secondaryColor
     }
 
-    Box {
-        id: buttonBox
-        ...
+    MouseBox {
+        id: handle
+
+        property percents: slider.maxValue > slider.minValue ? Math.max(0, Math.min(1, (slider.value - slider.minValue) / (slider.maxValue - slider.minValue)))
+                                                             : 0
+
+        property animated: false
+
+        position: "free"
+        layout: "center"
+
+        width: height * 1.5
+        height: theme.itemHeightSmall
+
+        borderWidth: 1
+        borderColor: theme.borderColor
+        borderRadius: theme.borderRadius
+
+        color: pressed ? theme.highlightBackgroundColor
+                       : containsMouse ? theme.hoverBackgroundColor
+                                       : theme.contentBackgroundColor
+
+        x: (slider.bbox.width - width) * percents
+        xTransition: NumberAnimation { enabled: handle.animated; duration: 300; easing: "InOutQuad" }
+
+        onPointerDown: (ev) =>
+        {
+            slider.focus = true;
+            ev.accepted = true;
+        }
+
+        onDrag: (ev) =>
+        {
+            const sx = Math.max(0, Math.min(slider.bbox.width - width, x + ev.deltaX));
+            const p = sx / (slider.bbox.width - width);
+            const newValue = slider.minValue + (slider.maxValue - slider.minValue) * p;
+
+            slider.value = newValue;
+            slider.focus = true;
+
+            ev.accepted = true;
+        }
+
+        Label {
+            color: parent.containsMouse || parent.pressed ? theme.highlightColor
+                                                          : theme.secondaryColor;
+            text: "[icon:core-drag_indicator]"
+        }
     }
 
-    ...
+    onPointerDown: (ev) =>
+    {
+        ev.accepted = true;
+
+        handle.animated = true;
+        const x = Math.max(0, Math.min(bbox.width, ev.x));
+        value = minValue + (maxValue - minValue) * (x / bbox.width);
+        handle.animated = false;
+
+        focus = true;
+    }
+
+    onKeyDown: (ev) =>
+    {
+        handle.animated = true;
+        if (ev.key === "ArrowLeft")
+        {
+            value = Math.max(minValue, value - 1);
+            ev.accepted = true;
+        }
+        else if (ev.key === "ArrowRight")
+        {
+            value = Math.min(maxValue, value + 1);
+            ev.accepted = true;
+        }
+        else if (ev.key === "PageUp")
+        {
+            value = Math.max(minValue, value - stepSize);
+            ev.accepted = true;
+        }
+        else if (ev.key === "PageDown")
+        {
+            value = Math.min(maxValue, value + stepSize);
+            ev.accepted = true;
+        }
+        else if (ev.key === "Home")
+        {
+            value = minValue;
+            ev.accepted = true;
+        }
+        else if (ev.key === "End")
+        {
+            value = maxValue;
+            ev.accepted = true;
+        }
+        handle.animated = false;
+    }
+
+    FocusIndicator { visible: slider.focus }
 }</code></pre>
-    
+        </article>
+    </section>
 
-        <p class="code-caption">Putting elements into containers in Shui</p>
-    
-
-    
-    <pre class="prettyprint"><code>MyElement {
-    into buttons Button {
-        text: "Click Me"
-    }
-}</code></pre>
-    
-
-    
-</dd>
-
-            
-                
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".Template">
-            <a class="share-icon" href="#.Template"><span class="glyphicon glyphicon-link"></span></a>
-            <span class="">fengshui.Template</span>
-            
-            
-            
-            
-            
-        </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>A <strong>Template</strong> is a Shui concept for declaring components that will be created
-dynamically, such as items in a list view.</p>
-<p>Technically, a container is a function returning a tree of <a href="high.Element.html">elements</a>.
-Use the <code>template</code> keyword to declare a template.</p>
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-        <h5>Example</h5>
-        
-        <p class="code-caption">Declaring a template</p>
-    
-
-    
-    <pre class="prettyprint"><code>ListView {
-    ...
-
-    delegate: template Box {
-        ...
-    }
-}</code></pre>
-    
-
-    
-</dd>
-
-            </dl>
-    
-    
-    
-
-    
-</article>
-
-</section>  
 
 
 
@@ -8364,7 +7893,7 @@ Use the <code>template</code> keyword to declare a template.</p>
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Mon Nov 01 2021 11:54:09 GMT+0100 (Mitteleuropäische Normalzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Mon Nov 01 2021 11:54:09 GMT+0100 (Mitteleuropäische Normalzeit)
             </div>
         </footer>
     </div>
