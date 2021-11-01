@@ -72,7 +72,27 @@ Box {
         marginTop: pageHeader.height
         fillWidth: true
         fillHeight: true
-        orientation: "vertical"
+
+        onClick: (ev) =>
+        {
+            if (ev.buttons === 2)
+            {
+                orientation = orientation === "horizontal" ? "vertical"
+                                                           : "horizontal";
+            }
+            else if (ev.buttons === 4)
+            {
+                flip = ! flip;
+            }
+        }
+
+        onDoubleClick: (ev) =>
+        {
+            if (ev.buttons === 1)
+            {
+                splitRatio = 0.5;
+            }
+        }
 
         into first Box {
             fillWidth: true
