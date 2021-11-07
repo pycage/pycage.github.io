@@ -84,11 +84,11 @@ Page {
                 enabled: sock.status === "closed"
                 marginLeft: theme.paddingMedium
                 fillWidth: true
-                text: "wss://echo.websocket.org"
+                text: ""
             }
 
             Button {
-                enabled: sock.status !== "connecting"
+                enabled: urlEntry.text !== "" && sock.status !== "connecting"
                 marginLeft: theme.paddingMedium
                 marginRight: theme.paddingLarge
                 icon: sock.status === "connected" ? "comm-disconnected" : "comm-connected"
