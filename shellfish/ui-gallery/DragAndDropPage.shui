@@ -280,16 +280,16 @@ Page {
         Image {
             id: img
 
-            property maxWidth: documentRoot.windowWidth - 4 * theme.paddingLarge
-            property maxHeight: documentRoot.windowHeight - 8 * theme.paddingLarge
+            property maxWidth_: documentRoot.windowWidth - 4 * theme.paddingLarge
+            property maxHeight_: documentRoot.windowHeight - 8 * theme.paddingLarge
             property ratio: originalWidth > 0 ? originalHeight / originalWidth
                                               : 1                       
-            property goForHeight: maxWidth * maxWidth * ratio > (maxHeight / ratio) * maxHeight
+            property goForHeight: maxWidth_ * maxWidth_ * ratio > (maxHeight_ / ratio) * maxHeight_
 
             width: status !== "success" ? 100
-                                        : goForHeight ? maxHeight / ratio : maxWidth
+                                        : goForHeight ? maxHeight_ / ratio : maxWidth_
             height: status !== "success" ? 100
-                                         : goForHeight ? maxHeight : maxWidth * ratio
+                                         : goForHeight ? maxHeight_ : maxWidth_ * ratio
 
             fitMode: "contain"
             source: !! dialog.file ? blobUrl(dialog.file) : ""

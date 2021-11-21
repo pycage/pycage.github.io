@@ -78,7 +78,7 @@ Page {
                 contentY: pos
 
                 tileSet: starsTiles
-                model: ListModel { data: sequence(0, 1000); onDataChanged: { console.log(data); } }
+                model: ListModel { data: sequence(0, 1000) }
                 rowStride: 20
 
                 onPosChanged: () =>
@@ -142,8 +142,6 @@ Page {
         Box {
             width: 2 * theme.itemWidthLarge
             fillHeight: true
-            overflowBehavior: "scroll"
-            scrollbars: true
 
             Ruler {
                 id: labelRuler
@@ -188,6 +186,8 @@ Page {
                       "get a ring buffer in which you can continuously generate " +
                       "new content while scrolling over."
             }
+
+            OverflowScroller { }
         }
     }
 

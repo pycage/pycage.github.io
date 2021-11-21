@@ -28,6 +28,7 @@ Page {
 
     property loadingIcons: true
 
+    scrollable: false
     color: theme.contentBackgroundColor
 
     into header Header {
@@ -85,9 +86,9 @@ Page {
         id: listView
 
         visible: ! page.loadingIcons
-        marginTop: header.height + theme.paddingSmall
+        marginTop: header.height
         fillWidth: true
-        height: documentRoot.windowHeight - bbox.y
+        fillHeight: true
 
         cacheMargin: bbox.height
 
@@ -128,7 +129,8 @@ Page {
             }
 
         }
+
+        ScrollIndicator { }
     }
 
-    ScrollIndicator { target: listView; position: "global"; marginTop: header.height }
 }

@@ -103,6 +103,8 @@ Page {
                     text: "#" + (rabbitBox.modelData.index + 1)
                 }
             }
+
+            ScrollIndicator { }
         }
 
         Box {
@@ -162,8 +164,6 @@ Page {
             }
 
         }
-
-        ScrollIndicator { target: rabbitGrid; marginBottom: footer.bbox.height }
 
         Box {
             id: footer

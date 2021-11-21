@@ -182,6 +182,8 @@ Page {
                     filesView.displayMode = 1;
                 }
             }
+
+            OverflowScroller { }
         }
 
         SplitBox
@@ -243,7 +245,6 @@ Page {
 
                     fillWidth: true
                     fillHeight: true
-                    scrollbars: true
 
                     iconScale: scaleSelector.scale
 
@@ -274,6 +275,8 @@ Page {
                             });
                         }
                     }
+
+                    ScrollIndicator { }
                 }
 
                 Box {

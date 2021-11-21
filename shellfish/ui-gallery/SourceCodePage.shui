@@ -140,5 +140,5 @@ Page {
         }
     }
 
-    ScrollIndicator { target: documentRoot; position: "global"; marginTop: pageHeader.height + codeHeader.bbox.height }
+    ScrollIndicator { target: documentRoot; marginTop: pageHeader.height + codeHeader.bbox.height; fillHeight: true } // target: documentRoot; position: "global"; marginTop: pageHeader.height + codeHeader.bbox.height }
 }

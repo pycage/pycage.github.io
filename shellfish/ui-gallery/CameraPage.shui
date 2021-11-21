@@ -90,6 +90,8 @@ Page {
                     cam.active = ! cam.active;
                 }
             }
+
+            OverflowScroller { }
         }
 
         Box {

@@ -253,8 +253,6 @@ Page {
         Box {
             width: 2 * theme.itemWidthLarge
             fillHeight: true
-            overflowBehavior: "scroll"
-            scrollbars: true
 
             Label {
                 marginTop: theme.paddingSmall
@@ -279,6 +277,8 @@ Page {
                       "for smoothness."
 
             }
+
+            OverflowScroller { }
         }
     }
 
