@@ -197,7 +197,7 @@ const shRequire = (function ()
             outParts.unshift("");
         }
 
-        console.log("normalized URL " + url + " -> " + outParts.join("/"));
+        //console.log("normalized URL " + url + " -> " + outParts.join("/"));
         return outParts.join("/");
     }
 
