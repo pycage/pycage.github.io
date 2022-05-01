@@ -192,7 +192,7 @@ const shRequire = (function ()
             }
         });
 
-        if (url.startsWith("/"))
+        if (url.startsWith("/") && ! url.startsWith("//"))
         {
             outParts.unshift("");
         }
