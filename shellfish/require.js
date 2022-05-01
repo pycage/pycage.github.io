@@ -192,7 +192,12 @@ const shRequire = (function ()
             }
         });
 
-        //console.log("normalized URL " + url + " -> " + outParts.join("/"));
+        if (url.startsWith("/"))
+        {
+            outParts.unshift("");
+        }
+
+        console.log("normalized URL " + url + " -> " + outParts.join("/"));
         return outParts.join("/");
     }
 
