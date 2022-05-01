@@ -1,0 +1,5350 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Source: shellfish-core/core/filesystem.js</title>
+    
+    
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:400,700" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/main.css">
+
+    
+    <script>
+    var config = {"monospaceLinks":false,"cleverLinks":false,"applicationName":"Shellfish","default":{"staticFiles":{"include":["doc/static"]},"outputSourceFiles":true}};
+    </script>
+    
+
+    
+</head>
+<body>
+<div id="wrap" class="clearfix">
+    
+<div class="navigation">
+    <h3 class="applicationName"><a href="index.html">Shellfish</a></h3>
+    <button id="menuToggle" class="btn btn-link btn-lg menu-toggle">
+        <span class="glyphicon glyphicon-menu-hamburger"></span>
+    </button>
+    <div class="search">
+        <input id="search" type="text" class="form-control input-md" placeholder="Search...">
+    </div>
+    <ul class="list">
+    
+    
+        <li class="item" data-name="module:shf3d">
+            <span class="title namespace ">
+                
+                <span class="namespaceTag">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                </span>
+                
+                
+                    <a href="module-shf3d.html">shf3d</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="core">
+            <span class="title namespace ">
+                
+                <span class="namespaceTag">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                </span>
+                
+                
+                    <a href="core.html">core</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            <span class="subtitle">Typedefs</span>
+            
+                <li class="parent" data-name="core.Color"><a href="core.html#.Color">Color</a></li>
+            
+                <li class="parent" data-name="core.Vec2"><a href="core.html#.Vec2">Vec2</a></li>
+            
+                <li class="parent" data-name="core.Vec3"><a href="core.html#.Vec3">Vec3</a></li>
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.dumpStatus"><a href="core.html#.dumpStatus">dumpStatus</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="declarative">
+            <span class="title namespace ">
+                
+                <span class="namespaceTag">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                </span>
+                
+                
+                    <a href="declarative.html">declarative</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="declarative.binding"><a href="declarative.html#.binding">binding</a></li>
+            
+                <li class="parent  " data-name="declarative.chainRef"><a href="declarative.html#.chainRef">chainRef</a></li>
+            
+                <li class="parent  " data-name="declarative.element"><a href="declarative.html#.element">element</a></li>
+            
+                <li class="parent  " data-name="declarative.isDynamicValue"><a href="declarative.html#.isDynamicValue">isDynamicValue</a></li>
+            
+                <li class="parent  " data-name="declarative.routedElement"><a href="declarative.html#.routedElement">routedElement</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="fengshui">
+            <span class="title namespace ">
+                
+                <span class="namespaceTag">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                </span>
+                
+                
+                    <a href="fengshui.html">fengshui</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            <span class="subtitle">Typedefs</span>
+            
+                <li class="parent" data-name="fengshui.Container"><a href="fengshui.html#.Container">Container</a></li>
+            
+                <li class="parent" data-name="fengshui.Template"><a href="fengshui.html#.Template">Template</a></li>
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="fengshui.compile"><a href="fengshui.html#.compile">compile</a></li>
+            
+                <li class="parent  " data-name="fengshui.load"><a href="fengshui.html#.load">load</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html">
+            <span class="title namespace ">
+                
+                <span class="namespaceTag">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                </span>
+                
+                
+                    <a href="html.html">html</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="low">
+            <span class="title namespace ">
+                
+                <span class="namespaceTag">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                </span>
+                
+                
+                    <a href="low.html">low</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            <span class="subtitle">Typedefs</span>
+            
+                <li class="parent" data-name="low.FrameHandle"><a href="low.html#.FrameHandle">FrameHandle</a></li>
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="low.activeFrameHandlers"><a href="low.html#.activeFrameHandlers">activeFrameHandlers</a></li>
+            
+                <li class="parent  " data-name="low.addFrameHandler"><a href="low.html#.addFrameHandler">addFrameHandler</a></li>
+            
+                <li class="parent  " data-name="low.createElementTree"><a href="low.html#.createElementTree">createElementTree</a></li>
+            
+                <li class="parent  " data-name="low.css"><a href="low.html#.css">css</a></li>
+            
+                <li class="parent  " data-name="low.css"><a href="low.html#.css">css</a></li>
+            
+                <li class="parent  " data-name="low.escapeHtml"><a href="low.html#.escapeHtml">escapeHtml</a></li>
+            
+                <li class="parent  " data-name="low.focusables"><a href="low.html#.focusables">focusables</a></li>
+            
+                <li class="parent  " data-name="low.focusNext"><a href="low.html#.focusNext">focusNext</a></li>
+            
+                <li class="parent  " data-name="low.focusPrevious"><a href="low.html#.focusPrevious">focusPrevious</a></li>
+            
+                <li class="parent  " data-name="low.fullscreenEnter"><a href="low.html#.fullscreenEnter">fullscreenEnter</a></li>
+            
+                <li class="parent  " data-name="low.fullscreenExit"><a href="low.html#.fullscreenExit">fullscreenExit</a></li>
+            
+                <li class="parent  " data-name="low.fullscreenStatus"><a href="low.html#.fullscreenStatus">fullscreenStatus</a></li>
+            
+                <li class="parent  " data-name="low.isFrameUpdate"><a href="low.html#.isFrameUpdate">isFrameUpdate</a></li>
+            
+                <li class="parent  " data-name="low.later"><a href="low.html#.later">later</a></li>
+            
+                <li class="parent  " data-name="low.pxToRem"><a href="low.html#.pxToRem">pxToRem</a></li>
+            
+                <li class="parent  " data-name="low.registerTopDownEvent"><a href="low.html#.registerTopDownEvent">registerTopDownEvent</a></li>
+            
+                <li class="parent  " data-name="low.remToPx"><a href="low.html#.remToPx">remToPx</a></li>
+            
+                <li class="parent  " data-name="low.resolveIcons"><a href="low.html#.resolveIcons">resolveIcons</a></li>
+            
+                <li class="parent  " data-name="low.resolveMarkup"><a href="low.html#.resolveMarkup">resolveMarkup</a></li>
+            
+                <li class="parent  " data-name="low.saveBlob"><a href="low.html#.saveBlob">saveBlob</a></li>
+            
+                <li class="parent  " data-name="low.tag"><a href="low.html#.tag">tag</a></li>
+            
+                <li class="parent  " data-name="low.triggerTopDownEvent"><a href="low.html#.triggerTopDownEvent">triggerTopDownEvent</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="matrix">
+            <span class="title namespace ">
+                
+                <span class="namespaceTag">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                </span>
+                
+                
+                    <a href="matrix.html">matrix</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            <span class="subtitle">Typedefs</span>
+            
+                <li class="parent" data-name="matrix.Matrix"><a href="matrix.html#.Matrix">Matrix</a></li>
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="matrix.add"><a href="matrix.html#.add">add</a></li>
+            
+                <li class="parent  " data-name="matrix.det"><a href="matrix.html#.det">det</a></li>
+            
+                <li class="parent  " data-name="matrix.dot"><a href="matrix.html#.dot">dot</a></li>
+            
+                <li class="parent  " data-name="matrix.elementWise"><a href="matrix.html#.elementWise">elementWise</a></li>
+            
+                <li class="parent  " data-name="matrix.flat"><a href="matrix.html#.flat">flat</a></li>
+            
+                <li class="parent  " data-name="matrix.fromArray"><a href="matrix.html#.fromArray">fromArray</a></li>
+            
+                <li class="parent  " data-name="matrix.identityM"><a href="matrix.html#.identityM">identityM</a></li>
+            
+                <li class="parent  " data-name="matrix.inv"><a href="matrix.html#.inv">inv</a></li>
+            
+                <li class="parent  " data-name="matrix.length"><a href="matrix.html#.length">length</a></li>
+            
+                <li class="parent  " data-name="matrix.minor"><a href="matrix.html#.minor">minor</a></li>
+            
+                <li class="parent  " data-name="matrix.mul"><a href="matrix.html#.mul">mul</a></li>
+            
+                <li class="parent  " data-name="matrix.perspectiveM"><a href="matrix.html#.perspectiveM">perspectiveM</a></li>
+            
+                <li class="parent  " data-name="matrix.rotationM"><a href="matrix.html#.rotationM">rotationM</a></li>
+            
+                <li class="parent  " data-name="matrix.rotationMByQuaternion"><a href="matrix.html#.rotationMByQuaternion">rotationMByQuaternion</a></li>
+            
+                <li class="parent  " data-name="matrix.scalingM"><a href="matrix.html#.scalingM">scalingM</a></li>
+            
+                <li class="parent  " data-name="matrix.shape"><a href="matrix.html#.shape">shape</a></li>
+            
+                <li class="parent  " data-name="matrix.sub"><a href="matrix.html#.sub">sub</a></li>
+            
+                <li class="parent  " data-name="matrix.t"><a href="matrix.html#.t">t</a></li>
+            
+                <li class="parent  " data-name="matrix.translationM"><a href="matrix.html#.translationM">translationM</a></li>
+            
+                <li class="parent  " data-name="matrix.vec"><a href="matrix.html#.vec">vec</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="server">
+            <span class="title namespace ">
+                
+                <span class="namespaceTag">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                </span>
+                
+                
+                    <a href="server.html">server</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui">
+            <span class="title namespace ">
+                
+                <span class="namespaceTag">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                </span>
+                
+                
+                    <a href="ui.html">ui</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="global">
+            <span class="title namespace ">
+                
+                <span class="namespaceTag">
+                    <span class="glyphicon glyphicon-globe"></span>
+                </span>
+                
+                
+                    <a href="global.html">Global</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="uptime"><a href="global.html#uptime">uptime</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="core.FileStorage">
+            <span class="title  ">
+                
+                
+                    <a href="core.FileStorage.html">core.FileStorage</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="core.Filesystem">
+            <span class="title  ">
+                
+                
+                    <a href="core.Filesystem.html">core.Filesystem</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.Filesystem#copy"><a href="core.Filesystem.html#copy">copy</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#dirname"><a href="core.Filesystem.html#dirname">dirname</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#encodeName"><a href="core.Filesystem.html#encodeName">encodeName</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#exists"><a href="core.Filesystem.html#exists">exists</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#fileInfo"><a href="core.Filesystem.html#fileInfo">fileInfo</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#filename"><a href="core.Filesystem.html#filename">filename</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#list"><a href="core.Filesystem.html#list">list</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#mkdir"><a href="core.Filesystem.html#mkdir">mkdir</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#move"><a href="core.Filesystem.html#move">move</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#normalizePath"><a href="core.Filesystem.html#normalizePath">normalizePath</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#pathJoin"><a href="core.Filesystem.html#pathJoin">pathJoin</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#read"><a href="core.Filesystem.html#read">read</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#remove"><a href="core.Filesystem.html#remove">remove</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#write"><a href="core.Filesystem.html#write">write</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="core.FSModel">
+            <span class="title  ">
+                
+                
+                    <a href="core.FSModel.html">core.FSModel</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="core.ListModel">
+            <span class="title  ">
+                
+                
+                    <a href="core.ListModel.html">core.ListModel</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.ListModel#at"><a href="core.ListModel.html#at">at</a></li>
+            
+                <li class="parent  " data-name="core.ListModel#bulkInsert"><a href="core.ListModel.html#bulkInsert">bulkInsert</a></li>
+            
+                <li class="parent  " data-name="core.ListModel#insert"><a href="core.ListModel.html#insert">insert</a></li>
+            
+                <li class="parent  " data-name="core.ListModel#insertOrdered"><a href="core.ListModel.html#insertOrdered">insertOrdered</a></li>
+            
+                <li class="parent  " data-name="core.ListModel#remove"><a href="core.ListModel.html#remove">remove</a></li>
+            
+                <li class="parent  " data-name="core.ListModel#replace"><a href="core.ListModel.html#replace">replace</a></li>
+            
+                <li class="parent  " data-name="core.ListModel#reset"><a href="core.ListModel.html#reset">reset</a></li>
+            
+                <li class="parent  " data-name="core.ListModel#sequence"><a href="core.ListModel.html#sequence">sequence</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="core.Object">
+            <span class="title  ">
+                
+                
+                    <a href="core.Object.html">core.Object</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.Object#add"><a href="core.Object.html#add">add</a></li>
+            
+                <li class="parent  " data-name="core.Object#addHtmlEventListener"><a href="core.Object.html#addHtmlEventListener">addHtmlEventListener</a></li>
+            
+                <li class="parent  " data-name="core.Object#addProperty"><a href="core.Object.html#addProperty">addProperty</a></li>
+            
+                <li class="parent  " data-name="core.Object#blobUrl"><a href="core.Object.html#blobUrl">blobUrl</a></li>
+            
+                <li class="parent  " data-name="core.Object#change"><a href="core.Object.html#change">change</a></li>
+            
+                <li class="parent  " data-name="core.Object#colorName"><a href="core.Object.html#colorName">colorName</a></li>
+            
+                <li class="parent  " data-name="core.Object#connect"><a href="core.Object.html#connect">connect</a></li>
+            
+                <li class="parent  status-deprecated" data-name="core.Object#discard"><a href="core.Object.html#discard">discard</a></li>
+            
+                <li class="parent  " data-name="core.Object#disconnect"><a href="core.Object.html#disconnect">disconnect</a></li>
+            
+                <li class="parent  " data-name="core.Object#hasConnections"><a href="core.Object.html#hasConnections">hasConnections</a></li>
+            
+                <li class="parent  " data-name="core.Object#init"><a href="core.Object.html#init">init</a></li>
+            
+                <li class="parent  " data-name="core.Object#isAncestorOf"><a href="core.Object.html#isAncestorOf">isAncestorOf</a></li>
+            
+                <li class="parent  " data-name="core.Object#log"><a href="core.Object.html#log">log</a></li>
+            
+                <li class="parent  " data-name="core.Object#notifyable"><a href="core.Object.html#notifyable">notifyable</a></li>
+            
+                <li class="parent  " data-name="core.Object#referenceAdd"><a href="core.Object.html#referenceAdd">referenceAdd</a></li>
+            
+                <li class="parent  " data-name="core.Object#referenceRemove"><a href="core.Object.html#referenceRemove">referenceRemove</a></li>
+            
+                <li class="parent  " data-name="core.Object#registerEvent"><a href="core.Object.html#registerEvent">registerEvent</a></li>
+            
+                <li class="parent  " data-name="core.Object#releaseLater"><a href="core.Object.html#releaseLater">releaseLater</a></li>
+            
+                <li class="parent  " data-name="core.Object#removeHtmlEventListener"><a href="core.Object.html#removeHtmlEventListener">removeHtmlEventListener</a></li>
+            
+                <li class="parent  " data-name="core.Object#rgb"><a href="core.Object.html#rgb">rgb</a></li>
+            
+                <li class="parent  " data-name="core.Object#rgba"><a href="core.Object.html#rgba">rgba</a></li>
+            
+                <li class="parent  " data-name="core.Object#safeCallback"><a href="core.Object.html#safeCallback">safeCallback</a></li>
+            
+                <li class="parent  " data-name="core.Object#transitionable"><a href="core.Object.html#transitionable">transitionable</a></li>
+            
+                <li class="parent  " data-name="core.Object#typeOf"><a href="core.Object.html#typeOf">typeOf</a></li>
+            
+                <li class="parent  " data-name="core.Object#visit"><a href="core.Object.html#visit">visit</a></li>
+            
+                <li class="parent  " data-name="core.Object#wait"><a href="core.Object.html#wait">wait</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="core.Object.event:destruction"><a href="core.Object.html#.event:destruction">destruction</a></li>
+            
+                <li class="parent" data-name="core.Object.event:initialization"><a href="core.Object.html#.event:initialization">initialization</a></li>
+            
+                <li class="parent" data-name="core.Object.event:termination"><a href="core.Object.html#.event:termination">termination</a></li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="core.Repeater">
+            <span class="title  ">
+                
+                
+                    <a href="core.Repeater.html">core.Repeater</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="core.ThreadPool">
+            <span class="title  ">
+                
+                
+                    <a href="core.ThreadPool.html">core.ThreadPool</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.ThreadPool#atomicInt32"><a href="core.ThreadPool.html#atomicInt32">atomicInt32</a></li>
+            
+                <li class="parent  " data-name="core.ThreadPool#postTask"><a href="core.ThreadPool.html#postTask">postTask</a></li>
+            
+                <li class="parent  " data-name="core.ThreadPool#postTaskFromSource"><a href="core.ThreadPool.html#postTaskFromSource">postTaskFromSource</a></li>
+            
+                <li class="parent  " data-name="core.ThreadPool#transfer"><a href="core.ThreadPool.html#transfer">transfer</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="core.Timer">
+            <span class="title  ">
+                
+                
+                    <a href="core.Timer.html">core.Timer</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.Timer#start"><a href="core.Timer.html#start">start</a></li>
+            
+                <li class="parent  " data-name="core.Timer#stop"><a href="core.Timer.html#stop">stop</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="core.Timer.event:timeout"><a href="core.Timer.html#.event:timeout">timeout</a></li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="core.Wasm">
+            <span class="title  ">
+                
+                
+                    <a href="core.Wasm.html">core.Wasm</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.Wasm#load"><a href="core.Wasm.html#load">load</a></li>
+            
+                <li class="parent  " data-name="core.Wasm#vectorToArrayBuffer"><a href="core.Wasm.html#vectorToArrayBuffer">vectorToArrayBuffer</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="declarative.DynamicValue">
+            <span class="title  ">
+                
+                
+                    <a href="declarative.DynamicValue.html">declarative.DynamicValue</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            <span class="subtitle">Typedefs</span>
+            
+                <li class="parent" data-name="declarative.DynamicValue.WatchHandle"><a href="declarative.DynamicValue.html#.WatchHandle">WatchHandle</a></li>
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="declarative.DynamicValue#unwatched"><a href="declarative.DynamicValue.html#unwatched">unwatched</a></li>
+            
+                <li class="parent  " data-name="declarative.DynamicValue#update"><a href="declarative.DynamicValue.html#update">update</a></li>
+            
+                <li class="parent  " data-name="declarative.DynamicValue#watch"><a href="declarative.DynamicValue.html#watch">watch</a></li>
+            
+                <li class="parent  " data-name="declarative.DynamicValue#watched"><a href="declarative.DynamicValue.html#watched">watched</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="declarative.Element">
+            <span class="title  ">
+                
+                
+                    <a href="declarative.Element.html">declarative.Element</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="declarative.Element#add"><a href="declarative.Element.html#add">add</a></li>
+            
+                <li class="parent  " data-name="declarative.Element#call"><a href="declarative.Element.html#call">call</a></li>
+            
+                <li class="parent  " data-name="declarative.Element#crossConnect"><a href="declarative.Element.html#crossConnect">crossConnect</a></li>
+            
+                <li class="parent  " data-name="declarative.Element#event"><a href="declarative.Element.html#event">event</a></li>
+            
+                <li class="parent  " data-name="declarative.Element#find"><a href="declarative.Element.html#find">find</a></li>
+            
+                <li class="parent  " data-name="declarative.Element#flushPending"><a href="declarative.Element.html#flushPending">flushPending</a></li>
+            
+                <li class="parent  " data-name="declarative.Element#get"><a href="declarative.Element.html#get">get</a></li>
+            
+                <li class="parent  " data-name="declarative.Element#id"><a href="declarative.Element.html#id">id</a></li>
+            
+                <li class="parent  " data-name="declarative.Element#property"><a href="declarative.Element.html#property">property</a></li>
+            
+                <li class="parent  " data-name="declarative.Element#set"><a href="declarative.Element.html#set">set</a></li>
+            
+                <li class="parent  " data-name="declarative.Element#use"><a href="declarative.Element.html#use">use</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.Animation">
+            <span class="title  ">
+                
+                
+                    <a href="html.Animation.html">html.Animation</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.Animation#start"><a href="html.Animation.html#start">start</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.Animation.event:begin"><a href="html.Animation.html#.event:begin">begin</a></li>
+            
+                <li class="parent" data-name="html.Animation.event:finish"><a href="html.Animation.html#.event:finish">finish</a></li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.Box">
+            <span class="title  ">
+                
+                
+                    <a href="html.Box.html">html.Box</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.Box#add"><a href="html.Box.html#add">add</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.CameraView">
+            <span class="title  ">
+                
+                
+                    <a href="html.CameraView.html">html.CameraView</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.CameraView#start"><a href="html.CameraView.html#start">start</a></li>
+            
+                <li class="parent  " data-name="html.CameraView#stop"><a href="html.CameraView.html#stop">stop</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.Canvas">
+            <span class="title  ">
+                
+                
+                    <a href="html.Canvas.html">html.Canvas</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.Capabilities">
+            <span class="title  ">
+                
+                
+                    <a href="html.Capabilities.html">html.Capabilities</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.Console">
+            <span class="title  ">
+                
+                
+                    <a href="html.Console.html">html.Console</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.Console#at"><a href="html.Console.html#at">at</a></li>
+            
+                <li class="parent  " data-name="html.Console#clear"><a href="html.Console.html#clear">clear</a></li>
+            
+                <li class="parent  " data-name="html.Console#debug"><a href="html.Console.html#debug">debug</a></li>
+            
+                <li class="parent  " data-name="html.Console#error"><a href="html.Console.html#error">error</a></li>
+            
+                <li class="parent  " data-name="html.Console#info"><a href="html.Console.html#info">info</a></li>
+            
+                <li class="parent  " data-name="html.Console#log"><a href="html.Console.html#log">log</a></li>
+            
+                <li class="parent  " data-name="html.Console#warn"><a href="html.Console.html#warn">warn</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.DavFS">
+            <span class="title  ">
+                
+                
+                    <a href="html.DavFS.html">html.DavFS</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.DavFS#clearCache"><a href="html.DavFS.html#clearCache">clearCache</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.Document">
+            <span class="title  ">
+                
+                
+                    <a href="html.Document.html">html.Document</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            <span class="subtitle">Typedefs</span>
+            
+                <li class="parent" data-name="html.Document.Event"><a href="html.Document.html#.Event">Event</a></li>
+            
+                <li class="parent" data-name="html.Document.KeyEvent"><a href="html.Document.html#.KeyEvent">KeyEvent</a></li>
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.Document.event:contextMenu"><a href="html.Document.html#.event:contextMenu">contextMenu</a></li>
+            
+                <li class="parent" data-name="html.Document.event:keyDown"><a href="html.Document.html#.event:keyDown">keyDown</a></li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.Draggable">
+            <span class="title  ">
+                
+                
+                    <a href="html.Draggable.html">html.Draggable</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            <span class="subtitle">Typedefs</span>
+            
+                <li class="parent" data-name="html.Draggable.DragEndEvent"><a href="html.Draggable.html#.DragEndEvent">DragEndEvent</a></li>
+            
+                <li class="parent" data-name="html.Draggable.DragEvent"><a href="html.Draggable.html#.DragEvent">DragEvent</a></li>
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.Draggable.event:dragEnd"><a href="html.Draggable.html#.event:dragEnd">dragEnd</a></li>
+            
+                <li class="parent" data-name="html.Draggable.event:dragStart"><a href="html.Draggable.html#.event:dragStart">dragStart</a></li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.DropArea">
+            <span class="title  ">
+                
+                
+                    <a href="html.DropArea.html">html.DropArea</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            <span class="subtitle">Typedefs</span>
+            
+                <li class="parent" data-name="html.DropArea.DropEnterEvent"><a href="html.DropArea.html#.DropEnterEvent">DropEnterEvent</a></li>
+            
+                <li class="parent" data-name="html.DropArea.DropEvent"><a href="html.DropArea.html#.DropEvent">DropEvent</a></li>
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.DropArea.event:drop"><a href="html.DropArea.html#.event:drop">drop</a></li>
+            
+                <li class="parent" data-name="html.DropArea.event:dropAccept"><a href="html.DropArea.html#.event:dropAccept">dropAccept</a></li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.FileSelector">
+            <span class="title  ">
+                
+                
+                    <a href="html.FileSelector.html">html.FileSelector</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.FileSelector#open"><a href="html.FileSelector.html#open">open</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.FileSelector.event:select"><a href="html.FileSelector.html#.event:select">select</a></li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.FpsMeter">
+            <span class="title  ">
+                
+                
+                    <a href="html.FpsMeter.html">html.FpsMeter</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.FpsMeter#takeFrame"><a href="html.FpsMeter.html#takeFrame">takeFrame</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.FrameTimer">
+            <span class="title  ">
+                
+                
+                    <a href="html.FrameTimer.html">html.FrameTimer</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.FrameTimer#start"><a href="html.FrameTimer.html#start">start</a></li>
+            
+                <li class="parent  " data-name="html.FrameTimer#stop"><a href="html.FrameTimer.html#stop">stop</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.FrameTimer.event:timeout"><a href="html.FrameTimer.html#.event:timeout">timeout</a></li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.Gamepad">
+            <span class="title  ">
+                
+                
+                    <a href="html.Gamepad.html">html.Gamepad</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.Gamepad#rumble"><a href="html.Gamepad.html#rumble">rumble</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.GamepadModel">
+            <span class="title  ">
+                
+                
+                    <a href="html.GamepadModel.html">html.GamepadModel</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.GradientStop">
+            <span class="title  ">
+                
+                
+                    <a href="html.GradientStop.html">html.GradientStop</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.GradientStop.event:valuesChange"><a href="html.GradientStop.html#.event:valuesChange">valuesChange</a></li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.History">
+            <span class="title  ">
+                
+                
+                    <a href="html.History.html">html.History</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.History#append"><a href="html.History.html#append">append</a></li>
+            
+                <li class="parent  " data-name="html.History#back"><a href="html.History.html#back">back</a></li>
+            
+                <li class="parent  " data-name="html.History#forward"><a href="html.History.html#forward">forward</a></li>
+            
+                <li class="parent  " data-name="html.History#replace"><a href="html.History.html#replace">replace</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.History.event:load"><a href="html.History.html#.event:load">load</a></li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.Html">
+            <span class="title  ">
+                
+                
+                    <a href="html.Html.html">html.Html</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.Image">
+            <span class="title  ">
+                
+                
+                    <a href="html.Image.html">html.Image</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  status-deprecated" data-name="html.Image#fromFile"><a href="html.Image.html#fromFile">fromFile</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.Item">
+            <span class="title  ">
+                
+                
+                    <a href="html.Item.html">html.Item</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            <span class="subtitle">Typedefs</span>
+            
+                <li class="parent" data-name="html.Item.BoundingBox"><a href="html.Item.html#.BoundingBox">BoundingBox</a></li>
+            
+                <li class="parent" data-name="html.Item.KeyboardEvent"><a href="html.Item.html#.KeyboardEvent">KeyboardEvent</a></li>
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.Item#css"><a href="html.Item.html#css">css</a></li>
+            
+                <li class="parent  " data-name="html.Item#get"><a href="html.Item.html#get">get</a></li>
+            
+                <li class="parent  " data-name="html.Item#vec3"><a href="html.Item.html#vec3">vec3</a></li>
+            
+                <li class="parent  " data-name="html.Item#withoutSizing"><a href="html.Item.html#withoutSizing">withoutSizing</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.Item.event:keyDown"><a href="html.Item.html#.event:keyDown">keyDown</a></li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.Label">
+            <span class="title  ">
+                
+                
+                    <a href="html.Label.html">html.Label</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.LinearGradient">
+            <span class="title  ">
+                
+                
+                    <a href="html.LinearGradient.html">html.LinearGradient</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.ListView">
+            <span class="title  ">
+                
+                
+                    <a href="html.ListView.html">html.ListView</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.ListView#positionViewAt"><a href="html.ListView.html#positionViewAt">positionViewAt</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.LocalStorage">
+            <span class="title  ">
+                
+                
+                    <a href="html.LocalStorage.html">html.LocalStorage</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.MouseBox">
+            <span class="title  ">
+                
+                
+                    <a href="html.MouseBox.html">html.MouseBox</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            <span class="subtitle">Typedefs</span>
+            
+                <li class="parent" data-name="html.MouseBox.DragEvent"><a href="html.MouseBox.html#.DragEvent">DragEvent</a></li>
+            
+                <li class="parent" data-name="html.MouseBox.PointerEvent"><a href="html.MouseBox.html#.PointerEvent">PointerEvent</a></li>
+            
+                <li class="parent" data-name="html.MouseBox.WheelEvent"><a href="html.MouseBox.html#.WheelEvent">WheelEvent</a></li>
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.MouseBox#touchPoint"><a href="html.MouseBox.html#touchPoint">touchPoint</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.MouseBox.event:click"><a href="html.MouseBox.html#.event:click">click</a></li>
+            
+                <li class="parent" data-name="html.MouseBox.event:contextMenu"><a href="html.MouseBox.html#.event:contextMenu">contextMenu</a></li>
+            
+                <li class="parent" data-name="html.MouseBox.event:doubleClick"><a href="html.MouseBox.html#.event:doubleClick">doubleClick</a></li>
+            
+                <li class="parent" data-name="html.MouseBox.event:drag"><a href="html.MouseBox.html#.event:drag">drag</a></li>
+            
+                <li class="parent" data-name="html.MouseBox.event:dragEnd"><a href="html.MouseBox.html#.event:dragEnd">dragEnd</a></li>
+            
+                <li class="parent" data-name="html.MouseBox.event:mouseDown"><a href="html.MouseBox.html#.event:mouseDown">mouseDown</a></li>
+            
+                <li class="parent" data-name="html.MouseBox.event:mouseMove"><a href="html.MouseBox.html#.event:mouseMove">mouseMove</a></li>
+            
+                <li class="parent" data-name="html.MouseBox.event:mouseOut"><a href="html.MouseBox.html#.event:mouseOut">mouseOut</a></li>
+            
+                <li class="parent" data-name="html.MouseBox.event:mouseOver"><a href="html.MouseBox.html#.event:mouseOver">mouseOver</a></li>
+            
+                <li class="parent" data-name="html.MouseBox.event:mouseUp"><a href="html.MouseBox.html#.event:mouseUp">mouseUp</a></li>
+            
+                <li class="parent" data-name="html.MouseBox.event:pointerDown"><a href="html.MouseBox.html#.event:pointerDown">pointerDown</a></li>
+            
+                <li class="parent" data-name="html.MouseBox.event:pointerEnter"><a href="html.MouseBox.html#.event:pointerEnter">pointerEnter</a></li>
+            
+                <li class="parent" data-name="html.MouseBox.event:pointerLeave"><a href="html.MouseBox.html#.event:pointerLeave">pointerLeave</a></li>
+            
+                <li class="parent" data-name="html.MouseBox.event:pointerMove"><a href="html.MouseBox.html#.event:pointerMove">pointerMove</a></li>
+            
+                <li class="parent" data-name="html.MouseBox.event:pointerOut"><a href="html.MouseBox.html#.event:pointerOut">pointerOut</a></li>
+            
+                <li class="parent" data-name="html.MouseBox.event:pointerUp"><a href="html.MouseBox.html#.event:pointerUp">pointerUp</a></li>
+            
+                <li class="parent" data-name="html.MouseBox.event:wheel"><a href="html.MouseBox.html#.event:wheel">wheel</a></li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.NumberAnimation">
+            <span class="title  ">
+                
+                
+                    <a href="html.NumberAnimation.html">html.NumberAnimation</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.NumberAnimation.event:next"><a href="html.NumberAnimation.html#.event:next">next</a></li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.OfflineFS">
+            <span class="title  ">
+                
+                
+                    <a href="html.OfflineFS.html">html.OfflineFS</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.ParallelAnimation">
+            <span class="title  ">
+                
+                
+                    <a href="html.ParallelAnimation.html">html.ParallelAnimation</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.Ruler">
+            <span class="title  ">
+                
+                
+                    <a href="html.Ruler.html">html.Ruler</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.Ruler#request"><a href="html.Ruler.html#request">request</a></li>
+            
+                <li class="parent  " data-name="html.Ruler#reset"><a href="html.Ruler.html#reset">reset</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.ScriptAction">
+            <span class="title  ">
+                
+                
+                    <a href="html.ScriptAction.html">html.ScriptAction</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.SequentialAnimation">
+            <span class="title  ">
+                
+                
+                    <a href="html.SequentialAnimation.html">html.SequentialAnimation</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.SyntaxHighlighter">
+            <span class="title  ">
+                
+                
+                    <a href="html.SyntaxHighlighter.html">html.SyntaxHighlighter</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.SyntaxHighlighter#filter"><a href="html.SyntaxHighlighter.html#filter">filter</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.SyntaxToken">
+            <span class="title  ">
+                
+                
+                    <a href="html.SyntaxToken.html">html.SyntaxToken</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.TextArea">
+            <span class="title  ">
+                
+                
+                    <a href="html.TextArea.html">html.TextArea</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.TextArea#eraseAt"><a href="html.TextArea.html#eraseAt">eraseAt</a></li>
+            
+                <li class="parent  " data-name="html.TextArea#insertAt"><a href="html.TextArea.html#insertAt">insertAt</a></li>
+            
+                <li class="parent  " data-name="html.TextArea#positionAt"><a href="html.TextArea.html#positionAt">positionAt</a></li>
+            
+                <li class="parent  " data-name="html.TextArea#rowAt"><a href="html.TextArea.html#rowAt">rowAt</a></li>
+            
+                <li class="parent  " data-name="html.TextArea#selectRange"><a href="html.TextArea.html#selectRange">selectRange</a></li>
+            
+                <li class="parent  " data-name="html.TextArea#setCursor"><a href="html.TextArea.html#setCursor">setCursor</a></li>
+            
+                <li class="parent  " data-name="html.TextArea#shiftRows"><a href="html.TextArea.html#shiftRows">shiftRows</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.TextInput">
+            <span class="title  ">
+                
+                
+                    <a href="html.TextInput.html">html.TextInput</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.TextInput#selectRange"><a href="html.TextInput.html#selectRange">selectRange</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.TextInput.event:reject"><a href="html.TextInput.html#.event:reject">reject</a></li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.ThreadPool.AtomicInt32">
+            <span class="title  ">
+                
+                
+                    <a href="html.ThreadPool.AtomicInt32.html">html.ThreadPool.AtomicInt32</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.ThreadPool.AtomicInt32#add"><a href="html.ThreadPool.AtomicInt32.html#add">add</a></li>
+            
+                <li class="parent  " data-name="html.ThreadPool.AtomicInt32#and"><a href="html.ThreadPool.AtomicInt32.html#and">and</a></li>
+            
+                <li class="parent  " data-name="html.ThreadPool.AtomicInt32#or"><a href="html.ThreadPool.AtomicInt32.html#or">or</a></li>
+            
+                <li class="parent  " data-name="html.ThreadPool.AtomicInt32#sub"><a href="html.ThreadPool.AtomicInt32.html#sub">sub</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.ThreadPool.TaskHandle">
+            <span class="title  ">
+                
+                
+                    <a href="html.ThreadPool.TaskHandle.html">html.ThreadPool.TaskHandle</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.ThreadPool.TaskHandle#atomicInt32"><a href="html.ThreadPool.TaskHandle.html#atomicInt32">atomicInt32</a></li>
+            
+                <li class="parent  " data-name="html.ThreadPool.TaskHandle#call"><a href="html.ThreadPool.TaskHandle.html#call">call</a></li>
+            
+                <li class="parent  " data-name="html.ThreadPool.TaskHandle#catch"><a href="html.ThreadPool.TaskHandle.html#catch">catch</a></li>
+            
+                <li class="parent  " data-name="html.ThreadPool.TaskHandle#then"><a href="html.ThreadPool.TaskHandle.html#then">then</a></li>
+            
+                <li class="parent  " data-name="html.ThreadPool.TaskHandle#transfer"><a href="html.ThreadPool.TaskHandle.html#transfer">transfer</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.ThreadPool.Worker">
+            <span class="title  ">
+                
+                
+                    <a href="html.ThreadPool.Worker.html">html.ThreadPool.Worker</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.ThreadPool.Worker.exit"><a href="html.ThreadPool.Worker.html#.exit">exit</a></li>
+            
+                <li class="parent  " data-name="html.ThreadPool.Worker.importWasm"><a href="html.ThreadPool.Worker.html#.importWasm">importWasm</a></li>
+            
+                <li class="parent  " data-name="html.ThreadPool.Worker.proxyObject"><a href="html.ThreadPool.Worker.html#.proxyObject">proxyObject</a></li>
+            
+                <li class="parent  " data-name="html.ThreadPool.Worker.shRequire"><a href="html.ThreadPool.Worker.html#.shRequire">shRequire</a></li>
+            
+                <li class="parent  " data-name="html.ThreadPool.Worker.sleep"><a href="html.ThreadPool.Worker.html#.sleep">sleep</a></li>
+            
+                <li class="parent  " data-name="html.ThreadPool.Worker.transfer"><a href="html.ThreadPool.Worker.html#.transfer">transfer</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.ThreadPool.Worker.AtomicInt32">
+            <span class="title  ">
+                
+                
+                    <a href="html.ThreadPool.Worker.AtomicInt32.html">html.ThreadPool.Worker.AtomicInt32</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.TileMap">
+            <span class="title  ">
+                
+                
+                    <a href="html.TileMap.html">html.TileMap</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.TileSet">
+            <span class="title  ">
+                
+                
+                    <a href="html.TileSet.html">html.TileSet</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.TileSet#getTile"><a href="html.TileSet.html#getTile">getTile</a></li>
+            
+                <li class="parent  " data-name="html.TileSet#setAlias"><a href="html.TileSet.html#setAlias">setAlias</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.TileSet.event:invalidate"><a href="html.TileSet.html#.event:invalidate">invalidate</a></li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.Video">
+            <span class="title  ">
+                
+                
+                    <a href="html.Video.html">html.Video</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.Video#pause"><a href="html.Video.html#pause">pause</a></li>
+            
+                <li class="parent  " data-name="html.Video#play"><a href="html.Video.html#play">play</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.WaitAction">
+            <span class="title  ">
+                
+                
+                    <a href="html.WaitAction.html">html.WaitAction</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="html.WebSocket">
+            <span class="title  ">
+                
+                
+                    <a href="html.WebSocket.html">html.WebSocket</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="low.FetchManager">
+            <span class="title  ">
+                
+                
+                    <a href="low.FetchManager.html">low.FetchManager</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="low.FetchManager#abort"><a href="low.FetchManager.html#abort">abort</a></li>
+            
+                <li class="parent  " data-name="low.FetchManager#fetch"><a href="low.FetchManager.html#fetch">fetch</a></li>
+            
+                <li class="parent  " data-name="low.FetchManager#fetchPriorized"><a href="low.FetchManager.html#fetchPriorized">fetchPriorized</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="low.Tag">
+            <span class="title  ">
+                
+                
+                    <a href="low.Tag.html">low.Tag</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="low.Tag#attr"><a href="low.Tag.html#attr">attr</a></li>
+            
+                <li class="parent  " data-name="low.Tag#child"><a href="low.Tag.html#child">child</a></li>
+            
+                <li class="parent  " data-name="low.Tag#class"><a href="low.Tag.html#class">class</a></li>
+            
+                <li class="parent  " data-name="low.Tag#content"><a href="low.Tag.html#content">content</a></li>
+            
+                <li class="parent  " data-name="low.Tag#content"><a href="low.Tag.html#content">content</a></li>
+            
+                <li class="parent  " data-name="low.Tag#data"><a href="low.Tag.html#data">data</a></li>
+            
+                <li class="parent  " data-name="low.Tag#html"><a href="low.Tag.html#html">html</a></li>
+            
+                <li class="parent  " data-name="low.Tag#id"><a href="low.Tag.html#id">id</a></li>
+            
+                <li class="parent  " data-name="low.Tag#on"><a href="low.Tag.html#on">on</a></li>
+            
+                <li class="parent  " data-name="low.Tag#style"><a href="low.Tag.html#style">style</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="Parser">
+            <span class="title  ">
+                
+                
+                    <a href="Parser.html">Parser</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="Parser#parseString"><a href="Parser.html#parseString">parseString</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="server.DAVSession">
+            <span class="title  ">
+                
+                
+                    <a href="server.DAVSession.html">server.DAVSession</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="server.HTTPAuth">
+            <span class="title  ">
+                
+                
+                    <a href="server.HTTPAuth.html">server.HTTPAuth</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="server.HTTPAuth#authorize"><a href="server.HTTPAuth.html#authorize">authorize</a></li>
+            
+                <li class="parent  " data-name="server.HTTPAuth#passwordHash"><a href="server.HTTPAuth.html#passwordHash">passwordHash</a></li>
+            
+                <li class="parent  " data-name="server.HTTPAuth#requestAuthorization"><a href="server.HTTPAuth.html#requestAuthorization">requestAuthorization</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="server.HTTPResponse">
+            <span class="title  ">
+                
+                
+                    <a href="server.HTTPResponse.html">server.HTTPResponse</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="server.HTTPResponse#body"><a href="server.HTTPResponse.html#body">body</a></li>
+            
+                <li class="parent  " data-name="server.HTTPResponse#cookie"><a href="server.HTTPResponse.html#cookie">cookie</a></li>
+            
+                <li class="parent  " data-name="server.HTTPResponse#enableCrossOriginIsolation"><a href="server.HTTPResponse.html#enableCrossOriginIsolation">enableCrossOriginIsolation</a></li>
+            
+                <li class="parent  " data-name="server.HTTPResponse#header"><a href="server.HTTPResponse.html#header">header</a></li>
+            
+                <li class="parent  " data-name="server.HTTPResponse#send"><a href="server.HTTPResponse.html#send">send</a></li>
+            
+                <li class="parent  " data-name="server.HTTPResponse#stream"><a href="server.HTTPResponse.html#stream">stream</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="server.HTTPRoute">
+            <span class="title  ">
+                
+                
+                    <a href="server.HTTPRoute.html">server.HTTPRoute</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="server.HTTPRoute#getSession"><a href="server.HTTPRoute.html#getSession">getSession</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="server.HTTPServer">
+            <span class="title  ">
+                
+                
+                    <a href="server.HTTPServer.html">server.HTTPServer</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="server.HTTPSession">
+            <span class="title  ">
+                
+                
+                    <a href="server.HTTPSession.html">server.HTTPSession</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="server.HTTPSession#close"><a href="server.HTTPSession.html#close">close</a></li>
+            
+                <li class="parent  " data-name="server.HTTPSession#response"><a href="server.HTTPSession.html#response">response</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="server.HTTPSession.event:request"><a href="server.HTTPSession.html#.event:request">request</a></li>
+            
+                <li class="parent" data-name="server.HTTPSession.event:responseReady"><a href="server.HTTPSession.html#.event:responseReady">responseReady</a></li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="server.LocalFS">
+            <span class="title  ">
+                
+                
+                    <a href="server.LocalFS.html">server.LocalFS</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="server.WebSession">
+            <span class="title  ">
+                
+                
+                    <a href="server.WebSession.html">server.WebSession</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="shf3d.exports.Camera">
+            <span class="title  ">
+                
+                
+                    <a href="shf3d.exports.Camera.html">shf3d.exports.Camera</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="shf3d.exports.Clone">
+            <span class="title  ">
+                
+                
+                    <a href="shf3d.exports.Clone.html">shf3d.exports.Clone</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="shf3d.exports.Collider">
+            <span class="title  ">
+                
+                
+                    <a href="shf3d.exports.Collider.html">shf3d.exports.Collider</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="shf3d.exports.Cube">
+            <span class="title  ">
+                
+                
+                    <a href="shf3d.exports.Cube.html">shf3d.exports.Cube</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="shf3d.exports.Entity">
+            <span class="title  ">
+                
+                
+                    <a href="shf3d.exports.Entity.html">shf3d.exports.Entity</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="shf3d.exports.Group">
+            <span class="title  ">
+                
+                
+                    <a href="shf3d.exports.Group.html">shf3d.exports.Group</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="shf3d.exports.HeightMesh">
+            <span class="title  ">
+                
+                
+                    <a href="shf3d.exports.HeightMesh.html">shf3d.exports.HeightMesh</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="shf3d.exports.Light">
+            <span class="title  ">
+                
+                
+                    <a href="shf3d.exports.Light.html">shf3d.exports.Light</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="shf3d.exports.Material">
+            <span class="title  ">
+                
+                
+                    <a href="shf3d.exports.Material.html">shf3d.exports.Material</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="shf3d.exports.Mesh">
+            <span class="title  ">
+                
+                
+                    <a href="shf3d.exports.Mesh.html">shf3d.exports.Mesh</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="shf3d.exports.Model3D">
+            <span class="title  ">
+                
+                
+                    <a href="shf3d.exports.Model3D.html">shf3d.exports.Model3D</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="shf3d.exports.Sphere">
+            <span class="title  ">
+                
+                
+                    <a href="shf3d.exports.Sphere.html">shf3d.exports.Sphere</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="shf3d.exports.View">
+            <span class="title  ">
+                
+                
+                    <a href="shf3d.exports.View.html">shf3d.exports.View</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="SubView">
+            <span class="title  ">
+                
+                
+                    <a href="SubView.html">SubView</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.Button">
+            <span class="title  ">
+                
+                
+                    <a href="ui.Button.html">ui.Button</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.Calendar">
+            <span class="title  ">
+                
+                
+                    <a href="ui.Calendar.html">ui.Calendar</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="ui.Calendar#pickMonth"><a href="ui.Calendar.html#pickMonth">pickMonth</a></li>
+            
+                <li class="parent  " data-name="ui.Calendar#pickYear"><a href="ui.Calendar.html#pickYear">pickYear</a></li>
+            
+                <li class="parent  " data-name="ui.Calendar#toNextMonth"><a href="ui.Calendar.html#toNextMonth">toNextMonth</a></li>
+            
+                <li class="parent  " data-name="ui.Calendar#toPreviousMonth"><a href="ui.Calendar.html#toPreviousMonth">toPreviousMonth</a></li>
+            
+                <li class="parent  " data-name="ui.Calendar#toToday"><a href="ui.Calendar.html#toToday">toToday</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="ui.Calendar#event:dateSelected"><a href="ui.Calendar.html#event:dateSelected">dateSelected</a></li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.CheckBox">
+            <span class="title  ">
+                
+                
+                    <a href="ui.CheckBox.html">ui.CheckBox</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.DarkTheme">
+            <span class="title  ">
+                
+                
+                    <a href="ui.DarkTheme.html">ui.DarkTheme</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.DatePicker">
+            <span class="title  ">
+                
+                
+                    <a href="ui.DatePicker.html">ui.DatePicker</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.Dialog">
+            <span class="title  ">
+                
+                
+                    <a href="ui.Dialog.html">ui.Dialog</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.Document">
+            <span class="title  ">
+                
+                
+                    <a href="ui.Document.html">ui.Document</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="ui.Document#showErrorDialog"><a href="ui.Document.html#showErrorDialog">showErrorDialog</a></li>
+            
+                <li class="parent  " data-name="ui.Document#showInfoDialog"><a href="ui.Document.html#showInfoDialog">showInfoDialog</a></li>
+            
+                <li class="parent  " data-name="ui.Document#showMessageDialog"><a href="ui.Document.html#showMessageDialog">showMessageDialog</a></li>
+            
+                <li class="parent  " data-name="ui.Document#showProgressDialog"><a href="ui.Document.html#showProgressDialog">showProgressDialog</a></li>
+            
+                <li class="parent  " data-name="ui.Document#showQuestionDialog"><a href="ui.Document.html#showQuestionDialog">showQuestionDialog</a></li>
+            
+                <li class="parent  " data-name="ui.Document#showWarningDialog"><a href="ui.Document.html#showWarningDialog">showWarningDialog</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.FocusIndicator">
+            <span class="title  ">
+                
+                
+                    <a href="ui.FocusIndicator.html">ui.FocusIndicator</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.FSItem">
+            <span class="title  ">
+                
+                
+                    <a href="ui.FSItem.html">ui.FSItem</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.FSTreeNode">
+            <span class="title  ">
+                
+                
+                    <a href="ui.FSTreeNode.html">ui.FSTreeNode</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.FSView">
+            <span class="title  ">
+                
+                
+                    <a href="ui.FSView.html">ui.FSView</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.Label">
+            <span class="title  ">
+                
+                
+                    <a href="ui.Label.html">ui.Label</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.ListViewSelector">
+            <span class="title  ">
+                
+                
+                    <a href="ui.ListViewSelector.html">ui.ListViewSelector</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="ui.ListViewSelector#clear"><a href="ui.ListViewSelector.html#clear">clear</a></li>
+            
+                <li class="parent  " data-name="ui.ListViewSelector#select"><a href="ui.ListViewSelector.html#select">select</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.Loader">
+            <span class="title  ">
+                
+                
+                    <a href="ui.Loader.html">ui.Loader</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.Menu">
+            <span class="title  ">
+                
+                
+                    <a href="ui.Menu.html">ui.Menu</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="ui.Menu#popup"><a href="ui.Menu.html#popup">popup</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.MenuItem">
+            <span class="title  ">
+                
+                
+                    <a href="ui.MenuItem.html">ui.MenuItem</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.MenuItemBase">
+            <span class="title  ">
+                
+                
+                    <a href="ui.MenuItemBase.html">ui.MenuItemBase</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="ui.MenuItemBase#closeMenu"><a href="ui.MenuItemBase.html#closeMenu">closeMenu</a></li>
+            
+                <li class="parent  " data-name="ui.MenuItemBase#hasSiblingMenuOpen"><a href="ui.MenuItemBase.html#hasSiblingMenuOpen">hasSiblingMenuOpen</a></li>
+            
+                <li class="parent  " data-name="ui.MenuItemBase#selectItem"><a href="ui.MenuItemBase.html#selectItem">selectItem</a></li>
+            
+                <li class="parent  " data-name="ui.MenuItemBase#showMenu"><a href="ui.MenuItemBase.html#showMenu">showMenu</a></li>
+            
+                <li class="parent  " data-name="ui.MenuItemBase#toSibling"><a href="ui.MenuItemBase.html#toSibling">toSibling</a></li>
+            
+                <li class="parent  " data-name="ui.MenuItemBase#unselectSiblings"><a href="ui.MenuItemBase.html#unselectSiblings">unselectSiblings</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.MenuSeparator">
+            <span class="title  ">
+                
+                
+                    <a href="ui.MenuSeparator.html">ui.MenuSeparator</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.OverflowScroller">
+            <span class="title  ">
+                
+                
+                    <a href="ui.OverflowScroller.html">ui.OverflowScroller</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.Overlay">
+            <span class="title  ">
+                
+                
+                    <a href="ui.Overlay.html">ui.Overlay</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="ui.Overlay#close"><a href="ui.Overlay.html#close">close</a></li>
+            
+                <li class="parent  " data-name="ui.Overlay#show"><a href="ui.Overlay.html#show">show</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.Page">
+            <span class="title  ">
+                
+                
+                    <a href="ui.Page.html">ui.Page</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.PageStack">
+            <span class="title  ">
+                
+                
+                    <a href="ui.PageStack.html">ui.PageStack</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="ui.PageStack#popPage"><a href="ui.PageStack.html#popPage">popPage</a></li>
+            
+                <li class="parent  " data-name="ui.PageStack#pushPage"><a href="ui.PageStack.html#pushPage">pushPage</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.PinchGesture">
+            <span class="title  ">
+                
+                
+                    <a href="ui.PinchGesture.html">ui.PinchGesture</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.Placeholder">
+            <span class="title  ">
+                
+                
+                    <a href="ui.Placeholder.html">ui.Placeholder</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.ScrollIndicator">
+            <span class="title  ">
+                
+                
+                    <a href="ui.ScrollIndicator.html">ui.ScrollIndicator</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.SelectionBox">
+            <span class="title  ">
+                
+                
+                    <a href="ui.SelectionBox.html">ui.SelectionBox</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.Slider">
+            <span class="title  ">
+                
+                
+                    <a href="ui.Slider.html">ui.Slider</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="ui.Slider#setValue"><a href="ui.Slider.html#setValue">setValue</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.SpinBox">
+            <span class="title  ">
+                
+                
+                    <a href="ui.SpinBox.html">ui.SpinBox</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="ui.SpinBox#setValue"><a href="ui.SpinBox.html#setValue">setValue</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.SplitBox">
+            <span class="title  ">
+                
+                
+                    <a href="ui.SplitBox.html">ui.SplitBox</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.Switch">
+            <span class="title  ">
+                
+                
+                    <a href="ui.Switch.html">ui.Switch</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.TextArea">
+            <span class="title  ">
+                
+                
+                    <a href="ui.TextArea.html">ui.TextArea</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.TextEntry">
+            <span class="title  ">
+                
+                
+                    <a href="ui.TextEntry.html">ui.TextEntry</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.Theme">
+            <span class="title  ">
+                
+                
+                    <a href="ui.Theme.html">ui.Theme</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.TimePicker">
+            <span class="title  ">
+                
+                
+                    <a href="ui.TimePicker.html">ui.TimePicker</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.Tooltip">
+            <span class="title  ">
+                
+                
+                    <a href="ui.Tooltip.html">ui.Tooltip</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.Window">
+            <span class="title  ">
+                
+                
+                    <a href="ui.Window.html">ui.Window</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="ui.Window#raise"><a href="ui.Window.html#raise">raise</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.WindowTitle">
+            <span class="title  ">
+                
+                
+                    <a href="ui.WindowTitle.html">ui.WindowTitle</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="ui.WindowTitle#event:close"><a href="ui.WindowTitle.html#event:close">close</a></li>
+            
+                <li class="parent" data-name="ui.WindowTitle#event:minimize"><a href="ui.WindowTitle.html#event:minimize">minimize</a></li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-concepts">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-concepts.html">Concepts of Shellfish</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-layout-flow">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-flow.html">Controlling the Layout Flow</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-layout-margin">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-margin.html">Margins around Elements</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-layout-position">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-position.html">Positioning Elements</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-layout-ruler">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-ruler.html">Aligning with Rulers</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-layout-scrolling">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-scrolling.html">Scrolling</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-layout-size">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-size.html">Controlling the Size</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-layout-visible">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-layout-visible.html">Visibility</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-levels">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-levels.html">Levels of Abstraction</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-modules">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-modules.html">Module Management</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-setup">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-setup.html">Setup the SDK</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-code">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-code.html">Code Blocks</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-containers">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-containers.html">Component Containers</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-elements">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-elements.html">Elements, Properties, and Comments</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-events">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-events.html">Events and Event Handlers</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-methods">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-methods.html">Methods</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-modules">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-modules.html">Modules and Components</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-scope">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-scope.html">Understanding Identifier Scope and Namespaces</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-shui-templates">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-shui-templates.html">Templates</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-ui-animations">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-ui-animations.html">Complex Animations</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-ui-colors">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-ui-colors.html">Working with Colors</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-ui-defered">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-ui-defered.html">Defered Creation of UI Elements</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-ui-listmodel">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-ui-listmodel.html">List Models</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-ui-profiles">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-ui-profiles.html">Using Profiles</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-ui-theme">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-ui-theme.html">Using the Theme for a Uniform Look</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-ui-timer">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-ui-timer.html">Timers</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="tutorial-ui-transitions">
+            <span class="title  ">
+                
+                
+                    <span class="namespaceTag"><span class="glyphicon glyphicon-education"></span></span>
+                    <a href="tutorial-ui-transitions.html">Transitions</a>
+                
+            </span>
+            
+            <ul class="children itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+    </ul>
+</div>
+
+    <div class="main">
+        <h1 class="page-title" data-filename="shellfish-core_core_filesystem.js.html">Source: shellfish-core/core/filesystem.js</h1>
+        
+
+
+    
+    <section>
+        <header>
+            <div class="header content-size">
+                <h2>shellfish-core/core/filesystem.js</h2>
+            </div>
+        </header>
+        <article>
+            <pre id="source-code" class="prettyprint source "><code>/*******************************************************************************
+This file is part of the Shellfish UI toolkit.
+Copyright (c) 2021 - 2022 Martin Grimme &lt;martin.grimme@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*******************************************************************************/
+
+"use strict";
+
+shRequire([__dirname + "/object.js"], obj =>
+{
+    /**
+     * Base class for filesystem implementations.
+     * 
+     * @extends core.Object
+     * @memberof core
+     */
+    class Filesystem extends obj.Object
+    {
+        constructor()
+        {
+            super();
+
+            /**
+             * Is triggered when something on the filesystem changed.
+             * @event fsChange
+             * @memberof html.Filesystem
+             */
+             this.registerEvent("fsChange");
+        }
+
+        /**
+         * Normalizes the given path.
+         * 
+         * @param {string} path - The path to normalize.
+         * @returns {string} The normalized path.
+         */
+        normalizePath(path)
+        {
+            return path.replace(/\/\/+/g, "/").replace(/\/$/, "") || "/";
+        }
+        
+        /**
+         * Joins a list of path components.
+         * 
+         * All path components must be encoded (@see {html.Filesystem#encodeName}).
+         * 
+         * @param  {string[]} args - The path components.
+         * @returns {string} - The resulting path.
+         */
+        pathJoin(...args)
+        {
+            return this.normalizePath(args.join("/"));
+        }
+    
+        /**
+         * Returns the directory part of the given path.
+         * 
+         * @param {string} path - The path.
+         * @returns {string} The directory part of the path.
+         */
+        dirname(path)
+        {
+            const pos = path.lastIndexOf("/");
+            if (pos !== -1)
+            {
+                return this.normalizePath(path.substring(0, pos));
+            }
+            else
+            {
+                return "/";
+            }
+        }
+    
+        /**
+         * Returns the file part of the given path.
+         * 
+         * @param {string} path - The path.
+         * @returns {string} The file part of the path.
+         */
+        filename(path)
+        {
+            const pos = path.lastIndexOf("/");
+            if (pos !== -1)
+            {
+                return path.substring(pos + 1);
+            }
+            else
+            {
+                return path;
+            }
+        }
+
+        /**
+         * Encodes the given file name to be used within paths.
+         * 
+         * Some file systems require file names to be encoded and you must
+         * encode file names when composing file system paths. On file systems
+         * that do not require encoding, this method simply returns the name
+         * unchanged.
+         * 
+         * @param {string} name - The name to encode.
+         * @returns {string} The encoded name. 
+         */
+        encodeName(name)
+        {
+            return name;
+        }
+
+        /**
+         * Checks if the given path exists and returns a boolean Promise object.
+         * 
+         * @param {string} path - The path to check for.
+         * @returns {Promise} The boolean Promise object.
+         */
+        exists(path)
+        {
+            throw "Not implemented";
+        }
+
+        /**
+         * Retrieves a file info object for the given path.
+         * 
+         * @param {string} path - The path.
+         * @returns {Promise} The Promise object.
+         */
+        fileInfo(path)
+        {
+            return new Promise(async (resolve, reject) =>
+            {
+                if (path === "/")
+                {
+                    resolve({
+                        path: "/",
+                        dir: "/",
+                        name: "",
+                        type: "d",
+                        size: 0,
+                        mimetype: "application/x-folder",
+                        ctime: 0,
+                        mtime: 0
+                    });
+                }
+                else
+                {
+                    if (path.endsWith("/"))
+                    {
+                        path = path.substring(0, path.length - 1);
+                    }
+                    const files = await this.list(this.dirname(path));
+                    const info = files.find(f => f.path === path);
+                    resolve(info || null);
+                }
+            });
+        }
+
+        /**
+         * Lists the files at the given path and returns a Promise object with the file items.
+         * 
+         * @param {string} path - The path to list.
+         * @returns {Promise} The Promise object.
+         */
+        list(path)
+        {
+            throw "Not implemented";
+        }
+
+        /**
+         * Creates a new directory at the given path.
+         * 
+         * @param {string} path - The path where to create a new directory.
+         * @param {string} name - The name of the new directory.
+         * @returns {Promise} The Promise object.
+         */
+        mkdir(path, name)
+        {
+            throw "Not implemented";
+        }
+
+        /**
+         * Moves a file.
+         * 
+         * @param {string} sourcePath - The source path.
+         * @param {string} destPath - The destination path.
+         * @returns {Promise} The Promise object.
+         */
+        move(sourcePath, destPath)
+        {
+            throw "Not implemented";
+        }
+
+        /**
+         * Copies a file. Implementations should override this for remote filesystems.
+         * 
+         * @param {string} sourcePath - The source path.
+         * @param {string} destPath - The destination path.
+         * @returns {Promise} The Promise object.
+         */
+        copy(sourcePath, destPath)
+        {
+            const f = async () =>
+            {
+                const blob = await this.read(sourcePath);
+                await this.write(destPath, blob);
+            };
+            return f();
+        }
+
+        /**
+         * Removes the given path.
+         * 
+         * @param {string} path - The path to remove.
+         * @returns {Promise} The Promise object.
+         */
+        remove(path)
+        {
+            throw "Not implemented";
+        }
+
+        /**
+         * Reads the file at the given path and returns a Promise object with the
+         * Blob.
+         * 
+         * @param {string} path - The path of the file to read.
+         * @returns {Promise} - The Promise object with the file's contents as Blob.
+         */
+        read(path)
+        {
+            throw "Not implemented";
+        }
+
+        /**
+         * Writes the given Blob to the given path.
+         * 
+         * @param {string} path - The path of the file to write.
+         * @param {Blob} blob - The Blob of data to write.
+         * @returns {Promise} The Promise object.
+         */
+        write(path, blob)
+        {
+            throw "Not implemented";
+        }
+    }
+    exports.Filesystem = Filesystem;
+});</code></pre>
+        </article>
+    </section>
+
+
+
+
+
+
+        
+
+        <footer class="content-size">
+            <div class="footer">
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun May 01 2022 11:31:19 GMT+0200 (Mitteleuropäische Sommerzeit)
+            </div>
+        </footer>
+    </div>
+</div>
+<script>prettyPrint();</script>
+<script src="scripts/main.js"></script>
+
+      <link type="text/css" rel="stylesheet" href="style.css">
+      
+
+</body>
+</html>

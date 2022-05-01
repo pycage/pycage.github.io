@@ -31,7 +31,7 @@ Page {
         id: header
 
         title: "Simple 3D Scene"
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui"]
     }
 
     shf3d.View {

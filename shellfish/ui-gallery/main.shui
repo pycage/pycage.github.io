@@ -24,15 +24,15 @@ require "shellfish/ui";
 require "shellfish/low" as low;
 
 // preload the icon fonts
-require "../camera-icons.css";
-require "../comm-icons.css";
-require "../emote-icons.css";
-require "../fs-icons.css";
-require "../input-icons.css";
-require "../map-icons.css";
-require "../media-icons.css";
-require "../text-icons.css";
-require "../ui-icons.css";
+require "/shellfish/icons/camera-icons.css";
+require "/shellfish/icons/comm-icons.css";
+require "/shellfish/icons/emote-icons.css";
+require "/shellfish/icons/fs-icons.css";
+require "/shellfish/icons/input-icons.css";
+require "/shellfish/icons/map-icons.css";
+require "/shellfish/icons/media-icons.css";
+require "/shellfish/icons/text-icons.css";
+require "/shellfish/icons/ui-icons.css";
 
 Document {
 
@@ -50,6 +50,7 @@ Document {
 
     onKeyDown: (ev) =>
     {
+        /*
         if (ev.key === "ArrowLeft")
         {
             low.focusPrevious();
@@ -60,6 +61,7 @@ Document {
             low.focusNext();
             ev.accepted = true;
         }
+        */
     }
 
     PageStack {

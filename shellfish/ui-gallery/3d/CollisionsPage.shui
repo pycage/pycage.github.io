@@ -35,7 +35,7 @@ Page {
         title: "Collision Detection"
         subtitle: "Find a way out of the dungeon!"
 
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui", "3d/ControlButton.shui", "3d/ControlPad.shui", "3d/Dungeon.shui"]
     }
 
     shf3d.View {

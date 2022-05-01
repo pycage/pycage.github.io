@@ -47,8 +47,6 @@ Page {
         fillWidth: true
         fillHeight: true
 
-        onPointerMove: () => { }
-
         Repeater {
             model: ListModel { data: sequence(0, touchBox.touchPoints) }
             delegate: template Box {

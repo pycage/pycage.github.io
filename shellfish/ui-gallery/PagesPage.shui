@@ -77,7 +77,7 @@ Page {
 
             Image {
                 id: image
-                source: "/shellfish/ui-gallery/sample.jpg"
+                source: __dirname + "/sample.jpg"
             }
         }
     }

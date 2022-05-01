@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit examples.
-Copyright (c) 2020 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2020 - 2022 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -162,24 +162,24 @@ Page {
             Button {
                 profiles: [toolButtonProfile]
                 width: bbox.height
-                checked: filesView.displayMode === 0
+                checked: filesView.displayMode === "list"
                 icon: "ui-view_list"
 
                 onClick: () =>
                 {
-                    filesView.displayMode = 0;
+                    filesView.displayMode = "list";
                 }
             }
 
             Button {
                 profiles: [toolButtonProfile]
                 width: bbox.height
-                checked: filesView.displayMode === 1
+                checked: filesView.displayMode === "grid"
                 icon: "ui-view_grid"
 
                 onClick: () =>
                 {
-                    filesView.displayMode = 1;
+                    filesView.displayMode = "grid";
                 }
             }
 
@@ -193,14 +193,15 @@ Page {
             fillHeight: true
             height: 600
 
-            into first Box {
+            into first MouseBox {
                 fillWidth: true
                 fillHeight: true
                 color: theme.contentBackgroundColor
+                overflowBehavior: "scroll"
                 scrollbars: true
 
                 FSTreeNode {
-                    fs: drive
+                    filesystem: drive
                     path: "/"
                     name: "[" + drive.volume + "]"
                     target: filesView.model
@@ -240,30 +241,79 @@ Page {
                     }
                 }
 
-                FSView {
+                ListView {
                     id: filesView
+
+                    property displayMode: "list"
+                    property iconScale: scaleSelector.scale
+                    property filesystem: drive
 
                     fillWidth: true
                     fillHeight: true
 
-                    iconScale: scaleSelector.scale
+                    cellWidth: displayMode === "list" ? bbox.width - 1
+                                                      : theme.itemWidthLarge * iconScale
+
+                    cellHeight: displayMode === "list" ? theme.itemHeightMedium * iconScale
+                                                       : cellWidth
 
                     model: FSModel {
-                        fs: drive
+                        filesystem: drive
                         path: "/"
 
                         onPathChanged: () =>
                         {
-                            filesView.currentIndex = -1;
+                            selector.clear();
                             pageHeader.subtitle = path;
                         }
                     }
 
                     opacity: model.loading ? 0 : 1
 
+                    delegate: template FSItem {
+                        displayMode: filesView.displayMode
+                        highlighted: selector.selection.has(modelData.index)
+                        file: modelData.value
+                        filesystem: drive
+                        thumbnail: file.mimetype.startsWith("image/") ? file.path
+                                                                      : ""
+
+                        onClick: ev =>
+                        {
+                            ev.accepted = true;
+                            selector.select(modelData.index, "replace");
+                        }
+
+                        onDoubleClick: ev =>
+                        {
+                            ev.accepted = true;
+
+                            if (file.type === "d")
+                            {
+                                filesView.model.path = file.path;
+                            }
+                            else if (file.mimetype.startsWith("image/"))
+                            {
+                                const dlg = imageDialog();
+                                dlg.show();
+                                dlg.title = file.name;
+                                drive.read(file.path)
+                                .then((blob) =>
+                                {
+                                    dlg.file = blob;
+                                });
+                            }
+                        }
+                    }
+
+                    /*
                     onFileOpen: (item) =>
                     {
-                        if (item.mimetype.startsWith("image/"))
+                        if (item.type === "d")
+                        {
+                            model.path = item.path;
+                        }
+                        else if (item.mimetype.startsWith("image/"))
                         {
                             const dlg = imageDialog();
                             dlg.show();
@@ -275,16 +325,61 @@ Page {
                             });
                         }
                     }
+                    */
+
+                    onKeyDown: ev =>
+                    {
+                        if (ev.key === "Delete")
+                        {
+                            const items = [...selector.selection.keys()];
+                            showQuestionDialog("Delete File",
+                                               "Do you want to delete " + items.length + " files?",
+                                               () =>
+                            {
+                                items.forEach((idx) =>
+                                {
+                                    filesystem.remove(model.at(idx).path);
+                                });
+                            });
+                            ev.accepted = true;
+                        }
+                        else if (ev.key === "Enter")
+                        {
+                            const items = [...selector.selection.keys()];
+                            if (items.length === 1)
+                            {
+                                const item = model.at(items[0]);
+                                console.log(JSON.stringify(item));
+                                const dlg = renameDialogT();
+                                dlg.name = item.name;
+                                dlg.callback = (newName) =>
+                                {
+                                    console.log("New Name: " + newName);
+                                    filesystem.move(item.path, filesystem.pathJoin(filesystem.dirname(item.path), filesystem.encodeName(newName)));
+                                };
+                                dlg.show();
+                            }
+                            ev.accepted = true;
+                        }
+                    }
+
+                    ListViewSelector {
+                        id: selector
+                    }
 
                     ScrollIndicator { }
                 }
 
                 Box {
-                    visible: filesView.displayMode === 1
                     fillWidth: true
                     height: theme.itemHeightMedium
                     color: theme.secondaryBackgroundColor
                     layout: "center-row"
+
+                    Label {
+                        marginLeft: theme.paddingSmall
+                        text: filesView.count + " items"
+                    }
 
                     Box {
                         fillWidth: true
@@ -362,5 +457,56 @@ Page {
             source: !! dialog.file ? blobUrl(dialog.file) : ""
         }
 
+    }
+
+    property renameDialogT: template Dialog {
+        id: dialog
+
+        property name: ""
+        property callback: (newName) => { }
+
+        title: "Rename"
+
+        into buttons Button {
+            text: "Rename"
+            onClick: () => { callback(textEntry.text); dialog.parent = null; }
+        }
+
+        into buttons Button {
+            marginLeft: theme.paddingSmall
+            text: "Cancel"
+            onClick: () => { dialog.parent = null; }
+        }
+
+        Box {
+            layout: "center-row"
+
+            Label { text: "Name:" }
+
+            TextEntry {
+                id: textEntry
+
+                marginLeft: theme.paddingSmall
+                width: theme.itemWidthLarge
+                text: dialog.name
+
+                onAncestorsVisibleChanged: () =>
+                {
+                    if (ancestorsVisible)
+                    {
+                        active = true;
+                        const pos = text.lastIndexOf(".");
+                        if (pos !== -1)
+                        {
+                            selectRange(0, pos);
+                        }
+                        else
+                        {
+                            selectRange(0, text.length);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

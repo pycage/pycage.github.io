@@ -33,7 +33,7 @@ Page {
         title: "Clones"
         subtitle: "load once, re-use often"
         
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui"]
     }
 
     shf3d.View {

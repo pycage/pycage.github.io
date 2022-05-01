@@ -22,11 +22,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 "use strict";
 
-shRequire(["shellfish/mid"], (mid) =>
+shRequire(["shellfish/core"], (core) =>
 {
     const d = new WeakMap();
 
-    exports.StarsTileSet = class StarsTileSet extends mid.Object
+    exports.StarsTileSet = class StarsTileSet extends core.Object
     {
         constructor()
         {

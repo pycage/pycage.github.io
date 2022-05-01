@@ -31,7 +31,7 @@ Page {
         id: header
 
         title: "3D Model"
-        codeUrl: __filename
+        codeUrls: [__filename, "Header.shui"]
     }
 
     shf3d.View {
