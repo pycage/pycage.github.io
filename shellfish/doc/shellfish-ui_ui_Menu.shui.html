@@ -724,6 +724,8 @@
             
                 <li class="parent  " data-name="core.Object#change"><a href="core.Object.html#change">change</a></li>
             
+                <li class="parent  " data-name="core.Object#clearQueue"><a href="core.Object.html#clearQueue">clearQueue</a></li>
+            
                 <li class="parent  " data-name="core.Object#colorName"><a href="core.Object.html#colorName">colorName</a></li>
             
                 <li class="parent  " data-name="core.Object#connect"><a href="core.Object.html#connect">connect</a></li>
@@ -771,6 +773,8 @@
                 <li class="parent  " data-name="core.Object#visit"><a href="core.Object.html#visit">visit</a></li>
             
                 <li class="parent  " data-name="core.Object#wait"><a href="core.Object.html#wait">wait</a></li>
+            
+                <li class="parent  " data-name="core.Object#waitQueued"><a href="core.Object.html#waitQueued">waitQueued</a></li>
             
             </ul>
             
@@ -3518,6 +3522,36 @@
             
         </li>
     
+        <li class="item" data-name="TaskQueues">
+            <span class="title  ">
+                
+                
+                    <a href="TaskQueues.html">TaskQueues</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="ui.Button">
             <span class="title  ">
                 
@@ -4087,6 +4121,36 @@
                 
                 
                     <a href="ui.MenuSeparator.html">ui.MenuSeparator</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.MultiSelectionBox">
+            <span class="title  ">
+                
+                
+                    <a href="ui.MultiSelectionBox.html">ui.MultiSelectionBox</a>
                 
             </span>
             
@@ -4712,6 +4776,36 @@
             
         </li>
     
+        <li class="item" data-name="Warehouse">
+            <span class="title  ">
+                
+                
+                    <a href="Warehouse.html">Warehouse</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="tutorial-concepts">
             <span class="title  ">
                 
@@ -5277,10 +5371,10 @@ Overlay {
     // cheap shadow box
     Box {
         position: "global"
-        x: menuBox.bbox.x + 2
-        y: menuBox.bbox.y + 2
-        width: menuBox.bbox.width
-        height: menuBox.bbox.height
+        x: menuBox.bboxX + 2
+        y: menuBox.bboxY + 2
+        width: menuBox.bboxWidth
+        height: menuBox.bboxHeight
         color: "black"
         opacity: 0.2
     }
@@ -5293,18 +5387,18 @@ Overlay {
         property anchorHeight: 0
 
         property spaceAbove: anchorY - anchorHeight
-        property spaceBelow: menu.bbox.height - anchorY
+        property spaceBelow: menu.bboxHeight - anchorY
         property showBelow: spaceBelow > 5 * theme.itemHeightMedium ? true
                                                                     : spaceBelow > spaceAbove
 
         position: "global"
         overflowBehavior: "scroll"
 
-        x: anchorX + bbox.width &lt; menu.bbox.width ? anchorX
-                                                  : menu.bbox.width - bbox.width
+        x: anchorX + bboxWidth &lt; menu.bboxWidth ? anchorX
+                                                : menu.bboxWidth - bboxWidth
         y: showBelow ? anchorY : anchorY - anchorHeight - height
 
-        height: Math.min((showBelow ? spaceBelow : spaceAbove) - theme.paddingLarge, menuBoxContent.bbox.height + 2 /* borders */)
+        height: Math.min((showBelow ? spaceBelow : spaceAbove) - theme.paddingLarge, menuBoxContent.bboxHeight + 2 /* borders */)
         color: theme.primaryBackgroundColor
         borderWidth: 1
         borderColor: theme.borderColor
@@ -5385,7 +5479,7 @@ Overlay {
 
     Box {
         position: "free"
-        x: menuBox.x + menuBox.bbox.width - width
+        x: menuBox.x + menuBox.bboxWidth - width
         y: menuBox.y
         width: theme.paddingSmall
         height: menuBox.height
@@ -5409,7 +5503,7 @@ Overlay {
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sat Aug 27 2022 08:48:02 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Sep 06 2022 20:57:43 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

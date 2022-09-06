@@ -724,6 +724,8 @@
             
                 <li class="parent  " data-name="core.Object#change"><a href="core.Object.html#change">change</a></li>
             
+                <li class="parent  " data-name="core.Object#clearQueue"><a href="core.Object.html#clearQueue">clearQueue</a></li>
+            
                 <li class="parent  " data-name="core.Object#colorName"><a href="core.Object.html#colorName">colorName</a></li>
             
                 <li class="parent  " data-name="core.Object#connect"><a href="core.Object.html#connect">connect</a></li>
@@ -771,6 +773,8 @@
                 <li class="parent  " data-name="core.Object#visit"><a href="core.Object.html#visit">visit</a></li>
             
                 <li class="parent  " data-name="core.Object#wait"><a href="core.Object.html#wait">wait</a></li>
+            
+                <li class="parent  " data-name="core.Object#waitQueued"><a href="core.Object.html#waitQueued">waitQueued</a></li>
             
             </ul>
             
@@ -3518,6 +3522,36 @@
             
         </li>
     
+        <li class="item" data-name="TaskQueues">
+            <span class="title  ">
+                
+                
+                    <a href="TaskQueues.html">TaskQueues</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="ui.Button">
             <span class="title  ">
                 
@@ -4087,6 +4121,36 @@
                 
                 
                     <a href="ui.MenuSeparator.html">ui.MenuSeparator</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.MultiSelectionBox">
+            <span class="title  ">
+                
+                
+                    <a href="ui.MultiSelectionBox.html">ui.MultiSelectionBox</a>
                 
             </span>
             
@@ -4712,6 +4776,36 @@
             
         </li>
     
+        <li class="item" data-name="Warehouse">
+            <span class="title  ">
+                
+                
+                    <a href="Warehouse.html">Warehouse</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="tutorial-concepts">
             <span class="title  ">
                 
@@ -5196,8 +5290,8 @@ MouseBox {
     property size: theme.paddingMedium * (documentRoot.inputDevice === "touch" ? 3 : 1)
 
     position: "global"
-    x: parent.bbox.x + (orientation === "vertical" ? parent.bbox.width - width : 0)
-    y: parent.bbox.y + (orientation === "horizontal" ? parent.bbox.height - height : 0)
+    x: parent.bboxX + (orientation === "vertical" ? parent.bboxWidth - width : 0)
+    y: parent.bboxY + (orientation === "horizontal" ? parent.bboxHeight - height : 0)
 
     visible: handle.sizePercents &lt; 0.99
 
@@ -5210,8 +5304,8 @@ MouseBox {
         property contentSize: box.target ? (box.orientation === "vertical" ? box.target.contentHeight
                                                                            : box.target.contentWidth)
                                          : 1
-        property viewSize: box.target ? (box.orientation === "vertical" ? box.target.bbox.height
-                                                                        : box.target.bbox.width)
+        property viewSize: box.target ? (box.orientation === "vertical" ? box.target.bboxHeight
+                                                                        : box.target.bboxWidth)
                                       : 1
 
         property direction: 0
@@ -5263,8 +5357,8 @@ MouseBox {
 
     canFocus: true
    
-    width: orientation === "vertical" ? size : parent.bbox.width - priv.otherMargin
-    height: orientation === "vertical" ? parent.bbox.height - priv.otherMargin : size
+    width: orientation === "vertical" ? size : parent.bboxWidth - priv.otherMargin
+    height: orientation === "vertical" ? parent.bboxHeight - priv.otherMargin : size
 
     color: theme.primaryColor.alpha(0.1)
 
@@ -5290,11 +5384,11 @@ MouseBox {
                                                                : 0
         
         x: box.orientation === "vertical" ? 0
-                                          : posPercents * (box.bbox.width - bbox.width)
-        y: box.orientation === "vertical" ? posPercents * (box.bbox.height - bbox.height)
+                                          : posPercents * (box.bboxWidth - bboxWidth)
+        y: box.orientation === "vertical" ? posPercents * (box.bboxHeight - bboxHeight)
                                           : 0
-        width: box.orientation === "vertical" ? 0 : Math.max(16, sizePercents * box.bbox.width)
-        height: box.orientation === "vertical" ? Math.max(16, sizePercents * box.bbox.height) : 0
+        width: box.orientation === "vertical" ? 0 : Math.max(16, sizePercents * box.bboxWidth)
+        height: box.orientation === "vertical" ? Math.max(16, sizePercents * box.bboxHeight) : 0
 
         fillWidth: box.orientation === "vertical" ? true : false
         fillHeight: box.orientation === "vertical" ? false : true
@@ -5315,12 +5409,12 @@ MouseBox {
 
             if (box.orientation === "vertical")
             {
-                const scale = box.bbox.height / Math.max(1, priv.contentSize);
+                const scale = box.bboxHeight / Math.max(1, priv.contentSize);
                 target.contentY = priv.contentPos + ev.deltaY / scale;
             }
             else
             {
-                const scale = box.bbox.width / Math.max(1, priv.contentSize);
+                const scale = box.bboxWidth / Math.max(1, priv.contentSize);
                 target.contentX = priv.contentPos + ev.deltaX / scale;
             }
         }
@@ -5482,7 +5576,7 @@ MouseBox {
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sat Aug 27 2022 08:48:03 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Sep 06 2022 20:57:43 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>
