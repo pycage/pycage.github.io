@@ -256,6 +256,8 @@
             
                 <li class="parent  " data-name="low.escapeHtml"><a href="low.html#.escapeHtml">escapeHtml</a></li>
             
+                <li class="parent  " data-name="low.escapeMarkup"><a href="low.html#.escapeMarkup">escapeMarkup</a></li>
+            
                 <li class="parent  " data-name="low.focusables"><a href="low.html#.focusables">focusables</a></li>
             
                 <li class="parent  " data-name="low.focusNext"><a href="low.html#.focusNext">focusNext</a></li>
@@ -599,6 +601,8 @@
                 <li class="parent  " data-name="core.Filesystem#read"><a href="core.Filesystem.html#read">read</a></li>
             
                 <li class="parent  " data-name="core.Filesystem#remove"><a href="core.Filesystem.html#remove">remove</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#search"><a href="core.Filesystem.html#search">search</a></li>
             
                 <li class="parent  " data-name="core.Filesystem#write"><a href="core.Filesystem.html#write">write</a></li>
             
@@ -1324,6 +1328,8 @@
             
                 <li class="parent" data-name="html.Document.event:keyDown"><a href="html.Document.html#.event:keyDown">keyDown</a></li>
             
+                <li class="parent" data-name="html.Document.event:keyUp"><a href="html.Document.html#.event:keyUp">keyUp</a></li>
+            
             </ul>
             
         </li>
@@ -1775,6 +1781,8 @@
             <span class="subtitle">Events</span>
             
                 <li class="parent" data-name="html.Item.event:keyDown"><a href="html.Item.html#.event:keyDown">keyDown</a></li>
+            
+                <li class="parent" data-name="html.Item.event:keyUp"><a href="html.Item.html#.event:keyUp">keyUp</a></li>
             
             </ul>
             
@@ -5271,7 +5279,7 @@ a pen. Multitouch input is supported.</p></div>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_mousebox.js.html#line162">mousebox.js:162</a>
+            <a href="shellfish-ui_html_mousebox.js.html#line191">mousebox.js:191</a>
         </div>
         
     </div>
@@ -5549,7 +5557,7 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_mousebox.js.html#line1045">mousebox.js:1045</a>
+            <a href="shellfish-ui_html_mousebox.js.html#line1102">mousebox.js:1102</a>
         </div>
         
     </div>
@@ -5708,11 +5716,155 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
     
     <div class="description">
         <p>A drag event. This is not related to drag-and-drop functionality.</p>
+<p>The drag only starts if the <code>accepted</code> property is set to <code>true</code>.</p>
     </div>
     
     
     
 <dl class="details">
+    
+        
+        <h5 class="subsection-title">Properties:</h5>
+        
+        <dl>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>accepted</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>(default: <code>false</code>) Set to <code>true</code> to accept the event and initiate the drag.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>buttons</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The buttons pressed.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>deltaX</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The drag amount in X direction.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>deltaY</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The drag amount in Y direction.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>original</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The original HTML pointer event.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table></dl>
+        
     
         
     
@@ -5766,6 +5918,287 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
 <dl class="details">
     
         
+        <h5 class="subsection-title">Properties:</h5>
+        
+        <dl>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>accepted</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>(default: <code>false</code>) Set to <code>true</code> to accept the event and prevent it from bubbling up.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>buttons</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The buttons pressed.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>directTarget</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] <code>true</code> if this event was emitted by the direct target instead of having bubbled up.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>original</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The original HTML pointer event.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>pointerId</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The ID of the pointer.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>pointerType</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The type of pointer. One of <code>mouse|pen|touch</code></p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>pressure</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The pressure (typically of a pen) applied as number in the range of <code>0</code> and <code>1</code>.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>tiltX</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The tilt of the pen in X direction.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>tiltY</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The tilt of the pen in Y direction.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The X position of the pointer within the MouseBox.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The Y position of the pointer within the MouseBox.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table></dl>
+        
+    
+        
     
     
     
@@ -5817,6 +6250,195 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
 <dl class="details">
     
         
+        <h5 class="subsection-title">Properties:</h5>
+        
+        <dl>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>accepted</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>(default: <code>false</code>) Set to <code>true</code> to accept the event and prevent it from bubbling up.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>deltaX</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The scroll amount in X direction.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>deltaY</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The scroll amount in Y direction.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>deltaZ</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The scroll amount in Z direction.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>original</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The original HTML wheel event.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The X position of the pointer within the MouseBox.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] The Y position of the pointer within the MouseBox.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table></dl>
+        
+    
+        
     
     
     
@@ -5866,7 +6488,7 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_mousebox.js.html#line276">mousebox.js:276</a>
+            <a href="shellfish-ui_html_mousebox.js.html#line307">mousebox.js:307</a>
         </div>
         
     </div>
@@ -5987,7 +6609,7 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_mousebox.js.html#line304">mousebox.js:304</a>
+            <a href="shellfish-ui_html_mousebox.js.html#line335">mousebox.js:335</a>
         </div>
         
     </div>
@@ -6108,7 +6730,7 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_mousebox.js.html#line290">mousebox.js:290</a>
+            <a href="shellfish-ui_html_mousebox.js.html#line321">mousebox.js:321</a>
         </div>
         
     </div>
@@ -6229,7 +6851,7 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_mousebox.js.html#line401">mousebox.js:401</a>
+            <a href="shellfish-ui_html_mousebox.js.html#line432">mousebox.js:432</a>
         </div>
         
     </div>
@@ -6350,7 +6972,7 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_mousebox.js.html#line417">mousebox.js:417</a>
+            <a href="shellfish-ui_html_mousebox.js.html#line448">mousebox.js:448</a>
         </div>
         
     </div>
@@ -6476,7 +7098,7 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_mousebox.js.html#line251">mousebox.js:251</a>
+            <a href="shellfish-ui_html_mousebox.js.html#line282">mousebox.js:282</a>
         </div>
         
     </div>
@@ -6602,7 +7224,7 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_mousebox.js.html#line267">mousebox.js:267</a>
+            <a href="shellfish-ui_html_mousebox.js.html#line298">mousebox.js:298</a>
         </div>
         
     </div>
@@ -6728,7 +7350,7 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_mousebox.js.html#line243">mousebox.js:243</a>
+            <a href="shellfish-ui_html_mousebox.js.html#line274">mousebox.js:274</a>
         </div>
         
     </div>
@@ -6854,7 +7476,7 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_mousebox.js.html#line235">mousebox.js:235</a>
+            <a href="shellfish-ui_html_mousebox.js.html#line266">mousebox.js:266</a>
         </div>
         
     </div>
@@ -6980,7 +7602,7 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_mousebox.js.html#line259">mousebox.js:259</a>
+            <a href="shellfish-ui_html_mousebox.js.html#line290">mousebox.js:290</a>
         </div>
         
     </div>
@@ -7101,7 +7723,7 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_mousebox.js.html#line343">mousebox.js:343</a>
+            <a href="shellfish-ui_html_mousebox.js.html#line374">mousebox.js:374</a>
         </div>
         
     </div>
@@ -7222,7 +7844,7 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_mousebox.js.html#line322">mousebox.js:322</a>
+            <a href="shellfish-ui_html_mousebox.js.html#line353">mousebox.js:353</a>
         </div>
         
     </div>
@@ -7343,7 +7965,7 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_mousebox.js.html#line336">mousebox.js:336</a>
+            <a href="shellfish-ui_html_mousebox.js.html#line367">mousebox.js:367</a>
         </div>
         
     </div>
@@ -7464,7 +8086,7 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_mousebox.js.html#line379">mousebox.js:379</a>
+            <a href="shellfish-ui_html_mousebox.js.html#line410">mousebox.js:410</a>
         </div>
         
     </div>
@@ -7585,7 +8207,7 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_mousebox.js.html#line329">mousebox.js:329</a>
+            <a href="shellfish-ui_html_mousebox.js.html#line360">mousebox.js:360</a>
         </div>
         
     </div>
@@ -7706,7 +8328,7 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_mousebox.js.html#line361">mousebox.js:361</a>
+            <a href="shellfish-ui_html_mousebox.js.html#line392">mousebox.js:392</a>
         </div>
         
     </div>
@@ -7827,7 +8449,7 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_mousebox.js.html#line311">mousebox.js:311</a>
+            <a href="shellfish-ui_html_mousebox.js.html#line342">mousebox.js:342</a>
         </div>
         
     </div>
@@ -7944,7 +8566,7 @@ This is similar to <code>containsMouse</code> but has a delay.</p></td>
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Sep 06 2022 20:57:44 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun Nov 06 2022 14:56:49 GMT+0100 (Mitteleuropäische Normalzeit)
             </div>
         </footer>
     </div>

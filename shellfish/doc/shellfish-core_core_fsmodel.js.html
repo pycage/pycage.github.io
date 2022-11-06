@@ -256,6 +256,8 @@
             
                 <li class="parent  " data-name="low.escapeHtml"><a href="low.html#.escapeHtml">escapeHtml</a></li>
             
+                <li class="parent  " data-name="low.escapeMarkup"><a href="low.html#.escapeMarkup">escapeMarkup</a></li>
+            
                 <li class="parent  " data-name="low.focusables"><a href="low.html#.focusables">focusables</a></li>
             
                 <li class="parent  " data-name="low.focusNext"><a href="low.html#.focusNext">focusNext</a></li>
@@ -599,6 +601,8 @@
                 <li class="parent  " data-name="core.Filesystem#read"><a href="core.Filesystem.html#read">read</a></li>
             
                 <li class="parent  " data-name="core.Filesystem#remove"><a href="core.Filesystem.html#remove">remove</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#search"><a href="core.Filesystem.html#search">search</a></li>
             
                 <li class="parent  " data-name="core.Filesystem#write"><a href="core.Filesystem.html#write">write</a></li>
             
@@ -1324,6 +1328,8 @@
             
                 <li class="parent" data-name="html.Document.event:keyDown"><a href="html.Document.html#.event:keyDown">keyDown</a></li>
             
+                <li class="parent" data-name="html.Document.event:keyUp"><a href="html.Document.html#.event:keyUp">keyUp</a></li>
+            
             </ul>
             
         </li>
@@ -1775,6 +1781,8 @@
             <span class="subtitle">Events</span>
             
                 <li class="parent" data-name="html.Item.event:keyDown"><a href="html.Item.html#.event:keyDown">keyDown</a></li>
+            
+                <li class="parent" data-name="html.Item.event:keyUp"><a href="html.Item.html#.event:keyUp">keyUp</a></li>
             
             </ul>
             
@@ -5283,6 +5291,8 @@ shRequire([__dirname + "/listmodel.js"], function (lm)
      * @property {html.Filesystem} filesystem - (default: `null`) The filesystem to use.
      * @property {bool} loading - [readonly] `true` if the model is currently being loaded.
      * @property {string} path - (default: `""`) The path represented by the model.
+     * @property {bool} sortAscending - (default: `true`) Whether to sort in ascending or descending order.
+     * @property {string} sortRole - (default: `"name"`) The sort role. One of `name|time|size`
      * @property {bool} withDirectories - (default: `true`) Whether to include directories.
      * @property {bool} withFiles - (default: `true`) Whether to include files.
      * @property {bool} withHidden - (default: `false`) Whether to include hidden files and directories.
@@ -5295,18 +5305,25 @@ shRequire([__dirname + "/listmodel.js"], function (lm)
             d.set(this, {
                 fs: null,
                 path: "",
+                query: "",
                 directoriesFirst: true,
+                sortAscending: true,
+                sortRole: "name",
                 withDirectories: true,
                 withFiles: true,
                 withHidden: false,
                 loading: false,
-                updating: false
+                updating: false,
+                items: []
             });
             
             this.notifyable("directoriesFirst");
             this.notifyable("filesystem");
             this.notifyable("loading");
             this.notifyable("path");
+            this.notifyable("query");
+            this.notifyable("sortAscending");
+            this.notifyable("sortRole");
             this.notifyable("withDirectories");
             this.notifyable("withFiles");
             this.notifyable("withHidden");
@@ -5346,21 +5363,45 @@ shRequire([__dirname + "/listmodel.js"], function (lm)
             this.update(true);
         }
 
+        get query() { return d.get(this).query; }
+        set query(q)
+        {
+            d.get(this).query = q;
+            this.queryChanged();
+            this.update(true);
+        }
+
         get loading() { return d.get(this).loading; }
 
         get directoriesFirst() { return d.get(this).directoriesFirst; }
         set directoriesFirst(value)
         {
             d.get(this).directoriesFirst = value;
-            this.update(true);
+            this.processItems(d.get(this).items, true);
             this.directoriesFirstChanged();
+        }
+
+        get sortAscending() { return d.get(this).sortAscending; }
+        set sortAscending(v)
+        {
+            d.get(this).sortAscending = v;
+            this.processItems(d.get(this).items, true);
+            this.sortAscendingChanged();
+        }
+
+        get sortRole() { return d.get(this).sortRole; }
+        set sortRole(r)
+        {
+            d.get(this).sortRole = r;
+            this.processItems(d.get(this).items, true);
+            this.sortRoleChanged();
         }
 
         get withFiles() { return d.get(this).withFiles; }
         set withFiles(value)
         {
             d.get(this).withFiles = value;
-            this.update(false);
+            this.processItems(d.get(this).items, false);
             this.withFilesChanged();
         }
 
@@ -5368,7 +5409,7 @@ shRequire([__dirname + "/listmodel.js"], function (lm)
         set withDirectories(value)
         {
             d.get(this).withDirectories = value;
-            this.update(false);
+            this.processItems(d.get(this).items, false);
             this.withDirectoriesChanged();
         }
 
@@ -5393,7 +5434,36 @@ shRequire([__dirname + "/listmodel.js"], function (lm)
                     return 1;
                 }
             }
-            return a.name.toLowerCase() &lt; b.name.toLowerCase() ? -1 : 1;
+            if (d.get(this).sortAscending)
+            {
+                switch (d.get(this).sortRole)
+                {
+                case "name":
+                    return a.name.toLowerCase() &lt; b.name.toLowerCase() ? -1 : 1;
+                case "time":
+                    return a.mtime &lt; b.mtime ? -1 : 1;
+                case "size":
+                    return a.size &lt; b.size ? -1 : 1;
+                default:
+                    console.error("Invalid sort role: " + d.get(this).sortRole);
+                    return a.name.toLowerCase() &lt; b.name.toLowerCase() ? -1 : 1;
+                }
+            }
+            else
+            {
+                switch (d.get(this).sortRole)
+                {
+                case "name":
+                    return a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1;
+                case "time":
+                    return a.mtime > b.mtime ? -1 : 1;
+                case "size":
+                    return a.size > b.size ? -1 : 1;    
+                default:
+                    console.error("Invalid sort role: " + d.get(this).sortRole);
+                    return a.name.toLowerCase() &lt; b.name.toLowerCase() ? -1 : 1;
+                }
+            }
         }
 
         mergeWithUpdate(newItems)
@@ -5457,35 +5527,58 @@ shRequire([__dirname + "/listmodel.js"], function (lm)
                 return;
             }
 
-            priv.fs.list(priv.path)
-            .then(items =>
+            if (priv.query !== "")
             {
-                console.log(items);
-                const newItems = items
-                .filter(item =>
+                priv.fs.search(priv.path, priv.query)
+                .then(items =>
                 {
-                    return (! item.name.startsWith(".") || priv.withHidden);
-                })
-                .filter(item =>
+                    console.log(items);
+                    priv.items = items;
+                    this.processItems(items, reset);
+    
+                    priv.loading = false;
+                    this.loadingChanged();
+                });
+            }
+            else
+            {
+                priv.fs.list(priv.path)
+                .then(items =>
                 {
-                    return (item.type === "f" &amp;&amp; priv.withFiles ||
-                            item.type === "d" &amp;&amp; priv.withDirectories);
-                })
-                .sort((a, b) => this.comparator(a, b));
-                console.log(newItems);
+                    console.log(items);
+                    priv.items = items;
+                    this.processItems(items, reset);
+    
+                    priv.loading = false;
+                    this.loadingChanged();
+                });
+            }
+        }
 
-                if (reset)
-                {
-                    this.reset(newItems);
-                }
-                else
-                {
-                    this.mergeWithUpdate(newItems);
-                }
+        processItems(items, reset)
+        {
+            const priv = d.get(this);
+            const newItems = items
+            .filter(item =>
+            {
+                return (! item.name.startsWith(".") || priv.withHidden);
+            })
+            .filter(item =>
+            {
+                return (item.type === "f" &amp;&amp; priv.withFiles ||
+                        item.type === "d" &amp;&amp; priv.withDirectories);
+            })
+            .sort((a, b) => this.comparator(a, b));
+            console.log(newItems);
 
-                priv.loading = false;
-                this.loadingChanged();
-            });
+            if (reset)
+            {
+                this.reset(newItems);
+            }
+            else
+            {
+                this.mergeWithUpdate(newItems);
+            }
         }
     }
     exports.FSModel = FSModel;
@@ -5503,7 +5596,7 @@ shRequire([__dirname + "/listmodel.js"], function (lm)
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Sep 06 2022 20:57:42 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun Nov 06 2022 14:56:48 GMT+0100 (Mitteleuropäische Normalzeit)
             </div>
         </footer>
     </div>

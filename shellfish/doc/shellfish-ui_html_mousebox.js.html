@@ -256,6 +256,8 @@
             
                 <li class="parent  " data-name="low.escapeHtml"><a href="low.html#.escapeHtml">escapeHtml</a></li>
             
+                <li class="parent  " data-name="low.escapeMarkup"><a href="low.html#.escapeMarkup">escapeMarkup</a></li>
+            
                 <li class="parent  " data-name="low.focusables"><a href="low.html#.focusables">focusables</a></li>
             
                 <li class="parent  " data-name="low.focusNext"><a href="low.html#.focusNext">focusNext</a></li>
@@ -599,6 +601,8 @@
                 <li class="parent  " data-name="core.Filesystem#read"><a href="core.Filesystem.html#read">read</a></li>
             
                 <li class="parent  " data-name="core.Filesystem#remove"><a href="core.Filesystem.html#remove">remove</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#search"><a href="core.Filesystem.html#search">search</a></li>
             
                 <li class="parent  " data-name="core.Filesystem#write"><a href="core.Filesystem.html#write">write</a></li>
             
@@ -1324,6 +1328,8 @@
             
                 <li class="parent" data-name="html.Document.event:keyDown"><a href="html.Document.html#.event:keyDown">keyDown</a></li>
             
+                <li class="parent" data-name="html.Document.event:keyUp"><a href="html.Document.html#.event:keyUp">keyUp</a></li>
+            
             </ul>
             
         </li>
@@ -1775,6 +1781,8 @@
             <span class="subtitle">Events</span>
             
                 <li class="parent" data-name="html.Item.event:keyDown"><a href="html.Item.html#.event:keyDown">keyDown</a></li>
+            
+                <li class="parent" data-name="html.Item.event:keyUp"><a href="html.Item.html#.event:keyUp">keyUp</a></li>
             
             </ul>
             
@@ -5291,6 +5299,18 @@ shRequire(["shellfish/low", __dirname + "/box.js"], function (low, box)
      * A pointer event.
      * @typedef PointerEvent
      * @memberof html.MouseBox
+     * 
+     * @property {bool} accepted - (default: `false`) Set to `true` to accept the event and prevent it from bubbling up.
+     * @property {number} buttons - [readonly] The buttons pressed.
+     * @property {bool} directTarget - [readonly] `true` if this event was emitted by the direct target instead of having bubbled up.
+     * @property {Event} original - [readonly] The original HTML pointer event.
+     * @property {number} pointerId - [readonly] The ID of the pointer.
+     * @property {string} pointerType - [readonly] The type of pointer. One of `mouse|pen|touch`
+     * @property {number} pressure - [readonly] The pressure (typically of a pen) applied as number in the range of `0` and `1`.
+     * @property {number} tiltX - [readonly] The tilt of the pen in X direction.
+     * @property {number} tiltY - [readonly] The tilt of the pen in Y direction.
+     * @property {number} x - [readonly] The X position of the pointer within the MouseBox.
+     * @property {number} y - [readonly] The Y position of the pointer within the MouseBox.
      */
     function makePointerEvent(ev, item)
     {
@@ -5333,6 +5353,14 @@ shRequire(["shellfish/low", __dirname + "/box.js"], function (low, box)
      * A wheel event.
      * @typedef WheelEvent
      * @memberof html.MouseBox
+     * 
+     * @property {bool} accepted - (default: `false`) Set to `true` to accept the event and prevent it from bubbling up.
+     * @property {number} deltaX - [readonly] The scroll amount in X direction.
+     * @property {number} deltaY - [readonly] The scroll amount in Y direction.
+     * @property {number} deltaZ - [readonly] The scroll amount in Z direction.
+     * @property {Event} original - [readonly] The original HTML wheel event.
+     * @property {number} x - [readonly] The X position of the pointer within the MouseBox.
+     * @property {number} y - [readonly] The Y position of the pointer within the MouseBox.
      */
     function makeWheelEvent(ev, item)
     {
@@ -5358,8 +5386,17 @@ shRequire(["shellfish/low", __dirname + "/box.js"], function (low, box)
 
     /**
      * A drag event. This is not related to drag-and-drop functionality.
+     * 
+     * The drag only starts if the `accepted` property is set to `true`.
+     * 
      * @typedef DragEvent
      * @memberof html.MouseBox
+     * 
+     * @property {bool} accepted - (default: `false`) Set to `true` to accept the event and initiate the drag.
+     * @property {number} buttons - [readonly] The buttons pressed.
+     * @property {number} deltaX - [readonly] The drag amount in X direction.
+     * @property {number} deltaY - [readonly] The drag amount in Y direction.
+     * @property {Event} original - [readonly] The original HTML pointer event.
      */
     function makeDragEvent(ev, dx, dy)
     {
@@ -5416,6 +5453,8 @@ shRequire(["shellfish/low", __dirname + "/box.js"], function (low, box)
                 dragging: false,
                 listeners: { },
                 touchPoints: [],
+                pointerX: 0,
+                pointerY: 0,
                 passiveEvent: null,
                 clickAccepted: false
             });
@@ -5629,7 +5668,7 @@ shRequire(["shellfish/low", __dirname + "/box.js"], function (low, box)
             this.registerEvent("pointerMove", () =>
             {
                 // disable disturbing browser touch actions
-                this.css("touch-action", "none");
+                //this.css("touch-action", "none");
 
                 this.ensureListener(POINTER_EVENT ? "pointermove" : "mousemove", this.pointerMove, makePointerEvent);
                 if (! POINTER_EVENT)
@@ -5672,13 +5711,17 @@ shRequire(["shellfish/low", __dirname + "/box.js"], function (low, box)
             {
                 this.addTracedHtmlEventListener(item, "pointerdown", (ev) =>
                 {
+                    const pEvent = makePointerEvent(ev, item);
+                    priv.pointerX = pEvent.x;
+                    priv.pointerY = pEvent.y;
+
                     if (priv.dragging)
                     {
                         return;
                     }
 
                     //console.log("passive pointer down, type " + ev.pointerType + " " + this.objectLocation);
-                    priv.passiveEvent = makePointerEvent(ev, item);
+                    priv.passiveEvent = pEvent;
                     if (ev.pointerType === "touch")
                     {
                         priv.touchPoints.push(ev);
@@ -5718,6 +5761,10 @@ shRequire(["shellfish/low", __dirname + "/box.js"], function (low, box)
 
                 this.addTracedHtmlEventListener(item, "pointermove", (ev) =>
                 {
+                    const pEvent = makePointerEvent(ev, item);
+                    priv.pointerX = pEvent.x;
+                    priv.pointerY = pEvent.y;
+
                     if (priv.dragging)
                     {
                         return;
@@ -5833,6 +5880,10 @@ shRequire(["shellfish/low", __dirname + "/box.js"], function (low, box)
 
                 this.addTracedHtmlEventListener(item, "mousedown", (ev) =>
                 {
+                    const pEvent = makePointerEvent(ev, item);
+                    priv.pointerX = pEvent.x;
+                    priv.pointerY = pEvent.y;
+
                     if (priv.dragging)
                     {
                         return;
@@ -5843,7 +5894,7 @@ shRequire(["shellfish/low", __dirname + "/box.js"], function (low, box)
                     if (legacyPointerType === "mouse")
                     {
                         legacyPointerType = "mouse";
-                        priv.passiveEvent = makePointerEvent(ev, item);
+                        priv.passiveEvent = pEvent;
                         priv.pressed = true;
                         this.pressedChanged();
                     }
@@ -5908,6 +5959,10 @@ shRequire(["shellfish/low", __dirname + "/box.js"], function (low, box)
 
                 this.addTracedHtmlEventListener(item, "touchstart", (ev) =>
                 {
+                    const pEvent = makePointerEvent(ev, item);
+                    priv.pointerX = pEvent.x;
+                    priv.pointerY = pEvent.y;
+
                     if (priv.dragging)
                     {
                         return;
@@ -5915,7 +5970,7 @@ shRequire(["shellfish/low", __dirname + "/box.js"], function (low, box)
 
                     //console.log("passive touch down");
                     legacyPointerType = "touch";
-                    priv.passiveEvent = makePointerEvent(ev, item);
+                    priv.passiveEvent = pEvent;
 
                     priv.containsMouse = true;
                     this.containsMouseChanged();
@@ -5938,6 +5993,10 @@ shRequire(["shellfish/low", __dirname + "/box.js"], function (low, box)
 
                 this.addTracedHtmlEventListener(item, "touchmove", (ev) =>
                 {
+                    const pEvent = makePointerEvent(ev, item);
+                    priv.pointerX = pEvent.x;
+                    priv.pointerY = pEvent.y;
+
                     if (priv.dragging)
                     {
                         return;
@@ -6048,6 +6107,8 @@ shRequire(["shellfish/low", __dirname + "/box.js"], function (low, box)
             const priv = d.get(this);
             let clicks = 0;
             let prevEventTime = 0;
+            let prevPointerX = 0;
+            let prevPointerY = 0;
             let pressedState = false;
 
             this.onPressedChanged = () =>
@@ -6067,10 +6128,14 @@ shRequire(["shellfish/low", __dirname + "/box.js"], function (low, box)
                         clicks = 0;
                     }
                     prevEventTime = now;
+                    prevPointerX = priv.pointerX;
+                    prevPointerY = priv.pointerY;
                 }
                 else if (! priv.clickAccepted /* was accepted by an above element already */)
                 {
-                    if (now - prevEventTime > 300)
+                    if (now - prevEventTime > 300 ||
+                        Math.abs(priv.pointerX - prevPointerX) > 16 ||
+                        Math.abs(priv.pointerY - prevPointerY) > 16)
                     {
                         clicks = 0;
                     }
@@ -6318,7 +6383,7 @@ shRequire(["shellfish/low", __dirname + "/box.js"], function (low, box)
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Sep 06 2022 20:57:42 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun Nov 06 2022 14:56:48 GMT+0100 (Mitteleuropäische Normalzeit)
             </div>
         </footer>
     </div>

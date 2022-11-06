@@ -256,6 +256,8 @@
             
                 <li class="parent  " data-name="low.escapeHtml"><a href="low.html#.escapeHtml">escapeHtml</a></li>
             
+                <li class="parent  " data-name="low.escapeMarkup"><a href="low.html#.escapeMarkup">escapeMarkup</a></li>
+            
                 <li class="parent  " data-name="low.focusables"><a href="low.html#.focusables">focusables</a></li>
             
                 <li class="parent  " data-name="low.focusNext"><a href="low.html#.focusNext">focusNext</a></li>
@@ -599,6 +601,8 @@
                 <li class="parent  " data-name="core.Filesystem#read"><a href="core.Filesystem.html#read">read</a></li>
             
                 <li class="parent  " data-name="core.Filesystem#remove"><a href="core.Filesystem.html#remove">remove</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#search"><a href="core.Filesystem.html#search">search</a></li>
             
                 <li class="parent  " data-name="core.Filesystem#write"><a href="core.Filesystem.html#write">write</a></li>
             
@@ -1324,6 +1328,8 @@
             
                 <li class="parent" data-name="html.Document.event:keyDown"><a href="html.Document.html#.event:keyDown">keyDown</a></li>
             
+                <li class="parent" data-name="html.Document.event:keyUp"><a href="html.Document.html#.event:keyUp">keyUp</a></li>
+            
             </ul>
             
         </li>
@@ -1775,6 +1781,8 @@
             <span class="subtitle">Events</span>
             
                 <li class="parent" data-name="html.Item.event:keyDown"><a href="html.Item.html#.event:keyDown">keyDown</a></li>
+            
+                <li class="parent" data-name="html.Item.event:keyUp"><a href="html.Item.html#.event:keyUp">keyUp</a></li>
             
             </ul>
             
@@ -5278,14 +5286,60 @@ require "shellfish/ui";
  * @property {number} maxValue - (default: `100`) The maximum allowed value.
  * @property {number} value - (default: `0`) The current value.
  * @property {number} stepSize - (default: `5`) The step size between value changes when pressing one of the step buttons.
+ * @property {template} styleOfBackground - The background style template.
+ * @property {template} styleOfLeftEdge - The left edge style template.
+ * @property {template} styleOfRightEdge - The right edge style template.
  */
-Box {
+MouseBox {
     id: spinBox
 
     property minValue: 0
     property maxValue: 100
     property value: 0
     property stepSize: 5
+
+    property styleOfBackground: template Box {
+        fillWidth: true
+        fillHeight: true
+
+        color: theme.contentBackgroundColor
+        borderColor: theme.borderColor
+        borderWidth: 1
+        borderRadius: theme.borderRadius
+    }
+
+    property styleOfLeftEdge: template Button {
+        enabled: spinBox.value > spinBox.minValue
+
+        width: bboxHeight
+        fillHeight: true
+
+        flat: true
+        checked: pressed
+        icon: "core-minus"
+
+        repeatAcceleration: 1.5
+
+        onClick: () =>
+        {
+            spinBox.setValue(spinBox.value - spinBox.stepSize);
+        }
+    }
+
+    property styleOfRightEdge: template Button {
+        enabled: spinBox.value &lt; spinBox.maxValue
+
+        flat: true
+        checked: pressed
+        icon: "core-plus"
+
+        repeatAcceleration: 1.5
+
+        onClick: () =>
+        {
+            spinBox.setValue(spinBox.value + spinBox.stepSize);
+        }
+    }
 
     /**
      * Sets the current value.
@@ -5305,136 +5359,91 @@ Box {
         }
     }
 
+    width: theme.itemWidthLarge
+    height: theme.itemHeightSmall
+
     onMinValueChanged: () => { setValue(value); }
     onMaxValueChanged: () => { setValue(value); }
     onValueChanged: () => { setValue(value); }
 
-    width: theme.itemWidthLarge
-    height: theme.itemHeightSmall
-
-    color: theme.contentBackgroundColor
-    borderColor: theme.borderColor
-    borderWidth: 1
-    borderRadius: theme.borderRadius
-
-    layout: "center-row"
-
-    Button {
-        enabled: spinBox.value > spinBox.minValue
-        flat: true
-        checked: pressed
-        icon: "core-minus"
-
-        onClick: () =>
+    onWheel: ev =>
+    {
+        if (ev.deltaY &lt; 0)
         {
             spinBox.setValue(spinBox.value - spinBox.stepSize);
         }
-
-        Timer {
-            running: parent.pressed &amp;&amp; parent.enabled
-            repeat: true
-
-            onRunningChanged: () =>
-            {
-                interval = 300;
-            }
-
-            onTimeout: () =>
-            {
-                spinBox.setValue(spinBox.value - spinBox.stepSize);
-
-                if (interval > 1)
-                {
-                    interval = interval * 0.9;
-                }
-            }
-
-        }
-    }
-
-    MouseBox {
-        fillWidth: true
-
-        onWheel: ev =>
-        {
-            if (ev.deltaY &lt; 0)
-            {
-                spinBox.setValue(spinBox.value - spinBox.stepSize);
-            }
-            else if (ev.deltaY > 0)
-            {
-                spinBox.setValue(spinBox.value + spinBox.stepSize);
-            }
-            ev.accepted = true;
-        }
-
-        TextEntry {
-            property value: spinBox.value
-
-            fillWidth: true
-            pattern: "-?[0-9]*"
-            text: "" + spinBox.value
-            horizontalAlignment: "center"
-            borderWidth: 0
-
-            onValueChanged: () =>
-            {
-                const t = "" + value;
-                if (t !== text)
-                {
-                    text = t;
-                }
-            }
-
-            onTextChanged: () =>
-            {
-                if (text !== "" &amp;&amp; text !== "-")
-                {
-                    spinBox.setValue(Number.parseInt(text));
-                    if (text !== "" + spinBox.value)
-                    {
-                        text = "" + spinBox.value;
-                    }
-                }
-                else
-                {
-                    text = "" + spinBox.minValue;
-                }
-            }
-        }
-    }
-
-
-    Button {
-        enabled: spinBox.value &lt; spinBox.maxValue
-        flat: true
-        checked: pressed
-        icon: "core-plus"
-
-        onClick: () =>
+        else if (ev.deltaY > 0)
         {
             spinBox.setValue(spinBox.value + spinBox.stepSize);
         }
+        ev.accepted = true;
+    }
 
-        Timer {
-            running: parent.pressed &amp;&amp; parent.enabled
-            repeat: true
+    Loader {
+        id: backgroundLoader
 
-            onRunningChanged: () =>
+        position: "free"
+        fillWidth: true
+        fillHeight: true
+        sourceTemplate: styleOfBackground
+
+        onItemChanged: () =>
+        {
+            if (item)
             {
-                interval = 300;
+                item.add(contentT());
+            }
+        }
+
+        property contentT: template Box {
+            fillWidth: true
+            fillHeight: true
+            layout: "center-row"
+
+            Loader {
+                fillHeight: true
+                sourceTemplate: styleOfLeftEdge
             }
 
-            onTimeout: () =>
-            {
-                spinBox.setValue(spinBox.value + spinBox.stepSize);
+            TextEntry {
+                property value: spinBox.value
 
-                if (interval > 1)
+                fillWidth: true
+                pattern: "-?[0-9]*"
+                text: "" + spinBox.value
+                horizontalAlignment: "center"
+                borderWidth: 0
+
+                onValueChanged: () =>
                 {
-                    interval = interval * 0.9;
+                    const t = "" + value;
+                    if (t !== text)
+                    {
+                        text = t;
+                    }
+                }
+
+                onTextChanged: () =>
+                {
+                    if (text !== "" &amp;&amp; text !== "-")
+                    {
+                        spinBox.setValue(Number.parseInt(text));
+                        if (text !== "" + spinBox.value)
+                        {
+                            text = "" + spinBox.value;
+                        }
+                    }
+                    else
+                    {
+                        text = "" + spinBox.minValue;
+                    }
                 }
             }
 
+            Loader {
+                fillHeight: true
+                sourceTemplate: styleOfRightEdge
+            }
         }
     }
 }</code></pre>
@@ -5450,7 +5459,7 @@ Box {
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Sep 06 2022 20:57:43 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun Nov 06 2022 14:56:49 GMT+0100 (Mitteleuropäische Normalzeit)
             </div>
         </footer>
     </div>

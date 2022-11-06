@@ -256,6 +256,8 @@
             
                 <li class="parent  " data-name="low.escapeHtml"><a href="low.html#.escapeHtml">escapeHtml</a></li>
             
+                <li class="parent  " data-name="low.escapeMarkup"><a href="low.html#.escapeMarkup">escapeMarkup</a></li>
+            
                 <li class="parent  " data-name="low.focusables"><a href="low.html#.focusables">focusables</a></li>
             
                 <li class="parent  " data-name="low.focusNext"><a href="low.html#.focusNext">focusNext</a></li>
@@ -599,6 +601,8 @@
                 <li class="parent  " data-name="core.Filesystem#read"><a href="core.Filesystem.html#read">read</a></li>
             
                 <li class="parent  " data-name="core.Filesystem#remove"><a href="core.Filesystem.html#remove">remove</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#search"><a href="core.Filesystem.html#search">search</a></li>
             
                 <li class="parent  " data-name="core.Filesystem#write"><a href="core.Filesystem.html#write">write</a></li>
             
@@ -1324,6 +1328,8 @@
             
                 <li class="parent" data-name="html.Document.event:keyDown"><a href="html.Document.html#.event:keyDown">keyDown</a></li>
             
+                <li class="parent" data-name="html.Document.event:keyUp"><a href="html.Document.html#.event:keyUp">keyUp</a></li>
+            
             </ul>
             
         </li>
@@ -1775,6 +1781,8 @@
             <span class="subtitle">Events</span>
             
                 <li class="parent" data-name="html.Item.event:keyDown"><a href="html.Item.html#.event:keyDown">keyDown</a></li>
+            
+                <li class="parent" data-name="html.Item.event:keyUp"><a href="html.Item.html#.event:keyUp">keyUp</a></li>
             
             </ul>
             
@@ -5353,12 +5361,14 @@ shRequire(["shellfish/low",
      * @property {number} minHeight - (default: `0`) The item's minimum height. It will not shrink further.
      * @property {number} minWidth - (default: `0`) The item's minimum width. It will not shrink further.
      * @property {number} opacity - (default: `1`) The item's opacity between 0 (invisible) and 1 (fully opaque).
+     * @property {number} order - (default: `0`) The item's layout order. Items are displayed by their `order` value first, and then by their source code order. The order number may be negative.
      * @property {string} origin - (default: `"top-left"`) The corner of the coordinates origin in "free" and "global" position mode: `top-left|top-right|bottom-right|bottom-left`
      * @property {number} perspective - (default: `1000`) The distance of the viewer to the `z = 0` plane for rotations in 3-dimensional space. Use `0` to disable perspective projection.
      * @property {string} position - (default: `"inline"`) The positioning mode: `inline|free|global`
      * @property {number} rotationAngle - (default: `0`) The rotation angle in degrees.
      * @property {vec3} rotationAxis - (default: `vec3(0, 1, 0)`) The rotation axis. Rotations are counter-clockwise.
      * @property {html.Ruler} ruler - (default: `null`) The ruler object to use.
+     * @property {bool} scrolling - [readonly] Whether the item is currently scrolling.
      * @property {string[]} style - (default: `[]`) A list of custom CSS class names.
      * @property {bool} trapFocus - (default: `false`) Whether to trap keyboard focus to this element, including its descendants.
      * @property {bool} visible - (default: `true`) Whether the item is visible. To check if the item is really
@@ -5377,6 +5387,7 @@ shRequire(["shellfish/low",
                 mayUpdateSize: false,
                 prevBbox: { x: 0, y: 0, width: 0, height: 0 },
                 cachedBbox: null,
+                prevContentSize: { width: 0, height: 0 },
                 // cache for accumulating CSS operations while the item is not shown;
                 // will be null while the item is shown and the cache not in use
                 cssCache: { },
@@ -5401,6 +5412,7 @@ shRequire(["shellfish/low",
                 perspective: 1000,
                 position: "inline",
                 origin: "top-left",
+                order: 0,
                 canFocus: false,
                 hasFocus: false,
                 trapFocus: false,
@@ -5410,7 +5422,8 @@ shRequire(["shellfish/low",
                 rotationAxis: this.vec3(0, 0, 1),
                 rotationAngle: 0,
                 rotationQuaternion: [0, 0, 0, 0],
-                style: []
+                style: [],
+                scrolling: false
             });
             
             this.notifyable("ancestorsEnabled");
@@ -5441,11 +5454,13 @@ shRequire(["shellfish/low",
             this.notifyable("minHeight");
             this.notifyable("minWidth");
             this.notifyable("opacity");
+            this.notifyable("order");
             this.notifyable("origin");
             this.notifyable("perspective");
             this.notifyable("position");
             this.notifyable("rotationAxis");
             this.notifyable("rotationAngle");
+            this.notifyable("scrolling");
             this.notifyable("style");
             this.notifyable("trapFocus");
             this.notifyable("visible");
@@ -5476,6 +5491,15 @@ shRequire(["shellfish/low",
              */
             this.registerEvent("keyDown");
 
+            /**
+             * Is triggered when a key is released while the item has keyboard
+             * focus.
+             * @event keyUp
+             * @param {html.Item.KeyboardEvent} event - The event object.
+             * @memberof html.Item
+             */
+            this.registerEvent("keyUp");
+
             const priv = d.get(this);
 
             this.onInitialization = () =>
@@ -5489,6 +5513,17 @@ shRequire(["shellfish/low",
                 {
                     const e = makeKeyEvent(ev);
                     this.keyDown(e);
+                    if (e.accepted)
+                    {
+                        ev.stopPropagation();
+                        ev.preventDefault();
+                    }
+                });
+
+                this.addHtmlEventListener(item, "keyup", (ev) =>
+                {
+                    const e = makeKeyEvent(ev);
+                    this.keyUp(e);
                     if (e.accepted)
                     {
                         ev.stopPropagation();
@@ -5562,11 +5597,33 @@ shRequire(["shellfish/low",
                     }
                 });
 
+                let scrollingStatusHandle = null;
+                const updateScrollingStatus = () =>
+                {
+                    if (scrollingStatusHandle)
+                    {
+                        clearTimeout(scrollingStatusHandle);
+                    }
+                    else if (! priv.scrolling)
+                    {
+                        priv.scrolling = true;
+                        this.scrollingChanged();
+                    }
+                    scrollingStatusHandle = setTimeout(this.safeCallback(() =>
+                    {
+                        scrollingStatusHandle = null;
+                        priv.scrolling = false;
+                        this.scrollingChanged();
+                    }), 300);
+                };
+
                 this.addHtmlEventListener(item, "scroll", () =>
                 {
+                    updateScrollingStatus();
                     this.contentXChanged();
                     this.contentYChanged();
 
+                    // child bbox positions changed
                     this.children.forEach((c) =>
                     {
                         if (c !== item &amp;&amp; c.updateSizeFrom)
@@ -5638,6 +5695,16 @@ shRequire(["shellfish/low",
                 }
 
                 this.updateFocusTrap();
+            };
+
+            this.onContentWidthChanged = () =>
+            {
+                priv.prevContentSize.width = this.contentWidth;
+            };
+
+            this.onContentHeightChanged = () =>
+            {
+                priv.prevContentSize.height = this.contentHeight;
             };
 
             this.onEnabledChanged = () =>
@@ -5732,6 +5799,8 @@ shRequire(["shellfish/low",
                 }
             });
         }
+
+        get scrolling() { return d.get(this).scrolling; }
 
         updatePosition()
         {
@@ -6068,6 +6137,14 @@ shRequire(["shellfish/low",
             d.get(this).position = pos;
             this.updatePosition();
             this.positionChanged();
+        }
+
+        get order() { return d.get(this).order; }
+        set order(o)
+        {
+            d.get(this).order = o;
+            this.css("order", o);
+            this.orderChanged();
         }
 
         get origin() { return d.get(this).origin; }
@@ -6407,8 +6484,8 @@ shRequire(["shellfish/low",
                     // "free"
                     if (item.position === "inline" || item.position === "free")
                     {
-                        this.contentWidthChanged();
-                        this.contentHeightChanged();
+                        if (priv.prevContentSize.width !== this.contentWidth) this.contentWidthChanged();
+                        if (priv.prevContentSize.height !== this.contentHeight) this.contentHeightChanged();
                     }
                 }
                 else
@@ -6433,6 +6510,9 @@ shRequire(["shellfish/low",
                     if (bboxHasChangedWidth) this.bboxWidthChanged();
                     if (bboxHasChangedHeight) this.bboxHeightChanged();
                 }
+
+                if (priv.prevContentSize.width !== this.contentWidth) this.contentWidthChanged();
+                if (priv.prevContentSize.height !== this.contentHeight) this.contentHeightChanged();
             }
 
             // notify parent and children, excluding from where the update came
@@ -6553,7 +6633,7 @@ shRequire(["shellfish/low",
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Sep 06 2022 20:57:42 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun Nov 06 2022 14:56:48 GMT+0100 (Mitteleuropäische Normalzeit)
             </div>
         </footer>
     </div>

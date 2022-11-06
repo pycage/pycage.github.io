@@ -256,6 +256,8 @@
             
                 <li class="parent  " data-name="low.escapeHtml"><a href="low.html#.escapeHtml">escapeHtml</a></li>
             
+                <li class="parent  " data-name="low.escapeMarkup"><a href="low.html#.escapeMarkup">escapeMarkup</a></li>
+            
                 <li class="parent  " data-name="low.focusables"><a href="low.html#.focusables">focusables</a></li>
             
                 <li class="parent  " data-name="low.focusNext"><a href="low.html#.focusNext">focusNext</a></li>
@@ -599,6 +601,8 @@
                 <li class="parent  " data-name="core.Filesystem#read"><a href="core.Filesystem.html#read">read</a></li>
             
                 <li class="parent  " data-name="core.Filesystem#remove"><a href="core.Filesystem.html#remove">remove</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#search"><a href="core.Filesystem.html#search">search</a></li>
             
                 <li class="parent  " data-name="core.Filesystem#write"><a href="core.Filesystem.html#write">write</a></li>
             
@@ -1324,6 +1328,8 @@
             
                 <li class="parent" data-name="html.Document.event:keyDown"><a href="html.Document.html#.event:keyDown">keyDown</a></li>
             
+                <li class="parent" data-name="html.Document.event:keyUp"><a href="html.Document.html#.event:keyUp">keyUp</a></li>
+            
             </ul>
             
         </li>
@@ -1775,6 +1781,8 @@
             <span class="subtitle">Events</span>
             
                 <li class="parent" data-name="html.Item.event:keyDown"><a href="html.Item.html#.event:keyDown">keyDown</a></li>
+            
+                <li class="parent" data-name="html.Item.event:keyUp"><a href="html.Item.html#.event:keyUp">keyUp</a></li>
             
             </ul>
             
@@ -5270,7 +5278,7 @@
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_item.js.html#line126">item.js:126</a>
+            <a href="shellfish-ui_html_item.js.html#line128">item.js:128</a>
         </div>
         
     </div>
@@ -5961,6 +5969,29 @@
 	
         <tr>
             
+                <td class="name"><code>order</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>(default: <code>0</code>) The item's layout order. Items are displayed by their <code>order</code> value first, and then by their source code order. The order number may be negative.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
                 <td class="name"><code>origin</code></td>
             
             
@@ -6093,6 +6124,29 @@
             
             
             <td class="description last"><p>(default: <code>null</code>) The ruler object to use.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>scrolling</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>[readonly] Whether the item is currently scrolling.</p></td>
         </tr>
 	
 	
@@ -6318,7 +6372,7 @@ visible, you also have to check for <code>ancestorsVisible</code>.</p></td>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_item.js.html#line1011">item.js:1011</a>
+            <a href="shellfish-ui_html_item.js.html#line1080">item.js:1080</a>
         </div>
         
     </div>
@@ -6465,7 +6519,7 @@ Do not use CSS shortcuts, such as <code>margin</code>, with this method.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_item.js.html#line1267">item.js:1267</a>
+            <a href="shellfish-ui_html_item.js.html#line1339">item.js:1339</a>
         </div>
         
     </div>
@@ -6571,7 +6625,7 @@ Subclasses must override this abstract method.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_item.js.html#line997">item.js:997</a>
+            <a href="shellfish-ui_html_item.js.html#line1066">item.js:1066</a>
         </div>
         
     </div>
@@ -6767,7 +6821,7 @@ Subclasses must override this abstract method.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_item.js.html#line1280">item.js:1280</a>
+            <a href="shellfish-ui_html_item.js.html#line1352">item.js:1352</a>
         </div>
         
     </div>
@@ -7384,7 +7438,7 @@ not only for this item, during the function.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-ui_html_item.js.html#line226">item.js:226</a>
+            <a href="shellfish-ui_html_item.js.html#line233">item.js:233</a>
         </div>
         
     </div>
@@ -7396,6 +7450,128 @@ not only for this item, during the function.</p>
     
     <div class="description">
         <p>Is triggered when a key is pressed while the item has keyboard
+focus.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="html.Item.html#.KeyboardEvent">html.Item.KeyboardEvent</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The event object.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".event:keyUp">
+            <a class="share-icon" href="#.event:keyUp"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                html.Item.event:keyUp
+            </span>
+            
+            
+            
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="shellfish-ui_html_item.js.html#line242">item.js:242</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Is triggered when a key is released while the item has keyboard
 focus.</p>
     </div>
     
@@ -7502,7 +7678,7 @@ focus.</p>
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Sep 06 2022 20:57:44 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun Nov 06 2022 14:56:49 GMT+0100 (Mitteleuropäische Normalzeit)
             </div>
         </footer>
     </div>

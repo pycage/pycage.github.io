@@ -256,6 +256,8 @@
             
                 <li class="parent  " data-name="low.escapeHtml"><a href="low.html#.escapeHtml">escapeHtml</a></li>
             
+                <li class="parent  " data-name="low.escapeMarkup"><a href="low.html#.escapeMarkup">escapeMarkup</a></li>
+            
                 <li class="parent  " data-name="low.focusables"><a href="low.html#.focusables">focusables</a></li>
             
                 <li class="parent  " data-name="low.focusNext"><a href="low.html#.focusNext">focusNext</a></li>
@@ -599,6 +601,8 @@
                 <li class="parent  " data-name="core.Filesystem#read"><a href="core.Filesystem.html#read">read</a></li>
             
                 <li class="parent  " data-name="core.Filesystem#remove"><a href="core.Filesystem.html#remove">remove</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#search"><a href="core.Filesystem.html#search">search</a></li>
             
                 <li class="parent  " data-name="core.Filesystem#write"><a href="core.Filesystem.html#write">write</a></li>
             
@@ -1324,6 +1328,8 @@
             
                 <li class="parent" data-name="html.Document.event:keyDown"><a href="html.Document.html#.event:keyDown">keyDown</a></li>
             
+                <li class="parent" data-name="html.Document.event:keyUp"><a href="html.Document.html#.event:keyUp">keyUp</a></li>
+            
             </ul>
             
         </li>
@@ -1775,6 +1781,8 @@
             <span class="subtitle">Events</span>
             
                 <li class="parent" data-name="html.Item.event:keyDown"><a href="html.Item.html#.event:keyDown">keyDown</a></li>
+            
+                <li class="parent" data-name="html.Item.event:keyUp"><a href="html.Item.html#.event:keyUp">keyUp</a></li>
             
             </ul>
             
@@ -5266,7 +5274,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 "use strict";
 
-shRequire(["shellfish/low", __dirname + "/item.js", "shellfish/core"], function (low, item, core)
+shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimation.js", "shellfish/core"], function (low, item, numberanimation, core)
 {
 
     class SparseList
@@ -5480,7 +5488,9 @@ shRequire(["shellfish/low", __dirname + "/item.js", "shellfish/core"], function 
      * @property {fengshui.Template} delegate - The delegate template for creating items dynamically.
      * @property {core.ListModel} model - The model to display. You may pass a number value to implicitly create a simple model.
      * @property {string} orientation - (default: `vertical`) The orientation of the view. One of `horizontal|vertical`
+     * @property {string} overflowBehavior - (default: `"scroll"`) The overflow behavior: `none|scroll`
      * @property {bool} scrollbars - (default: `false`) Whether to display native scrollbars.
+     * @property {bool} snapMode - (default: `"none"`) The mode for snapping to items. One of `none|begin|end`.
      */
     class ListView extends item.Item
     {
@@ -5502,7 +5512,9 @@ shRequire(["shellfish/low", __dirname + "/item.js", "shellfish/core"], function 
                 cellHeight: 32,
                 cacheMargin: 0,
                 itemsPerRow: 0,
+                overflowBehavior: "scroll",
                 scrollbars: false,
+                snapMode: "none",
                 windowRange: [-1, -1],
                 recycleBin: [],
                 item: low.createElementTree(
@@ -5512,6 +5524,7 @@ shRequire(["shellfish/low", __dirname + "/item.js", "shellfish/core"], function 
                     .style("width", "auto")
                     .style("height", "auto")
                     .style("overflow", "auto")
+                    .style("overscroll-behavior", "none")
                     .content(
                         // content box
                         low.tag("div")
@@ -5534,7 +5547,9 @@ shRequire(["shellfish/low", __dirname + "/item.js", "shellfish/core"], function 
             this.notifyable("cellWidth");
             this.notifyable("model");
             this.notifyable("orientation");
+            this.notifyable("overflowBehavior");
             this.notifyable("scrollbars");
+            this.notifyable("snapMode");
 
             let willUpdateLayout = false;
             let willForceUpdateLayout = false;
@@ -5589,6 +5604,77 @@ shRequire(["shellfish/low", __dirname + "/item.js", "shellfish/core"], function 
                 }
             };
 
+            // CSS snapping doesn't work with custom scroll bars,
+            // so we implement our own snapping
+            const na = new numberanimation.NumberAnimation();
+            na.duration = 300;
+            na.easing = "InOutQuad";
+            na.onBegin = () => { this.css("touch-action", "none"); }
+            na.onFinish = () => { this.css("touch-action", "auto"); }
+
+            this.onScrollingChanged = () =>
+            {
+                const priv = d.get(this);
+
+                if (! this.scrolling &amp;&amp; priv.snapMode !== "none" &amp;&amp; ! na.running)
+                {
+                    let contentPos = 0;
+                    let cellSize = 0;
+                    let viewSize = 0;
+
+                    if (priv.orientation === "horizontal")
+                    {
+                        contentPos = this.contentX;
+                        viewSize = this.bboxWidth;
+                        cellSize = priv.cellWidth;
+                    }
+                    else
+                    {
+                        contentPos = this.contentY;
+                        viewSize = this.bboxHeight;
+                        cellSize = priv.cellHeight;
+                    }
+
+                    if (priv.snapMode === "end")
+                    {
+                        contentPos += viewSize;
+                    }
+
+                    const moduloPos = contentPos % cellSize;
+                    if (moduloPos !== 0)
+                    {
+                        const targetPos = (moduloPos &lt; cellSize / 2) ? contentPos - moduloPos
+                                                                     : contentPos - moduloPos + cellSize;
+                                                                                
+                        if (Math.abs(contentPos - targetPos) &lt; 1)
+                        {
+                            return;
+                        }
+                        na.from = contentPos;
+                        na.to = targetPos;
+
+
+                        na.start(this.safeCallback(pos =>
+                        {
+                            if (priv.snapMode === "end")
+                            {
+                                pos -= viewSize;
+                            }
+
+                            if (priv.orientation === "horizontal")
+                            {
+                                
+                                this.contentX = pos;
+                            }
+                            else
+                            {
+                                this.contentY = pos;
+                            }
+                        }));
+                    }
+                }
+            };
+
             this.canFocus = true;
         }
 
@@ -5608,6 +5694,15 @@ shRequire(["shellfish/low", __dirname + "/item.js", "shellfish/core"], function 
             this.updateLayout(false);
         }
 
+        get overflowBehavior() { return d.get(this).overflowBehavior; }
+        set overflowBehavior(b)
+        {
+            d.get(this).overflowBehavior = b;
+            this.css("overflow", b === "scroll" ? "auto" : "hidden");
+            this.css("touch-action", b === "scroll" ? "auto" : "none");
+            this.overflowBehaviorChanged();
+        }
+
         get scrollbars() { return d.get(this).scrollbars; }
         set scrollbars(value)
         {
@@ -5621,6 +5716,13 @@ shRequire(["shellfish/low", __dirname + "/item.js", "shellfish/core"], function 
                 d.get(this).item.classList.add("sh-no-scrollbars");
             }
             this.scrollbarsChanged();
+        }
+
+        get snapMode() { return d.get(this).snapMode; }
+        set snapMode(s)
+        {
+            d.get(this).snapMode = s;
+            this.snapModeChanged();
         }
 
         get count() { return !! d.get(this).model ? d.get(this).model.size : 0; }
@@ -5742,6 +5844,7 @@ shRequire(["shellfish/low", __dirname + "/item.js", "shellfish/core"], function 
                         {
                             this.updateItem(i);
                         }
+                        this.render();
                     }
                     this.updateLayout(false);
                     this.countChanged();
@@ -5857,6 +5960,7 @@ shRequire(["shellfish/low", __dirname + "/item.js", "shellfish/core"], function 
             {
                 totalSize = modelSize > 0 ? this.positionOf(modelSize - 1)[1] + cellHeight
                                           : 0;
+                totalSize = Math.max(bbox.height, totalSize);
 
                 const y1 = this.contentY - priv.cacheMargin;
                 const y2 = y1 + bbox.height + 2 * priv.cacheMargin;
@@ -5868,6 +5972,7 @@ shRequire(["shellfish/low", __dirname + "/item.js", "shellfish/core"], function 
             {
                 totalSize = modelSize > 0 ? this.positionOf(modelSize - 1)[0] + cellWidth
                                           : 0;
+                totalSize = Math.max(bbox.width, totalSize);
 
                 const x1 = this.contentX - priv.cacheMargin;
                 const x2 = x1 + bbox.width + 2 * priv.cacheMargin;
@@ -6161,6 +6266,11 @@ shRequire(["shellfish/low", __dirname + "/item.js", "shellfish/core"], function 
 
         renderItems(items)
         {
+            if (this.lifeCycleStatus === "destroyed")
+            {
+                return;
+            }
+
             const now = Date.now();
             const bbox = this.bbox;
             const priv = d.get(this);
@@ -6339,7 +6449,7 @@ shRequire(["shellfish/low", __dirname + "/item.js", "shellfish/core"], function 
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Sep 06 2022 20:57:42 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun Nov 06 2022 14:56:48 GMT+0100 (Mitteleuropäische Normalzeit)
             </div>
         </footer>
     </div>

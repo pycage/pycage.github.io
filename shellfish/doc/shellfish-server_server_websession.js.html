@@ -256,6 +256,8 @@
             
                 <li class="parent  " data-name="low.escapeHtml"><a href="low.html#.escapeHtml">escapeHtml</a></li>
             
+                <li class="parent  " data-name="low.escapeMarkup"><a href="low.html#.escapeMarkup">escapeMarkup</a></li>
+            
                 <li class="parent  " data-name="low.focusables"><a href="low.html#.focusables">focusables</a></li>
             
                 <li class="parent  " data-name="low.focusNext"><a href="low.html#.focusNext">focusNext</a></li>
@@ -599,6 +601,8 @@
                 <li class="parent  " data-name="core.Filesystem#read"><a href="core.Filesystem.html#read">read</a></li>
             
                 <li class="parent  " data-name="core.Filesystem#remove"><a href="core.Filesystem.html#remove">remove</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#search"><a href="core.Filesystem.html#search">search</a></li>
             
                 <li class="parent  " data-name="core.Filesystem#write"><a href="core.Filesystem.html#write">write</a></li>
             
@@ -1324,6 +1328,8 @@
             
                 <li class="parent" data-name="html.Document.event:keyDown"><a href="html.Document.html#.event:keyDown">keyDown</a></li>
             
+                <li class="parent" data-name="html.Document.event:keyUp"><a href="html.Document.html#.event:keyUp">keyUp</a></li>
+            
             </ul>
             
         </li>
@@ -1775,6 +1781,8 @@
             <span class="subtitle">Events</span>
             
                 <li class="parent" data-name="html.Item.event:keyDown"><a href="html.Item.html#.event:keyDown">keyDown</a></li>
+            
+                <li class="parent" data-name="html.Item.event:keyUp"><a href="html.Item.html#.event:keyUp">keyUp</a></li>
             
             </ul>
             
@@ -5387,6 +5395,7 @@ shRequire([__dirname + "/httpsession.js", __dirname + "/localfs.js"], (httpSessi
      * @extends server.WebSession
      * @memberof server
      * 
+     * @property {string} indexFile - (default: `""`) If set, a redirect is made to this file (e.g. `"index.html"`) when attempting to open a directory.
      * @property {core.Filesystem} filesystem - (default: `null`) The filesystem to serve.
      * @property {string} root - (default: `"/"`) The local path to use as the root folder.
      */
@@ -5397,10 +5406,12 @@ shRequire([__dirname + "/httpsession.js", __dirname + "/localfs.js"], (httpSessi
             super();
             d.set(this, {
                 filesystem: null,
+                indexFile: "",
                 root: "/"
             });
 
             this.notifyable("filesystem");
+            this.notifyable("indexFile");
             this.notifyable("root");
 
             this.onRequest = ev => { this.webRequest(ev); }
@@ -5411,6 +5422,13 @@ shRequire([__dirname + "/httpsession.js", __dirname + "/localfs.js"], (httpSessi
         {
             d.get(this).filesystem = fs;
             this.filesystemChanged();
+        }
+
+        get indexFile() { return d.get(this).indexFile; }
+        set indexFile(f)
+        {
+            d.get(this).indexFile = f;
+            this.indexFileChanged();
         }
 
         get root() { return d.get(this).root; }
@@ -5449,19 +5467,33 @@ shRequire([__dirname + "/httpsession.js", __dirname + "/localfs.js"], (httpSessi
             {
                 if (finfo.type === "d")
                 {
-                    priv.filesystem.list(path)
-                    .then(files =>
+                    if (priv.indexFile !== "")
                     {
-                        this.response(200, "OK")
-                        .body(makeIndexDocument(ev.unmappedUrl, priv.root, path, files), "text/html")
+                        // redirect to index file
+                        this.response(302, "Relocate")
+                        .header("Location",
+                                ev.unmappedUrl +
+                                (ev.unmappedUrl.endsWith("/") ? "" : "/") +
+                                priv.indexFile)
                         .send();
-                    })
-                    .catch(err =>
+                    }
+                    else
                     {
-                        this.log("WWW", "error", err);
-                        this.response(500, "Internal Server Error")
-                        .send();
-                    });
+                        // list directory
+                        priv.filesystem.list(path)
+                        .then(files =>
+                        {
+                            this.response(200, "OK")
+                            .body(makeIndexDocument(ev.unmappedUrl, priv.root, path, files), "text/html")
+                            .send();
+                        })
+                        .catch(err =>
+                        {
+                            this.log("WWW", "error", err);
+                            this.response(500, "Internal Server Error")
+                            .send();
+                        });
+                    }
                     return;
                 }
 
@@ -5544,7 +5576,7 @@ shRequire([__dirname + "/httpsession.js", __dirname + "/localfs.js"], (httpSessi
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Sep 06 2022 20:57:43 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun Nov 06 2022 14:56:49 GMT+0100 (Mitteleuropäische Normalzeit)
             </div>
         </footer>
     </div>

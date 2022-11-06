@@ -256,6 +256,8 @@
             
                 <li class="parent  " data-name="low.escapeHtml"><a href="low.html#.escapeHtml">escapeHtml</a></li>
             
+                <li class="parent  " data-name="low.escapeMarkup"><a href="low.html#.escapeMarkup">escapeMarkup</a></li>
+            
                 <li class="parent  " data-name="low.focusables"><a href="low.html#.focusables">focusables</a></li>
             
                 <li class="parent  " data-name="low.focusNext"><a href="low.html#.focusNext">focusNext</a></li>
@@ -599,6 +601,8 @@
                 <li class="parent  " data-name="core.Filesystem#read"><a href="core.Filesystem.html#read">read</a></li>
             
                 <li class="parent  " data-name="core.Filesystem#remove"><a href="core.Filesystem.html#remove">remove</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#search"><a href="core.Filesystem.html#search">search</a></li>
             
                 <li class="parent  " data-name="core.Filesystem#write"><a href="core.Filesystem.html#write">write</a></li>
             
@@ -1324,6 +1328,8 @@
             
                 <li class="parent" data-name="html.Document.event:keyDown"><a href="html.Document.html#.event:keyDown">keyDown</a></li>
             
+                <li class="parent" data-name="html.Document.event:keyUp"><a href="html.Document.html#.event:keyUp">keyUp</a></li>
+            
             </ul>
             
         </li>
@@ -1775,6 +1781,8 @@
             <span class="subtitle">Events</span>
             
                 <li class="parent" data-name="html.Item.event:keyDown"><a href="html.Item.html#.event:keyDown">keyDown</a></li>
+            
+                <li class="parent" data-name="html.Item.event:keyUp"><a href="html.Item.html#.event:keyUp">keyUp</a></li>
             
             </ul>
             
@@ -5369,7 +5377,7 @@
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_filesystem.js.html#line238">filesystem.js:238</a>
+            <a href="shellfish-core_core_filesystem.js.html#line253">filesystem.js:253</a>
         </div>
         
     </div>
@@ -6446,7 +6454,7 @@ unchanged.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_filesystem.js.html#line214">filesystem.js:214</a>
+            <a href="shellfish-core_core_filesystem.js.html#line229">filesystem.js:229</a>
         </div>
         
     </div>
@@ -6619,7 +6627,7 @@ unchanged.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_filesystem.js.html#line226">filesystem.js:226</a>
+            <a href="shellfish-core_core_filesystem.js.html#line241">filesystem.js:241</a>
         </div>
         
     </div>
@@ -7102,7 +7110,7 @@ unchanged.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_filesystem.js.html#line266">filesystem.js:266</a>
+            <a href="shellfish-core_core_filesystem.js.html#line281">filesystem.js:281</a>
         </div>
         
     </div>
@@ -7255,7 +7263,7 @@ Blob.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_filesystem.js.html#line254">filesystem.js:254</a>
+            <a href="shellfish-core_core_filesystem.js.html#line269">filesystem.js:269</a>
         </div>
         
     </div>
@@ -7391,6 +7399,179 @@ Blob.</p>
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id="search">
+            <a class="share-icon" href="#search"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                search
+            </span>
+            <span class="signature">(path, query)</span><span class="type-signature">Promise</span>
+            
+            
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="shellfish-core_core_filesystem.js.html#line214">filesystem.js:214</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Searches for files matching a query and returns a Promise object with the file items.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The path to search.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>query</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The search query.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        Promise
+                        
+                    
+            </td>
+            <td class="description last">The Promise object.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id="write">
             <a class="share-icon" href="#write"><span class="glyphicon glyphicon-link"></span></a>
             <span class="">
@@ -7405,7 +7586,7 @@ Blob.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_filesystem.js.html#line278">filesystem.js:278</a>
+            <a href="shellfish-core_core_filesystem.js.html#line293">filesystem.js:293</a>
         </div>
         
     </div>
@@ -7580,7 +7761,7 @@ Blob.</p>
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Sep 06 2022 20:57:43 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun Nov 06 2022 14:56:49 GMT+0100 (Mitteleuropäische Normalzeit)
             </div>
         </footer>
     </div>
