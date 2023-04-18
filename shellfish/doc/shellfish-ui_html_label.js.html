@@ -636,6 +636,12 @@
             
             <ul class="methods itemMembers">
             
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.FSModel#makeFilter"><a href="core.FSModel.html#makeFilter">makeFilter</a></li>
+            
+                <li class="parent  " data-name="core.FSModel#makeSorter"><a href="core.FSModel.html#makeSorter">makeSorter</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -716,6 +722,8 @@
             
             <span class="subtitle">Methods</span>
             
+                <li class="parent  status-deprecated" data-name="core.Object#accumulateCallback"><a href="core.Object.html#accumulateCallback">accumulateCallback</a></li>
+            
                 <li class="parent  " data-name="core.Object#add"><a href="core.Object.html#add">add</a></li>
             
                 <li class="parent  " data-name="core.Object#addHtmlEventListener"><a href="core.Object.html#addHtmlEventListener">addHtmlEventListener</a></li>
@@ -726,6 +734,8 @@
             
                 <li class="parent  " data-name="core.Object#blobUrl"><a href="core.Object.html#blobUrl">blobUrl</a></li>
             
+                <li class="parent  " data-name="core.Object#cancelNamedCallback"><a href="core.Object.html#cancelNamedCallback">cancelNamedCallback</a></li>
+            
                 <li class="parent  " data-name="core.Object#change"><a href="core.Object.html#change">change</a></li>
             
                 <li class="parent  " data-name="core.Object#clearQueue"><a href="core.Object.html#clearQueue">clearQueue</a></li>
@@ -733,6 +743,8 @@
                 <li class="parent  " data-name="core.Object#colorName"><a href="core.Object.html#colorName">colorName</a></li>
             
                 <li class="parent  " data-name="core.Object#connect"><a href="core.Object.html#connect">connect</a></li>
+            
+                <li class="parent  " data-name="core.Object#defer"><a href="core.Object.html#defer">defer</a></li>
             
                 <li class="parent  status-deprecated" data-name="core.Object#discard"><a href="core.Object.html#discard">discard</a></li>
             
@@ -749,6 +761,10 @@
                 <li class="parent  " data-name="core.Object#isAncestorOf"><a href="core.Object.html#isAncestorOf">isAncestorOf</a></li>
             
                 <li class="parent  " data-name="core.Object#log"><a href="core.Object.html#log">log</a></li>
+            
+                <li class="parent  " data-name="core.Object#namedCallback"><a href="core.Object.html#namedCallback">namedCallback</a></li>
+            
+                <li class="parent  " data-name="core.Object#namedCallbackPending"><a href="core.Object.html#namedCallbackPending">namedCallbackPending</a></li>
             
                 <li class="parent  " data-name="core.Object#notifyable"><a href="core.Object.html#notifyable">notifyable</a></li>
             
@@ -1020,8 +1036,6 @@
             
                 <li class="parent  " data-name="declarative.Element#find"><a href="declarative.Element.html#find">find</a></li>
             
-                <li class="parent  " data-name="declarative.Element#flushPending"><a href="declarative.Element.html#flushPending">flushPending</a></li>
-            
                 <li class="parent  " data-name="declarative.Element#get"><a href="declarative.Element.html#get">get</a></li>
             
                 <li class="parent  " data-name="declarative.Element#id"><a href="declarative.Element.html#id">id</a></li>
@@ -1105,6 +1119,8 @@
             <span class="subtitle">Methods</span>
             
                 <li class="parent  " data-name="html.Box#add"><a href="html.Box.html#add">add</a></li>
+            
+                <li class="parent  " data-name="html.Box#updateLayout"><a href="html.Box.html#updateLayout">updateLayout</a></li>
             
             </ul>
             
@@ -1770,6 +1786,10 @@
             
                 <li class="parent  " data-name="html.Item#get"><a href="html.Item.html#get">get</a></li>
             
+                <li class="parent  " data-name="html.Item#nextFrame"><a href="html.Item.html#nextFrame">nextFrame</a></li>
+            
+                <li class="parent  " data-name="html.Item#updatePosition"><a href="html.Item.html#updatePosition">updatePosition</a></li>
+            
                 <li class="parent  " data-name="html.Item#vec3"><a href="html.Item.html#vec3">vec3</a></li>
             
                 <li class="parent  " data-name="html.Item#withoutSizing"><a href="html.Item.html#withoutSizing">withoutSizing</a></li>
@@ -1872,11 +1892,21 @@
             
             <span class="subtitle">Methods</span>
             
+                <li class="parent  " data-name="html.ListView#getItem"><a href="html.ListView.html#getItem">getItem</a></li>
+            
+                <li class="parent  " data-name="html.ListView#indexAt"><a href="html.ListView.html#indexAt">indexAt</a></li>
+            
+                <li class="parent  " data-name="html.ListView#positionOf"><a href="html.ListView.html#positionOf">positionOf</a></li>
+            
                 <li class="parent  " data-name="html.ListView#positionViewAt"><a href="html.ListView.html#positionViewAt">positionViewAt</a></li>
             
             </ul>
             
             <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.ListView.event:newLayout"><a href="html.ListView.html#.event:newLayout">newLayout</a></li>
             
             </ul>
             
@@ -3530,36 +3560,6 @@
             
         </li>
     
-        <li class="item" data-name="TaskQueues">
-            <span class="title  ">
-                
-                
-                    <a href="TaskQueues.html">TaskQueues</a>
-                
-            </span>
-            
-            <ul class="members itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="methods itemMembers">
-            
-            </ul>
-            
-            <ul class="events itemMembers">
-            
-            </ul>
-            
-        </li>
-    
         <li class="item" data-name="ui.Button">
             <span class="title  ">
                 
@@ -3920,6 +3920,36 @@
             
         </li>
     
+        <li class="item" data-name="ui.IndexScroller">
+            <span class="title  ">
+                
+                
+                    <a href="ui.IndexScroller.html">ui.IndexScroller</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="ui.Label">
             <span class="title  ">
                 
@@ -3945,6 +3975,46 @@
             </ul>
             
             <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.ListHeader">
+            <span class="title  ">
+                
+                
+                    <a href="ui.ListHeader.html">ui.ListHeader</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="ui.ListHeader#resetColumns"><a href="ui.ListHeader.html#resetColumns">resetColumns</a></li>
+            
+                <li class="parent  " data-name="ui.ListHeader#resizeColumn"><a href="ui.ListHeader.html#resizeColumn">resizeColumn</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="ui.ListHeader#event:columnClick"><a href="ui.ListHeader.html#event:columnClick">columnClick</a></li>
             
             </ul>
             
@@ -4041,6 +4111,36 @@
             <span class="subtitle">Methods</span>
             
                 <li class="parent  " data-name="ui.Menu#popup"><a href="ui.Menu.html#popup">popup</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.MenuExpander">
+            <span class="title  ">
+                
+                
+                    <a href="ui.MenuExpander.html">ui.MenuExpander</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
             
             </ul>
             
@@ -5252,7 +5352,7 @@
         <article>
             <pre id="source-code" class="prettyprint source "><code>/*******************************************************************************
 This file is part of the Shellfish UI toolkit.
-Copyright (c) 2017 - 2022 Martin Grimme &lt;martin.grimme@gmail.com>
+Copyright (c) 2017 - 2023 Martin Grimme &lt;martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -5291,6 +5391,7 @@ shRequire(["shellfish/low", __dirname + "/item.js"], function (low, item)
         .style("overflow", "hidden")
         .style("font-famiy", "sans-serif")
         .style("font-size", "12")
+        .style("line-height", "1.2")
         .style("user-select", "none")
         .style("-webkit-user-select", "none")
         .content("")
@@ -5322,7 +5423,7 @@ shRequire(["shellfish/low", __dirname + "/item.js"], function (low, item)
      * @property {string} horizontalAlignment - (default: `"left"`) Horizontal text alignment: `left|center|right`
      * @property {bool} italic - (default: `false`) Show text in italics.
      * @property {bool} literal - (default: `false`) If true, markup code is not interpreted and line breaks and spaces are preserved.
-     * @property {string} overflowBehavior - (default: `"clip"`) Overflow behavior: `clip|ellipsis|wrap`
+     * @property {string} overflowBehavior - (default: `"clip"`) Overflow behavior: `clip|ellipsis|wrap|break`
      * @property {bool} selectable - (default: `false`) If `true`, text may be selected by the mouse.
      * @property {string} text - (default: `""`) The text to show.
      * @property {string} verticalAlignment - (default: `"center"`) Vertical text alignment: `top|center|bottom`
@@ -5346,6 +5447,7 @@ shRequire(["shellfish/low", __dirname + "/item.js"], function (low, item)
                 filter: null,
                 selectable: false,
                 textInvalidated: true,
+                contentSizeInvalidated: false,
                 item: HTML.cloneNode()
             });
 
@@ -5361,6 +5463,11 @@ shRequire(["shellfish/low", __dirname + "/item.js"], function (low, item)
             this.notifyable("selectable");
             this.notifyable("text");
             this.notifyable("verticalAlignment");
+
+            this.onBboxWidthChanged = () =>
+            {
+                d.get(this).contentSizeInvalidated = true;
+            };
         }
 
         get bold() { return d.get(this).bold; }
@@ -5371,6 +5478,7 @@ shRequire(["shellfish/low", __dirname + "/item.js"], function (low, item)
                 d.get(this).bold = value;
                 this.css("font-weight", value ? "bold" : "normal");
                 this.boldChanged();
+                d.get(this).contentSizeInvalidated = true;
                 this.updateSizeFrom(null, false);
             }
         }
@@ -5383,6 +5491,7 @@ shRequire(["shellfish/low", __dirname + "/item.js"], function (low, item)
                 d.get(this).italic = value;
                 this.css("font-style", value ? "italic" : "normal");
                 this.italicChanged();
+                d.get(this).contentSizeInvalidated = true;
                 this.updateSizeFrom(null, false);
             }
         }
@@ -5396,6 +5505,7 @@ shRequire(["shellfish/low", __dirname + "/item.js"], function (low, item)
                 d.get(this).textInvalidated = true;
                 this.text = this.text;
                 this.literalChanged();
+                d.get(this).contentSizeInvalidated = true;
                 this.updateSizeFrom(null, false);
             }
         }
@@ -5409,6 +5519,7 @@ shRequire(["shellfish/low", __dirname + "/item.js"], function (low, item)
                 d.get(this).textInvalidated = true;
                 this.text = this.text;
                 this.filterChanged();
+                d.get(this).contentSizeInvalidated = true;
                 this.updateSizeFrom(null, false);
             }
         }
@@ -5463,6 +5574,7 @@ shRequire(["shellfish/low", __dirname + "/item.js"], function (low, item)
                 priv.item.innerHTML = out;
             }
             this.textChanged();
+            d.get(this).contentSizeInvalidated = true;
             this.updateSizeFrom(null, false);
         }
 
@@ -5486,6 +5598,7 @@ shRequire(["shellfish/low", __dirname + "/item.js"], function (low, item)
                 this.css("font-family", f);
                 d.get(this).fontFamily = f;
                 this.fontFamilyChanged();
+                d.get(this).contentSizeInvalidated = true;
                 this.updateSizeFrom(null, false);
             }
         }
@@ -5498,6 +5611,7 @@ shRequire(["shellfish/low", __dirname + "/item.js"], function (low, item)
                 this.css("font-size", s + "px");
                 d.get(this).fontSize = s;
                 this.fontSizeChanged();
+                d.get(this).contentSizeInvalidated = true;
                 this.updateSizeFrom(null, false);
             }
         }
@@ -5545,14 +5659,25 @@ shRequire(["shellfish/low", __dirname + "/item.js"], function (low, item)
                 {
                     this.css("text-overflow", m);
                     this.css("white-space", "nowrap");
+                    this.css("word-break", "normal");
                 }
-                else if (m === "wrap")
+                else if (m === "wrap" || m === "break")
                 {
                     this.css("text-overflow", "clip");
                     this.css("white-space", "normal");
+                    this.css("word-break", m === "wrap" ? "normal" : "break-all");
                 }
                 this.overflowBehaviorChanged();
                 this.updateSizeFrom(null, false);
+            }
+        }
+
+        updateContentSize()
+        {
+            if (d.get(this).contentSizeInvalidated)
+            {
+                d.get(this).contentSizeInvalidated = false;
+                super.updateContentSize();
             }
         }
 
@@ -5577,7 +5702,7 @@ shRequire(["shellfish/low", __dirname + "/item.js"], function (low, item)
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun Nov 06 2022 14:56:48 GMT+0100 (Mitteleuropäische Normalzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Apr 18 2023 17:36:50 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

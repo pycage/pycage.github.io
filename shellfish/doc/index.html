@@ -636,6 +636,12 @@
             
             <ul class="methods itemMembers">
             
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.FSModel#makeFilter"><a href="core.FSModel.html#makeFilter">makeFilter</a></li>
+            
+                <li class="parent  " data-name="core.FSModel#makeSorter"><a href="core.FSModel.html#makeSorter">makeSorter</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -716,6 +722,8 @@
             
             <span class="subtitle">Methods</span>
             
+                <li class="parent  status-deprecated" data-name="core.Object#accumulateCallback"><a href="core.Object.html#accumulateCallback">accumulateCallback</a></li>
+            
                 <li class="parent  " data-name="core.Object#add"><a href="core.Object.html#add">add</a></li>
             
                 <li class="parent  " data-name="core.Object#addHtmlEventListener"><a href="core.Object.html#addHtmlEventListener">addHtmlEventListener</a></li>
@@ -726,6 +734,8 @@
             
                 <li class="parent  " data-name="core.Object#blobUrl"><a href="core.Object.html#blobUrl">blobUrl</a></li>
             
+                <li class="parent  " data-name="core.Object#cancelNamedCallback"><a href="core.Object.html#cancelNamedCallback">cancelNamedCallback</a></li>
+            
                 <li class="parent  " data-name="core.Object#change"><a href="core.Object.html#change">change</a></li>
             
                 <li class="parent  " data-name="core.Object#clearQueue"><a href="core.Object.html#clearQueue">clearQueue</a></li>
@@ -733,6 +743,8 @@
                 <li class="parent  " data-name="core.Object#colorName"><a href="core.Object.html#colorName">colorName</a></li>
             
                 <li class="parent  " data-name="core.Object#connect"><a href="core.Object.html#connect">connect</a></li>
+            
+                <li class="parent  " data-name="core.Object#defer"><a href="core.Object.html#defer">defer</a></li>
             
                 <li class="parent  status-deprecated" data-name="core.Object#discard"><a href="core.Object.html#discard">discard</a></li>
             
@@ -749,6 +761,10 @@
                 <li class="parent  " data-name="core.Object#isAncestorOf"><a href="core.Object.html#isAncestorOf">isAncestorOf</a></li>
             
                 <li class="parent  " data-name="core.Object#log"><a href="core.Object.html#log">log</a></li>
+            
+                <li class="parent  " data-name="core.Object#namedCallback"><a href="core.Object.html#namedCallback">namedCallback</a></li>
+            
+                <li class="parent  " data-name="core.Object#namedCallbackPending"><a href="core.Object.html#namedCallbackPending">namedCallbackPending</a></li>
             
                 <li class="parent  " data-name="core.Object#notifyable"><a href="core.Object.html#notifyable">notifyable</a></li>
             
@@ -1020,8 +1036,6 @@
             
                 <li class="parent  " data-name="declarative.Element#find"><a href="declarative.Element.html#find">find</a></li>
             
-                <li class="parent  " data-name="declarative.Element#flushPending"><a href="declarative.Element.html#flushPending">flushPending</a></li>
-            
                 <li class="parent  " data-name="declarative.Element#get"><a href="declarative.Element.html#get">get</a></li>
             
                 <li class="parent  " data-name="declarative.Element#id"><a href="declarative.Element.html#id">id</a></li>
@@ -1105,6 +1119,8 @@
             <span class="subtitle">Methods</span>
             
                 <li class="parent  " data-name="html.Box#add"><a href="html.Box.html#add">add</a></li>
+            
+                <li class="parent  " data-name="html.Box#updateLayout"><a href="html.Box.html#updateLayout">updateLayout</a></li>
             
             </ul>
             
@@ -1770,6 +1786,10 @@
             
                 <li class="parent  " data-name="html.Item#get"><a href="html.Item.html#get">get</a></li>
             
+                <li class="parent  " data-name="html.Item#nextFrame"><a href="html.Item.html#nextFrame">nextFrame</a></li>
+            
+                <li class="parent  " data-name="html.Item#updatePosition"><a href="html.Item.html#updatePosition">updatePosition</a></li>
+            
                 <li class="parent  " data-name="html.Item#vec3"><a href="html.Item.html#vec3">vec3</a></li>
             
                 <li class="parent  " data-name="html.Item#withoutSizing"><a href="html.Item.html#withoutSizing">withoutSizing</a></li>
@@ -1872,11 +1892,21 @@
             
             <span class="subtitle">Methods</span>
             
+                <li class="parent  " data-name="html.ListView#getItem"><a href="html.ListView.html#getItem">getItem</a></li>
+            
+                <li class="parent  " data-name="html.ListView#indexAt"><a href="html.ListView.html#indexAt">indexAt</a></li>
+            
+                <li class="parent  " data-name="html.ListView#positionOf"><a href="html.ListView.html#positionOf">positionOf</a></li>
+            
                 <li class="parent  " data-name="html.ListView#positionViewAt"><a href="html.ListView.html#positionViewAt">positionViewAt</a></li>
             
             </ul>
             
             <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.ListView.event:newLayout"><a href="html.ListView.html#.event:newLayout">newLayout</a></li>
             
             </ul>
             
@@ -3530,36 +3560,6 @@
             
         </li>
     
-        <li class="item" data-name="TaskQueues">
-            <span class="title  ">
-                
-                
-                    <a href="TaskQueues.html">TaskQueues</a>
-                
-            </span>
-            
-            <ul class="members itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="methods itemMembers">
-            
-            </ul>
-            
-            <ul class="events itemMembers">
-            
-            </ul>
-            
-        </li>
-    
         <li class="item" data-name="ui.Button">
             <span class="title  ">
                 
@@ -3920,6 +3920,36 @@
             
         </li>
     
+        <li class="item" data-name="ui.IndexScroller">
+            <span class="title  ">
+                
+                
+                    <a href="ui.IndexScroller.html">ui.IndexScroller</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="ui.Label">
             <span class="title  ">
                 
@@ -3945,6 +3975,46 @@
             </ul>
             
             <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.ListHeader">
+            <span class="title  ">
+                
+                
+                    <a href="ui.ListHeader.html">ui.ListHeader</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="ui.ListHeader#resetColumns"><a href="ui.ListHeader.html#resetColumns">resetColumns</a></li>
+            
+                <li class="parent  " data-name="ui.ListHeader#resizeColumn"><a href="ui.ListHeader.html#resizeColumn">resizeColumn</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="ui.ListHeader#event:columnClick"><a href="ui.ListHeader.html#event:columnClick">columnClick</a></li>
             
             </ul>
             
@@ -4041,6 +4111,36 @@
             <span class="subtitle">Methods</span>
             
                 <li class="parent  " data-name="ui.Menu#popup"><a href="ui.Menu.html#popup">popup</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.MenuExpander">
+            <span class="title  ">
+                
+                
+                    <a href="ui.MenuExpander.html">ui.MenuExpander</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
             
             </ul>
             
@@ -5377,6 +5477,41 @@ or even by shipping only pre-translated code. It's your choice.</p>
 * The Debug Dump
 -->
 <h2>News</h2>
+<h3>April 2023</h3>
+<ul>
+<li>The method <a href="core.Filesystem.html#write">core.Filesystem#write</a> now takes an optional progress callback
+function for monitoring the upload progress where supported.</li>
+<li>The new element <a href="ui.MenuExpander.html">ui.MenuExpander</a> provides an expandable menu item with
+sub items.</li>
+</ul>
+<h3>March 2023</h3>
+<ul>
+<li>Performance optimizations.</li>
+<li>Reference cycles are detected automatically at run-time and are logged to
+the debug console. Make sure to keep an eye on your cycles and resolve them
+properly in order to avoid memory leaks.</li>
+</ul>
+<h3>February 2023</h3>
+<ul>
+<li>The element <a href="html.Video.html">html.Video</a> can now load subtitles in VTT format with
+the properties <code>subtitles</code> and <code>cues</code>.</li>
+<li>The new UI element <a href="ui.ListHeader.html">ui.ListHeader</a> provides a simple list header with
+multiple columns for placing directly above a <a href="html.ListView.html">html.ListView</a>.</li>
+<li><strong>API-Break:</strong> The properties <code>withDirectories</code>, <code>withFiles</code>, and <code>withHidden</code>
+have been removed from the element <a href="core.FSModel.html">core.FSModel</a>. Use the <code>filter</code>
+property instead for setting a filtering function. Simple filtering functions
+can be created via <a href="core.FSModel.html#makeFilter">core.FSModel#makeFilter</a>.</li>
+</ul>
+<h3>January 2023</h3>
+<ul>
+<li>The new UI element <a href="ui.IndexScroller.html">ui.IndexScroller</a> provides an indexed alternative
+to a scrollbar for use with <a href="html.ListView.html">html.ListView</a>.</li>
+</ul>
+<h3>December 2022</h3>
+<ul>
+<li>Reworked the inner HTML and CSS update mechanisms for better performance when
+rendering content in a browser.</li>
+</ul>
 <h3>November 2022</h3>
 <ul>
 <li>The nullish-coalescing operator (??) can now be used in Shui code.</li>
@@ -5385,8 +5520,9 @@ or even by shipping only pre-translated code. It's your choice.</p>
 for repeated triggering while holding down.</li>
 <li>The element <a href="ui.Slider.html">ui.Slider</a> is now stylable with templates.</li>
 <li>The element <a href="ui.SpinBox.html">ui.SpinBox</a> is now stylable with templates.</li>
+<li>The element <a href="ui.SplitBox.html">ui.SplitBox</a> is now stylable with templates.</li>
 <li>The element <a href="ui.Switch.html">ui.Switch</a> is now stylable with templates.</li>
-<li>The new property <code>order</code> of ui.Item allows you to change the layout
+<li>The new property <code>order</code> of <a href="html.Item.html">html.Item</a> allows you to change the layout
 order of elements dynamically.</li>
 </ul>
 <h3>October 2022</h3>
@@ -5558,7 +5694,7 @@ during keyboard-based navigation.</li>
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun Nov 06 2022 14:56:49 GMT+0100 (Mitteleuropäische Normalzeit)
+                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Apr 18 2023 17:36:50 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

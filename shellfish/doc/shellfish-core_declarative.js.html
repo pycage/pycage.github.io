@@ -636,6 +636,12 @@
             
             <ul class="methods itemMembers">
             
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.FSModel#makeFilter"><a href="core.FSModel.html#makeFilter">makeFilter</a></li>
+            
+                <li class="parent  " data-name="core.FSModel#makeSorter"><a href="core.FSModel.html#makeSorter">makeSorter</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -716,6 +722,8 @@
             
             <span class="subtitle">Methods</span>
             
+                <li class="parent  status-deprecated" data-name="core.Object#accumulateCallback"><a href="core.Object.html#accumulateCallback">accumulateCallback</a></li>
+            
                 <li class="parent  " data-name="core.Object#add"><a href="core.Object.html#add">add</a></li>
             
                 <li class="parent  " data-name="core.Object#addHtmlEventListener"><a href="core.Object.html#addHtmlEventListener">addHtmlEventListener</a></li>
@@ -726,6 +734,8 @@
             
                 <li class="parent  " data-name="core.Object#blobUrl"><a href="core.Object.html#blobUrl">blobUrl</a></li>
             
+                <li class="parent  " data-name="core.Object#cancelNamedCallback"><a href="core.Object.html#cancelNamedCallback">cancelNamedCallback</a></li>
+            
                 <li class="parent  " data-name="core.Object#change"><a href="core.Object.html#change">change</a></li>
             
                 <li class="parent  " data-name="core.Object#clearQueue"><a href="core.Object.html#clearQueue">clearQueue</a></li>
@@ -733,6 +743,8 @@
                 <li class="parent  " data-name="core.Object#colorName"><a href="core.Object.html#colorName">colorName</a></li>
             
                 <li class="parent  " data-name="core.Object#connect"><a href="core.Object.html#connect">connect</a></li>
+            
+                <li class="parent  " data-name="core.Object#defer"><a href="core.Object.html#defer">defer</a></li>
             
                 <li class="parent  status-deprecated" data-name="core.Object#discard"><a href="core.Object.html#discard">discard</a></li>
             
@@ -749,6 +761,10 @@
                 <li class="parent  " data-name="core.Object#isAncestorOf"><a href="core.Object.html#isAncestorOf">isAncestorOf</a></li>
             
                 <li class="parent  " data-name="core.Object#log"><a href="core.Object.html#log">log</a></li>
+            
+                <li class="parent  " data-name="core.Object#namedCallback"><a href="core.Object.html#namedCallback">namedCallback</a></li>
+            
+                <li class="parent  " data-name="core.Object#namedCallbackPending"><a href="core.Object.html#namedCallbackPending">namedCallbackPending</a></li>
             
                 <li class="parent  " data-name="core.Object#notifyable"><a href="core.Object.html#notifyable">notifyable</a></li>
             
@@ -1020,8 +1036,6 @@
             
                 <li class="parent  " data-name="declarative.Element#find"><a href="declarative.Element.html#find">find</a></li>
             
-                <li class="parent  " data-name="declarative.Element#flushPending"><a href="declarative.Element.html#flushPending">flushPending</a></li>
-            
                 <li class="parent  " data-name="declarative.Element#get"><a href="declarative.Element.html#get">get</a></li>
             
                 <li class="parent  " data-name="declarative.Element#id"><a href="declarative.Element.html#id">id</a></li>
@@ -1105,6 +1119,8 @@
             <span class="subtitle">Methods</span>
             
                 <li class="parent  " data-name="html.Box#add"><a href="html.Box.html#add">add</a></li>
+            
+                <li class="parent  " data-name="html.Box#updateLayout"><a href="html.Box.html#updateLayout">updateLayout</a></li>
             
             </ul>
             
@@ -1770,6 +1786,10 @@
             
                 <li class="parent  " data-name="html.Item#get"><a href="html.Item.html#get">get</a></li>
             
+                <li class="parent  " data-name="html.Item#nextFrame"><a href="html.Item.html#nextFrame">nextFrame</a></li>
+            
+                <li class="parent  " data-name="html.Item#updatePosition"><a href="html.Item.html#updatePosition">updatePosition</a></li>
+            
                 <li class="parent  " data-name="html.Item#vec3"><a href="html.Item.html#vec3">vec3</a></li>
             
                 <li class="parent  " data-name="html.Item#withoutSizing"><a href="html.Item.html#withoutSizing">withoutSizing</a></li>
@@ -1872,11 +1892,21 @@
             
             <span class="subtitle">Methods</span>
             
+                <li class="parent  " data-name="html.ListView#getItem"><a href="html.ListView.html#getItem">getItem</a></li>
+            
+                <li class="parent  " data-name="html.ListView#indexAt"><a href="html.ListView.html#indexAt">indexAt</a></li>
+            
+                <li class="parent  " data-name="html.ListView#positionOf"><a href="html.ListView.html#positionOf">positionOf</a></li>
+            
                 <li class="parent  " data-name="html.ListView#positionViewAt"><a href="html.ListView.html#positionViewAt">positionViewAt</a></li>
             
             </ul>
             
             <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.ListView.event:newLayout"><a href="html.ListView.html#.event:newLayout">newLayout</a></li>
             
             </ul>
             
@@ -3530,36 +3560,6 @@
             
         </li>
     
-        <li class="item" data-name="TaskQueues">
-            <span class="title  ">
-                
-                
-                    <a href="TaskQueues.html">TaskQueues</a>
-                
-            </span>
-            
-            <ul class="members itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="methods itemMembers">
-            
-            </ul>
-            
-            <ul class="events itemMembers">
-            
-            </ul>
-            
-        </li>
-    
         <li class="item" data-name="ui.Button">
             <span class="title  ">
                 
@@ -3920,6 +3920,36 @@
             
         </li>
     
+        <li class="item" data-name="ui.IndexScroller">
+            <span class="title  ">
+                
+                
+                    <a href="ui.IndexScroller.html">ui.IndexScroller</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="ui.Label">
             <span class="title  ">
                 
@@ -3945,6 +3975,46 @@
             </ul>
             
             <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.ListHeader">
+            <span class="title  ">
+                
+                
+                    <a href="ui.ListHeader.html">ui.ListHeader</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="ui.ListHeader#resetColumns"><a href="ui.ListHeader.html#resetColumns">resetColumns</a></li>
+            
+                <li class="parent  " data-name="ui.ListHeader#resizeColumn"><a href="ui.ListHeader.html#resizeColumn">resizeColumn</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="ui.ListHeader#event:columnClick"><a href="ui.ListHeader.html#event:columnClick">columnClick</a></li>
             
             </ul>
             
@@ -4041,6 +4111,36 @@
             <span class="subtitle">Methods</span>
             
                 <li class="parent  " data-name="ui.Menu#popup"><a href="ui.Menu.html#popup">popup</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.MenuExpander">
+            <span class="title  ">
+                
+                
+                    <a href="ui.MenuExpander.html">ui.MenuExpander</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
             
             </ul>
             
@@ -5252,7 +5352,7 @@
         <article>
             <pre id="source-code" class="prettyprint source "><code>/*******************************************************************************
 This file is part of the Shellfish UI toolkit.
-Copyright (c) 2017 - 2022 Martin Grimme &lt;martin.grimme@gmail.com>
+Copyright (c) 2017 - 2023 Martin Grimme &lt;martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -5304,7 +5404,8 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
     const elementRegistry = new Map();
 
     // a warehouse for storing pre-created elements for quick delivery
-    const elementWarehouse = new warehouse.Warehouse((type) => { return new Element(type); }, 100);
+    const elementWarehouse = new warehouse.Warehouse((type) => { return new Element(type); },
+                                                     25);
 
     /**
      * Returns if the given object is a dynamic value.
@@ -5368,7 +5469,6 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
                 propertySupplyHandles: { },
                 dormantProperties: { },
                 customProperties: { },
-                flushingCallbacks: [],
                 childrenCache: null,
                 findCache: { }  // maps ID to child on path to element
             });
@@ -5378,7 +5478,7 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
             const el = new type();
             d.get(this).element = el;
             elementRegistry.set(el, this);
-            //console.log("Created high " + el.constructor.name + " after " + (Date.now() - now) + " ms");
+            //console.log("Created high " + el.constructor.name);
 
             if (! propertiesCache.has(type))
             {
@@ -5387,7 +5487,7 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
             }
             propertiesCache.get(type)
             .forEach((prop) => { this.bindProperty(prop); });
-            //console.log("Bound properties of high " + el.constructor.name + " after " + (Date.now() - now) + " ms (" + propertiesCache.get(type).length + " properties)");
+            //console.log("Bound properties of high " + el.constructor.name + " (" + propertiesCache.get(type).length + " properties)");
 
             // each high-level element has a "profiles" property
             this.property("profiles", [], true);
@@ -5399,12 +5499,7 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
                 d.get(this).findCache = { };
             };
 
-            el.onInitialization = () =>
-            {
-                this.flushPending();
-            };
-
-            el.onDestruction = () =>
+            el.onTermination = () =>
             {
                 //console.log("Destroying high-level element: " +
                 //            el.constructor.name +
@@ -5415,15 +5510,22 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
                     //console.log("property watcher unwatched on " + el.constructor.name);
                     d.get(this).propertySupplyHandles[key].unwatch();
                 }
+                d.get(this).propertySupplyHandles = { };
     
                 d.get(this).changeWatchers.forEach(handle =>
                 {
                     //console.log("change watcher unwatched on " + el.constructor.name);
                     handle.unwatch();
                 });
+                d.get(this).changeWatchers = [];
     
                 d.get(this).childrenCache = null;
                 d.get(this).findCache = { };
+
+                d.get(this).dormantProperties = { };
+                d.get(this).customProperties = { };
+
+                d.get(this).element = null;
 
                 elementRegistry.delete(el);
                 //console.log(`Discarded high-level element: ${el.constructor.name} (${el.objectLocation}), ${elementRegistry.size} elements remaining`);
@@ -5652,42 +5754,25 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
                 }
                 else
                 {
-                    this.addPendingCallback(() => setup(f));
+                    if (this.lifeCycleStatus.val === "new")
+                    {
+                        this.get().onInitialization = () =>
+                        {
+                            setup(f);
+                        };
+                    }
+                    else
+                    {
+                        console.error("Failed to establish cross-connection: " + this.objectLocation.val + " " + event);
+                    }
                 }
             };
 
             return f =>
             {
-                this.addPendingCallback(() => setup(f));
+                setup(f);
                 return this;
             };
-        }
-
-        /* Adds a pending callback to this element that will be triggered
-         * when the pending callbacks get flushed.
-         *
-         * Elements may be flushed several times and there are two internal
-         * flushing points: (1) after the element's hierarchy with child elements
-         * got created, and (2) at initialization.
-         */
-        addPendingCallback(cb)
-        {
-            d.get(this).flushingCallbacks.push(cb);
-            return this;
-        }
-
-        /**
-         * Flushes pending callbacks and executes them.
-         */
-        flushPending()
-        {
-            const cbs = d.get(this).flushingCallbacks;
-            d.get(this).flushingCallbacks = [];
-
-            cbs.forEach(cb =>
-            {
-                cb();
-            });
         }
 
         /* Returns the nth child element of this element.
@@ -5737,7 +5822,11 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
             ns = ns || "";
             //console.log("find " + id + "(" + ns + ") under element with ID " + JSON.stringify(priv.id));
 
-            if (id === priv.id[ns])
+            if (! priv.element)
+            {
+                return undefined;
+            }
+            else if (id === priv.id[ns])
             {
                 return this;
             }
@@ -5796,10 +5885,10 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
                 }
             };
 
-            const handle = priv.propertySupplyHandles[prop];
-            if (handle)
+            const existingHandle = priv.propertySupplyHandles[prop];
+            if (existingHandle)
             {
-                handle.unwatch();
+                existingHandle.unwatch();
             }
 
             if (value instanceof DynamicValue)
@@ -5840,6 +5929,12 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
         getProperty(prop)
         {
             const priv = d.get(this);
+            if (! priv.element)
+            {
+                // accessing a dead element
+                //console.error(`[${core.dbgctx}] Accessing &lt;destroyed element>.${prop}`);
+                return undefined;
+            }
 
             if (priv.dormantProperties[prop])
             {
@@ -5911,18 +6006,15 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
                 return;
             }
 
-            // the cached value allows for quick access to the property's value
-            // without having to re-evaluate it
-            let cachedValue = undefined;
-
             const isCustomProperty = priv.customProperties[prop];
 
             // build property setter and getter function
             //let p = exports.dynamicValue();
             let p = new DynamicValue();
             p._sh_annotation = el.objectType + "@" + el.objectLocation + "." + prop;
-            p.setter = (v) => { return this.setProperty(prop, v); };
-            p.getter = () => { return cachedValue || this.getProperty(prop); };
+            p.setter = (v) => this.setProperty(prop, v);
+            p.getter = () => this.getProperty(prop);
+            p.maybeUndefined = () => false;
             
             // every newly bound property except for "profiles" starts as dormant
             if (prop !== "profiles")
@@ -5947,9 +6039,8 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
             });
             p.unwatched(() =>
             {
-                // an unwatched property becomes dormant and its cachedValue useless
+                // an unwatched property becomes dormant
                 priv.dormantProperties[prop] = true;
-                cachedValue = undefined;
 
                 if (isCustomProperty)
                 {
@@ -5972,11 +6063,6 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
                     // don't update if dormant
                     if (! priv.dormantProperties[prop])
                     {
-                        if (prop !== "bbox")
-                        {
-                            // quite a hack, but we shall not cache bbox on this level
-                            cachedValue = this.getProperty(prop);
-                        }
                         p.update();
                     }
                 };
@@ -6144,6 +6230,7 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
             {
                 return this.storedValue;
             };
+            this.maybeUndefined = () => true;
             
             ++dvCounter;
             //if (dvCounter % 1000 === 0) console.log("DV #" + dvCounter + ", watched: " + watchCount);
@@ -6328,7 +6415,6 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
         //console.log("Creating binding for " + annotation);
 
         let handles = [];
-        let cachedValue = null;
         
         function setup(b, newDeps)
         {
@@ -6346,7 +6432,6 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
                 {
                     //console.log("Evaluating: " + b._sh_annotation + " -> " + b.val +
                     //            " (triggered by: " + dep._sh_annotation + " = " + dep.val + ")");
-                    cachedValue = null;
                     b.update();
                 });
                 handles.push(handle);
@@ -6355,30 +6440,35 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
 
         //const b = exports.dynamicValue(undefined);
         const b = new DynamicValue(undefined);
-        b._sh_annotation = annotation || "";
+        b._sh_annotation = "binding " + (annotation || "");
         b.getter = () =>
         {
-            if (cachedValue !== null)
-            {
-                return cachedValue;
-            }
-
             // as long as not all dependencies have been resolved, the binding is undefined
-            if (deps.filter(d => d.val === undefined &amp;&amp; ! d._sh_really_undefined).length !== 0)
+            if (deps.filter(d => d.maybeUndefined() &amp;&amp; d.val === undefined &amp;&amp; ! d._sh_really_undefined).length !== 0)
             {
                 return undefined;
             }
 
             try
             {
-                cachedValue = evaluator(...deps);
-                return cachedValue;
+                return evaluator(...deps);
             }
             catch (err)
             {
-                console.error(`[${core.dbgctx}] Could not evaluate binding: ${b._sh_annotation}\n${deps.map(d => "- " + d._sh_annotation + " = " + d.val).join("\n")}`);
+                console.error(`[${core.dbgctx}] Could not evaluate binding: ${b._sh_annotation}\n${deps.map(d => "- " + d._sh_annotation + " = " + d.val).join("\n")}\n${err}`);
                 return undefined;
             }
+        };
+        b.maybeUndefined = () =>
+        {
+            for (let i = 0; i &lt; deps.length; ++i)
+            {
+                if (deps[i].maybeUndefined())
+                {
+                    return true;
+                }
+            }
+            return false;
         };
         b.unwatched(() =>
         {
@@ -6387,6 +6477,9 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
             {
                 h.unwatch();
             });
+            handles = [];
+
+            b.getter = null;
         });
         
         setup(b, deps);
@@ -6467,6 +6560,11 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
 
         function setup()
         {
+            if (! resolveChain)
+            {
+                return;
+            }
+
             // stop watching old DVs first
             handles.forEach(h =>
             {
@@ -6476,34 +6574,16 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
 
             //console.log("init: " + JSON.stringify(chain));
             let obj = null;
-            let targetObj = null;
             let dvs = [];
             chain.forEach((c, i) =>
             {
                 obj = resolveChain(obj, [c]);
-                /*
-                if (i === 0 &amp;&amp; obj)
-                {
-                    targetObj = obj;
-                }
-                */
                 if (obj instanceof DynamicValue)
                 {
                     dvs.push(obj);
                 }
             });
 
-            /*
-            if (targetObj)
-            {
-                if (! refCache.has(targetObj))
-                {
-                    refCache.set(targetObj, { });
-                }
-                refCache.get(targetObj)[chain] = b;
-            }
-            */
-    
             //console.log(chain + " -> " + JSON.stringify(obj));
             if (obj === undefined)
             {
@@ -6517,25 +6597,13 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
                     handles.push(handle);
                 }
 
-                // try again after embedded as a component
-                //console.log("retry again later: " + JSON.stringify(chain));
-                if (root.lifeCycleStatus.val === "new")
+                // this value won't change anymore
+                if (b._sh_annotation !== "")
                 {
-                    // there's still a chance to resolve later
-                    root.addPendingCallback(setup);
+                    //console.log("The reference " + root.objectLocation.val + " " + b._sh_annotation + " remains undefined");
                 }
-                else
-                {
-                    // this value won't change anymore
-                    /*
-                    if (b._sh_annotation !== "")
-                    {
-                        console.log("The reference " + b._sh_annotation + " remains undefined");
-                    }
-                    */
-                    b._sh_really_undefined = true;
-                    b.update();
-                }
+                b._sh_really_undefined = true;
+                b.update();
             }
             else if (dvs.length > 0)
             {
@@ -6563,6 +6631,7 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
                 if (obj instanceof DynamicValue)
                 {
                     b.getter = () => { return obj.val; }
+                    b.maybeUndefined = () => obj.maybeUndefined();
                 }
                 else
                 {
@@ -6580,7 +6649,17 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
             }    
         }
 
-        root.addPendingCallback(setup);
+        if (root.lifeCycleStatus.val === "initialized")
+        {
+            setup();
+        }
+        else
+        {
+            root.get().onInitialization = () =>
+            {
+                setup();
+            };
+         }
 
         b.unwatched(() =>
         {
@@ -6590,6 +6669,8 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
                 h.unwatch();
             });
             handles = [];
+            // break cycle (setup &lt;-> resolveChain)
+            resolveChain = null;
         });
 
         return b;
@@ -6609,7 +6690,7 @@ shRequire(["shellfish/core", "shellfish/core/warehouse"], function (core, wareho
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun Nov 06 2022 14:56:48 GMT+0100 (Mitteleuropäische Normalzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Apr 18 2023 17:36:50 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

@@ -636,6 +636,12 @@
             
             <ul class="methods itemMembers">
             
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.FSModel#makeFilter"><a href="core.FSModel.html#makeFilter">makeFilter</a></li>
+            
+                <li class="parent  " data-name="core.FSModel#makeSorter"><a href="core.FSModel.html#makeSorter">makeSorter</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -716,6 +722,8 @@
             
             <span class="subtitle">Methods</span>
             
+                <li class="parent  status-deprecated" data-name="core.Object#accumulateCallback"><a href="core.Object.html#accumulateCallback">accumulateCallback</a></li>
+            
                 <li class="parent  " data-name="core.Object#add"><a href="core.Object.html#add">add</a></li>
             
                 <li class="parent  " data-name="core.Object#addHtmlEventListener"><a href="core.Object.html#addHtmlEventListener">addHtmlEventListener</a></li>
@@ -726,6 +734,8 @@
             
                 <li class="parent  " data-name="core.Object#blobUrl"><a href="core.Object.html#blobUrl">blobUrl</a></li>
             
+                <li class="parent  " data-name="core.Object#cancelNamedCallback"><a href="core.Object.html#cancelNamedCallback">cancelNamedCallback</a></li>
+            
                 <li class="parent  " data-name="core.Object#change"><a href="core.Object.html#change">change</a></li>
             
                 <li class="parent  " data-name="core.Object#clearQueue"><a href="core.Object.html#clearQueue">clearQueue</a></li>
@@ -733,6 +743,8 @@
                 <li class="parent  " data-name="core.Object#colorName"><a href="core.Object.html#colorName">colorName</a></li>
             
                 <li class="parent  " data-name="core.Object#connect"><a href="core.Object.html#connect">connect</a></li>
+            
+                <li class="parent  " data-name="core.Object#defer"><a href="core.Object.html#defer">defer</a></li>
             
                 <li class="parent  status-deprecated" data-name="core.Object#discard"><a href="core.Object.html#discard">discard</a></li>
             
@@ -749,6 +761,10 @@
                 <li class="parent  " data-name="core.Object#isAncestorOf"><a href="core.Object.html#isAncestorOf">isAncestorOf</a></li>
             
                 <li class="parent  " data-name="core.Object#log"><a href="core.Object.html#log">log</a></li>
+            
+                <li class="parent  " data-name="core.Object#namedCallback"><a href="core.Object.html#namedCallback">namedCallback</a></li>
+            
+                <li class="parent  " data-name="core.Object#namedCallbackPending"><a href="core.Object.html#namedCallbackPending">namedCallbackPending</a></li>
             
                 <li class="parent  " data-name="core.Object#notifyable"><a href="core.Object.html#notifyable">notifyable</a></li>
             
@@ -1020,8 +1036,6 @@
             
                 <li class="parent  " data-name="declarative.Element#find"><a href="declarative.Element.html#find">find</a></li>
             
-                <li class="parent  " data-name="declarative.Element#flushPending"><a href="declarative.Element.html#flushPending">flushPending</a></li>
-            
                 <li class="parent  " data-name="declarative.Element#get"><a href="declarative.Element.html#get">get</a></li>
             
                 <li class="parent  " data-name="declarative.Element#id"><a href="declarative.Element.html#id">id</a></li>
@@ -1105,6 +1119,8 @@
             <span class="subtitle">Methods</span>
             
                 <li class="parent  " data-name="html.Box#add"><a href="html.Box.html#add">add</a></li>
+            
+                <li class="parent  " data-name="html.Box#updateLayout"><a href="html.Box.html#updateLayout">updateLayout</a></li>
             
             </ul>
             
@@ -1770,6 +1786,10 @@
             
                 <li class="parent  " data-name="html.Item#get"><a href="html.Item.html#get">get</a></li>
             
+                <li class="parent  " data-name="html.Item#nextFrame"><a href="html.Item.html#nextFrame">nextFrame</a></li>
+            
+                <li class="parent  " data-name="html.Item#updatePosition"><a href="html.Item.html#updatePosition">updatePosition</a></li>
+            
                 <li class="parent  " data-name="html.Item#vec3"><a href="html.Item.html#vec3">vec3</a></li>
             
                 <li class="parent  " data-name="html.Item#withoutSizing"><a href="html.Item.html#withoutSizing">withoutSizing</a></li>
@@ -1872,11 +1892,21 @@
             
             <span class="subtitle">Methods</span>
             
+                <li class="parent  " data-name="html.ListView#getItem"><a href="html.ListView.html#getItem">getItem</a></li>
+            
+                <li class="parent  " data-name="html.ListView#indexAt"><a href="html.ListView.html#indexAt">indexAt</a></li>
+            
+                <li class="parent  " data-name="html.ListView#positionOf"><a href="html.ListView.html#positionOf">positionOf</a></li>
+            
                 <li class="parent  " data-name="html.ListView#positionViewAt"><a href="html.ListView.html#positionViewAt">positionViewAt</a></li>
             
             </ul>
             
             <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.ListView.event:newLayout"><a href="html.ListView.html#.event:newLayout">newLayout</a></li>
             
             </ul>
             
@@ -3530,36 +3560,6 @@
             
         </li>
     
-        <li class="item" data-name="TaskQueues">
-            <span class="title  ">
-                
-                
-                    <a href="TaskQueues.html">TaskQueues</a>
-                
-            </span>
-            
-            <ul class="members itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="methods itemMembers">
-            
-            </ul>
-            
-            <ul class="events itemMembers">
-            
-            </ul>
-            
-        </li>
-    
         <li class="item" data-name="ui.Button">
             <span class="title  ">
                 
@@ -3920,6 +3920,36 @@
             
         </li>
     
+        <li class="item" data-name="ui.IndexScroller">
+            <span class="title  ">
+                
+                
+                    <a href="ui.IndexScroller.html">ui.IndexScroller</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="ui.Label">
             <span class="title  ">
                 
@@ -3945,6 +3975,46 @@
             </ul>
             
             <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.ListHeader">
+            <span class="title  ">
+                
+                
+                    <a href="ui.ListHeader.html">ui.ListHeader</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="ui.ListHeader#resetColumns"><a href="ui.ListHeader.html#resetColumns">resetColumns</a></li>
+            
+                <li class="parent  " data-name="ui.ListHeader#resizeColumn"><a href="ui.ListHeader.html#resizeColumn">resizeColumn</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="ui.ListHeader#event:columnClick"><a href="ui.ListHeader.html#event:columnClick">columnClick</a></li>
             
             </ul>
             
@@ -4041,6 +4111,36 @@
             <span class="subtitle">Methods</span>
             
                 <li class="parent  " data-name="ui.Menu#popup"><a href="ui.Menu.html#popup">popup</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.MenuExpander">
+            <span class="title  ">
+                
+                
+                    <a href="ui.MenuExpander.html">ui.MenuExpander</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
             
             </ul>
             
@@ -5252,7 +5352,7 @@
         <article>
             <pre id="source-code" class="prettyprint source "><code>/*******************************************************************************
 This file is part of the Shellfish UI toolkit.
-Copyright (c) 2020 - 2022 Martin Grimme &lt;martin.grimme@gmail.com>
+Copyright (c) 2020 - 2023 Martin Grimme &lt;martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -5289,13 +5389,10 @@ shRequire([__dirname + "/listmodel.js"], function (lm)
      * 
      * @property {bool} directoriesFirst - (default: `true`) Whether to list directories first.
      * @property {html.Filesystem} filesystem - (default: `null`) The filesystem to use.
+     * @property {function} filter - A filtering function. By default, hidden files are filtered out.
      * @property {bool} loading - [readonly] `true` if the model is currently being loaded.
      * @property {string} path - (default: `""`) The path represented by the model.
-     * @property {bool} sortAscending - (default: `true`) Whether to sort in ascending or descending order.
-     * @property {string} sortRole - (default: `"name"`) The sort role. One of `name|time|size`
-     * @property {bool} withDirectories - (default: `true`) Whether to include directories.
-     * @property {bool} withFiles - (default: `true`) Whether to include files.
-     * @property {bool} withHidden - (default: `false`) Whether to include hidden files and directories.
+     * @property {function} sorter - A sorting function. By default, items are sorted in ascending case-insensitive order by their name.
      */
     class FSModel extends lm.ListModel
     {
@@ -5306,27 +5403,20 @@ shRequire([__dirname + "/listmodel.js"], function (lm)
                 fs: null,
                 path: "",
                 query: "",
+                filter: item => ! item.name.startsWith("."),
+                sorter: (a, b) => a.name.toLowerCase() &lt; b.name.toLowerCase() ? -1 : 1,
                 directoriesFirst: true,
-                sortAscending: true,
-                sortRole: "name",
-                withDirectories: true,
-                withFiles: true,
-                withHidden: false,
                 loading: false,
-                updating: false,
                 items: []
             });
             
             this.notifyable("directoriesFirst");
             this.notifyable("filesystem");
+            this.notifyable("filter");
             this.notifyable("loading");
             this.notifyable("path");
             this.notifyable("query");
-            this.notifyable("sortAscending");
-            this.notifyable("sortRole");
-            this.notifyable("withDirectories");
-            this.notifyable("withFiles");
-            this.notifyable("withHidden");
+            this.notifyable("sorter");
         }
 
         get filesystem() { return d.get(this).fs; }
@@ -5373,6 +5463,14 @@ shRequire([__dirname + "/listmodel.js"], function (lm)
 
         get loading() { return d.get(this).loading; }
 
+        get filter() { return d.get(this).filter; }
+        set filter(f)
+        {
+            d.get(this).filter = f;
+            this.processItems(d.get(this).items, true);
+            this.filterChanged();
+        }
+
         get directoriesFirst() { return d.get(this).directoriesFirst; }
         set directoriesFirst(value)
         {
@@ -5381,44 +5479,70 @@ shRequire([__dirname + "/listmodel.js"], function (lm)
             this.directoriesFirstChanged();
         }
 
-        get sortAscending() { return d.get(this).sortAscending; }
-        set sortAscending(v)
+        get sorter() { return d.get(this).sorter; }
+        set sorter(s)
         {
-            d.get(this).sortAscending = v;
+            d.get(this).sorter = s;
             this.processItems(d.get(this).items, true);
-            this.sortAscendingChanged();
+            this.sorterChanged();
         }
 
-        get sortRole() { return d.get(this).sortRole; }
-        set sortRole(r)
+        /**
+         * Creates a filtering function for the `filter` property.
+         * 
+         * @param {bool} withDirectories - Whether to include directories.
+         * @param {bool} withFiles - Whether to include files.
+         * @param {bool} withHidden - Whether to include hidden entries (name starting with `.`).
+         * @returns {function} The filtering function.
+         */
+        makeFilter(withDirectories, withFiles, withHidden)
         {
-            d.get(this).sortRole = r;
-            this.processItems(d.get(this).items, true);
-            this.sortRoleChanged();
+            return item =>
+            {
+                if (item.type === "d" &amp;&amp; ! withDirectories)
+                {
+                    return false;
+                }
+                if (item.type === "f" &amp;&amp; ! withFiles)
+                {
+                    return false;
+                }
+                if (item.name.startsWith(".") &amp;&amp; ! withHidden)
+                {
+                    return false;
+                }
+                return true;
+            };
         }
 
-        get withFiles() { return d.get(this).withFiles; }
-        set withFiles(value)
+        /**
+         * Creates a sorting function for the `sorter` property.
+         * 
+         * @param {string} role - The sort role name.
+         * @param {bool} ascending - Whether to sort in ascending order.
+         * @return {function} The sorting function.
+         */
+        makeSorter(role, ascending)
         {
-            d.get(this).withFiles = value;
-            this.processItems(d.get(this).items, false);
-            this.withFilesChanged();
-        }
-
-        get withDirectories() { return d.get(this).withDirectories; }
-        set withDirectories(value)
-        {
-            d.get(this).withDirectories = value;
-            this.processItems(d.get(this).items, false);
-            this.withDirectoriesChanged();
-        }
-
-        get withHidden() { return d.get(this).withHidden; }
-        set withHidden(value)
-        {
-            d.get(this).withHidden = value;
-            this.update(false);
-            this.withHiddenChanged();
+            return (a, b) =>
+            {
+                const aValue = a[role];
+                const bValue = b[role];
+                const comp = (a, b) =>
+                {
+                    return ascending ? (a &lt; b ? -1 : 1)
+                                     : (a > b ? -1 : 1);
+                };
+                
+                if (role === "name")
+                {
+                    return comp(aValue.toLowerCase(), bValue.toLowerCase());
+                }
+                else
+                {
+                    return comp(aValue, bValue);
+                }    
+            };
         }
 
         comparator(a, b)
@@ -5434,36 +5558,8 @@ shRequire([__dirname + "/listmodel.js"], function (lm)
                     return 1;
                 }
             }
-            if (d.get(this).sortAscending)
-            {
-                switch (d.get(this).sortRole)
-                {
-                case "name":
-                    return a.name.toLowerCase() &lt; b.name.toLowerCase() ? -1 : 1;
-                case "time":
-                    return a.mtime &lt; b.mtime ? -1 : 1;
-                case "size":
-                    return a.size &lt; b.size ? -1 : 1;
-                default:
-                    console.error("Invalid sort role: " + d.get(this).sortRole);
-                    return a.name.toLowerCase() &lt; b.name.toLowerCase() ? -1 : 1;
-                }
-            }
-            else
-            {
-                switch (d.get(this).sortRole)
-                {
-                case "name":
-                    return a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1;
-                case "time":
-                    return a.mtime > b.mtime ? -1 : 1;
-                case "size":
-                    return a.size > b.size ? -1 : 1;    
-                default:
-                    console.error("Invalid sort role: " + d.get(this).sortRole);
-                    return a.name.toLowerCase() &lt; b.name.toLowerCase() ? -1 : 1;
-                }
-            }
+
+            return d.get(this).sorter(a, b);
         }
 
         mergeWithUpdate(newItems)
@@ -5501,24 +5597,21 @@ shRequire([__dirname + "/listmodel.js"], function (lm)
         update(reset)
         {
             const priv = d.get(this);
-            if (! priv.updating)
+
+            if (! priv.loading)
             {
                 priv.loading = true;
                 this.loadingChanged();
-
-                priv.updating = true;
-                this.wait(0)
-                .then(() =>
-                {
-                    this.doUpdate(reset);
-                    priv.updating = false;
-                });
             }
+
+            this.defer(() =>
+            {
+                this.doUpdate(reset);
+            }, "update");
         }
 
         doUpdate(reset)
         {
-            console.log("update fs model");
             const priv = d.get(this);
 
             if (! priv.fs)
@@ -5527,31 +5620,44 @@ shRequire([__dirname + "/listmodel.js"], function (lm)
                 return;
             }
 
+            const forPath = priv.path;
             if (priv.query !== "")
             {
                 priv.fs.search(priv.path, priv.query)
-                .then(items =>
+                .then(this.safeCallback(items =>
                 {
-                    console.log(items);
+                    if (priv.path !== forPath)
+                    {
+                        return;
+                    }
+
+                    //console.log(items);
                     priv.items = items;
                     this.processItems(items, reset);
-    
+
                     priv.loading = false;
                     this.loadingChanged();
-                });
+    
+                }));
             }
             else
             {
                 priv.fs.list(priv.path)
-                .then(items =>
+                .then(this.safeCallback(items =>
                 {
-                    console.log(items);
+                    if (priv.path !== forPath)
+                    {
+                        return;
+                    }
+
+                    //console.log(items);
                     priv.items = items;
                     this.processItems(items, reset);
-    
+
                     priv.loading = false;
                     this.loadingChanged();
-                });
+    
+                }));
             }
         }
 
@@ -5559,17 +5665,9 @@ shRequire([__dirname + "/listmodel.js"], function (lm)
         {
             const priv = d.get(this);
             const newItems = items
-            .filter(item =>
-            {
-                return (! item.name.startsWith(".") || priv.withHidden);
-            })
-            .filter(item =>
-            {
-                return (item.type === "f" &amp;&amp; priv.withFiles ||
-                        item.type === "d" &amp;&amp; priv.withDirectories);
-            })
+            .filter(priv.filter)
             .sort((a, b) => this.comparator(a, b));
-            console.log(newItems);
+            //console.log(newItems);
 
             if (reset)
             {
@@ -5596,7 +5694,7 @@ shRequire([__dirname + "/listmodel.js"], function (lm)
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun Nov 06 2022 14:56:48 GMT+0100 (Mitteleuropäische Normalzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Apr 18 2023 17:36:50 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

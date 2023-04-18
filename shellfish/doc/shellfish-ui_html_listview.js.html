@@ -636,6 +636,12 @@
             
             <ul class="methods itemMembers">
             
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.FSModel#makeFilter"><a href="core.FSModel.html#makeFilter">makeFilter</a></li>
+            
+                <li class="parent  " data-name="core.FSModel#makeSorter"><a href="core.FSModel.html#makeSorter">makeSorter</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -716,6 +722,8 @@
             
             <span class="subtitle">Methods</span>
             
+                <li class="parent  status-deprecated" data-name="core.Object#accumulateCallback"><a href="core.Object.html#accumulateCallback">accumulateCallback</a></li>
+            
                 <li class="parent  " data-name="core.Object#add"><a href="core.Object.html#add">add</a></li>
             
                 <li class="parent  " data-name="core.Object#addHtmlEventListener"><a href="core.Object.html#addHtmlEventListener">addHtmlEventListener</a></li>
@@ -726,6 +734,8 @@
             
                 <li class="parent  " data-name="core.Object#blobUrl"><a href="core.Object.html#blobUrl">blobUrl</a></li>
             
+                <li class="parent  " data-name="core.Object#cancelNamedCallback"><a href="core.Object.html#cancelNamedCallback">cancelNamedCallback</a></li>
+            
                 <li class="parent  " data-name="core.Object#change"><a href="core.Object.html#change">change</a></li>
             
                 <li class="parent  " data-name="core.Object#clearQueue"><a href="core.Object.html#clearQueue">clearQueue</a></li>
@@ -733,6 +743,8 @@
                 <li class="parent  " data-name="core.Object#colorName"><a href="core.Object.html#colorName">colorName</a></li>
             
                 <li class="parent  " data-name="core.Object#connect"><a href="core.Object.html#connect">connect</a></li>
+            
+                <li class="parent  " data-name="core.Object#defer"><a href="core.Object.html#defer">defer</a></li>
             
                 <li class="parent  status-deprecated" data-name="core.Object#discard"><a href="core.Object.html#discard">discard</a></li>
             
@@ -749,6 +761,10 @@
                 <li class="parent  " data-name="core.Object#isAncestorOf"><a href="core.Object.html#isAncestorOf">isAncestorOf</a></li>
             
                 <li class="parent  " data-name="core.Object#log"><a href="core.Object.html#log">log</a></li>
+            
+                <li class="parent  " data-name="core.Object#namedCallback"><a href="core.Object.html#namedCallback">namedCallback</a></li>
+            
+                <li class="parent  " data-name="core.Object#namedCallbackPending"><a href="core.Object.html#namedCallbackPending">namedCallbackPending</a></li>
             
                 <li class="parent  " data-name="core.Object#notifyable"><a href="core.Object.html#notifyable">notifyable</a></li>
             
@@ -1020,8 +1036,6 @@
             
                 <li class="parent  " data-name="declarative.Element#find"><a href="declarative.Element.html#find">find</a></li>
             
-                <li class="parent  " data-name="declarative.Element#flushPending"><a href="declarative.Element.html#flushPending">flushPending</a></li>
-            
                 <li class="parent  " data-name="declarative.Element#get"><a href="declarative.Element.html#get">get</a></li>
             
                 <li class="parent  " data-name="declarative.Element#id"><a href="declarative.Element.html#id">id</a></li>
@@ -1105,6 +1119,8 @@
             <span class="subtitle">Methods</span>
             
                 <li class="parent  " data-name="html.Box#add"><a href="html.Box.html#add">add</a></li>
+            
+                <li class="parent  " data-name="html.Box#updateLayout"><a href="html.Box.html#updateLayout">updateLayout</a></li>
             
             </ul>
             
@@ -1770,6 +1786,10 @@
             
                 <li class="parent  " data-name="html.Item#get"><a href="html.Item.html#get">get</a></li>
             
+                <li class="parent  " data-name="html.Item#nextFrame"><a href="html.Item.html#nextFrame">nextFrame</a></li>
+            
+                <li class="parent  " data-name="html.Item#updatePosition"><a href="html.Item.html#updatePosition">updatePosition</a></li>
+            
                 <li class="parent  " data-name="html.Item#vec3"><a href="html.Item.html#vec3">vec3</a></li>
             
                 <li class="parent  " data-name="html.Item#withoutSizing"><a href="html.Item.html#withoutSizing">withoutSizing</a></li>
@@ -1872,11 +1892,21 @@
             
             <span class="subtitle">Methods</span>
             
+                <li class="parent  " data-name="html.ListView#getItem"><a href="html.ListView.html#getItem">getItem</a></li>
+            
+                <li class="parent  " data-name="html.ListView#indexAt"><a href="html.ListView.html#indexAt">indexAt</a></li>
+            
+                <li class="parent  " data-name="html.ListView#positionOf"><a href="html.ListView.html#positionOf">positionOf</a></li>
+            
                 <li class="parent  " data-name="html.ListView#positionViewAt"><a href="html.ListView.html#positionViewAt">positionViewAt</a></li>
             
             </ul>
             
             <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.ListView.event:newLayout"><a href="html.ListView.html#.event:newLayout">newLayout</a></li>
             
             </ul>
             
@@ -3530,36 +3560,6 @@
             
         </li>
     
-        <li class="item" data-name="TaskQueues">
-            <span class="title  ">
-                
-                
-                    <a href="TaskQueues.html">TaskQueues</a>
-                
-            </span>
-            
-            <ul class="members itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="methods itemMembers">
-            
-            </ul>
-            
-            <ul class="events itemMembers">
-            
-            </ul>
-            
-        </li>
-    
         <li class="item" data-name="ui.Button">
             <span class="title  ">
                 
@@ -3920,6 +3920,36 @@
             
         </li>
     
+        <li class="item" data-name="ui.IndexScroller">
+            <span class="title  ">
+                
+                
+                    <a href="ui.IndexScroller.html">ui.IndexScroller</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="ui.Label">
             <span class="title  ">
                 
@@ -3945,6 +3975,46 @@
             </ul>
             
             <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.ListHeader">
+            <span class="title  ">
+                
+                
+                    <a href="ui.ListHeader.html">ui.ListHeader</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="ui.ListHeader#resetColumns"><a href="ui.ListHeader.html#resetColumns">resetColumns</a></li>
+            
+                <li class="parent  " data-name="ui.ListHeader#resizeColumn"><a href="ui.ListHeader.html#resizeColumn">resizeColumn</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="ui.ListHeader#event:columnClick"><a href="ui.ListHeader.html#event:columnClick">columnClick</a></li>
             
             </ul>
             
@@ -4041,6 +4111,36 @@
             <span class="subtitle">Methods</span>
             
                 <li class="parent  " data-name="ui.Menu#popup"><a href="ui.Menu.html#popup">popup</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.MenuExpander">
+            <span class="title  ">
+                
+                
+                    <a href="ui.MenuExpander.html">ui.MenuExpander</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
             
             </ul>
             
@@ -5252,7 +5352,7 @@
         <article>
             <pre id="source-code" class="prettyprint source "><code>/*******************************************************************************
 This file is part of the Shellfish UI toolkit.
-Copyright (c) 2019 - 2022 Martin Grimme &lt;martin.grimme@gmail.com>
+Copyright (c) 2019 - 2023 Martin Grimme &lt;martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -5489,6 +5589,7 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
      * @property {core.ListModel} model - The model to display. You may pass a number value to implicitly create a simple model.
      * @property {string} orientation - (default: `vertical`) The orientation of the view. One of `horizontal|vertical`
      * @property {string} overflowBehavior - (default: `"scroll"`) The overflow behavior: `none|scroll`
+     * @property {bool} rendering - [readonly] `true` while the list view is rendering.
      * @property {bool} scrollbars - (default: `false`) Whether to display native scrollbars.
      * @property {bool} snapMode - (default: `"none"`) The mode for snapping to items. One of `none|begin|end`.
      */
@@ -5500,8 +5601,6 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
             d.set(this, {
                 bboxWidth: 0,
                 bboxHeight: 0,
-                renderHandle: null,
-                shallRenderAgain: false,
                 indexOffset: 0,
                 totalSize: 0,
                 model: null,
@@ -5515,6 +5614,7 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
                 overflowBehavior: "scroll",
                 scrollbars: false,
                 snapMode: "none",
+                isRendering: false,
                 windowRange: [-1, -1],
                 recycleBin: [],
                 item: low.createElementTree(
@@ -5548,69 +5648,66 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
             this.notifyable("model");
             this.notifyable("orientation");
             this.notifyable("overflowBehavior");
+            this.notifyable("rendering");
             this.notifyable("scrollbars");
             this.notifyable("snapMode");
 
-            let willUpdateLayout = false;
+            /**
+             * Is triggered when the layout of items has changed.
+             * @event newLayout
+             * @memberof html.ListView
+             */
+            this.registerEvent("newLayout");
+
             let willForceUpdateLayout = false;
-            const updateLayoutLater = (force) =>
+            const updateLayoutAccumulated = (force) =>
             {
                 if (force)
                 {
                     willForceUpdateLayout = true;
                 }
-
-                if (! willUpdateLayout)
+                this.defer(() =>
                 {
-                    willUpdateLayout = true;
-                    low.later()
-                    .then(this.safeCallback(() =>
-                    {
-                        this.updateLayout(willForceUpdateLayout);
-                        willUpdateLayout = false;
-                        willForceUpdateLayout = false;
-                    }));
-                }
+                    this.updateLayout(willForceUpdateLayout);
+                }, "updateLayout");
             };
 
-            this.onContentXChanged = () => this.updateLayout(false);
-            this.onContentYChanged = () => this.updateLayout(false);
-            this.onCellWidthChanged = () => this.updateLayout(true);
-            this.onCellHeightChanged = () => this.updateLayout(true);
+            this.onContentXChanged = () => updateLayoutAccumulated(false);
+            this.onContentYChanged = () => updateLayoutAccumulated(false);
+            this.onCellWidthChanged = () => updateLayoutAccumulated(true);
+            this.onCellHeightChanged = () => updateLayoutAccumulated(true);
             this.onVisibleChanged = () =>
             {
                 if (this.visible)
                 {
-                    this.updateLayout(true);
+                    updateLayoutAccumulated(true);
                 }
             };
             this.onAncestorsVisibleChanged = () =>
             {
                 if (this.ancestorsVisible)
                 {
-                    this.updateLayout(true);
+                    updateLayoutAccumulated(true);
                 }
             };
             this.onBboxChanged = () =>
             {
-                const b = this.bbox;
-                if (d.get(this).bboxWidth !== b.width || d.get(this).bboxHeight !== b.height)
+                if (d.get(this).bboxWidth !== this.bboxWidth || d.get(this).bboxHeight !== this.bboxHeight)
                 {
                     //console.log("bbox changed: " + this.objectLocation + ", " + b.width + " x " + b.height);
-                    d.get(this).bboxWidth = b.width;
-                    d.get(this).bboxHeight = b.height;
+                    d.get(this).bboxWidth = this.bboxWidth;
+                    d.get(this).bboxHeight = this.bboxHeight;
 
-                    updateLayoutLater(true);
+                    updateLayoutAccumulated(true);
                 }
             };
 
             // CSS snapping doesn't work with custom scroll bars,
             // so we implement our own snapping
             const na = new numberanimation.NumberAnimation();
+            na.parent = this;
             na.duration = 300;
             na.easing = "InOutQuad";
-            na.onBegin = () => { this.css("touch-action", "none"); }
-            na.onFinish = () => { this.css("touch-action", "auto"); }
 
             this.onScrollingChanged = () =>
             {
@@ -5699,7 +5796,6 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
         {
             d.get(this).overflowBehavior = b;
             this.css("overflow", b === "scroll" ? "auto" : "hidden");
-            this.css("touch-action", b === "scroll" ? "auto" : "none");
             this.overflowBehaviorChanged();
         }
 
@@ -5726,6 +5822,8 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
         }
 
         get count() { return !! d.get(this).model ? d.get(this).model.size : 0; }
+
+        get rendering() { return d.get(this).isRendering; }
 
         get model() { return d.get(this).model; }
         set model(m)
@@ -5776,7 +5874,6 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
             {
                 this.destroyItem(idx);
             });
-            this.dumpRecycleBin();
             priv.windowRange = [-1, -1];
 
             if (priv.model)
@@ -5797,20 +5894,16 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
                 let prevSize = 0;
                 mObj.connect("modelReset", this, () =>
                 {
-                    console.log("model reset");
+                    console.log("model reset -> " + mObj.size + " items");
                     if (mObj.size === 0 &amp;&amp; prevSize === 0)
                     {
                         return;
                     }
                     prevSize = mObj.size;
 
-                    if (priv.renderHandle)
-                    {
-                        priv.renderHandle.cancel();
-                        priv.renderHandle = null;
-                    }
-
-                    const isEmpty = priv.itemMeta.length === 0;
+                    // cancel pending renderings
+                    this.cancelNamedCallback("render");
+                    this.cancelNamedCallback("renderMore");
 
                     const toDestroy = [];
                     priv.itemMeta.forEach((item, idx) =>
@@ -5824,8 +5917,10 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
                         this.destroyItem(idx);
                     });
                     priv.windowRange = [-1, -1];
-                    this.dumpRecycleBin();
-                    this.updateLayout(false)
+
+                    this.render();
+                    this.updateLayout(false);
+                    this.newLayout();
                     this.countChanged();
                 });
                 mObj.connect("modelInsert", this, (at, size) =>
@@ -5847,16 +5942,16 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
                         this.render();
                     }
                     this.updateLayout(false);
+                    this.newLayout();
                     this.countChanged();
                 });
                 mObj.connect("modelRemove", this, (at) =>
                 {
                     console.log("model remove at " + at);
-                    if (priv.renderHandle)
-                    {
-                        priv.renderHandle.cancel();
-                        priv.renderHandle = null;
-                    }
+                    
+                    // cancel pending renderings
+                    this.cancelNamedCallback("render");
+                    this.cancelNamedCallback("renderMore");
                     
                     let windowRange = priv.windowRange.slice();
                     this.destroyItem(at);
@@ -5873,6 +5968,7 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
                         this.render();
                     }
                     this.updateLayout(false);
+                    this.newLayout();
                     this.countChanged();
                 });
                 mObj.connect("modelReplace", this, (at) =>
@@ -5892,6 +5988,7 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
         set delegate(del)
         {
             d.get(this).delegate = del;
+            this.dumpRecycleBin();
             this.render();
         }
 
@@ -5925,12 +6022,13 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
                 return;
             }
 
-            const bbox = this.bbox;
+            const bbox = { width: this.bboxWidth, height: this.bboxHeight };
             const cellWidth = priv.cellWidth;
             const cellHeight = priv.cellHeight;
             const modelSize = priv.model.size;
 
             let willRender = force;
+            let changedLayout = false;
 
             let itemsPerRow = 0;
             let totalSize = 0;
@@ -5954,6 +6052,7 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
                 priv.itemsPerRow = itemsPerRow;
 
                 willRender = true;
+                changedLayout = true;
             }
 
             if (priv.orientation === "vertical")
@@ -5999,18 +6098,8 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
                     low.css(priv.item.children[1], "left", (totalSize - 1) + "px");
                 }
 
-                const handle = low.addFrameHandler(() =>
-                {
-                    handle.cancel();
-                    if (this.lifeCycleStatus !== "destroyed")
-                    {
-                        //this.contentXChanged();
-                        //this.contentYChanged();
-                        this.contentWidthChanged();
-                        this.contentHeightChanged();
-                    }
-                }, this.objectType + "@" + this.objectLocation);
                 willRender = true;
+                changedLayout = true;
             }
 
             if (begin !== priv.windowRange[0])
@@ -6028,6 +6117,12 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
             {
                 //console.log("window content range: " + priv.windowRange[0] + ", " + priv.windowRange[1] + ", forced: " + force);
                 this.render();
+            }
+
+            if (changedLayout)
+            {
+                //console.log("layout change");
+                this.defer(() => { this.newLayout(); }, "newLayout");
             }
         }
 
@@ -6095,7 +6190,7 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
             {
                 priv.itemMeta.set(idx, undefined);
                 priv.recycleBin.push(item);
-                item.x = -1;
+                item.x = -window.outerWidth;
                 item.y = 0;
                 item.visible = false;
             }
@@ -6105,21 +6200,36 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
         {
             //console.log("destroy item " + idx);
             const priv = d.get(this);
-            const item = this.getItem(idx);
+            const item = priv.itemMeta.at(idx);
             if (item)
             {
                 priv.itemMeta.removeAt(idx);
                 priv.recycleBin.push(item);
                 item.x = -window.outerWidth;
                 item.y = 0;
+                item.visible = false;
             }
         }
 
+        /**
+         * Returns the item with the given index number. This method may return
+         * `null` if the item is not materialized while not in view.
+         * 
+         * @param {number} idx - The index number.
+         * @returns {core.Object} The item with the index number or `null`.
+         */
         getItem(idx)
         {
-            return d.get(this).itemMeta.at(idx);
+            return d.get(this).itemMeta.at(idx) || null;
         }
 
+        /**
+         * Returns the index number of the item at the given content position.
+         * 
+         * @param {number} x - The X coordinate.
+         * @param {number} y - The Y coordinate.
+         * @returns {number} The index number at that coordinate.
+         */
         indexAt(x, y)
         {
             const priv = d.get(this);
@@ -6142,6 +6252,12 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
             return idx;
         }
 
+        /**
+         * Returns the content coordinates of the item with the given index number.
+         * 
+         * @param {number} idx - The item's index number.
+         * @returns {number[]} A tuple of the X and Y coordinates.
+         */
         positionOf(idx)
         {
             const priv = d.get(this);
@@ -6168,10 +6284,27 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
 
         render()
         {
-            //this.withoutSizing(() =>
-            //{
-                this.doRender();
-            //});
+            // cancel pending renderings
+            this.cancelNamedCallback("render");
+            this.cancelNamedCallback("renderMore");
+
+            if (! d.get(this).isRendering)
+            {
+                d.get(this).isRendering = true;
+                this.renderingChanged();
+            }
+
+            this.defer(() =>
+            {
+                //this.doRender();
+                this.wait(1).then(() =>
+                {
+                    this.withoutSizing(() =>
+                    {
+                        this.doRender();
+                    });
+                });
+            }, "render");
         }
 
         doRender()
@@ -6180,19 +6313,20 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
 
             const priv = d.get(this);
             const model = priv.model;
-            const bbox = this.bbox;
+            const bbox = { width: this.bboxWidth, height: this.bboxHeight };
             const delegate = priv.delegate;
             const cellWidth = priv.cellWidth;
             const cellHeight = priv.cellHeight;
 
-            if (priv.renderHandle)
+            if (! model ||
+                ! delegate ||
+                this.lifeCycleStatus !== "initialized" ||
+                (bbox.width === 0 &amp;&amp; bbox.height === 0) ||
+                ! this.ancestorsVisible ||
+                ! this.visible)
             {
-                priv.shallRenderAgain = true;
-                return;
-            }
-
-            if (! model || ! delegate || this.lifeCycleStatus !== "initialized" || (bbox.width === 0 &amp;&amp; bbox.height === 0))
-            {
+                priv.isRendering = false;
+                this.renderingChanged();
                 return;
             }
 
@@ -6272,19 +6406,17 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
             }
 
             const now = Date.now();
-            const bbox = this.bbox;
             const priv = d.get(this);
 
             const boxNode = priv.item.children[0];
 
-            //console.log("render " + items.length + " items " + JSON.stringify(bbox));
+            //console.log("render " + items.length + " items");
             //console.log("itemsPerRow: " + priv.itemsPerRow);
+
+            const newItems = [];
+
             for (let n = 0; n &lt; items.length; ++n)
             {
-                if (priv.shallRenderAgain)
-                {
-                    break;
-                }
 
                 let item = null;
                 const lastIndex = items[n][0];
@@ -6312,6 +6444,13 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
                     isNew = true;
                 }
 
+                if (isNew &amp;&amp; ! item.parent)
+                {
+                    boxNode.appendChild(item.get());
+                    newItems.push(item);
+                    //item.parent = this;
+                }
+
                 if (item.x !== itemPos[0])
                 {
                     item.x = itemPos[0];
@@ -6333,52 +6472,44 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
                     //console.log("height changed: " + item.height);
                 }
 
-                if (isNew &amp;&amp; ! item.parent)
-                {
-                    boxNode.appendChild(item.get());
-                    item.parent = this;
-                }
+                const avgDuration = (Date.now() - now) / (n + 1);
+                const estimatedRemainingDuration = (items.length - (n + 1)) * avgDuration;
+                //console.log("avg per item: " + avgDuration.toFixed(2) + " ms, estimated remaining: " + estimatedRemainingDuration.toFixed(2) + " ms");
 
-                let distExceeded = false;
-                if (priv.orientation === "vertical")
-                {
-                    distExceeded = dist > bbox.height / 2;
-                }
-                else
-                {
-                    distExceeded = dist > bbox.width / 2;
-                }
-
-                if (distExceeded &amp;&amp; Date.now() - now > 1000 / 30)
+                if (estimatedRemainingDuration > 250 &amp;&amp;
+                    Date.now() - now > 250 &amp;&amp;
+                    n &lt; items.length - 1)
                 {
                     const remainingItems = items.slice(n + 1);
-                    //console.log("later, remaining: " + remainingItems.length);
-                    const handle = window.setTimeout(() =>
+                    console.log("render later, remaining: " + remainingItems.length + " est. remaining duration: " + estimatedRemainingDuration);
+
+                    this.wait(1000 / 60)
+                    .then(this.namedCallback(() =>
                     {
-                        priv.renderHandle = null;
-                        //this.withoutSizing(() =>
-                        //{
+                        //this.renderItems(remainingItems);
+                        this.withoutSizing(() =>
+                        {
                             this.renderItems(remainingItems);
-                        //});
-                    }, 20);
-                    priv.renderHandle = {
-                        cancel: () => { window.clearTimeout(handle); priv.renderHandle = null; }
-                    };
+                        });
+                    }, "renderMore"));
+                    
                     break;
+                }
+
+                if (n === items.length - 1)
+                {
+                    // all done
+                    priv.isRendering = false;
+                    this.renderingChanged();
+
+                    // update content size after placing all items
+                    this.updateContentSize();
                 }
             }
 
-            if (priv.shallRenderAgain)
+            for (let i = 0; i &lt; newItems.length; ++i)
             {
-                priv.shallRenderAgain = false;
-                const handle = low.addFrameHandler(() =>
-                {
-                    handle.cancel();
-                    if (this.lifeCycleStatus !== "destroyed")
-                    {
-                        this.render();
-                    }
-                }, this.objectType + "@" + this.objectLocation);
+                newItems[i].parent = this;
             }
         }
 
@@ -6394,7 +6525,7 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
             
             if (priv.orientation === "vertical")
             {
-                const viewSize = this.bbox.height;
+                const viewSize = this.bboxHeight;
                 if (pos[1] + priv.cellHeight > this.contentY + viewSize)
                 {
                     this.contentY = Math.max(0, pos[1] + priv.cellHeight - viewSize);
@@ -6406,7 +6537,7 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
             }
             else
             {
-                const viewSize = this.bbox.width;
+                const viewSize = this.bboxWidth;
                 if (pos[0] + priv.cellWidth > this.contentX + viewSize)
                 {
                     this.contentX = Math.max(0, pos[0] + priv.cellWidth - viewSize);
@@ -6449,7 +6580,7 @@ shRequire(["shellfish/low", __dirname + "/item.js", __dirname + "/numberanimatio
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun Nov 06 2022 14:56:48 GMT+0100 (Mitteleuropäische Normalzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Apr 18 2023 17:36:50 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

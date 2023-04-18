@@ -636,6 +636,12 @@
             
             <ul class="methods itemMembers">
             
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.FSModel#makeFilter"><a href="core.FSModel.html#makeFilter">makeFilter</a></li>
+            
+                <li class="parent  " data-name="core.FSModel#makeSorter"><a href="core.FSModel.html#makeSorter">makeSorter</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -716,6 +722,8 @@
             
             <span class="subtitle">Methods</span>
             
+                <li class="parent  status-deprecated" data-name="core.Object#accumulateCallback"><a href="core.Object.html#accumulateCallback">accumulateCallback</a></li>
+            
                 <li class="parent  " data-name="core.Object#add"><a href="core.Object.html#add">add</a></li>
             
                 <li class="parent  " data-name="core.Object#addHtmlEventListener"><a href="core.Object.html#addHtmlEventListener">addHtmlEventListener</a></li>
@@ -726,6 +734,8 @@
             
                 <li class="parent  " data-name="core.Object#blobUrl"><a href="core.Object.html#blobUrl">blobUrl</a></li>
             
+                <li class="parent  " data-name="core.Object#cancelNamedCallback"><a href="core.Object.html#cancelNamedCallback">cancelNamedCallback</a></li>
+            
                 <li class="parent  " data-name="core.Object#change"><a href="core.Object.html#change">change</a></li>
             
                 <li class="parent  " data-name="core.Object#clearQueue"><a href="core.Object.html#clearQueue">clearQueue</a></li>
@@ -733,6 +743,8 @@
                 <li class="parent  " data-name="core.Object#colorName"><a href="core.Object.html#colorName">colorName</a></li>
             
                 <li class="parent  " data-name="core.Object#connect"><a href="core.Object.html#connect">connect</a></li>
+            
+                <li class="parent  " data-name="core.Object#defer"><a href="core.Object.html#defer">defer</a></li>
             
                 <li class="parent  status-deprecated" data-name="core.Object#discard"><a href="core.Object.html#discard">discard</a></li>
             
@@ -749,6 +761,10 @@
                 <li class="parent  " data-name="core.Object#isAncestorOf"><a href="core.Object.html#isAncestorOf">isAncestorOf</a></li>
             
                 <li class="parent  " data-name="core.Object#log"><a href="core.Object.html#log">log</a></li>
+            
+                <li class="parent  " data-name="core.Object#namedCallback"><a href="core.Object.html#namedCallback">namedCallback</a></li>
+            
+                <li class="parent  " data-name="core.Object#namedCallbackPending"><a href="core.Object.html#namedCallbackPending">namedCallbackPending</a></li>
             
                 <li class="parent  " data-name="core.Object#notifyable"><a href="core.Object.html#notifyable">notifyable</a></li>
             
@@ -1020,8 +1036,6 @@
             
                 <li class="parent  " data-name="declarative.Element#find"><a href="declarative.Element.html#find">find</a></li>
             
-                <li class="parent  " data-name="declarative.Element#flushPending"><a href="declarative.Element.html#flushPending">flushPending</a></li>
-            
                 <li class="parent  " data-name="declarative.Element#get"><a href="declarative.Element.html#get">get</a></li>
             
                 <li class="parent  " data-name="declarative.Element#id"><a href="declarative.Element.html#id">id</a></li>
@@ -1105,6 +1119,8 @@
             <span class="subtitle">Methods</span>
             
                 <li class="parent  " data-name="html.Box#add"><a href="html.Box.html#add">add</a></li>
+            
+                <li class="parent  " data-name="html.Box#updateLayout"><a href="html.Box.html#updateLayout">updateLayout</a></li>
             
             </ul>
             
@@ -1770,6 +1786,10 @@
             
                 <li class="parent  " data-name="html.Item#get"><a href="html.Item.html#get">get</a></li>
             
+                <li class="parent  " data-name="html.Item#nextFrame"><a href="html.Item.html#nextFrame">nextFrame</a></li>
+            
+                <li class="parent  " data-name="html.Item#updatePosition"><a href="html.Item.html#updatePosition">updatePosition</a></li>
+            
                 <li class="parent  " data-name="html.Item#vec3"><a href="html.Item.html#vec3">vec3</a></li>
             
                 <li class="parent  " data-name="html.Item#withoutSizing"><a href="html.Item.html#withoutSizing">withoutSizing</a></li>
@@ -1872,11 +1892,21 @@
             
             <span class="subtitle">Methods</span>
             
+                <li class="parent  " data-name="html.ListView#getItem"><a href="html.ListView.html#getItem">getItem</a></li>
+            
+                <li class="parent  " data-name="html.ListView#indexAt"><a href="html.ListView.html#indexAt">indexAt</a></li>
+            
+                <li class="parent  " data-name="html.ListView#positionOf"><a href="html.ListView.html#positionOf">positionOf</a></li>
+            
                 <li class="parent  " data-name="html.ListView#positionViewAt"><a href="html.ListView.html#positionViewAt">positionViewAt</a></li>
             
             </ul>
             
             <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.ListView.event:newLayout"><a href="html.ListView.html#.event:newLayout">newLayout</a></li>
             
             </ul>
             
@@ -3530,36 +3560,6 @@
             
         </li>
     
-        <li class="item" data-name="TaskQueues">
-            <span class="title  ">
-                
-                
-                    <a href="TaskQueues.html">TaskQueues</a>
-                
-            </span>
-            
-            <ul class="members itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="methods itemMembers">
-            
-            </ul>
-            
-            <ul class="events itemMembers">
-            
-            </ul>
-            
-        </li>
-    
         <li class="item" data-name="ui.Button">
             <span class="title  ">
                 
@@ -3920,6 +3920,36 @@
             
         </li>
     
+        <li class="item" data-name="ui.IndexScroller">
+            <span class="title  ">
+                
+                
+                    <a href="ui.IndexScroller.html">ui.IndexScroller</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="ui.Label">
             <span class="title  ">
                 
@@ -3945,6 +3975,46 @@
             </ul>
             
             <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.ListHeader">
+            <span class="title  ">
+                
+                
+                    <a href="ui.ListHeader.html">ui.ListHeader</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="ui.ListHeader#resetColumns"><a href="ui.ListHeader.html#resetColumns">resetColumns</a></li>
+            
+                <li class="parent  " data-name="ui.ListHeader#resizeColumn"><a href="ui.ListHeader.html#resizeColumn">resizeColumn</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="ui.ListHeader#event:columnClick"><a href="ui.ListHeader.html#event:columnClick">columnClick</a></li>
             
             </ul>
             
@@ -4041,6 +4111,36 @@
             <span class="subtitle">Methods</span>
             
                 <li class="parent  " data-name="ui.Menu#popup"><a href="ui.Menu.html#popup">popup</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.MenuExpander">
+            <span class="title  ">
+                
+                
+                    <a href="ui.MenuExpander.html">ui.MenuExpander</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
             
             </ul>
             
@@ -5253,8 +5353,7 @@
             <div class="class-description"><p>Base class representing a mid-level object with support for
 parent-child relations, reference counting, properties, events, and
 lifecycle management. Unlike plain JavaScript objects, this class has the
-concept of a destructor method.</p>
-<p>Every mid-level class is a descendant of this class.</p></div>
+concept of a destructor method.</p></div>
         
     </div>
 </header>  
@@ -5282,7 +5381,7 @@ concept of a destructor method.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line478">object.js:478</a>
+            <a href="shellfish-core_core_object.js.html#line828">object.js:828</a>
         </div>
         
     </div>
@@ -5527,6 +5626,158 @@ concept of a destructor method.</p>
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id="accumulateCallback">
+            <a class="share-icon" href="#accumulateCallback"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="status-deprecated">
+                accumulateCallback
+            </span>
+            <span class="signature">(f, name)</span>
+            
+                <span class="access-signature deprecated">Deprecated
+                    : <span class="deprecated-info">Use defer instead.</span>
+                    
+                </span>
+            
+            
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="shellfish-core_core_object.js.html#line1814">object.js:1814</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Accumulates the given callback function associated with a name.</p>
+<p>Only the most recent one of the accumulated functions under a name
+will be executed before the JavaScript engine finished executing its
+current code.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>f</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The function to invoke.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The accumulation name.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id="add">
             <a class="share-icon" href="#add"><span class="glyphicon glyphicon-link"></span></a>
             <span class="">
@@ -5541,7 +5792,7 @@ concept of a destructor method.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line1468">object.js:1468</a>
+            <a href="shellfish-core_core_object.js.html#line1942">object.js:1942</a>
         </div>
         
     </div>
@@ -5662,7 +5913,7 @@ concept of a destructor method.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line1197">object.js:1197</a>
+            <a href="shellfish-core_core_object.js.html#line1621">object.js:1621</a>
         </div>
         
     </div>
@@ -5884,7 +6135,7 @@ event listener callbacks along with their closures.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line982">object.js:982</a>
+            <a href="shellfish-core_core_object.js.html#line1406">object.js:1406</a>
         </div>
         
     </div>
@@ -6051,7 +6302,7 @@ event listener callbacks along with their closures.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line1349">object.js:1349</a>
+            <a href="shellfish-core_core_object.js.html#line1773">object.js:1773</a>
         </div>
         
     </div>
@@ -6240,7 +6491,7 @@ asynchronously.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line1241">object.js:1241</a>
+            <a href="shellfish-core_core_object.js.html#line1665">object.js:1665</a>
         </div>
         
     </div>
@@ -6379,6 +6630,136 @@ on destruction of this object.</p>
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id="cancelNamedCallback">
+            <a class="share-icon" href="#cancelNamedCallback"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                cancelNamedCallback
+            </span>
+            <span class="signature">(name)</span>
+            
+            
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="shellfish-core_core_object.js.html#line1160">object.js:1160</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Cancels the given pending named callback before it gets executed.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The name.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="core.Object.html#namedCallback">namedCallback</a></li>
+        
+            <li><a href="core.Object.html#namedCallbackPending">namedCallbackPending</a></li>
+        </ul>
+    </dd>
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id="change">
             <a class="share-icon" href="#change"><span class="glyphicon glyphicon-link"></span></a>
             <span class="">
@@ -6393,7 +6774,7 @@ on destruction of this object.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line1041">object.js:1041</a>
+            <a href="shellfish-core_core_object.js.html#line1465">object.js:1465</a>
         </div>
         
     </div>
@@ -6546,7 +6927,7 @@ potential transitioning into account.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line1413">object.js:1413</a>
+            <a href="shellfish-core_core_object.js.html#line1887">object.js:1887</a>
         </div>
         
     </div>
@@ -6631,6 +7012,13 @@ potential transitioning into account.</p>
     
     
     
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="core.Object.html#waitQueued">waitQueued</a></li>
+        </ul>
+    </dd>
+    
     
     
 </dl>
@@ -6667,7 +7055,7 @@ potential transitioning into account.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line607">object.js:607</a>
+            <a href="shellfish-core_core_object.js.html#line959">object.js:959</a>
         </div>
         
     </div>
@@ -6819,7 +7207,7 @@ potential transitioning into account.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line1143">object.js:1143</a>
+            <a href="shellfish-core_core_object.js.html#line1567">object.js:1567</a>
         </div>
         
     </div>
@@ -6984,6 +7372,153 @@ automatically when the receiver object is discarded.</p>
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id="defer">
+            <a class="share-icon" href="#defer"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                defer
+            </span>
+            <span class="signature">(f, name)</span>
+            
+            
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="shellfish-core_core_object.js.html#line1829">object.js:1829</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Defers the execution of the given function associated with a name.</p>
+<p>Only the most recent one of the defered functions under a name
+will be executed before the JavaScript engine finished executing its
+current code.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>f</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The function to invoke.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The function name.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id="discard">
             <a class="share-icon" href="#discard"><span class="glyphicon glyphicon-link"></span></a>
             <span class="status-deprecated">
@@ -7003,7 +7538,7 @@ automatically when the receiver object is discarded.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line632">object.js:632</a>
+            <a href="shellfish-core_core_object.js.html#line987">object.js:987</a>
         </div>
         
     </div>
@@ -7079,7 +7614,7 @@ automatically when the receiver object is discarded.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line1155">object.js:1155</a>
+            <a href="shellfish-core_core_object.js.html#line1579">object.js:1579</a>
         </div>
         
     </div>
@@ -7230,7 +7765,7 @@ automatically when the receiver object is discarded.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line1316">object.js:1316</a>
+            <a href="shellfish-core_core_object.js.html#line1740">object.js:1740</a>
         </div>
         
     </div>
@@ -7410,7 +7945,7 @@ to be taken for deletion.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line1180">object.js:1180</a>
+            <a href="shellfish-core_core_object.js.html#line1604">object.js:1604</a>
         </div>
         
     </div>
@@ -7567,7 +8102,7 @@ to be taken for deletion.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line1425">object.js:1425</a>
+            <a href="shellfish-core_core_object.js.html#line1899">object.js:1899</a>
         </div>
         
     </div>
@@ -7718,7 +8253,7 @@ resolves to the module.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line614">object.js:614</a>
+            <a href="shellfish-core_core_object.js.html#line966">object.js:966</a>
         </div>
         
     </div>
@@ -7795,7 +8330,7 @@ and its children.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line871">object.js:871</a>
+            <a href="shellfish-core_core_object.js.html#line1295">object.js:1295</a>
         </div>
         
     </div>
@@ -7945,7 +8480,7 @@ and its children.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line1454">object.js:1454</a>
+            <a href="shellfish-core_core_object.js.html#line1928">object.js:1928</a>
         </div>
         
     </div>
@@ -8100,6 +8635,352 @@ handled in any way.</p>
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id="namedCallback">
+            <a class="share-icon" href="#namedCallback"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                namedCallback
+            </span>
+            <span class="signature">(callback, name)</span><span class="type-signature">function</span>
+            
+            
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="shellfish-core_core_object.js.html#line1121">object.js:1121</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Wraps a callback function to give it a name handle by which it may be
+canceled before execution.</p>
+<p>When setting multiple callbacks of the same name, only the last
+one will be executed.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The callback function.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The name.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="core.Object.html#cancelNamedCallback">cancelNamedCallback</a></li>
+        
+            <li><a href="core.Object.html#namedCallbackPending">namedCallbackPending</a></li>
+        </ul>
+    </dd>
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        function
+                        
+                    
+            </td>
+            <td class="description last"><ul>
+<li>The wrapped callback function.</li>
+</ul></td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="namedCallbackPending">
+            <a class="share-icon" href="#namedCallbackPending"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                namedCallbackPending
+            </span>
+            <span class="signature">(name)</span><span class="type-signature">bool</span>
+            
+            
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="shellfish-core_core_object.js.html#line1146">object.js:1146</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Returns if the given named callback is currently pending.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The name.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="core.Object.html#cancelNamedCallback">cancelNamedCallback</a></li>
+        
+            <li><a href="core.Object.html#namedCallback">namedCallback</a></li>
+        </ul>
+    </dd>
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        bool
+                        
+                    
+            </td>
+            <td class="description last"><code>true</code> if the callback is currently pending.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id="notifyable">
             <a class="share-icon" href="#notifyable"><span class="glyphicon glyphicon-link"></span></a>
             <span class="">
@@ -8114,7 +8995,7 @@ handled in any way.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line908">object.js:908</a>
+            <a href="shellfish-core_core_object.js.html#line1332">object.js:1332</a>
         </div>
         
     </div>
@@ -8244,7 +9125,7 @@ property for changes.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line744">object.js:744</a>
+            <a href="shellfish-core_core_object.js.html#line1177">object.js:1177</a>
         </div>
         
     </div>
@@ -8374,7 +9255,7 @@ discarded while still being referenced.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line807">object.js:807</a>
+            <a href="shellfish-core_core_object.js.html#line1228">object.js:1228</a>
         </div>
         
     </div>
@@ -8503,7 +9384,7 @@ left, the object will be discarded automatically.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line1079">object.js:1079</a>
+            <a href="shellfish-core_core_object.js.html#line1503">object.js:1503</a>
         </div>
         
     </div>
@@ -8656,7 +9537,7 @@ whenever a connection to the event is made.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line697">object.js:697</a>
+            <a href="shellfish-core_core_object.js.html#line1068">object.js:1068</a>
         </div>
         
     </div>
@@ -8732,7 +9613,7 @@ whenever a connection to the event is made.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line1215">object.js:1215</a>
+            <a href="shellfish-core_core_object.js.html#line1639">object.js:1639</a>
         </div>
         
     </div>
@@ -8952,7 +9833,7 @@ whenever a connection to the event is made.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line600">object.js:600</a>
+            <a href="shellfish-core_core_object.js.html#line952">object.js:952</a>
         </div>
         
     </div>
@@ -9150,7 +10031,7 @@ whenever a connection to the event is made.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line591">object.js:591</a>
+            <a href="shellfish-core_core_object.js.html#line943">object.js:943</a>
         </div>
         
     </div>
@@ -9371,7 +10252,7 @@ whenever a connection to the event is made.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line717">object.js:717</a>
+            <a href="shellfish-core_core_object.js.html#line1088">object.js:1088</a>
         </div>
         
     </div>
@@ -9549,7 +10430,7 @@ This helps when working with asynchronous code.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line1270">object.js:1270</a>
+            <a href="shellfish-core_core_object.js.html#line1694">object.js:1694</a>
         </div>
         
     </div>
@@ -9758,7 +10639,7 @@ if the resource did not exist.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line1019">object.js:1019</a>
+            <a href="shellfish-core_core_object.js.html#line1443">object.js:1443</a>
         </div>
         
     </div>
@@ -9910,7 +10791,7 @@ if the resource did not exist.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line923">object.js:923</a>
+            <a href="shellfish-core_core_object.js.html#line1347">object.js:1347</a>
         </div>
         
     </div>
@@ -10061,7 +10942,7 @@ property does not exist.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line892">object.js:892</a>
+            <a href="shellfish-core_core_object.js.html#line1316">object.js:1316</a>
         </div>
         
     </div>
@@ -10184,7 +11065,7 @@ function, while the function returns <code>true</code>. If the function returns
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line1384">object.js:1384</a>
+            <a href="shellfish-core_core_object.js.html#line1844">object.js:1844</a>
         </div>
         
     </div>
@@ -10196,6 +11077,9 @@ function, while the function returns <code>true</code>. If the function returns
     
     <div class="description">
         <p>Returns a Promise that resolves after a given amount of milliseconds.</p>
+<p>If the milliseconds are set to <code>0</code>, the promise resolves immediately
+after the JavaScript engine finished executing its current code,
+without using a timer.</p>
     </div>
     
 
@@ -10334,7 +11218,7 @@ function, while the function returns <code>true</code>. If the function returns
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line1403">object.js:1403</a>
+            <a href="shellfish-core_core_object.js.html#line1875">object.js:1875</a>
         </div>
         
     </div>
@@ -10421,6 +11305,13 @@ finished its turn, that <code>next</code> function must be invoked.</p>
     
     
     
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="core.Object.html#clearQueue">clearQueue</a></li>
+        </ul>
+    </dd>
+    
     
     
 </dl>
@@ -10496,7 +11387,7 @@ finished its turn, that <code>next</code> function must be invoked.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line510">object.js:510</a>
+            <a href="shellfish-core_core_object.js.html#line858">object.js:858</a>
         </div>
         
     </div>
@@ -10507,7 +11398,8 @@ finished its turn, that <code>next</code> function must be invoked.</p>
     
     
     <div class="description">
-        <p>Is triggered immediately before the object will be discarded.</p>
+        <p>Is triggered immediately before the object will be destroyed.
+The object is still intact at this place.</p>
     </div>
     
 
@@ -10572,7 +11464,7 @@ finished its turn, that <code>next</code> function must be invoked.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line503">object.js:503</a>
+            <a href="shellfish-core_core_object.js.html#line851">object.js:851</a>
         </div>
         
     </div>
@@ -10648,7 +11540,7 @@ finished its turn, that <code>next</code> function must be invoked.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line517">object.js:517</a>
+            <a href="shellfish-core_core_object.js.html#line866">object.js:866</a>
         </div>
         
     </div>
@@ -10659,7 +11551,8 @@ finished its turn, that <code>next</code> function must be invoked.</p>
     
     
     <div class="description">
-        <p>Is triggered after the object was discarded.</p>
+        <p>Is triggered after the object was destroyed.
+The object is not intact anymore at this place.</p>
     </div>
     
 
@@ -10720,7 +11613,7 @@ finished its turn, that <code>next</code> function must be invoked.</p>
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun Nov 06 2022 14:56:49 GMT+0100 (Mitteleuropäische Normalzeit)
+                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Apr 18 2023 17:36:50 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

@@ -636,6 +636,12 @@
             
             <ul class="methods itemMembers">
             
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.FSModel#makeFilter"><a href="core.FSModel.html#makeFilter">makeFilter</a></li>
+            
+                <li class="parent  " data-name="core.FSModel#makeSorter"><a href="core.FSModel.html#makeSorter">makeSorter</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -716,6 +722,8 @@
             
             <span class="subtitle">Methods</span>
             
+                <li class="parent  status-deprecated" data-name="core.Object#accumulateCallback"><a href="core.Object.html#accumulateCallback">accumulateCallback</a></li>
+            
                 <li class="parent  " data-name="core.Object#add"><a href="core.Object.html#add">add</a></li>
             
                 <li class="parent  " data-name="core.Object#addHtmlEventListener"><a href="core.Object.html#addHtmlEventListener">addHtmlEventListener</a></li>
@@ -726,6 +734,8 @@
             
                 <li class="parent  " data-name="core.Object#blobUrl"><a href="core.Object.html#blobUrl">blobUrl</a></li>
             
+                <li class="parent  " data-name="core.Object#cancelNamedCallback"><a href="core.Object.html#cancelNamedCallback">cancelNamedCallback</a></li>
+            
                 <li class="parent  " data-name="core.Object#change"><a href="core.Object.html#change">change</a></li>
             
                 <li class="parent  " data-name="core.Object#clearQueue"><a href="core.Object.html#clearQueue">clearQueue</a></li>
@@ -733,6 +743,8 @@
                 <li class="parent  " data-name="core.Object#colorName"><a href="core.Object.html#colorName">colorName</a></li>
             
                 <li class="parent  " data-name="core.Object#connect"><a href="core.Object.html#connect">connect</a></li>
+            
+                <li class="parent  " data-name="core.Object#defer"><a href="core.Object.html#defer">defer</a></li>
             
                 <li class="parent  status-deprecated" data-name="core.Object#discard"><a href="core.Object.html#discard">discard</a></li>
             
@@ -749,6 +761,10 @@
                 <li class="parent  " data-name="core.Object#isAncestorOf"><a href="core.Object.html#isAncestorOf">isAncestorOf</a></li>
             
                 <li class="parent  " data-name="core.Object#log"><a href="core.Object.html#log">log</a></li>
+            
+                <li class="parent  " data-name="core.Object#namedCallback"><a href="core.Object.html#namedCallback">namedCallback</a></li>
+            
+                <li class="parent  " data-name="core.Object#namedCallbackPending"><a href="core.Object.html#namedCallbackPending">namedCallbackPending</a></li>
             
                 <li class="parent  " data-name="core.Object#notifyable"><a href="core.Object.html#notifyable">notifyable</a></li>
             
@@ -1020,8 +1036,6 @@
             
                 <li class="parent  " data-name="declarative.Element#find"><a href="declarative.Element.html#find">find</a></li>
             
-                <li class="parent  " data-name="declarative.Element#flushPending"><a href="declarative.Element.html#flushPending">flushPending</a></li>
-            
                 <li class="parent  " data-name="declarative.Element#get"><a href="declarative.Element.html#get">get</a></li>
             
                 <li class="parent  " data-name="declarative.Element#id"><a href="declarative.Element.html#id">id</a></li>
@@ -1105,6 +1119,8 @@
             <span class="subtitle">Methods</span>
             
                 <li class="parent  " data-name="html.Box#add"><a href="html.Box.html#add">add</a></li>
+            
+                <li class="parent  " data-name="html.Box#updateLayout"><a href="html.Box.html#updateLayout">updateLayout</a></li>
             
             </ul>
             
@@ -1770,6 +1786,10 @@
             
                 <li class="parent  " data-name="html.Item#get"><a href="html.Item.html#get">get</a></li>
             
+                <li class="parent  " data-name="html.Item#nextFrame"><a href="html.Item.html#nextFrame">nextFrame</a></li>
+            
+                <li class="parent  " data-name="html.Item#updatePosition"><a href="html.Item.html#updatePosition">updatePosition</a></li>
+            
                 <li class="parent  " data-name="html.Item#vec3"><a href="html.Item.html#vec3">vec3</a></li>
             
                 <li class="parent  " data-name="html.Item#withoutSizing"><a href="html.Item.html#withoutSizing">withoutSizing</a></li>
@@ -1872,11 +1892,21 @@
             
             <span class="subtitle">Methods</span>
             
+                <li class="parent  " data-name="html.ListView#getItem"><a href="html.ListView.html#getItem">getItem</a></li>
+            
+                <li class="parent  " data-name="html.ListView#indexAt"><a href="html.ListView.html#indexAt">indexAt</a></li>
+            
+                <li class="parent  " data-name="html.ListView#positionOf"><a href="html.ListView.html#positionOf">positionOf</a></li>
+            
                 <li class="parent  " data-name="html.ListView#positionViewAt"><a href="html.ListView.html#positionViewAt">positionViewAt</a></li>
             
             </ul>
             
             <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.ListView.event:newLayout"><a href="html.ListView.html#.event:newLayout">newLayout</a></li>
             
             </ul>
             
@@ -3530,36 +3560,6 @@
             
         </li>
     
-        <li class="item" data-name="TaskQueues">
-            <span class="title  ">
-                
-                
-                    <a href="TaskQueues.html">TaskQueues</a>
-                
-            </span>
-            
-            <ul class="members itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="methods itemMembers">
-            
-            </ul>
-            
-            <ul class="events itemMembers">
-            
-            </ul>
-            
-        </li>
-    
         <li class="item" data-name="ui.Button">
             <span class="title  ">
                 
@@ -3920,6 +3920,36 @@
             
         </li>
     
+        <li class="item" data-name="ui.IndexScroller">
+            <span class="title  ">
+                
+                
+                    <a href="ui.IndexScroller.html">ui.IndexScroller</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="ui.Label">
             <span class="title  ">
                 
@@ -3945,6 +3975,46 @@
             </ul>
             
             <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.ListHeader">
+            <span class="title  ">
+                
+                
+                    <a href="ui.ListHeader.html">ui.ListHeader</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="ui.ListHeader#resetColumns"><a href="ui.ListHeader.html#resetColumns">resetColumns</a></li>
+            
+                <li class="parent  " data-name="ui.ListHeader#resizeColumn"><a href="ui.ListHeader.html#resizeColumn">resizeColumn</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="ui.ListHeader#event:columnClick"><a href="ui.ListHeader.html#event:columnClick">columnClick</a></li>
             
             </ul>
             
@@ -4041,6 +4111,36 @@
             <span class="subtitle">Methods</span>
             
                 <li class="parent  " data-name="ui.Menu#popup"><a href="ui.Menu.html#popup">popup</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.MenuExpander">
+            <span class="title  ">
+                
+                
+                    <a href="ui.MenuExpander.html">ui.MenuExpander</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
             
             </ul>
             
@@ -5252,7 +5352,7 @@
         <article>
             <pre id="source-code" class="prettyprint source "><code>/*******************************************************************************
 This file is part of the Shellfish UI toolkit.
-Copyright (c) 2022 Martin Grimme &lt;martin.grimme@gmail.com>
+Copyright (c) 2022 - 2023 Martin Grimme &lt;martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -5283,6 +5383,7 @@ require "shellfish/ui";
  * @class
  * @extends html.MouseBox
  *
+ * @property {number[]} columnWidths - (default: `[]`) An optional array for setting the widths of the columns in `list` mode.
  * @property {string} displayMode - (default: `"list"`) The display mode. One of `list|grid`
  * @property {object} file - (default: `null`) The file object to represent.
  * @property {bool} highlighted - (default: `false`) If `true`, the item is highlighted.
@@ -5294,39 +5395,51 @@ MouseBox {
     property displayMode: "list"
     property highlighted: false
     property file: null
+    property columnWidths: []
     property thumbnail: ""
 
     color: containsMouse &amp;&amp; ! highlighted ? theme.hoverBackgroundColor
                                           : highlighted ? theme.highlightBackgroundColor
                                                         : "transparent"
 
-    layout: item.displayMode === "list" ? "center-row" : "center-column"
+    layout: item.displayMode === "list" ? "row" : "column"
 
     onFileChanged: () =>
     {
-        sizeLabel.text = "...";
+        sizeLabel.text = "";
 
         if (file)
         {
             if (file.type === "d")
             {
-
+                nameLabel.text = low.escapeMarkup(item.file.name);
+                typeLabel.text = "Folder";
             }
             else
             {
+                const parts = item.file.name.split(".");
+                let ext = "";
+                if (parts.length > 1)
+                {
+                    ext = parts.pop();
+                }
+                nameLabel.text = low.escapeMarkup(parts.join("."));
+
                 let size = Math.ceil(item.file.size / 1024);
-                const units = ["KB", "MB", "GB", "TB"];
+                const units = ["K", "M", "G", "T"];
 
                 for (let i = 0; i &lt; units.length; ++i)
                 {
                     const unit = units[i];
                     if (size &lt; 1024)
                     {
-                        sizeLabel.text = (i === 0 ? size : size.toFixed(1)) + " " + unit;
+                        sizeLabel.text = (i === 0 ? size : size.toFixed(1)) + unit;
                         break;
                     }
                     size /= 1024;
                 }
+
+                typeLabel.text = ext !== "" ? ext : file.mimetype;
             }
         }
     }
@@ -5335,17 +5448,10 @@ MouseBox {
     Box {
         id: iconBox
 
-        width: bboxHeight
         fillWidth: displayMode === "list" ? false : true
-        fillHeight: true
-        marginTop: displayMode === "list" ? 0 : theme.paddingSmall
-        marginLeft: displayMode === "list" ? 0 : theme.paddingSmall
-        marginRight: displayMode === "list" ? 0 : theme.paddingSmall
-        marginBottom: displayMode === "list" ? 0 : theme.paddingSmall +
-                                                    nameLabel.bboxHeight +
-                                                    sizeLabel.bboxHeight
-
-        layout: "center"
+        fillHeight: displayMode === "list" ? true : false
+        width: displayMode === "list" ? bboxHeight : -1
+        height: displayMode === "list" ? -1 : bboxWidth
 
         Image {
             id: thumbnailIcon
@@ -5353,6 +5459,10 @@ MouseBox {
             visible: status === "success"
             fillWidth: true
             fillHeight: true
+            marginTop: 2
+            marginLeft: 2
+            marginRight: 2
+            marginBottom: 2
             fitMode: "contain"
 
             source: item.thumbnail
@@ -5361,10 +5471,15 @@ MouseBox {
         Box {
             position: "free"
             origin: "bottom-right"
+            marginTop: 2
+            marginLeft: 2
+            marginRight: 2
+            marginBottom: 2
             fillWidth: ! thumbnailIcon.visible
             fillHeight: ! thumbnailIcon.visible
             width: thumbnailIcon.visible ? parent.bboxWidth * 0.3 : -1
             height: thumbnailIcon.visible ? width : -1
+            color: thumbnailIcon.visible ? theme.secondaryBackgroundColor : "transparent"
 
             layout: "center"
 
@@ -5377,39 +5492,85 @@ MouseBox {
                 mimeType: item.file.mimetype
             }
         }
-
     }
 
-    Label {
-        id: nameLabel
+    Box {
+        width: item.displayMode === "list" ? (item.columnWidths[0] - iconBox.bboxWidth) || -1
+                                           : -1
+        fillWidth: width === -1
+        fillHeight: item.displayMode === "list"
+        layout: "center"
 
-        position: item.displayMode === "list" ? "inline" : "free"
-        origin: item.displayMode === "list" ? "top-left" : "bottom-left"
+        Label {
+            id: nameLabel
+
+            property lines: Math.round(contentHeight / (fontSize * 1.2))
+            property lineHeight: lines > 0 ? contentHeight / lines : 0;
+
+            fillWidth: true
+            marginLeft: theme.paddingSmall
+            marginRight: theme.paddingSmall
+            horizontalAlignment: item.displayMode === "list" ? "left" : "center"
+            overflowBehavior: "break" //"ellipsis"
+            maxHeight: lineHeight * 3
+            color: item.highlighted || item.containsMouse ? theme.highlightColor : theme.primaryColor
+         }
+    }
+
+    Box {
+        visible: nameLabel.lines > 3 &amp;&amp; item.displayMode !== "list"
         fillWidth: true
         marginLeft: theme.paddingSmall
         marginRight: theme.paddingSmall
-        marginBottom: item.displayMode === "list" ? 0 : sizeLabel.bboxHeight
-        horizontalAlignment: item.displayMode === "list" ? "left" : "center"
-        overflowBehavior: "ellipsis"
-        color: parent.highlighted || parent.containsMouse ? theme.highlightColor : theme.primaryColor
-        text: low.escapeMarkup(item.file.name)
+        height: 1
+        color: sizeLabel.color
     }
 
-    Label {
-        id: sizeLabel
+    Box {
+        width: item.displayMode === "list" ? item.columnWidths[1] || -1
+                                           : -1
+        fillWidth: width === -1
+        fillHeight: item.displayMode === "list"
+        layout: "center"
 
-        position: item.displayMode === "list" ? "inline" : "free"
-        origin: item.displayMode === "list" ? "top-left" : "bottom-left"
-        fillWidth: item.displayMode === "grid"
-        marginLeft: theme.paddingSmall
-        marginRight: theme.paddingSmall
-        horizontalAlignment: item.displayMode === "list" ? "left" : "center"
-        fontSize: item.displayMode === "list" ? theme.fontSizeMedium : theme.fontSizeSmall
-        color: parent.highlighted || parent.containsMouse ? theme.highlightColor : theme.secondaryColor
+        Label {
+            id: typeLabel
+
+            fillWidth: true
+            marginLeft: theme.paddingSmall
+            marginRight: theme.paddingSmall
+            horizontalAlignment: item.displayMode === "list" ? "left" : "center"
+            overflowBehavior: "ellipsis"
+            fontSize: item.displayMode === "list" ? theme.fontSizeMedium : theme.fontSizeSmall
+            color: item.highlighted || item.containsMouse ? theme.highlightColor : theme.secondaryColor
+        }
     }
+
+    Box {
+        width: item.displayMode === "list" ? item.columnWidths[2] || -1
+                                           : -1
+        fillWidth: width === -1
+        fillHeight: item.displayMode === "list"
+        layout: "center"
+
+        Label {
+            id: sizeLabel
+
+            fillWidth: true
+            marginLeft: theme.paddingSmall
+            marginRight: theme.paddingSmall
+            horizontalAlignment: item.displayMode === "list" ? "right" : "center"
+            overflowBehavior: "ellipsis"
+            fontSize: item.displayMode === "list" ? theme.fontSizeMedium : theme.fontSizeSmall
+            color: item.highlighted || item.containsMouse ? theme.highlightColor : theme.secondaryColor
+         }
+    }
+    
 
     Tooltip {
-        visible: parent.hovered &amp;&amp; nameLabel.contentWidth > Math.round(nameLabel.bboxWidth)
+        visible: item.hovered &amp;&amp;
+                 (nameLabel.contentWidth > Math.round(nameLabel.bboxWidth) ||
+                  nameLabel.contentHeight > Math.round(nameLabel.bboxHeight))
         text: nameLabel.text
     }
 }</code></pre>
@@ -5425,7 +5586,7 @@ MouseBox {
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun Nov 06 2022 14:56:49 GMT+0100 (Mitteleuropäische Normalzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Apr 18 2023 17:36:50 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit.
-Copyright (c) 2017 - 2022 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2017 - 2023 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -113,6 +113,20 @@ const shRequire = (function ()
     };
 
     const hasDom = (typeof document !== "undefined");
+    const isWeb = hasDom &&
+                  typeof navigator !== "undefined" &&
+                  typeof window !== "undefined";
+    const isNode = typeof process !== "undefined" &&
+                   typeof process.versions === "object" &&
+                   typeof process.versions.node !== "undefined";
+    const isDeno = typeof window !== "undefined" && window.Deno;
+    const isElectronRenderer = hasDom &&
+                               typeof window !== "undefined" &&
+                               typeof window.process === "object" &&
+                               window.process.type === "renderer";
+    const isElectronMain = typeof process !== "undefined" &&
+                           typeof process.versions === "object" &&
+                           typeof process.versions.electron !== "undefined";
 
     // stack of task queues
     const stackOfQueues = [];
@@ -197,6 +211,145 @@ const shRequire = (function ()
     }
 
     /**
+     * Retrieves a resource object from the local storage, if available.
+     * 
+     * @param {string} url - The URL for addressing the resource object.
+     * 
+     * @returns {object} - The resource object, or `null` if it was not found, or if there is no local storage available.
+     */
+    function storeGet(url)
+    {
+        if (typeof localStorage === "undefined")
+        {
+            return null;
+        }
+        else
+        {
+            const json = localStorage.getItem("shellfish-cache:" + url);
+            if (json)
+            {
+                return JSON.parse(json);
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
+
+    /**
+     * Puts an object of resource data into the local storage, if available.
+     * 
+     * @param {string} url - The URL for addressing the resource object.
+     * @param {object} data - The resource object. It must be JSON-serializable.
+     * 
+     * @returns {bool} Whether the data was put in the local storage successfully.
+     */
+    function storePut(url, data)
+    {
+        if (typeof localStorage === "undefined")
+        {
+            return false;
+        }
+        else
+        {
+            try
+            {
+                localStorage.setItem("shellfish-cache:" + url, JSON.stringify(data));
+                return true;
+            }
+            catch (err)
+            {
+            }
+            return false;
+        }
+    }
+
+    /**
+     * Fetches a resource from the given URL, or from the local storage, if
+     * cached there, and the caching is enabled via `shellfish-use-cache = "true"`
+     * set in the local storage.
+     * 
+     * @param {string} url - The URL to fetch from.
+     * @param {function} callback - The callback function to invoke with the resource data.
+     */
+    function storeFetch(url, callback)
+    {
+        if (typeof localStorage === "undefined" || localStorage.getItem("shellfish-use-cache") !== "true")
+        {
+            fetch(url, { cache: "no-cache" })
+            .then(response =>
+            {
+                if (! response.ok)
+                {
+                    throw `${response.status} ${response.statusText}`;
+                }
+                return response.text()
+            })
+            .then(data =>
+            {
+                callback(data);
+            })
+            .catch(err =>
+            {
+                callback(null);
+            });
+            return;
+        }
+
+        let lastModified = Date.now();
+        fetch(url, { cache: "no-cache", method: "HEAD" })
+        .then(response =>
+        {
+            if (response.headers.has("Last-Modified"))
+            {
+                lastModified = Date.parse(response.headers.get("Last-Modified"));
+            }
+
+            const obj = storeGet(url);
+            if (! obj || obj.lastModified < lastModified)
+            {
+                fetch(url, { cache: "no-cache" })
+                .then(response =>
+                {
+                    if (! response.ok)
+                    {
+                        throw `${response.status} ${response.statusText}`;
+                    }
+
+                    if (response.headers.has("Last-Modified"))
+                    {
+                        lastModified = Date.parse(response.headers.get("Last-Modified"));
+                    }
+                    return response.text()
+                })
+                .then(data =>
+                {
+                    storePut(url, {
+                        lastModified: lastModified,
+                        data: data
+                    });
+                    console.log("Fetched from remote: " + url);
+                    callback(data);
+                })
+                .catch(err =>
+                {
+                    callback(null);
+                });
+            }
+            else
+            {
+                console.log("Fetched from cache: " + url);
+                callback(obj.data);
+            }
+        })
+        .catch(err =>
+        {
+            callback(null);
+        });
+    }
+
+    /**
      * Imports the given code into a script tag.
      * @private
      * 
@@ -231,7 +384,7 @@ const shRequire = (function ()
             scriptNode.src = codeUrl;
             document.head.appendChild(scriptNode);
         }
-        else if (typeof window !== "undefined" && window.Deno)
+        else if (isDeno)
         {
             try
             {
@@ -247,6 +400,14 @@ const shRequire = (function ()
                 callback(false);
             }
             
+        }
+        else if (isNode)
+        {
+            const inlineModule = new module.constructor();
+            inlineModule.paths = module.paths;
+            inlineModule.shRequire = __require;
+            inlineModule._compile("const shRequire = module.shRequire; " + code, url);
+            callback(true);
         }
         else if (typeof Blob !== "undefined")
         {
@@ -264,14 +425,7 @@ const shRequire = (function ()
                 callback(false);
             }
         }
-        else
-        {
-            const inlineModule = new module.constructor();
-            inlineModule.paths = module.paths;
-            inlineModule.shRequire = __require;
-            inlineModule._compile("const shRequire = module.shRequire; " + code, url);
-            callback(true);
-        }
+
     }
 
     /**
@@ -285,7 +439,7 @@ const shRequire = (function ()
     {
         const now = Date.now();
 
-        if (typeof window !== "undefined" && window.Deno)
+        if (isDeno)
         {
             Deno.readTextFile(url)
             .then(data =>
@@ -309,39 +463,7 @@ const shRequire = (function ()
                 logError(`Failed to load bundle from '${url}': ${err}`);
             });
         }
-        else if (typeof fetch !== "undefined")
-        {
-            fetch(url, { cache: "no-cache" })
-            .then(response =>
-            {
-                if (! response.ok)
-                {
-                    throw `${response.status} ${response.statusText}`;
-                }
-                return response.text();
-            })
-            .then(data =>
-            {
-                try
-                {
-                    console.log(`Loaded JS bundle '${url}' from server in ${Date.now() - now} ms.`);
-                    const bundleName = url;
-                    processBundle(bundleName, JSON.parse(data), () =>
-                    {
-                        callback();
-                    });
-                }
-                catch (err)
-                {
-                    logError(`Failed to process JS bundle '${url}': ${err}`);
-                }
-            })
-            .catch(err =>
-            {
-                logError(`Failed to load bundle from '${url}': ${err}`);
-            });
-        }
-        else
+        else if (isNode)
         {
             const modFs = require("fs");
             modFs.readFile(url, (err, buf) =>
@@ -370,7 +492,31 @@ const shRequire = (function ()
 
             });
         }
+        else
+        {
+            storeFetch(url, data =>
+            {
+                if (! data)
+                {
+                    logError(`Failed to load bundle from '${url}'`);
+                }
 
+                try
+                {
+                    console.log(`Loaded JS bundle '${url}' from server in ${Date.now() - now} ms.`);
+                    const bundleName = url;
+                    processBundle(bundleName, JSON.parse(data), () =>
+                    {
+                        callback();
+                    });
+                }
+                catch (err)
+                {
+                    logError(`Failed to process JS bundle '${url}': ${err}`);
+                }
+            });
+
+        }
     }
 
     /**
@@ -481,7 +627,7 @@ const shRequire = (function ()
             return;
         }
 
-        if (typeof window !== "undefined" && window.Deno)
+        if (isDeno)
         {
             Deno.readTextFile(url)
             .then(data =>
@@ -494,28 +640,7 @@ const shRequire = (function ()
                 callback("");
             });
         }
-        else if (typeof fetch !== "undefined")
-        {
-            fetch(url, { cache: "no-cache" })
-            .then(response =>
-            {
-                if (! response.ok)
-                {
-                    throw `${response.status} ${response.statusText}`;
-                }
-                return response.text();
-            })
-            .then(data =>
-            {
-                callback(data);
-            })
-            .catch(err =>
-            {
-                logError(`Failed to load module '${url}': ${err}`);
-                callback("");
-            });
-        }
-        else
+        else if (isNode)
         {
             const modFs = require("fs");
             modFs.readFile(url, (err, data) =>
@@ -530,6 +655,18 @@ const shRequire = (function ()
                     callback(data.toString());
                 }
             });
+        }
+        else
+        {
+            storeFetch(url, data =>
+            {
+                if (! data)
+                {
+                    logError(`Failed to load module '${url}'`);
+                }
+                callback(data);
+            });
+
         }
     }
 
@@ -794,23 +931,7 @@ const shRequire = (function ()
                 fail(err);
             });
         }
-        else if (typeof fetch !== "undefined")
-        {
-            fetch(url, { cache: "no-cache" })
-            .then(response =>
-            {
-                return WebAssembly.instantiateStreaming(response, importObj)
-            })
-            .then(module =>
-            {
-                callback(module.instance.exports);
-            })
-            .catch (err =>
-            {
-                fail(err);
-            });
-        }
-        else
+        else if (isNode)
         {
             const modFs = require("fs");
             modFs.readFile(url, (err, data) =>
@@ -831,6 +952,22 @@ const shRequire = (function ()
                         fail(err);
                     });
                 }
+            });
+        }
+        else
+        {
+            fetch(url, { cache: "no-cache" })
+            .then(response =>
+            {
+                return WebAssembly.instantiateStreaming(response, importObj)
+            })
+            .then(module =>
+            {
+                callback(module.instance.exports);
+            })
+            .catch (err =>
+            {
+                fail(err);
             });
         }
     }
@@ -1001,6 +1138,41 @@ const shRequire = (function ()
     }
 
     __require.dependencyCounter = 0;
+
+    /**
+     * Holds the name of the detected environment this code is running in.
+     * 
+     * Supported types are:
+     *
+     * - deno
+     * - node
+     * - electron-renderer
+     * - electron
+     * - web
+     */
+    __require.environment = (() =>
+    {
+        if (isDeno)
+        {
+            return "deno";
+        }
+        else if (isNode)
+        {
+            return "node";
+        }
+        else if (isElectronRenderer)
+        {
+            return "electron-renderer";
+        }
+        else if (isElectronMain)
+        {
+            return "electron";
+        }
+        else
+        {
+            return "web";
+        }
+    })();
 
     /**
      * Registers data for the given URL.
@@ -1194,7 +1366,7 @@ const shRequire = (function ()
         }
     }// if (hasDom)
 
-    console.log("Initialized Shellfish module manager.");
+    console.log("Initialized Shellfish module manager. Detected environment: " + __require.environment);
 
     // In order to support both module systems, ESM and CJS, exports are not used.
     // Instead, we assign the Shellfish environment to a certain variable in scope,

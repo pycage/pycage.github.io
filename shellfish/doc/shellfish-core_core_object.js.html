@@ -636,6 +636,12 @@
             
             <ul class="methods itemMembers">
             
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.FSModel#makeFilter"><a href="core.FSModel.html#makeFilter">makeFilter</a></li>
+            
+                <li class="parent  " data-name="core.FSModel#makeSorter"><a href="core.FSModel.html#makeSorter">makeSorter</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -716,6 +722,8 @@
             
             <span class="subtitle">Methods</span>
             
+                <li class="parent  status-deprecated" data-name="core.Object#accumulateCallback"><a href="core.Object.html#accumulateCallback">accumulateCallback</a></li>
+            
                 <li class="parent  " data-name="core.Object#add"><a href="core.Object.html#add">add</a></li>
             
                 <li class="parent  " data-name="core.Object#addHtmlEventListener"><a href="core.Object.html#addHtmlEventListener">addHtmlEventListener</a></li>
@@ -726,6 +734,8 @@
             
                 <li class="parent  " data-name="core.Object#blobUrl"><a href="core.Object.html#blobUrl">blobUrl</a></li>
             
+                <li class="parent  " data-name="core.Object#cancelNamedCallback"><a href="core.Object.html#cancelNamedCallback">cancelNamedCallback</a></li>
+            
                 <li class="parent  " data-name="core.Object#change"><a href="core.Object.html#change">change</a></li>
             
                 <li class="parent  " data-name="core.Object#clearQueue"><a href="core.Object.html#clearQueue">clearQueue</a></li>
@@ -733,6 +743,8 @@
                 <li class="parent  " data-name="core.Object#colorName"><a href="core.Object.html#colorName">colorName</a></li>
             
                 <li class="parent  " data-name="core.Object#connect"><a href="core.Object.html#connect">connect</a></li>
+            
+                <li class="parent  " data-name="core.Object#defer"><a href="core.Object.html#defer">defer</a></li>
             
                 <li class="parent  status-deprecated" data-name="core.Object#discard"><a href="core.Object.html#discard">discard</a></li>
             
@@ -749,6 +761,10 @@
                 <li class="parent  " data-name="core.Object#isAncestorOf"><a href="core.Object.html#isAncestorOf">isAncestorOf</a></li>
             
                 <li class="parent  " data-name="core.Object#log"><a href="core.Object.html#log">log</a></li>
+            
+                <li class="parent  " data-name="core.Object#namedCallback"><a href="core.Object.html#namedCallback">namedCallback</a></li>
+            
+                <li class="parent  " data-name="core.Object#namedCallbackPending"><a href="core.Object.html#namedCallbackPending">namedCallbackPending</a></li>
             
                 <li class="parent  " data-name="core.Object#notifyable"><a href="core.Object.html#notifyable">notifyable</a></li>
             
@@ -1020,8 +1036,6 @@
             
                 <li class="parent  " data-name="declarative.Element#find"><a href="declarative.Element.html#find">find</a></li>
             
-                <li class="parent  " data-name="declarative.Element#flushPending"><a href="declarative.Element.html#flushPending">flushPending</a></li>
-            
                 <li class="parent  " data-name="declarative.Element#get"><a href="declarative.Element.html#get">get</a></li>
             
                 <li class="parent  " data-name="declarative.Element#id"><a href="declarative.Element.html#id">id</a></li>
@@ -1105,6 +1119,8 @@
             <span class="subtitle">Methods</span>
             
                 <li class="parent  " data-name="html.Box#add"><a href="html.Box.html#add">add</a></li>
+            
+                <li class="parent  " data-name="html.Box#updateLayout"><a href="html.Box.html#updateLayout">updateLayout</a></li>
             
             </ul>
             
@@ -1770,6 +1786,10 @@
             
                 <li class="parent  " data-name="html.Item#get"><a href="html.Item.html#get">get</a></li>
             
+                <li class="parent  " data-name="html.Item#nextFrame"><a href="html.Item.html#nextFrame">nextFrame</a></li>
+            
+                <li class="parent  " data-name="html.Item#updatePosition"><a href="html.Item.html#updatePosition">updatePosition</a></li>
+            
                 <li class="parent  " data-name="html.Item#vec3"><a href="html.Item.html#vec3">vec3</a></li>
             
                 <li class="parent  " data-name="html.Item#withoutSizing"><a href="html.Item.html#withoutSizing">withoutSizing</a></li>
@@ -1872,11 +1892,21 @@
             
             <span class="subtitle">Methods</span>
             
+                <li class="parent  " data-name="html.ListView#getItem"><a href="html.ListView.html#getItem">getItem</a></li>
+            
+                <li class="parent  " data-name="html.ListView#indexAt"><a href="html.ListView.html#indexAt">indexAt</a></li>
+            
+                <li class="parent  " data-name="html.ListView#positionOf"><a href="html.ListView.html#positionOf">positionOf</a></li>
+            
                 <li class="parent  " data-name="html.ListView#positionViewAt"><a href="html.ListView.html#positionViewAt">positionViewAt</a></li>
             
             </ul>
             
             <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.ListView.event:newLayout"><a href="html.ListView.html#.event:newLayout">newLayout</a></li>
             
             </ul>
             
@@ -3530,36 +3560,6 @@
             
         </li>
     
-        <li class="item" data-name="TaskQueues">
-            <span class="title  ">
-                
-                
-                    <a href="TaskQueues.html">TaskQueues</a>
-                
-            </span>
-            
-            <ul class="members itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="methods itemMembers">
-            
-            </ul>
-            
-            <ul class="events itemMembers">
-            
-            </ul>
-            
-        </li>
-    
         <li class="item" data-name="ui.Button">
             <span class="title  ">
                 
@@ -3920,6 +3920,36 @@
             
         </li>
     
+        <li class="item" data-name="ui.IndexScroller">
+            <span class="title  ">
+                
+                
+                    <a href="ui.IndexScroller.html">ui.IndexScroller</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="ui.Label">
             <span class="title  ">
                 
@@ -3945,6 +3975,46 @@
             </ul>
             
             <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.ListHeader">
+            <span class="title  ">
+                
+                
+                    <a href="ui.ListHeader.html">ui.ListHeader</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="ui.ListHeader#resetColumns"><a href="ui.ListHeader.html#resetColumns">resetColumns</a></li>
+            
+                <li class="parent  " data-name="ui.ListHeader#resizeColumn"><a href="ui.ListHeader.html#resizeColumn">resizeColumn</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="ui.ListHeader#event:columnClick"><a href="ui.ListHeader.html#event:columnClick">columnClick</a></li>
             
             </ul>
             
@@ -4041,6 +4111,36 @@
             <span class="subtitle">Methods</span>
             
                 <li class="parent  " data-name="ui.Menu#popup"><a href="ui.Menu.html#popup">popup</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.MenuExpander">
+            <span class="title  ">
+                
+                
+                    <a href="ui.MenuExpander.html">ui.MenuExpander</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
             
             </ul>
             
@@ -5252,7 +5352,7 @@
         <article>
             <pre id="source-code" class="prettyprint source "><code>/*******************************************************************************
 This file is part of the Shellfish UI toolkit.
-Copyright (c) 2017 - 2022 Martin Grimme &lt;martin.grimme@gmail.com>
+Copyright (c) 2017 - 2023 Martin Grimme &lt;martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -5302,6 +5402,19 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
 
             // map { handlerKey -> handler }
             this.handlers = new Map();
+
+            this.afterTriggerHandlers = [];
+            this.depth = 0;
+        }
+
+        runAfterTrigger(f)
+        {
+            this.afterTriggerHandlers.push(f);
+
+            if (this.handlers.size === 0)
+            {
+                this.trigger(null, "", []);
+            }
         }
 
         connect(emitter, event, receiver, handler)
@@ -5419,25 +5532,48 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
 
         trigger(emitter, event, args)
         {
-            if (! this.handlersOfEmitter.has(emitter))
+            if (this.handlersOfEmitter.has(emitter))
             {
-                return;
-            }
-
-            for (let handlerKey of this.handlersOfEmitter.get(emitter))
-            {
-                if (this.eventOfHandler.get(handlerKey) === event)
+                ++this.depth;
+                for (let handlerKey of this.handlersOfEmitter.get(emitter))
                 {
-                    try
+                    if (this.eventOfHandler.get(handlerKey) === event)
                     {
-                        this.handlers.get(handlerKey).apply(null, args || []);
-                    }
-                    catch (err)
-                    {
-                        console.error(`[${exports.dbgctx}] Error triggering event '${emitter.constructor.name}.${event} (${emitter.objectLocation}): ${err}\n${err.stack || "&lt;stacktrace not available>"}`);
+                        try
+                        {
+                            this.handlers.get(handlerKey).apply(null, args || []);
+                        }
+                        catch (err)
+                        {
+                            console.error(`[${exports.dbgctx}] Error triggering event '${emitter.constructor.name}.${event} (${emitter.objectLocation}): ${err}\n${err.stack || "&lt;stacktrace not available>"}`);
+                        }
                     }
                 }
-            }    
+                --this.depth;
+            }
+
+            if (this.depth === 0 &amp;&amp; this.afterTriggerHandlers.length > 0)
+            {
+                ++this.depth;
+                //console.log("processing " + this.afterTriggerHandlers.length + " after-trigger handlers after " + emitter.objectLocation + "." + event);
+                let count = 0;
+                while (this.afterTriggerHandlers.length > 0)
+                {
+                    const f = this.afterTriggerHandlers.shift();
+                    f();
+                    ++count;
+                    if (count > 10)
+                    {
+                        //console.log("processing break, " + this.afterTriggerHandlers.length + " left");
+                        setTimeout(() =>
+                        {
+                            this.trigger(null, "", []);
+                        }, 1);
+                        break;
+                    }
+                }               
+                --this.depth;
+            }
         }
 
         has(emitter, event)
@@ -5492,7 +5628,321 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
     const connHub = new ConnectionsHub();
 
     /**
+     * Class representing a sparse matrix of infinite size.
+     * @private
+     */
+    class SparseMatrix
+    {
+        constructor(zero)
+        {
+            this.data = new Map();
+            this.zero = zero;
+            this.edgeLength = n => n + 1;
+            this.c = n => this.edgeLength(n) * this.edgeLength(n) - 1;
+            this.indexAt = (y, x) =>
+            {
+                if (x > y) return this.c(x - 1) + 1 + y * 2;
+                if (x &lt; y) return this.c(y - 1) + 2 + x * 2;
+                return this.c(x);
+            };
+        }
+
+        valueAt(y, x)
+        {
+            const idx = this.indexAt(x, y);
+            const v = this.data.get(idx);
+            return v !== undefined ? v : this.zero;
+        }
+
+        setValue(y, x, v)
+        {
+            const idx = this.indexAt(x, y);
+            if (v === this.zero)
+            {
+                this.data.delete(idx);
+            }
+            else
+            {
+                this.data.set(idx, v);
+            }
+        }
+
+        cellOperation(y, x, op)
+        {
+            this.setValue(y, x, op(this.valueAt(y, x)));
+        }
+
+        rowOperation(a, b, rowsSet, op)
+        {
+            let i = 0;
+            for (i of rowsSet)
+            {
+                this.setValue(a, i, op(this.valueAt(a, i), this.valueAt(b, i)));
+            }
+        }
+
+        columnOperation(a, b, columnsSet, op)
+        {
+            let i = 0;
+            for (i of columnsSet)
+            {
+                this.setValue(i, a, op(this.valueAt(i, a), this.valueAt(i, b)));
+            }
+        }
+    }
+
+    /**
+     * Class representing a reference tracker with cycles detection.
+     * @private
+     */
+    class RefsTracker
+    {
+        constructor()
+        {
+            this.matrix = new SparseMatrix(0);
+
+            this.cyclesMatrix = new SparseMatrix(0);
+            this.cyclesMap = new Map();
+            this.participantsMap = new Map();
+            this.indexSet = new Set();
+
+            this.incrementF = v => v + 1;
+            this.sumF = (a, b) => a + b;
+        }
+
+        dump()
+        {
+            let y = 0;
+            let x = 0;
+            for (y of this.indexSet)
+            {
+                const row = [];
+                for (x of this.indexSet)
+                {
+                    row.push(this.matrix.valueAt(y, x));
+                }
+                console.log(y + " " + JSON.stringify(row));
+            }
+        }
+
+        cycleAdd(closer, target)
+        {
+            console.log("Reference cycle detected between objects " + closer + " &lt;-> " + target);
+
+            // register cycle in cycles matrix
+            this.cyclesMatrix.cellOperation(closer, target, v => v + 1);
+
+            // find participants of the cycle
+            const aRefs = [];
+            const bRefedBy = [];
+
+            let i = 0;
+            for (i of this.indexSet)
+            {
+                if (this.matrix.valueAt(closer, i) > 0)
+                {
+                    aRefs.push(i);
+                }
+                if (this.matrix.valueAt(i, target) > 0)
+                {
+                    bRefedBy.push(i);
+                }
+            }
+
+            const participants = aRefs.filter(i => bRefedBy.includes(i));
+            participants.push(closer);
+            participants.push(target);
+
+            // build the cycle information object
+            const cycleInfo = {
+                closer: closer,
+                target: target,
+                participants: participants
+            };
+
+            // store the cycle information
+            if (! this.cyclesMap.has(target))
+            {
+                this.cyclesMap.set(target, []);
+            }
+            this.cyclesMap.get(target).push(cycleInfo);
+
+            participants.forEach(i =>
+            {
+                if (! this.participantsMap.has(i))
+                {
+                    this.participantsMap.set(i, []);
+                }
+                this.participantsMap.get(i).push(cycleInfo);
+            });
+        }
+
+        cycleRemove(closer, target)
+        {
+            console.log("Reference cycle removed between objects " + closer + " &lt;-> " + target);
+
+            // unregister cycle in cycles matrix
+            this.cyclesMatrix.cellOperation(closer, target, v => Math.max(0, v - 1));
+
+            const cycleInfos = this.cyclesMap.get(target);
+            const idx = cycleInfos.findIndex(info => info.closer === closer);
+            const info = cycleInfos.splice(idx)[0];
+            if (cycleInfos.length === 0)
+            {
+                this.cyclesMap.delete(target);
+            }
+
+            info.participants.forEach(i =>
+            {
+                const infos = this.participantsMap.get(i);
+                const infoIdx = infos.findIndex(finfo => finfo === info);
+                infos.splice(infoIdx);
+                if (infos.length === 0)
+                {
+                    this.participantsMap.delete(i);
+                }
+            });
+        }
+
+        checkCycles(participant)
+        {
+            if (! this.participantsMap.has(participant))
+            {
+                return;
+            }
+
+            const cycles = this.participantsMap.get(participant);
+            cycles.forEach(info =>
+            {
+                if (this.matrix.valueAt(info.target, info.closer) > 0)
+                {
+                    return;
+                }
+
+                //console.log("no longer a cycle: " + info.closer + " -> " + info.target);
+                this.cycleRemove(info.closer, info.target);
+                this.refAdd(info.closer, info.target);
+            });
+        }
+
+        refAdd(objA, objB)
+        {
+            //console.log(objA.objectId + " " + objA.objectType + "@" + objA.objectLocation + " ref " + objB.objectId + " " + objB.objectType + "@" + objB.objectLocation);
+
+            // test if this would create a cycle
+            if (this.matrix.valueAt(objB, objA) > 0)
+            {
+                this.cycleAdd(objA, objB);
+                return;
+            }
+
+            // set direct reference
+            this.matrix.cellOperation(objA, objB, this.incrementF);
+
+            // A gets all outgoing references of B
+            this.matrix.rowOperation(objA, objB, this.indexSet, this.sumF);
+            
+            // all X referencing A n times get B (X,B += n) and all outgoing references of B (row X += n * B)
+            let i = 0;
+            for (i of this.indexSet)
+            {
+                const n = this.matrix.valueAt(i, objA);
+                if (n > 0)
+                {
+                    this.matrix.cellOperation(i, objB, v => v + n);
+                    this.matrix.rowOperation(i, objB, this.indexSet, (a, b) => a + n * b);
+                }
+            }
+        }
+
+        refRemove(objA, objB)
+        {
+            //console.log(objA.objectId + " " + objA.objectType + "@" + objA.objectLocation + " unref " + objB.objectId + " " + objB.objectType + "@" + objB.objectLocation);
+
+            // test if we're touching a cycle
+            if (this.cyclesMatrix.valueAt(objA, objB) > 0)
+            {
+                this.cycleRemove(objA, objB);
+                return;
+            }
+
+            // every X that references A n times (A column) loses B (X,B -= n) and all outgoing references of B (row X -= n * B)
+            let i = 0;
+            for (i of this.indexSet)
+            {
+                const n = this.matrix.valueAt(i, objA);
+                if (n > 0)
+                {
+                    this.matrix.cellOperation(i, objB, v => Math.max(0, v - n));
+                    this.matrix.rowOperation(i, objB, this.indexSet, (a, b) => a - n * b);
+                }
+            }
+
+            // A loses B (A,B -= 1) and all outgoing references of B (row A -= B)
+            this.matrix.cellOperation(objA, objB, v => Math.max(0, v - 1));
+            this.matrix.rowOperation(objA, objB, this.indexSet, (a, b) => a - b);
+            
+            this.checkCycles(objB);
+        }
+
+        refsCount(obj)
+        {
+            let count = 0;
+            let y = 0;
+            for (y of this.indexSet)
+            {
+                count += this.matrix.valueAt(y, obj);
+            }
+
+            // add cycle closers
+            if (this.cyclesMap.has(obj))
+            {
+                count += this.cyclesMap.get(obj).length;
+            }
+
+            return count;
+        }
+
+        refHolders(obj)
+        {
+            const holders = [];
+            let y = 0;
+            for (y of this.indexSet)
+            {
+                if (this.matrix.valueAt(y, obj) !== 0)
+                {
+                    holders.push([y, this.matrix.valueAt(y, obj)]);
+                }
+            }
+
+            // add cycle closers
+            if (this.cyclesMap.has(obj))
+            {
+                this.cyclesMap.get(obj).forEach(info => holders.push([info.closer, 1]));
+            }
+
+            return holders;
+        }
+
+        cycles()
+        {
+            const objs = [];
+            this.cyclesMap.forEach(entry =>
+            {
+                entry.forEach(info =>
+                {
+                    info.participants.forEach(i => objs.push(i));
+                });
+            });
+
+            return objs;
+        }
+    }
+    const refsTracker = new RefsTracker();  
+
+    /**
      * Class representing named task queues.
+     * @private
      */
     class TaskQueues
     {
@@ -5547,6 +5997,8 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
         }
     }
     const taskQueues = new TaskQueues();
+
+    const namedCallbacks = new Map();
 
     /**
      * Class managing the custom object properties.
@@ -5715,8 +6167,6 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
      * lifecycle management. Unlike plain JavaScript objects, this class has the
      * concept of a destructor method.
      * 
-     * Every mid-level class is a descendant of this class.
-     * 
      * @alias core.Object
      * 
      * @property {core.Object[]} children - [readonly] The child objects.
@@ -5734,8 +6184,6 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
             super();
             d.set(this, {
                 lifeCycleStatus: "new",
-                referenceCount: 0,
-                referenceMap: { },
                 customProperties: [],
                 parent: null,
                 children: [],
@@ -5760,14 +6208,16 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
             this.registerEvent("initialization");
 
             /**
-             * Is triggered immediately before the object will be discarded.
+             * Is triggered immediately before the object will be destroyed.
+             * The object is still intact at this place.
              * @event destruction
              * @memberof core.Object
              */
             this.registerEvent("destruction");
 
             /**
-             * Is triggered after the object was discarded.
+             * Is triggered after the object was destroyed.
+             * The object is not intact anymore at this place.
              * @event termination
              * @memberof core.Object
              */
@@ -5775,6 +6225,7 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
 
             ++objCounter;
             allInstances.add(this);
+            refsTracker.indexSet.add(this.objectId);
             //console.log("objCounter: " + objCounter + " +" + this.constructor.name);
         }
 
@@ -5821,10 +6272,11 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
             {
                 p.attachChild(this);
                 this.referenceAdd(p);
-            }
-            if (this.lifeCycleStatus !== "destroyed")
-            {
-                this.parentChanged();
+
+                if (this.lifeCycleStatus !== "destroyed")
+                {
+                    this.parentChanged();
+                }
             }
         }
 
@@ -5872,8 +6324,11 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
             }
             
             d.get(this).lifeCycleStatus = "initialized";
+            // not needed anymore
+            d.get(this).typeCache = { };
             this.trigger("initialization");
 
+            //console.log(`Initialized: ${this.constructor.name}:${this.objectId} (${this.objectLocation}), ${objCounter} objects remaining`);
         }
 
         /**
@@ -5898,12 +6353,13 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
         {
             if (d.get(this).lifeCycleStatus === "destroyed")
             {
-                console.error(`Attempted to destroy an already destroyed object: ${this.constructor.name} (${this.objectLocation})`);
+                console.error(`Attempted to destroy an already destroyed object: #${this.objectId} ${this.constructor.name} (${this.objectLocation})`);
                 return;
             }
 
             d.get(this).lifeCycleStatus = "destroyed";
             this.trigger("destruction");
+            this.trigger("termination");
 
             connHub.removeReceiver(this);
             connHub.removeEmitter(this);
@@ -5925,8 +6381,8 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
 
             d.get(this).blobUrls.forEach(url =>
             {
-                console.log("Revoking object URL: " + url);
                 URL.revokeObjectURL(url);
+                console.log(d.get(this).objectType + "@" + d.get(this).objectLocation + " released object URL: " + url);
             });
             d.get(this).blobUrls = [];
 
@@ -5938,9 +6394,24 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
                 this.get().remove();
             }
 
+            d.get(this).refCountMap = { };
+            d.get(this).customProperties = [];
+            d.get(this).connectionMonitors = { };
+            d.get(this).children = [];
+
+            // release orphaned named callbacks
+            for (const key of namedCallbacks.keys())
+            {
+                if (key.startsWith(this.objectId + "#"))
+                {
+                    namedCallbacks.delete(key);
+                }
+            }
+
             --objCounter;
             allInstances.delete(this);
-            //console.log(`Destroyed: ${this.constructor.name} (${this.objectLocation}), ${objCounter} objects remaining`);
+            refsTracker.indexSet.delete(this.objectId);
+            //console.log(`Destroyed: ${this.constructor.name}:${this.objectId} (${this.objectLocation}), ${objCounter} objects remaining`);
         }
 
         /**
@@ -5986,6 +6457,68 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
         }
 
         /**
+         * Wraps a callback function to give it a name handle by which it may be
+         * canceled before execution.
+         * 
+         * When setting multiple callbacks of the same name, only the last
+         * one will be executed.
+         * 
+         * @see {@link core.Object#cancelNamedCallback cancelNamedCallback}
+         * @see {@link core.Object#namedCallbackPending namedCallbackPending}
+         * 
+         * @param {function} callback - The callback function.
+         * @param {string} name - The name.
+         * @returns {function} - The wrapped callback function.
+         */
+        namedCallback(callback, name)
+        {
+            const cbName = this.objectId + "#" + name;
+            namedCallbacks.set(cbName, callback);
+
+            return (...args) =>
+            {
+                if (namedCallbacks.has(cbName))
+                {
+                    const cb = namedCallbacks.get(cbName);
+                    namedCallbacks.delete(cbName);
+                    return cb(...args);
+                }
+            }
+        }
+
+        /**
+         * Returns if the given named callback is currently pending.
+         * 
+         * @see {@link core.Object#cancelNamedCallback cancelNamedCallback}
+         * @see {@link core.Object#namedCallback namedCallback}
+         * 
+         * @param {string} name - The name.
+         * @returns {bool} `true` if the callback is currently pending.
+         */
+        namedCallbackPending(name)
+        {
+            const cbName = this.objectId + "#" + name;
+            return namedCallbacks.has(cbName);
+        }
+
+        /**
+         * Cancels the given pending named callback before it gets executed.
+         * 
+         * @see {@link core.Object#namedCallback namedCallback}
+         * @see {@link core.Object#namedCallbackPending namedCallbackPending}
+         * 
+         * @param {string} name - The name.
+         */
+        cancelNamedCallback(name)
+        {
+            const cbName = this.objectId + "#" + name;
+            if (namedCallbacks.has(cbName))
+            {
+                namedCallbacks.delete(cbName);
+            }
+        }
+
+        /**
          * Adds a reference to this object, which means that another object is
          * holding a reference to this object from then on. Objects are not
          * discarded while still being referenced.
@@ -6000,20 +6533,15 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
                 return;
             }
 
-            ++d.get(this).referenceCount;
-            const whichName = which ? which.objectType + "@" + which.objectLocation
-                                    : "&lt;global>";
-            d.get(this).referenceMap[whichName] = (d.get(this).referenceMap[whichName] || 0) + 1;
-
-            if (which === null)
-            {
-                return;
-            }
             /*
             console.log(this.constructor.name + "@" + this.objectLocation +
                         " is referenced by " + which.constructor.name + "@" + which.objectLocation +
                         " (" + d.get(this).referenceCount + " references)");
             */
+
+            refsTracker.refAdd(which.objectId, this.objectId);
+            //console.log(JSON.stringify(refsTracker.refHolders(this)));
+            //console.log(this.objectLocation + " refs+ " + refsTracker.refsCount(this) + " vs " + d.get(this).referenceCount);
 
             if (d.get(this).lifeCycleStatus === "new")
             {
@@ -6034,19 +6562,12 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
                 }
             }
 
-            which.connect("destruction", this, () =>
+            which.connect("destruction", this, this.safeCallback(() =>
             {
                 //console.log("Remove reference on destruction of " + this.objectLocation + " -> " + (d.get(this).referenceCount - 1));
                 //console.log("referenceRemove on " + this.objectLocation + " by destruction of " + which.objectLocation);
-                if (this.parent === which)
-                {
-                    this.parent = null;
-                }
-                else
-                {
-                    this.referenceRemove(which);
-                }
-            });
+                this.referenceRemove(which);
+            }));
         }
 
         /**
@@ -6063,14 +6584,9 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
                 return;
             }
 
-            --d.get(this).referenceCount;
-            const whichName = which ? which.objectType + "@" + which.objectLocation
-                                    : "&lt;global>";
-            --d.get(this).referenceMap[whichName];
-            if (d.get(this).referenceMap[whichName] === 0)
-            {
-                delete d.get(this).referenceMap[whichName];
-            }
+            //console.log(this.objectLocation + " refs- before " + refsTracker.refsCount(this) + " vs " + d.get(this).referenceCount);
+            //console.log("b4: " + JSON.stringify(refsTracker.refHolders(this)));
+            refsTracker.refRemove(which.objectId, this.objectId);
 
             /*
             console.log(this.constructor.name + "@" + this.objectLocation +
@@ -6080,9 +6596,14 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
 
             which.disconnect("destruction", this);
 
-            if (d.get(this).referenceCount === 0)
+            //console.log(this.objectId + " " + this.objectLocation + " unref " + refsTracker.refsCount(this) + " vs " + d.get(this).referenceCount + " " + JSON.stringify(refsTracker.refHolders(this)));
+            //console.log(JSON.stringify(refsTracker.refHolders(this)));
+
+            //if (d.get(this).referenceCount === 0)
+            if (refsTracker.refsCount(this.objectId) === 0 &amp;&amp; this.objectId > 0)
             {
                 //console.log("Destroy on referenceRemove on " + this.objectLocation + ":" + this.objectId);
+                //console.log("Refs -> 0 at " + this.objectId + " " + this.objectType + "@" + this.objectLocation);
                 this.destroy();
             }
         }
@@ -6110,8 +6631,11 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
             //console.log("Detach Child: " +
             //            child.objectType + "@" + child.objectLocation + " from " +
             //            this.objectType + "@" + this.objectLocation);
-            d.get(this).children = d.get(this).children.filter(c => c !== child);
-            this.childrenChanged();
+            if (d.get(this).lifeCycleStatus !== "destroyed")
+            {
+                d.get(this).children = d.get(this).children.filter(c => c !== child);
+                this.childrenChanged();
+            }
         }
 
         /**
@@ -6243,12 +6767,12 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
                 {
                     return;
                 }
-                if (prevV instanceof Obj &amp;&amp; ! prevV.isAncestorOf(this)) // this.parent !== prevV)
+                if (prevV instanceof Obj &amp;&amp; ! prevV.isAncestorOf(this))
                 {
                     //console.log("referenceRemove on " + prevV.objectLocation + " by set " + name + " on " + this.objectLocation);
                     prevV.referenceRemove(this);
                 }
-                if (v instanceof Obj &amp;&amp; ! v.isAncestorOf(this)) //  this.parent !== v)
+                if (v instanceof Obj &amp;&amp; ! v.isAncestorOf(this))
                 {
                     v.referenceAdd(this);
                 }
@@ -6628,7 +7152,43 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
         }
 
         /**
+         * Accumulates the given callback function associated with a name.
+         * 
+         * Only the most recent one of the accumulated functions under a name
+         * will be executed before the JavaScript engine finished executing its
+         * current code.
+         * 
+         * @deprecated Use defer instead.
+         * 
+         * @param {function} f - The function to invoke.
+         * @param {string} name - The accumulation name.
+         */
+        accumulateCallback(f, name)
+        {
+            this.wait(0).then(this.namedCallback(this.safeCallback(f), name));
+        }
+
+        /**
+         * Defers the execution of the given function associated with a name.
+         * 
+         * Only the most recent one of the defered functions under a name
+         * will be executed before the JavaScript engine finished executing its
+         * current code.
+         * 
+         * @param {function} f - The function to invoke.
+         * @param {string} name - The function name.
+         */
+        defer(f, name)
+        {
+            this.wait(0).then(this.namedCallback(f, name));
+        }
+        
+        /**
          * Returns a Promise that resolves after a given amount of milliseconds.
+         * 
+         * If the milliseconds are set to `0`, the promise resolves immediately
+         * after the JavaScript engine finished executing its current code,
+         * without using a timer.
          * 
          * @param {number} ms - The amount of milliseconds to wait.
          * @returns {Promise} The Promise object.
@@ -6637,10 +7197,20 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
         {
             return new Promise((resolve, reject) =>
             {
-                setTimeout(this.safeCallback(() =>
+                if (ms === 0)
                 {
-                    resolve();
-                }), ms);
+                    connHub.runAfterTrigger(this.safeCallback(() =>
+                    {
+                        resolve();
+                    }));
+                }
+                else
+                {
+                    setTimeout(this.safeCallback(() =>
+                    {
+                        resolve();
+                    }), ms);
+                }
             });
         }
 
@@ -6648,6 +7218,8 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
          * Waits in a named queue and returns a Promise that resolves to a
          * `next` function when it's the caller's turn. After the caller has
          * finished its turn, that `next` function must be invoked.
+         *
+         * @see {@link core.Object#clearQueue clearQueue}
          * 
          * @param {string} qName - The name of the queue.
          * @return {Promise&lt;function>} The Promise object.
@@ -6659,6 +7231,8 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
 
         /**
          * Clears the given waiting queue.
+         * 
+         * @see {@link core.Object#waitQueued waitQueued}
          * 
          * @param {string} qName - The name of the queue.
          */
@@ -6765,8 +7339,8 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
                 location: obj.objectLocation,
                 lifeCycleStatus: obj.lifeCycleStatus,
                 domNode: obj.get ? obj.get() : null,
-                references: d.get(obj).referenceCount,
-                referenceHolders: d.get(obj).referenceMap,
+                references: refsTracker.refsCount(obj.objectId),
+                referenceHolders: refsTracker.refHolders(obj.objectId),
                 events: connHub.events(obj).map(item => [item[0], item[1].objectType + "@" + item[1].objectLocation]),
                 children: d.get(obj).children.map(dumpObject),
                 parent: d.get(obj).parent ? d.get(obj).parent.objectType + "@" + d.get(obj).parent.objectLocation : "",
@@ -6825,7 +7399,9 @@ shRequire([__dirname + "/util/color.js"], (colUtil) =>
             byType: typeMap,
             byLifeCycleStatus: statusMap,
             byReferences: refCountMap,
-            focusedNode: document.activeElement
+            focusedNode: document.activeElement,
+            namedCallbacks,
+            cycles: refsTracker.cycles().map(id => idMap[id])
         };
     }
     exports.dumpStatus = dumpStatus;
@@ -6846,7 +7422,7 @@ exports.dbgctx = "&lt;no information>";
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun Nov 06 2022 14:56:48 GMT+0100 (Mitteleuropäische Normalzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Apr 18 2023 17:36:50 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

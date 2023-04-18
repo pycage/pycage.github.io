@@ -636,6 +636,12 @@
             
             <ul class="methods itemMembers">
             
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.FSModel#makeFilter"><a href="core.FSModel.html#makeFilter">makeFilter</a></li>
+            
+                <li class="parent  " data-name="core.FSModel#makeSorter"><a href="core.FSModel.html#makeSorter">makeSorter</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -716,6 +722,8 @@
             
             <span class="subtitle">Methods</span>
             
+                <li class="parent  status-deprecated" data-name="core.Object#accumulateCallback"><a href="core.Object.html#accumulateCallback">accumulateCallback</a></li>
+            
                 <li class="parent  " data-name="core.Object#add"><a href="core.Object.html#add">add</a></li>
             
                 <li class="parent  " data-name="core.Object#addHtmlEventListener"><a href="core.Object.html#addHtmlEventListener">addHtmlEventListener</a></li>
@@ -726,6 +734,8 @@
             
                 <li class="parent  " data-name="core.Object#blobUrl"><a href="core.Object.html#blobUrl">blobUrl</a></li>
             
+                <li class="parent  " data-name="core.Object#cancelNamedCallback"><a href="core.Object.html#cancelNamedCallback">cancelNamedCallback</a></li>
+            
                 <li class="parent  " data-name="core.Object#change"><a href="core.Object.html#change">change</a></li>
             
                 <li class="parent  " data-name="core.Object#clearQueue"><a href="core.Object.html#clearQueue">clearQueue</a></li>
@@ -733,6 +743,8 @@
                 <li class="parent  " data-name="core.Object#colorName"><a href="core.Object.html#colorName">colorName</a></li>
             
                 <li class="parent  " data-name="core.Object#connect"><a href="core.Object.html#connect">connect</a></li>
+            
+                <li class="parent  " data-name="core.Object#defer"><a href="core.Object.html#defer">defer</a></li>
             
                 <li class="parent  status-deprecated" data-name="core.Object#discard"><a href="core.Object.html#discard">discard</a></li>
             
@@ -749,6 +761,10 @@
                 <li class="parent  " data-name="core.Object#isAncestorOf"><a href="core.Object.html#isAncestorOf">isAncestorOf</a></li>
             
                 <li class="parent  " data-name="core.Object#log"><a href="core.Object.html#log">log</a></li>
+            
+                <li class="parent  " data-name="core.Object#namedCallback"><a href="core.Object.html#namedCallback">namedCallback</a></li>
+            
+                <li class="parent  " data-name="core.Object#namedCallbackPending"><a href="core.Object.html#namedCallbackPending">namedCallbackPending</a></li>
             
                 <li class="parent  " data-name="core.Object#notifyable"><a href="core.Object.html#notifyable">notifyable</a></li>
             
@@ -1020,8 +1036,6 @@
             
                 <li class="parent  " data-name="declarative.Element#find"><a href="declarative.Element.html#find">find</a></li>
             
-                <li class="parent  " data-name="declarative.Element#flushPending"><a href="declarative.Element.html#flushPending">flushPending</a></li>
-            
                 <li class="parent  " data-name="declarative.Element#get"><a href="declarative.Element.html#get">get</a></li>
             
                 <li class="parent  " data-name="declarative.Element#id"><a href="declarative.Element.html#id">id</a></li>
@@ -1105,6 +1119,8 @@
             <span class="subtitle">Methods</span>
             
                 <li class="parent  " data-name="html.Box#add"><a href="html.Box.html#add">add</a></li>
+            
+                <li class="parent  " data-name="html.Box#updateLayout"><a href="html.Box.html#updateLayout">updateLayout</a></li>
             
             </ul>
             
@@ -1770,6 +1786,10 @@
             
                 <li class="parent  " data-name="html.Item#get"><a href="html.Item.html#get">get</a></li>
             
+                <li class="parent  " data-name="html.Item#nextFrame"><a href="html.Item.html#nextFrame">nextFrame</a></li>
+            
+                <li class="parent  " data-name="html.Item#updatePosition"><a href="html.Item.html#updatePosition">updatePosition</a></li>
+            
                 <li class="parent  " data-name="html.Item#vec3"><a href="html.Item.html#vec3">vec3</a></li>
             
                 <li class="parent  " data-name="html.Item#withoutSizing"><a href="html.Item.html#withoutSizing">withoutSizing</a></li>
@@ -1872,11 +1892,21 @@
             
             <span class="subtitle">Methods</span>
             
+                <li class="parent  " data-name="html.ListView#getItem"><a href="html.ListView.html#getItem">getItem</a></li>
+            
+                <li class="parent  " data-name="html.ListView#indexAt"><a href="html.ListView.html#indexAt">indexAt</a></li>
+            
+                <li class="parent  " data-name="html.ListView#positionOf"><a href="html.ListView.html#positionOf">positionOf</a></li>
+            
                 <li class="parent  " data-name="html.ListView#positionViewAt"><a href="html.ListView.html#positionViewAt">positionViewAt</a></li>
             
             </ul>
             
             <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="html.ListView.event:newLayout"><a href="html.ListView.html#.event:newLayout">newLayout</a></li>
             
             </ul>
             
@@ -3530,36 +3560,6 @@
             
         </li>
     
-        <li class="item" data-name="TaskQueues">
-            <span class="title  ">
-                
-                
-                    <a href="TaskQueues.html">TaskQueues</a>
-                
-            </span>
-            
-            <ul class="members itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="methods itemMembers">
-            
-            </ul>
-            
-            <ul class="events itemMembers">
-            
-            </ul>
-            
-        </li>
-    
         <li class="item" data-name="ui.Button">
             <span class="title  ">
                 
@@ -3920,6 +3920,36 @@
             
         </li>
     
+        <li class="item" data-name="ui.IndexScroller">
+            <span class="title  ">
+                
+                
+                    <a href="ui.IndexScroller.html">ui.IndexScroller</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="ui.Label">
             <span class="title  ">
                 
@@ -3945,6 +3975,46 @@
             </ul>
             
             <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.ListHeader">
+            <span class="title  ">
+                
+                
+                    <a href="ui.ListHeader.html">ui.ListHeader</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="ui.ListHeader#resetColumns"><a href="ui.ListHeader.html#resetColumns">resetColumns</a></li>
+            
+                <li class="parent  " data-name="ui.ListHeader#resizeColumn"><a href="ui.ListHeader.html#resizeColumn">resizeColumn</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="ui.ListHeader#event:columnClick"><a href="ui.ListHeader.html#event:columnClick">columnClick</a></li>
             
             </ul>
             
@@ -4041,6 +4111,36 @@
             <span class="subtitle">Methods</span>
             
                 <li class="parent  " data-name="ui.Menu#popup"><a href="ui.Menu.html#popup">popup</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.MenuExpander">
+            <span class="title  ">
+                
+                
+                    <a href="ui.MenuExpander.html">ui.MenuExpander</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
             
             </ul>
             
@@ -5252,7 +5352,7 @@
         <article>
             <pre id="source-code" class="prettyprint source "><code>/*******************************************************************************
 This file is part of the Shellfish UI toolkit.
-Copyright (c) 2017 - 2022 Martin Grimme &lt;martin.grimme@gmail.com>
+Copyright (c) 2017 - 2023 Martin Grimme &lt;martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -5384,7 +5484,7 @@ shRequire(["shellfish/low",
             super();
             d.set(this, {
                 inSizeUpdate: false,
-                mayUpdateSize: false,
+                inContentSizeUpdate: false,
                 prevBbox: { x: 0, y: 0, width: 0, height: 0 },
                 cachedBbox: null,
                 prevContentSize: { width: 0, height: 0 },
@@ -5423,7 +5523,9 @@ shRequire(["shellfish/low",
                 rotationAngle: 0,
                 rotationQuaternion: [0, 0, 0, 0],
                 style: [],
-                scrolling: false
+                scrolling: false,
+                visibility: false,
+                usingBboxXY: false
             });
             
             this.notifyable("ancestorsEnabled");
@@ -5509,135 +5611,143 @@ shRequire(["shellfish/low",
                 item.dataset.shObjectType = this.objectType;
                 item.dataset.shObjectLocation = this.objectLocation;
 
-                this.addHtmlEventListener(item, "keydown", (ev) =>
+                this.nextFrame(() =>
                 {
-                    const e = makeKeyEvent(ev);
-                    this.keyDown(e);
-                    if (e.accepted)
+                    this.addHtmlEventListener(item, "keydown", (ev) =>
                     {
-                        ev.stopPropagation();
-                        ev.preventDefault();
-                    }
-                });
-
-                this.addHtmlEventListener(item, "keyup", (ev) =>
-                {
-                    const e = makeKeyEvent(ev);
-                    this.keyUp(e);
-                    if (e.accepted)
-                    {
-                        ev.stopPropagation();
-                        ev.preventDefault();
-                    }
-                });
-
-                this.addHtmlEventListener(item, "focus", (ev) =>
-                {
-                    if (priv.hasFocus)
-                    {
-                        // nothing to do
-                        return;
-                    }
-
-                    if (! this.canFocus)
-                    {
-                        //console.log("cannot receive focus: " + this.objectType + "@" + this.objectLocation);
-
-                        ev.preventDefault();
-
-                        let p = this.parent;
-                        let handled = false;
-                        while (p)
+                        const e = makeKeyEvent(ev);
+                        this.keyDown(e);
+                        if (e.accepted)
                         {
-                            if (p.canFocus)
-                            {
-                                console.log("Ancestor " + p.objectType + "@" + p.objectLocation + " took the focus");
-                                p.get().focus({ preventScroll: true });
-                                handled = true;
-                                break;
-                            }
-                            p = p.parent;
-                        }
-
-                        if (handled)
-                        {
-                            // an ancestor took the focus
-                        }
-                        else if (ev.relatedTarget)
-                        {
-                            ev.relatedTarget.focus({ preventScroll: true });
-                        }
-                        else
-                        {
-                            item.blur();
-                        }
-                    }
-                    else if (! priv.hasFocus)
-                    {
-                        //console.log("received focus: " + this.objectType + "@" + this.objectLocation);
-                        this.get().dataset.shFocusTime = ev.timeStamp;
-                        priv.hasFocus = true;
-                        this.focusChanged();
-                    }
-                });
-
-                this.addHtmlEventListener(item, "blur", () =>
-                {
-                    if (document.activeElement === this.get())
-                    {
-                        // not really lost focus
-                        return;
-                    }
-
-                    if (priv.hasFocus)
-                    {
-                        //console.log("lost focus: " + this.objectLocation + ", to: " + document.activeElement);
-                        priv.hasFocus = false;
-                        this.focusChanged();
-                    }
-                });
-
-                let scrollingStatusHandle = null;
-                const updateScrollingStatus = () =>
-                {
-                    if (scrollingStatusHandle)
-                    {
-                        clearTimeout(scrollingStatusHandle);
-                    }
-                    else if (! priv.scrolling)
-                    {
-                        priv.scrolling = true;
-                        this.scrollingChanged();
-                    }
-                    scrollingStatusHandle = setTimeout(this.safeCallback(() =>
-                    {
-                        scrollingStatusHandle = null;
-                        priv.scrolling = false;
-                        this.scrollingChanged();
-                    }), 300);
-                };
-
-                this.addHtmlEventListener(item, "scroll", () =>
-                {
-                    updateScrollingStatus();
-                    this.contentXChanged();
-                    this.contentYChanged();
-
-                    // child bbox positions changed
-                    this.children.forEach((c) =>
-                    {
-                        if (c !== item &amp;&amp; c.updateSizeFrom)
-                        {
-                            c.updateSizeFrom(null, false);
+                            ev.stopPropagation();
+                            ev.preventDefault();
                         }
                     });
-                }, { passive: true });
+    
+                    this.addHtmlEventListener(item, "keyup", (ev) =>
+                    {
+                        const e = makeKeyEvent(ev);
+                        this.keyUp(e);
+                        if (e.accepted)
+                        {
+                            ev.stopPropagation();
+                            ev.preventDefault();
+                        }
+                    });
+    
+                    this.addHtmlEventListener(item, "focus", (ev) =>
+                    {
+                        if (priv.hasFocus)
+                        {
+                            // nothing to do
+                            return;
+                        }
+    
+                        if (! this.canFocus)
+                        {
+                            //console.log("cannot receive focus: " + this.objectType + "@" + this.objectLocation);
+    
+                            ev.preventDefault();
+    
+                            let p = this.parent;
+                            let handled = false;
+                            while (p)
+                            {
+                                if (p.canFocus)
+                                {
+                                    console.log("Ancestor " + p.objectType + "@" + p.objectLocation + " took the focus");
+                                    p.get().focus({ preventScroll: true });
+                                    handled = true;
+                                    break;
+                                }
+                                p = p.parent;
+                            }
+    
+                            if (handled)
+                            {
+                                // an ancestor took the focus
+                            }
+                            else if (ev.relatedTarget)
+                            {
+                                ev.relatedTarget.focus({ preventScroll: true });
+                            }
+                            else
+                            {
+                                item.blur();
+                            }
+                        }
+                        else if (! priv.hasFocus)
+                        {
+                            //console.log("received focus: " + this.objectType + "@" + this.objectLocation);
+                            this.get().dataset.shFocusTime = ev.timeStamp;
+                            priv.hasFocus = true;
+                            this.focusChanged();
+                        }
+                    });
+    
+                    this.addHtmlEventListener(item, "blur", () =>
+                    {
+                        if (document.activeElement === this.get())
+                        {
+                            // not really lost focus
+                            return;
+                        }
+    
+                        if (priv.hasFocus)
+                        {
+                            //console.log("lost focus: " + this.objectLocation + ", to: " + document.activeElement);
+                            priv.hasFocus = false;
+                            this.focusChanged();
+                        }
+                    });
+    
+                    let scrollingStatusHandle = null;
+                    const updateScrollingStatus = () =>
+                    {
+                        if (scrollingStatusHandle)
+                        {
+                            clearTimeout(scrollingStatusHandle);
+                        }
+                        else if (! priv.scrolling)
+                        {
+                            priv.scrolling = true;
+                            this.scrollingChanged();
+                        }
+                        scrollingStatusHandle = setTimeout(this.safeCallback(() =>
+                        {
+                            scrollingStatusHandle = null;
+                            priv.scrolling = false;
+                            this.scrollingChanged();
+                        }), 300);
+                    };
+    
+                    this.addHtmlEventListener(item, "scroll", () =>
+                    {
+                        
+                        this.nextFrame(() =>
+                        {
+                            this.contentXChanged();
+                            this.contentYChanged();
+    
+                            this.defer(() =>
+                            {
+                                updateScrollingStatus();
+                                
+                                // child bbox positions changed
+                                this.children.forEach((c) =>
+                                {
+                                    if (c !== item &amp;&amp; c.updateSizeFrom)
+                                    {
+                                        c.updateSizeFrom(null, false, false);
+                                    }
+                                });
+                            }, "onScroll");
+                        });
+                    }, { passive: true });
+                });
 
-                const handle = low.addFrameHandler(this.safeCallback(() =>
-                {
-                    handle.cancel();
-                    this.updateSizeFrom(null, false);
-                }), this.objectType + "@" + this.objectLocation);
+                // setup initial size
+                this.updateVisibility();
             };
 
             this.onAncestorsEnabledChanged = () =>
@@ -5663,48 +5773,8 @@ shRequire(["shellfish/low",
                     }
                 });
 
-                if (! this.ancestorsVisible)
-                {
-                    // FIXME: causes problems (e.g. when changing themes)
-                    //priv.mayUpdateSize = false;
-                    if (priv.hasFocus)
-                    {
-                        priv.hasFocus = false;
-                        this.focusChanged();
-                    }
-
-                    if (! priv.cssCache)
-                    {
-                        priv.cssCache = { };
-                    }
-                }
-                else
-                {
-                    if (priv.cssCache)
-                    {
-                        const item = this.get();
-                        for (let key in priv.cssCache)
-                        {
-                            low.css(item, key, priv.cssCache[key]);
-                        }
-                        priv.cssCache = null;
-                    }
-
-                    priv.mayUpdateSize = true;
-                    this.updatePosition();
-                }
-
                 this.updateFocusTrap();
-            };
-
-            this.onContentWidthChanged = () =>
-            {
-                priv.prevContentSize.width = this.contentWidth;
-            };
-
-            this.onContentHeightChanged = () =>
-            {
-                priv.prevContentSize.height = this.contentHeight;
+                this.updateVisibility();
             };
 
             this.onEnabledChanged = () =>
@@ -5717,13 +5787,13 @@ shRequire(["shellfish/low",
             {
                 this.updateTabIndex();
                 this.updateFocusTrap();
+                this.updateVisibility();
             };
 
             this.onParentChanged = () =>
             {
                 this.ancestorsVisibleChanged();
                 this.ancestorsEnabledChanged();
-                this.updatePosition();
             };
         }
 
@@ -5764,10 +5834,10 @@ shRequire(["shellfish/low",
             {
                 this.get().classList.add("sh-hidden");
             }
-
-            this.updateSizeFrom(null, false);
+            
+            //this.updateSizeAccumulated();
             this.visibleChanged();
-
+            
             this.children.forEach(child =>
             {
                 if (child.ancestorsVisibleChanged)
@@ -5802,16 +5872,26 @@ shRequire(["shellfish/low",
 
         get scrolling() { return d.get(this).scrolling; }
 
+        /**
+         * Updates the CSS properties to position and size the item.
+         */
         updatePosition()
         {
-            if (! d.get(this).mayUpdateSize)
+            if (this.lifeCycleStatus !== "initialized")
             {
                 return;
             }
 
             const priv = d.get(this);
 
-            const item = this.get();
+            this.updateSizeAccumulated();
+
+            if (! priv.visibility)
+            {
+                // done here
+                return;
+            }
+
             const position = priv.position;
             const origin = priv.origin;
             const fillWidth = priv.fillWidth;
@@ -5968,15 +6048,13 @@ shRequire(["shellfish/low",
                 this.css("left", "");
                 this.css("right", "");
             }
-
-            this.updateSizeFrom(null, false);
         }
 
         get bbox()
         {
             const priv = d.get(this);
 
-            if (this.lifeCycleStatus !== "initialized" || ! priv.mayUpdateSize || ! priv.visible)
+            if (this.lifeCycleStatus !== "initialized" || ! priv.visible)
             {
                 return {
                     x: 0,
@@ -5984,35 +6062,101 @@ shRequire(["shellfish/low",
                     width: 0,
                     height: 0
                 };
-            };
-
-            if (priv.cachedBbox)
+            }
+            else if (priv.cachedBbox)
             {
                 return priv.cachedBbox;
             }
+            else
+            {
+                //console.log("getBoundingClientRect " + this.objectId + " " + this.objectType + "@" + this.objectLocation);
+                const rect = this.get().getBoundingClientRect();
+                priv.cachedBbox = {
+                    x: rect.left,
+                    y: rect.top,
+                    width: rect.width,
+                    height: rect.height
+                };
 
-            const rect = this.get().getBoundingClientRect();
-            priv.cachedBbox = {
-                x: rect.left,
-                y: rect.top,
-                width: rect.width,
-                height: rect.height
-            };
-            //console.log("getBoundingClientRect() of " + this.objectId + "." + this.objectType + "@" + this.objectLocation + ": " + JSON.stringify(priv.cachedBbox));
-            //console.log("get bbox of " + this.objectType + "@" + this.objectLocation + " " + JSON.stringify(priv.cachedBbox));
-            return priv.cachedBbox;
+                return priv.cachedBbox;
+            }
         }
 
-        get bboxX() { return this.bbox.x; }
-        get bboxY() { return this.bbox.y; }
-        get bboxWidth() { return this.bbox.width; }
-        get bboxHeight() { return this.bbox.height; }
+        get bboxX()
+        {
+            const priv = d.get(this);
+            priv.usingBboxXY = true;
+            //console.log("Using BBox X " + this.objectType + "@" + this.objectLocation);
+            if (this.lifeCycleStatus !== "initialized" || ! priv.visibility)
+            {
+                return 0;
+            }
+            else
+            {
+                priv.cachedBbox = null;
+                return this.bbox.x;
+            }
+        }
+        get bboxY()
+        {
+            const priv = d.get(this);
+            priv.usingBboxXY = true;
+            //console.log("Using BBox Y " + this.objectType + "@" + this.objectLocation);
+            if (this.lifeCycleStatus !== "initialized" || ! priv.visibility)
+            {
+                return 0;
+            }
+            else
+            {
+                priv.cachedBbox = null;
+                return this.bbox.y;
+            }
+        }
+        get bboxWidth()
+        {
+            const priv = d.get(this);
+
+            if (this.lifeCycleStatus !== "initialized" || ! priv.visibility)
+            {
+                return 0;
+            }
+            else if (priv.width >= 0 &amp;&amp; ! priv.fillWidth &amp;&amp; priv.aspectRatio === 0)
+            {
+                return Math.max(priv.minWidth > 0 ? priv.minWidth : 0,
+                                Math.min(priv.maxWidth > 0 ? priv.maxWidth : priv.width,
+                                         priv.width));
+            }
+            else
+            {
+                return this.bbox.width;
+            }
+        }
+        get bboxHeight()
+        {
+            const priv = d.get(this);
+
+            if (this.lifeCycleStatus !== "initialized" || ! priv.visibility)
+            {
+                return 0;
+            }
+            else if (priv.height >= 0 &amp;&amp; ! priv.fillHeight &amp;&amp; priv.aspectRatio === 0)
+            {
+                return Math.max(priv.minHeight > 0 ? priv.minHeight : 0,
+                                Math.min(priv.maxHeight > 0 ? priv.maxHeight : priv.height,
+                                         priv.height));
+            }
+            else
+            {
+                return this.bbox.height;
+            }
+        }
 
         get fillWidth() { return d.get(this).fillWidth; }
         set fillWidth(value)
         {
             d.get(this).fillWidth = value;
             this.updatePosition();
+            //this.nextFrame(() => { this.updatePosition(); });
             this.fillWidthChanged();
         }
 
@@ -6021,6 +6165,7 @@ shRequire(["shellfish/low",
         {
             d.get(this).fillHeight = value;
             this.updatePosition();
+            //this.nextFrame(() => { this.updatePosition(); });
             this.fillHeightChanged();
         }
 
@@ -6087,15 +6232,16 @@ shRequire(["shellfish/low",
                 return;
             }
             
-            this.onBboxChanged = () =>
+            this.onBboxWidthChanged = () =>
             {
                 r.request(this.bbox);
             };
 
-            this.onInitialization = () =>
+            this.onBboxHeightChanged = () =>
             {
                 r.request(this.bbox);
             };
+
             r.request(this.bbox);
         }
 
@@ -6431,28 +6577,85 @@ shRequire(["shellfish/low",
             }
         }
 
-        updateSizeFrom(item, fromChild)
+        updateVisibility()
+        {
+            const priv = d.get(this);
+            const visibility = this.lifeCycleStatus === "initialized" &amp;&amp; this.visible &amp;&amp; this.ancestorsVisible;
+            if (visibility !== priv.visibility)
+            {
+                //console.log("Visibility Changed: " + this.objectType + "@" + this.objectLocation + " = " + visibility);
+                priv.visibility = visibility;
+
+                if (visibility)
+                {
+                    // flush and disable CSS cache
+                    if (priv.cssCache)
+                    {
+                        const item = this.get();
+                        for (let key in priv.cssCache)
+                        {
+                            low.css(item, key, priv.cssCache[key]);
+                        }
+                        priv.cssCache = null;
+                    }
+                }
+                else
+                {
+                    if (priv.hasFocus)
+                    {
+                        priv.hasFocus = false;
+                        this.focusChanged();
+                    }
+                    
+                    // enable CSS cache
+                    if (! priv.cssCache)
+                    {
+                        priv.cssCache = { };
+                    }
+                }
+
+                this.updatePosition();
+            }
+        }
+
+        updateSizeAccumulated()
+        {
+            this.defer(() =>
+            {
+                this.updateSizeFrom(null, false, true);
+            }, "updateSizeFrom");
+        }
+
+        updateSizeFrom(item, fromChild, propagate)
         {
             const priv = d.get(this);
 
-            if (sizingCalculationsFrozen || ! priv.mayUpdateSize)
+            if (this.lifeCycleStatus !== "initialized" ||
+                sizingCalculationsFrozen ||
+                priv.inSizeUpdate)
             {
                 return;
             }
 
-            if (priv.inSizeUpdate)
+            if (propagate === undefined)
             {
-                return;
+                propagate = true;
             }
 
-            priv.cachedBbox = null
+            priv.inSizeUpdate = true;
 
-            const prevBbox = priv.prevBbox;
-            const bbox = this.bbox;
-            const bboxHasChangedX = bbox.x !== prevBbox.x;
-            const bboxHasChangedY = bbox.y !== prevBbox.y;
-            const bboxHasChangedWidth = bbox.width !== prevBbox.width;
-            const bboxHasChangedHeight = bbox.height !== prevBbox.height;
+            priv.cachedBbox = null;
+
+            const bbox = {
+                x: priv.usingBboxXY ? this.bboxX : 0,
+                y: priv.usingBboxXY ? this.bboxY : 0,
+                width: this.bboxWidth,
+                height: this.bboxHeight
+            };
+            const bboxHasChangedX = Math.abs(bbox.x - priv.prevBbox.x) > 0.1;
+            const bboxHasChangedY = Math.abs(bbox.y - priv.prevBbox.y) > 0.1;
+            const bboxHasChangedWidth = Math.abs(bbox.width - priv.prevBbox.width) > 0.1;
+            const bboxHasChangedHeight = Math.abs(bbox.height - priv.prevBbox.height) > 0.1;
 
             const bboxHasChanged = bboxHasChangedX ||
                                    bboxHasChangedY ||
@@ -6462,83 +6665,81 @@ shRequire(["shellfish/low",
             if (bboxHasChanged)
             {
                 priv.prevBbox = bbox;
+                this.bboxChanged();
+                if (bboxHasChangedX) this.bboxXChanged();
+                if (bboxHasChangedY) this.bboxYChanged();
+                if (bboxHasChangedWidth) this.bboxWidthChanged();
+                if (bboxHasChangedHeight) this.bboxHeightChanged();
             }
 
-            //console.log("update size from " + JSON.stringify(bbox) + ", " + this.objectLocation);
+            //console.log("update size from " + JSON.stringify(bbox) + ", " + this.objectId + "@" + this.objectLocation);
             //console.log("updateSizeFrom " + fromChild + ": " + this.constructor.name);
-            priv.inSizeUpdate = true;
-            if (item)
-            {
-                if (fromChild)
-                {   
-                    if (bboxHasChanged)
-                    {
-                        this.bboxChanged();
-                        if (bboxHasChangedX) this.bboxXChanged();
-                        if (bboxHasChangedY) this.bboxYChanged();
-                        if (bboxHasChangedWidth) this.bboxWidthChanged();
-                        if (bboxHasChangedHeight) this.bboxHeightChanged();
-                    }
-
-                    // may affect content size, if child is positioned "inline" or
-                    // "free"
-                    if (item.position === "inline" || item.position === "free")
-                    {
-                        if (priv.prevContentSize.width !== this.contentWidth) this.contentWidthChanged();
-                        if (priv.prevContentSize.height !== this.contentHeight) this.contentHeightChanged();
-                    }
-                }
-                else
-                {
-                    if (bboxHasChanged)
-                    {
-                        this.bboxChanged();
-                        if (bboxHasChangedX) this.bboxXChanged();
-                        if (bboxHasChangedY) this.bboxYChanged();
-                        if (bboxHasChangedWidth) this.bboxWidthChanged();
-                        if (bboxHasChangedHeight) this.bboxHeightChanged();
-                    }
-                }
-            }
-            else
-            {
-                if (bboxHasChanged)
-                {
-                    this.bboxChanged();
-                    if (bboxHasChangedX) this.bboxXChanged();
-                    if (bboxHasChangedY) this.bboxYChanged();
-                    if (bboxHasChangedWidth) this.bboxWidthChanged();
-                    if (bboxHasChangedHeight) this.bboxHeightChanged();
-                }
-
-                if (priv.prevContentSize.width !== this.contentWidth) this.contentWidthChanged();
-                if (priv.prevContentSize.height !== this.contentHeight) this.contentHeightChanged();
-            }
 
             // notify parent and children, excluding from where the update came
-            if (bboxHasChangedWidth || bboxHasChangedHeight)
+            if (propagate)
             {
-                if (this.parent &amp;&amp; this.parent !== item &amp;&amp; this.parent.updateSizeFrom)
+                // notify parent if
+                // - the update originated from here,
+                // - or it came from an inline child
+                if (! item || (fromChild &amp;&amp; item.position === "inline"))
                 {
-                    this.parent.updateSizeFrom(this, true);
+                    if (bboxHasChangedWidth || bboxHasChangedHeight)
+                    {
+                        if (this.parent &amp;&amp; this.parent !== item &amp;&amp; this.parent.updateSizeFrom)
+                        {
+                            //console.log("propagate to parent " + this.parent.objectType);
+                            this.parent.updateSizeFrom(this, true, true);
+                        }
+                    }
+                }
+
+                // notify children if
+                // - the update came from an inline child
+                // - this bbox has changed
+                if (bboxHasChanged || (fromChild &amp;&amp; item.position === "inline"))
+                {
+                    if (bbox.width * bbox.height > 0)
+                    {
+                        this.children.forEach((c) =>
+                        {
+                            if (c !== item &amp;&amp; c.updateSizeFrom)
+                            {
+                                //console.log("propagate to child " + c.objectType + "@" + c.objectLocation);
+                                c.updateSizeFrom(this, false, true);
+                            }
+                        });
+                    }
                 }
             }
 
-            if (bboxHasChanged || fromChild)
+            // wait until the browser has the content size updated before checking
+            if (priv.visibility &amp;&amp; ! priv.inContentSizeUpdate)
             {
-                if (bbox.width * bbox.height > 0)
-                {
-                    this.children.forEach((c) =>
-                    {
-                        if (c !== item &amp;&amp; c.updateSizeFrom)
-                        {
-                            c.updateSizeFrom(this, false);
-                        }
-                    });
-                }
+                this.nextFrame(() =>
+                {                
+                    this.updateContentSize();
+                });
             }
-            priv.cachedBbox = null;
+
             priv.inSizeUpdate = false;
+        }
+
+        updateContentSize()
+        {
+            const priv = d.get(this);
+
+            const cWidth = this.contentWidth;
+            const cHeight = this.contentHeight;
+            const hasChangedContentWidth = Math.abs(cWidth - priv.prevContentSize.width) > 0.1;
+            const hasChangedContentHeight = Math.abs(cHeight - priv.prevContentSize.height) > 0.1;
+
+            priv.prevContentSize.width = cWidth;
+            priv.prevContentSize.height = cHeight;
+
+            priv.inContentSizeUpdate = true;
+            if (hasChangedContentWidth) this.contentWidthChanged();
+            if (hasChangedContentHeight) this.contentHeightChanged();
+            priv.inContentSizeUpdate = false;
         }
 
         updateTransformation()
@@ -6565,7 +6766,7 @@ shRequire(["shellfish/low",
             );
             this.css("transform", "matrix3d(" + mat.flat(m).join(",") + ")");
             // transformations may change the size
-            this.updateSizeFrom(null, false);
+            this.updateSizeAccumulated();
         }
 
         detachChild(child)
@@ -6579,6 +6780,20 @@ shRequire(["shellfish/low",
                 }
             }
             super.detachChild(child);
+        }
+
+        /**
+         * Invokes the given callback on the next render frame.
+         * 
+         * @param {function} callback - The callback to invoke.
+         */
+        nextFrame(callback)
+        {
+            const handle = low.addFrameHandler(() =>
+            {
+                handle.cancel();
+                this.safeCallback(callback)();
+            }, this.objectType + "@" + this.objectLocation);
         }
 
         /**
@@ -6603,8 +6818,6 @@ shRequire(["shellfish/low",
          */
         withoutSizing(f)
         {
-            const priv = d.get(this);
-
             if (sizingCalculationsFrozen)
             {
                 f();
@@ -6633,7 +6846,7 @@ shRequire(["shellfish/low",
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun Nov 06 2022 14:56:48 GMT+0100 (Mitteleuropäische Normalzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Apr 18 2023 17:36:50 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>
