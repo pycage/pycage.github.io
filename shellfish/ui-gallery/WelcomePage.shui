@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit examples.
-Copyright (c) 2020 - 2022 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2020 - 2023 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,7 +31,7 @@ Page {
         id: pageHeader
 
         title: "Shellfish Gallery"
-        subtitle: "[icon:ui-copyright] 2020 - 2022 Martin Grimme"
+        subtitle: "[icon:ui-copyright] 2020 - 2023 Martin Grimme"
         codeUrls: [__filename, "Header.shui", "PageButtons.shui"]
     }
 
@@ -48,9 +48,17 @@ Page {
         fontSize: theme.fontSizeSmall
         text: "Look at the Shui code of each example. [icon:ui-bold_arrow_up]"
 
-        SequentialAnimation {
-            running: ! page.frozen
+        SequentialAction {
+            enabled: ! page.frozen
             repeat: true
+
+            onEnabledChanged: () =>
+            {
+                if (enabled)
+                {
+                    start();
+                }
+            }
 
             NumberAnimation {
                 from: 0
@@ -69,7 +77,7 @@ Page {
     }
 
     Box {
-        property landscapeMode: documentRoot.windowWidth > documentRoot.windowHeight
+        property landscapeMode: thisDocument.bboxWidth > thisDocument.bboxHeight
 
         marginTop: pageHeader.height + theme.paddingLarge
         fillWidth: true

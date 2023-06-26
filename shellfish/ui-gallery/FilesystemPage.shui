@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit examples.
-Copyright (c) 2020 - 2022 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2020 - 2023 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -21,6 +21,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *******************************************************************************/
 
 require "shellfish/ui";
+require "shellfish/low" as low;
 require "./Header.shui";
 require "./Labeled.shui";
 
@@ -48,7 +49,7 @@ Page {
         id: contentBox
 
         fillWidth: true
-        height: documentRoot.windowHeight
+        height: thisDocument.bboxHeight
 
         OfflineFS {
             id: drive
@@ -306,7 +307,7 @@ Page {
                             {
                                 const dlg = imageDialog();
                                 dlg.show();
-                                dlg.title = file.name;
+                                dlg.title = low.escapeMarkup(file.name);
                                 drive.read(file.path)
                                 .then((blob) =>
                                 {
@@ -315,27 +316,6 @@ Page {
                             }
                         }
                     }
-
-                    /*
-                    onFileOpen: (item) =>
-                    {
-                        if (item.type === "d")
-                        {
-                            model.path = item.path;
-                        }
-                        else if (item.mimetype.startsWith("image/"))
-                        {
-                            const dlg = imageDialog();
-                            dlg.show();
-                            dlg.title = item.name;
-                            drive.read(item.path)
-                            .then((blob) =>
-                            {
-                                dlg.file = blob;
-                            });
-                        }
-                    }
-                    */
 
                     onKeyDown: ev =>
                     {
@@ -431,7 +411,7 @@ Page {
     Loader {
         id: loader
         fillWidth: true
-        height: item ? -1 : documentRoot.windowHeight
+        height: item ? -1 : thisDocument.bboxHeight
         
         Placeholder {
             visible: ! parent.item
@@ -452,8 +432,8 @@ Page {
         Image {
             id: img
 
-            property maxWidth_: documentRoot.windowWidth - 4 * theme.paddingLarge
-            property maxHeight_: documentRoot.windowHeight - 16 * theme.paddingLarge
+            property maxWidth_: thisDocument.bboxWidth - 4 * theme.paddingLarge
+            property maxHeight_: thisDocument.bboxHeight - 16 * theme.paddingLarge
             property ratio: originalWidth > 0 ? originalHeight / originalWidth
                                               : 1                       
             property goForHeight: maxWidth_ * maxWidth_ * ratio > (maxHeight_ / ratio) * maxHeight_

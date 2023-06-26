@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit examples.
-Copyright (c) 2018 - 2021 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2018 - 2023 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,8 +28,8 @@ require "./Header.shui";
 Page {
     id: page
 
-    property wallX: documentRoot.windowWidth - (wall.bbox.width / 2 + rabbit.bbox.width)
-    property groundLevel: documentRoot.windowHeight * 0.9 - rabbit.bbox.height
+    property wallX: thisDocument.bboxWidth - (wall.bbox.width / 2 + rabbit.bbox.width)
+    property groundLevel: thisDocument.bboxHeight * 0.9 - rabbit.bbox.height
 
     into header Header {
         id: pageHeader
@@ -43,7 +43,7 @@ Page {
         id: box
 
         fillWidth: true
-        height: documentRoot.windowHeight
+        height: thisDocument.bboxHeight
 
         color: "lightblue"
 
@@ -121,7 +121,7 @@ Page {
         }
     }
 
-    SequentialAnimation {
+    SequentialAction {
         id: animation
 
         ScriptAction {
@@ -136,7 +136,7 @@ Page {
         }
 
         // charge
-        ParallelAnimation {
+        ParallelAction {
 
             // move rabbit horizontally
             NumberAnimation {
@@ -177,12 +177,12 @@ Page {
         }
 
         // wait a moment
-        NumberAnimation {
-            duration: 100
+        WaitAction {
+            until: seconds(0.1)
         }
 
         // hit the ground
-        ParallelAnimation {
+        ParallelAction {
 
             NumberAnimation {
                 from: 0
@@ -227,7 +227,7 @@ Page {
         }
 
         // roll back
-        ParallelAnimation {
+        ParallelAction {
 
             NumberAnimation {
                 from: 1
