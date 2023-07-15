@@ -78,6 +78,8 @@
             
                 <li class="parent  " data-name="core.dumpStatus"><a href="core.html#.dumpStatus">dumpStatus</a></li>
             
+                <li class="parent  " data-name="core.generateUid"><a href="core.html#.generateUid">generateUid</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -687,6 +689,50 @@
             </ul>
             
             <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="core.InertialEngine">
+            <span class="title  ">
+                
+                
+                    <a href="core.InertialEngine.html">core.InertialEngine</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.InertialEngine#reset"><a href="core.InertialEngine.html#reset">reset</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#start"><a href="core.InertialEngine.html#start">start</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#stop"><a href="core.InertialEngine.html#stop">stop</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#takeSample"><a href="core.InertialEngine.html#takeSample">takeSample</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="core.InertialEngine.event:motion"><a href="core.InertialEngine.html#.event:motion">motion</a></li>
             
             </ul>
             
@@ -4088,6 +4134,36 @@
             
         </li>
     
+        <li class="item" data-name="ui.FlickGesture">
+            <span class="title  ">
+                
+                
+                    <a href="ui.FlickGesture.html">ui.FlickGesture</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="ui.FocusIndicator">
             <span class="title  ">
                 
@@ -6438,6 +6514,7 @@ shRequire([__dirname + "/util/color.js", __dirname + "/util/vec.js"], (colUtil, 
     let objCounter = 0;
     let idCounter = 0;
     const allInstances = new Set();
+    const generatedUids = new Set();
     const d = new WeakMap();
 
 
@@ -6562,10 +6639,10 @@ shRequire([__dirname + "/util/color.js", __dirname + "/util/vec.js"], (colUtil, 
                 p.attachChild(this);
                 this.referenceAdd(p);
 
-                if (this.lifeCycleStatus !== "destroyed")
-                {
-                    this.parentChanged();
-                }
+            }
+            if (this.lifeCycleStatus !== "destroyed")
+            {
+                this.parentChanged();
             }
         }
 
@@ -7145,12 +7222,7 @@ shRequire([__dirname + "/util/color.js", __dirname + "/util/vec.js"], (colUtil, 
 
             const s = (cb) =>
             {
-                connHub.connect(this, name, this, cb);
-                const mon = d.get(this).connectionMonitors[name];
-                if (mon)
-                {
-                    mon();
-                }
+                this.connect(name, this, cb);
             };
 
             const g = () => true;
@@ -7194,6 +7266,11 @@ shRequire([__dirname + "/util/color.js", __dirname + "/util/vec.js"], (colUtil, 
         connect(event, receiver, handler)
         {
             connHub.connect(this, event, receiver, handler);
+            const mon = d.get(this).connectionMonitors[event];
+            if (mon)
+            {
+                mon();
+            }
         }
 
         /**
@@ -7558,6 +7635,30 @@ shRequire([__dirname + "/util/color.js", __dirname + "/util/vec.js"], (colUtil, 
     exports.Object = Obj;
 
     /**
+     * Generates a random UID string. The UID is unique within the Shellfish
+     * environment where it was generated.
+     * 
+     * @memberof core
+     * 
+     * @return {string} The generated UID.
+     */
+    function generateUid()
+    {
+        let uid = "";
+        do
+        {
+            uid = Math.floor(Math.random() * 16777216).toString(16) + "-" +
+                  Math.floor(Math.random() * 16777216).toString(16) + "-" +
+                  Math.floor(Math.random() * 16777216).toString(16);
+        }
+        while (generatedUids.has(uid));
+        generatedUids.add(uid);
+
+        return uid;
+    }
+    exports.generateUid = generateUid;
+
+    /**
      * Creates a dump of the current status for debugging purposes.
      *
      * This is a very expensive operation giving you details about the objects,
@@ -7681,7 +7782,7 @@ exports.dbgctx = "&lt;no information>";
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Mon Jun 26 2023 17:54:10 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sat Jul 15 2023 08:28:18 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

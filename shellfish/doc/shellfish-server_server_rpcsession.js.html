@@ -78,6 +78,8 @@
             
                 <li class="parent  " data-name="core.dumpStatus"><a href="core.html#.dumpStatus">dumpStatus</a></li>
             
+                <li class="parent  " data-name="core.generateUid"><a href="core.html#.generateUid">generateUid</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -687,6 +689,50 @@
             </ul>
             
             <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="core.InertialEngine">
+            <span class="title  ">
+                
+                
+                    <a href="core.InertialEngine.html">core.InertialEngine</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.InertialEngine#reset"><a href="core.InertialEngine.html#reset">reset</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#start"><a href="core.InertialEngine.html#start">start</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#stop"><a href="core.InertialEngine.html#stop">stop</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#takeSample"><a href="core.InertialEngine.html#takeSample">takeSample</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="core.InertialEngine.event:motion"><a href="core.InertialEngine.html#.event:motion">motion</a></li>
             
             </ul>
             
@@ -4088,6 +4134,36 @@
             
         </li>
     
+        <li class="item" data-name="ui.FlickGesture">
+            <span class="title  ">
+                
+                
+                    <a href="ui.FlickGesture.html">ui.FlickGesture</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="ui.FocusIndicator">
             <span class="title  ">
                 
@@ -5660,7 +5736,7 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *******************************************************************************/
 
-shRequire([__dirname + "/httpsession.js"], httpsession =>
+shRequire(["shellfish/core", __dirname + "/httpsession.js"], (core, httpsession) =>
 {
     const modStream = require("stream");
 
@@ -5770,10 +5846,14 @@ shRequire([__dirname + "/httpsession.js"], httpsession =>
      * that opened a RPC connection will get the same connection on all its
      * RPC calls.
      * 
+     * RPC requests have the HTTP header `x-shellfish-rpc-session` set with the
+     * session ID, except for the initial connection. This header may be used
+     * to open a session per client.
+     * 
      * ### Example
      *     HTTPRoute {
      *         when: req => req.url.path === "/::rpc"
-     *         generateSessionId: req => req.sourceAddress
+     *         generateSessionId: req => req.headers.get("x-shellfish-rpc-session") || core.generateUid()
      * 
      *         delegate: template RpcSession {
      *             onInitialization: () =>
@@ -5828,7 +5908,7 @@ shRequire([__dirname + "/httpsession.js"], httpsession =>
             {
                 if (req.method === "GET")
                 {
-                    const clientId = this.generateClientId();
+                    const clientId = core.generateUid();
                     this.log("RPC", "info", "RPC client " + clientId + " connected from " + req.sourceAddress);
 
                     // open reverse channel
@@ -5852,10 +5932,11 @@ shRequire([__dirname + "/httpsession.js"], httpsession =>
                     });
 
                     req.response(200, "OK")
+                    .header("Keep-Alive", "timeout=60")
                     .stream(reverseChannel, "application/x-shellfish-rpc", -1)
                     .send();
 
-                    this.postMessage(clientId, { type: "ready", clientId: clientId });
+                    this.postMessage(clientId, { type: "ready", clientId: clientId, sessionId: this.sessionId });
 
                     if (priv.clients.size === 1)
                     {
@@ -5896,20 +5977,6 @@ shRequire([__dirname + "/httpsession.js"], httpsession =>
                     });
                 }
             };
-        }
-
-        generateClientId()
-        {
-            let clientId = "";
-            do
-            {
-                clientId = Math.floor(Math.random() * 16777216).toString(16) + "-" +
-                           Math.floor(Math.random() * 16777216).toString(16) + "-" +
-                           Math.floor(Math.random() * 16777216).toString(16);
-            }
-            while (d.get(this).clients.has(clientId));
-
-            return clientId;
         }
 
         heartbeat()
@@ -5991,18 +6058,27 @@ shRequire([__dirname + "/httpsession.js"], httpsession =>
         {
             const priv = d.get(this);
 
-            const enc = new TextEncoder();
-            const data = enc.encode(JSON.stringify(message));
-            this.log("RPC", "info", "RPC send message to client " + clientId + ", type: " + message.type);
+            const client = priv.clients.get(clientId);
+            if (client)
+            {
+                const enc = new TextEncoder();
+                const data = enc.encode(JSON.stringify(message));
+                this.log("RPC", "info", "RPC send message to client " + clientId + ", type: " + message.type);
+    
+                const size = data.length;
+                const buffer = new ArrayBuffer(size + 4);
+                const view32 = new Uint32Array(buffer, 0, 1);
+                view32[0] = size;
+                const view8 = new Uint8Array(buffer);
+                view8.set(data, 4);
+    
+                client.reverseChannel.write(view8);
+            }
+            else
+            {
+                this.log("RPC", "debug", "Client " + clientId + " is not available");
+            }
 
-            const size = data.length;
-            const buffer = new ArrayBuffer(size + 4);
-            const view32 = new Uint32Array(buffer, 0, 1);
-            view32[0] = size;
-            const view8 = new Uint8Array(buffer);
-            view8.set(data, 4);
-
-            priv.clients.get(clientId).reverseChannel.write(view8);
         }
 
         /**
@@ -6068,7 +6144,7 @@ shRequire([__dirname + "/httpsession.js"], httpsession =>
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Mon Jun 26 2023 17:54:10 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sat Jul 15 2023 08:28:18 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

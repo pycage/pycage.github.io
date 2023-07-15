@@ -78,6 +78,8 @@
             
                 <li class="parent  " data-name="core.dumpStatus"><a href="core.html#.dumpStatus">dumpStatus</a></li>
             
+                <li class="parent  " data-name="core.generateUid"><a href="core.html#.generateUid">generateUid</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -687,6 +689,50 @@
             </ul>
             
             <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="core.InertialEngine">
+            <span class="title  ">
+                
+                
+                    <a href="core.InertialEngine.html">core.InertialEngine</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.InertialEngine#reset"><a href="core.InertialEngine.html#reset">reset</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#start"><a href="core.InertialEngine.html#start">start</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#stop"><a href="core.InertialEngine.html#stop">stop</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#takeSample"><a href="core.InertialEngine.html#takeSample">takeSample</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="core.InertialEngine.event:motion"><a href="core.InertialEngine.html#.event:motion">motion</a></li>
             
             </ul>
             
@@ -4088,6 +4134,36 @@
             
         </li>
     
+        <li class="item" data-name="ui.FlickGesture">
+            <span class="title  ">
+                
+                
+                    <a href="ui.FlickGesture.html">ui.FlickGesture</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="ui.FocusIndicator">
             <span class="title  ">
                 
@@ -5675,6 +5751,7 @@ require "shellfish/ui";
  *                                        are two indicators, one for horizontal
  *                                        scrolling, and one for vertical scrolling.
  * @property {string} orientation - The scrolling orientation. One of: `horizontal|vertical`
+ * @property {bool} reverse - (default: `false`) If `true`, the scrolling direction is reversed.
  * @property {number} size - The size of the indicator.
  */
 MouseBox {
@@ -5683,6 +5760,7 @@ MouseBox {
     property target: parent
     property other: null
     property orientation: "vertical"
+    property reverse: false
     property size: thisDocument.inputDevice === "touch" ? theme.paddingSmall / 2
                                                         : theme.paddingMedium
 
@@ -5695,8 +5773,20 @@ MouseBox {
     Object {
         id: priv
 
-        property contentPos: box.target ? (box.orientation === "vertical" ? box.target.contentY
-                                                                          : box.target.contentX)
+        function applyPolarity(pos)
+        {
+            if (box.reverse)
+            {
+                return contentSize - viewSize - pos;
+            }
+            else
+            {
+                return pos;
+            }
+        }
+
+        property contentPos: box.target ? (box.orientation === "vertical" ? applyPolarity(box.target.contentY, contentSize, viewSize)
+                                                                          : applyPolarity(box.target.contentX, contentSize, viewSize))
                                         : 0
         property contentSize: box.target ? (box.orientation === "vertical" ? box.target.contentHeight
                                                                            : box.target.contentWidth)
@@ -5816,7 +5906,7 @@ MouseBox {
             if (box.orientation === "vertical")
             {
                 const scale = box.bboxHeight / Math.max(1, priv.contentSize);
-                target.contentY = priv.contentPos + ev.deltaY / scale;
+                target.contentY = priv.applyPolarity(priv.contentPos + ev.deltaY / scale);
             }
             else
             {
@@ -5957,7 +6047,7 @@ MouseBox {
         {
             if (box.orientation === "vertical")
             {
-                target.contentY = value;
+                target.contentY = priv.applyPolarity(value);
             }
             else
             {
@@ -5987,7 +6077,7 @@ MouseBox {
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Mon Jun 26 2023 17:54:11 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sat Jul 15 2023 08:28:18 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

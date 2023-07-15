@@ -78,6 +78,8 @@
             
                 <li class="parent  " data-name="core.dumpStatus"><a href="core.html#.dumpStatus">dumpStatus</a></li>
             
+                <li class="parent  " data-name="core.generateUid"><a href="core.html#.generateUid">generateUid</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -687,6 +689,50 @@
             </ul>
             
             <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="core.InertialEngine">
+            <span class="title  ">
+                
+                
+                    <a href="core.InertialEngine.html">core.InertialEngine</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.InertialEngine#reset"><a href="core.InertialEngine.html#reset">reset</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#start"><a href="core.InertialEngine.html#start">start</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#stop"><a href="core.InertialEngine.html#stop">stop</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#takeSample"><a href="core.InertialEngine.html#takeSample">takeSample</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="core.InertialEngine.event:motion"><a href="core.InertialEngine.html#.event:motion">motion</a></li>
             
             </ul>
             
@@ -4088,6 +4134,36 @@
             
         </li>
     
+        <li class="item" data-name="ui.FlickGesture">
+            <span class="title  ">
+                
+                
+                    <a href="ui.FlickGesture.html">ui.FlickGesture</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="ui.FocusIndicator">
             <span class="title  ">
                 
@@ -5678,12 +5754,13 @@ shRequire([__dirname + "/object.js"], obj =>
             ++idCounter;
         }
 
-        postMessage(message)
+        postMessage(sessionId, message)
         {
             //console.log("Send: " + JSON.stringify(message));
 
             const headers = new Headers();
             headers.append("x-shellfish-rpc-socket", this.socketId);
+            headers.append("x-shellfish-rpc-session", sessionId);
             fetch(this.endpoint, {
                 method: "POST",
                 headers,
@@ -5737,7 +5814,9 @@ shRequire([__dirname + "/object.js"], obj =>
                             bufferOffset = 0;
                         }
 
-                        const view8 = new Uint8Array(value.buffer, dataOffset, Math.min(value.length, buffer.byteLength));
+                        const view8 = new Uint8Array(value.buffer,
+                                                     dataOffset,
+                                                     Math.min(value.length - dataOffset, buffer.byteLength - bufferOffset));
                         new Uint8Array(buffer, bufferOffset).set(view8);
                         bufferOffset += view8.length;
                         dataOffset += view8.length;
@@ -5774,7 +5853,7 @@ shRequire([__dirname + "/object.js"], obj =>
             })
             .catch(err =>
             {
-                //console.log("Connection closed: " + err);
+                console.error("RPC connection closed on error: " + err);
                 this.handler({ type: "exit" });
             });
 
@@ -5800,14 +5879,15 @@ shRequire([__dirname + "/object.js"], obj =>
             this.handler = handler;
         }
 
-        postMessage(message)
+        postMessage(sessionId, message)
         {
             //console.log("Send: " + JSON.stringify(message));
 
             const req = this.modHttp.request(this.endpoint, {
                 method: "POST",
                 headers: {
-                    "x-shellfish-rpc-socket": this.socketId
+                    "x-shellfish-rpc-socket": this.socketId,
+                    "x-shellfish-rpc-session": sessionId
                 }
             });
             req.write(JSON.stringify(message));
@@ -5904,7 +5984,9 @@ shRequire([__dirname + "/object.js"], obj =>
                     bufferOffset = 0;
                 }
 
-                const view8 = new Uint8Array(value.buffer, dataOffset, Math.min(value.length, buffer.byteLength));
+                const view8 = new Uint8Array(value.buffer,
+                                             dataOffset,
+                                             Math.min(value.length - dataOffset, buffer.byteLength - bufferOffset));
                 new Uint8Array(buffer, bufferOffset).set(view8);
                 bufferOffset += view8.length;
                 dataOffset += view8.length;
@@ -6011,6 +6093,7 @@ shRequire([__dirname + "/object.js"], obj =>
                 callbacks: [],
                 callMap: new Map(),
                 callbackMap: new Map(),
+                sessionId: "",
                 clientId: "",
                 messageQueue: []
             });
@@ -6020,7 +6103,7 @@ shRequire([__dirname + "/object.js"], obj =>
             this.onDestruction = () =>
             {
                 const priv = d.get(this);
-                priv.socket.postMessage({ type: "exit", clientId: priv.clientId });
+                priv.socket.postMessage(priv.sessionId, { type: "exit", clientId: priv.clientId });
                 priv.socket.close();
                 priv.callMap.clear();
                 priv.callbackMap.clear();
@@ -6032,10 +6115,10 @@ shRequire([__dirname + "/object.js"], obj =>
         {
             d.get(this).endpoint = e;
             this.endpointChanged();
-            this.connect();
+            this.connectRpc();
         }
 
-        connect()
+        connectRpc()
         {
             const priv = d.get(this);
 
@@ -6050,13 +6133,14 @@ shRequire([__dirname + "/object.js"], obj =>
                 if (msg.type === "ready")
                 {
                     priv.clientId = msg.clientId;
+                    priv.sessionId = msg.sessionId;
                     priv.messageQueue.forEach(callId => this.call(callId));
                     priv.messageQueue = [];
                 }
                 else if (msg.type === "heartbeat")
                 {
                     this.log("", "debug", "Got heartbeat from RPC endpoint");
-                    priv.socket.postMessage({ type: "heartbeat", clientId: priv.clientId });
+                    priv.socket.postMessage(priv.sessionId, { type: "heartbeat", clientId: priv.clientId });
                 }
                 else if (msg.type === "exit")
                 {
@@ -6066,6 +6150,7 @@ shRequire([__dirname + "/object.js"], obj =>
                         priv.callbackMap.delete(cbId);
                     });
                     priv.callbacks = [];
+                    priv.sessionId = "";
                     priv.clientId = "";
                     priv.socket = null;
                 }
@@ -6099,13 +6184,13 @@ shRequire([__dirname + "/object.js"], obj =>
 
             if (! priv.socket)
             {
-                this.connect();
+                this.connectRpc();
             }
 
             if (priv.clientId !== "")
             {
                 this.log("", "debug", "Calling RPC method: " + callItem.name);
-                priv.socket.postMessage({ type: "call", clientId: priv.clientId, name: callItem.name, callId, parameters: callItem.parameters });
+                priv.socket.postMessage(priv.sessionId, { type: "call", clientId: priv.clientId, name: callItem.name, callId, parameters: callItem.parameters });
             }
             else
             {
@@ -6214,7 +6299,7 @@ shRequire([__dirname + "/object.js"], obj =>
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Mon Jun 26 2023 17:54:10 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sat Jul 15 2023 08:28:18 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

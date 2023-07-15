@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Class: RpcProxy</title>
+    <title>Source: shellfish-core/core/inertialengine.js</title>
     
     
     
@@ -77,6 +77,8 @@
             <span class="subtitle">Methods</span>
             
                 <li class="parent  " data-name="core.dumpStatus"><a href="core.html#.dumpStatus">dumpStatus</a></li>
+            
+                <li class="parent  " data-name="core.generateUid"><a href="core.html#.generateUid">generateUid</a></li>
             
             </ul>
             
@@ -546,6 +548,8 @@
             
                 <li class="parent  " data-name="core.Action#start"><a href="core.Action.html#start">start</a></li>
             
+                <li class="parent  " data-name="core.Action#stop"><a href="core.Action.html#stop">stop</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -685,6 +689,50 @@
             </ul>
             
             <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="core.InertialEngine">
+            <span class="title  ">
+                
+                
+                    <a href="core.InertialEngine.html">core.InertialEngine</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.InertialEngine#reset"><a href="core.InertialEngine.html#reset">reset</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#start"><a href="core.InertialEngine.html#start">start</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#stop"><a href="core.InertialEngine.html#stop">stop</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#takeSample"><a href="core.InertialEngine.html#takeSample">takeSample</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="core.InertialEngine.event:motion"><a href="core.InertialEngine.html#.event:motion">motion</a></li>
             
             </ul>
             
@@ -883,6 +931,36 @@
                 
                 
                     <a href="core.Repeater.html">core.Repeater</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="core.RpcProxy">
+            <span class="title  ">
+                
+                
+                    <a href="core.RpcProxy.html">core.RpcProxy</a>
                 
             </span>
             
@@ -2320,36 +2398,6 @@
             
         </li>
     
-        <li class="item" data-name="html.RpcProxy">
-            <span class="title  ">
-                
-                
-                    <a href="html.RpcProxy.html">html.RpcProxy</a>
-                
-            </span>
-            
-            <ul class="members itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            
-            <ul class="methods itemMembers">
-            
-            </ul>
-            
-            <ul class="events itemMembers">
-            
-            </ul>
-            
-        </li>
-    
         <li class="item" data-name="html.Ruler">
             <span class="title  ">
                 
@@ -3216,7 +3264,7 @@
             
                 <li class="parent  " data-name="server.HTTPSession#close"><a href="server.HTTPSession.html#close">close</a></li>
             
-                <li class="parent  " data-name="server.HTTPSession#response"><a href="server.HTTPSession.html#response">response</a></li>
+                <li class="parent  status-deprecated" data-name="server.HTTPSession#response"><a href="server.HTTPSession.html#response">response</a></li>
             
             </ul>
             
@@ -4077,6 +4125,36 @@
                 <li class="parent  " data-name="ui.Document#showQuestionDialog"><a href="ui.Document.html#showQuestionDialog">showQuestionDialog</a></li>
             
                 <li class="parent  " data-name="ui.Document#showWarningDialog"><a href="ui.Document.html#showWarningDialog">showWarningDialog</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="ui.FlickGesture">
+            <span class="title  ">
+                
+                
+                    <a href="ui.FlickGesture.html">ui.FlickGesture</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
             
             </ul>
             
@@ -5624,221 +5702,218 @@
 </div>
 
     <div class="main">
-        <h1 class="page-title" data-filename="html.RpcProxy.html">Class: RpcProxy</h1>
+        <h1 class="page-title" data-filename="shellfish-core_core_inertialengine.js.html">Source: shellfish-core/core/inertialengine.js</h1>
         
 
 
-
-<section>
     
-<header>
-    <div class="header content-size">
-        <h2><span class="ancestors"><a href="html.html">html</a>.</span>RpcProxy
-        </h2>
-        
-            <div class="class-description"><p>Class representing a proxy for handling remote procedure calls (RPC)
-on a server with <a href="server.RpcSession.html">server.RpcSession</a> as counter part.</p>
-<h3>Example: Invoke a remote function</h3>
-<pre><code>RpcProxy {
+    <section>
+        <header>
+            <div class="header content-size">
+                <h2>shellfish-core/core/inertialengine.js</h2>
+            </div>
+        </header>
+        <article>
+            <pre id="source-code" class="prettyprint source "><code>/*******************************************************************************
+This file is part of the Shellfish UI toolkit.
+Copyright (c) 2023 Martin Grimme &lt;martin.grimme@gmail.com>
 
-    onInitialization: () =&gt;
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*******************************************************************************/
+
+shRequire([__dirname + "/object.js"], obj =>
+{
+
+    const d = new WeakMap();
+
+    /**
+     * Class representing an engine for simulating the physics of inertial motion
+     * in up to three dimensions.
+     * 
+     * The engine works by taking samples of a motion repeatedly with the method
+     * {@link core.InertialEngine#takeSample} and then applying the friction
+     * with the method {@link core.InertialEngine#start}.
+     * 
+     * @extends core.Object
+     * @memberof core
+     * 
+     * @property {number} friction - (default: `0.08`) The friction coefficient. A friction of `0` lets the inertial motion continue forever, while a friction of `1` allows no inertial motion.
+     * @property {bool} running - [readonly] If the engine is currently running.
+     */
+    class InertialEngine extends obj.Object
     {
-        console.log(&quot;Invoking a remote function&quot;);
-        invoke(&quot;remoteCall&quot;, [1, 2, 3])
-        .then(result =&gt;
+        constructor()
         {
-            console.log(&quot;Result: &quot; + result);
+            super();
+            d.set(this, {
+                friction: 0.08,
+                velocityX: 0,
+                velocityY: 0,
+                velocityZ: 0,
+                sampleX: 0,
+                sampleY: 0,
+                sampleZ: 0,
+                sampleTime: 0,
+                running: false,
+                abortFlag: false
+            });
+
+            this.notifyable("friction");
+            this.notifyable("running");
+
+            /**
+             * Is triggered when a motion shall occur. This event is also
+             * emitted while taking samples.
+             * 
+             * @event motion
+             * @param {number} dx - The motion in X direction.
+             * @param {number} dy - The motion in Y direction.
+             * @param {number} dz - The motion in Z direction.
+             * @memberof core.InertialEngine
+             */
+            this.registerEvent("motion");
         }
+
+        get running() { return d.get(this).running; }
+
+        get friction() {return d.get(this).friction; }
+        set friction(f)
+        {
+            d.get(this).friction = f;
+            this.frictionChanged();
+        }
+
+        /**
+         * Resets the engine to the given initial coordinates.
+         * 
+         * @param {number} x - The X coordinate.
+         * @param {number} [y = 0] - The Y coordinate.
+         * @param {number} [z = 0] - The Z coordinate.
+         */
+        reset(x, y, z)
+        {
+            const priv = d.get(this);
+
+            priv.running = false;
+            this.runningChanged();
+            priv.abortFlag = true;
+
+            priv.sampleTime = Date.now();
+            priv.sampleX = x;
+            priv.sampleY = y || 0;
+            priv.sampleZ = z || 0;
+            priv.velocityX = 0;
+            priv.velocityY = 0;
+            priv.velocityZ = 0;
+        }
+
+        /**
+         * Takes a sample with the given coordinates.
+         * 
+         * @param {number} x - The X coordinate.
+         * @param {number} [y = 0] - The Y coordinate.
+         * @param {number} [z = 0] - The Z coordinate.
+         */
+        takeSample(x, y, z)
+        {
+            const priv = d.get(this);
+
+            const dx = priv.sampleX - x;
+            const dy = priv.sampleY - (y || 0);
+            const dz = priv.sampleZ - (z || 0);
+            const now = Date.now();
+            const dt = now - priv.sampleTime;
+    
+            if (dt > 0)
+            {
+                priv.velocityX = dx / dt;
+                priv.velocityY = dy / dt;
+                priv.velocityZ = dz / dt;
+            }
+    
+            priv.sampleTime = now;
+            priv.sampleX = x;
+            priv.sampleY = y || 0;
+            priv.sampleZ = z || 0;
+    
+            this.motion(dx, dy, dz);
+        }
+
+        /**
+         * Starts the engine. This will emit a series of `motion` events until
+         * the friction stopped the motion.
+         */
+        async start()
+        {
+            const priv = d.get(this);
+
+            priv.running = true;
+            this.runningChanged();
+            priv.abortFlag = false;
+
+            await this.wait(10);
+            while (this.lifeCycleStatus !== "destroyed" &amp;&amp; ! priv.abortFlag)
+            {
+                // apply simple physics
+                const now = Date.now();
+                const dt = now - priv.sampleTime;
+                priv.sampleTime = now;
+    
+                const dx = priv.velocityX * dt;
+                const dy = priv.velocityY * dt;
+                const dz = priv.velocityZ * dt;
+    
+                if (dt &lt; 100)
+                {
+                    this.motion(dx, dy, dz);                    
+                    priv.velocityX = priv.velocityX * (1.0 - priv.friction);
+                    priv.velocityY = priv.velocityY * (1.0 - priv.friction);
+                    priv.velocityZ = priv.velocityZ * (1.0 - priv.friction);
+                }
+    
+                if (dt >= 100 || (Math.abs(dx) &lt; 0.1 &amp;&amp; Math.abs(dy) &lt; 0.1 &amp;&amp; Math.abs(dz) &lt; 0.1))
+                {
+                    priv.running = false;
+                    this.runningChanged();
+                    break;
+                }
+
+                await this.wait(10);
+            }
+            priv.abortFlag = false;
+        }
+
+        /**
+         * Stops the engine abruptly.
+         */
+        stop()
+        {
+            this.reset(d.get(this).sampleX, d.get(this).sampleY, d.get(this).sampleZ);
+        }
+
     }
+    exports.InertialEngine = InertialEngine;
 
-}
-</code></pre>
-<p>It is possible to pass callback functions to a RPC call.</p>
-<h3>Example: Using callbacks</h3>
-<pre><code>invoke(&quot;doSomething&quot;, progress =&gt;
-{
-    console.log(&quot;Current progress: &quot; + Math.round(progress * 100) + &quot;%&quot;);
-})
-.then(result =&gt;
-{
-    console.log(&quot;Result: &quot; + result);
 });
 </code></pre>
-<p>The RPC endpoint may return proxy objects for complex interfaces.</p>
-<h3>Example: Using a proxy object</h3>
-<pre><code>invoke(&quot;getProxyInstance&quot;)
-.then(async proxy =&gt;
-{
-    const sum = await proxy.addRemote(1, 2);
-    await proxy.countDown(n =&gt; console.log(n));
-});
-</code></pre></div>
-        
-    </div>
-</header>  
+        </article>
+    </section>
 
-<article class="content-size">
-    
-        <div class="container-overview">
-        
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="RpcProxy">
-            <a class="share-icon" href="#RpcProxy"><span class="glyphicon glyphicon-link"></span></a>
-            <span class="">
-                new html.RpcProxy
-            </span>
-            <span class="signature">()</span>
-            
-            
-            
-            
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="shellfish-ui_html_rpcproxy.js.html#line203">rpcproxy.js:203</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-        <h5 class="subsection-title">Properties:</h5>
-        
-        <dl>
-
-<table class="props">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>endpoint</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"><p>(default: <code>&quot;/&quot;</code>) The address of the RPC endpoint.</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table></dl>
-        
-    
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-        </div>
-    
-    
-    
-        <h3 class="subsection-title">Extends</h3>
-        
-        <ul>
-            <li><a href="core.Object.html">core.Object</a></li>
-        </ul>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-</article>
-
-</section>  
 
 
 
@@ -5848,7 +5923,7 @@ on a server with <a href="server.RpcSession.html">server.RpcSession</a> as count
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sun Jun 04 2023 09:35:37 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sat Jul 15 2023 08:28:18 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

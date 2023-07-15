@@ -78,6 +78,8 @@
             
                 <li class="parent  " data-name="core.dumpStatus"><a href="core.html#.dumpStatus">dumpStatus</a></li>
             
+                <li class="parent  " data-name="core.generateUid"><a href="core.html#.generateUid">generateUid</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -687,6 +689,50 @@
             </ul>
             
             <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="core.InertialEngine">
+            <span class="title  ">
+                
+                
+                    <a href="core.InertialEngine.html">core.InertialEngine</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.InertialEngine#reset"><a href="core.InertialEngine.html#reset">reset</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#start"><a href="core.InertialEngine.html#start">start</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#stop"><a href="core.InertialEngine.html#stop">stop</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#takeSample"><a href="core.InertialEngine.html#takeSample">takeSample</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="core.InertialEngine.event:motion"><a href="core.InertialEngine.html#.event:motion">motion</a></li>
             
             </ul>
             
@@ -4088,6 +4134,36 @@
             
         </li>
     
+        <li class="item" data-name="ui.FlickGesture">
+            <span class="title  ">
+                
+                
+                    <a href="ui.FlickGesture.html">ui.FlickGesture</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="ui.FocusIndicator">
             <span class="title  ">
                 
@@ -5714,8 +5790,6 @@ MouseBox {
         }
     }
 
-    //visible: target.contentHeight > target.bboxHeight &amp;&amp; labelRepeater.count > 1
-
     layout: orientation === "vertical" ? "center-column"
                                        : "center-row"
 
@@ -5726,19 +5800,10 @@ MouseBox {
 
     function update()
     {
-        /*
         defer(() =>
         {
             doUpdate();
         }, "update");
-        */
-        if (! namedCallbackPending("update"))
-        {
-            wait(100).then(namedCallback(() =>
-            {
-                doUpdate();
-            }, "update"));
-        }
     }
 
     function doUpdate()
@@ -5782,44 +5847,50 @@ MouseBox {
         let pos = 0;
         let prevLabel = "";
 
-        for (let i = 0; i &lt; target.count; i += itemsPerRow)
-        {
-            const itemIdx = i &lt; target.count - itemsPerRow ? (i === 0 ? 0 : i + itemsPerRow - 1)
-                                                           : target.count - 1;
-            const label = indexScroller.getLabel(itemIdx);
-
-            if (m.length > 0)
-            {
-                m[m.length - 1].until = pos - 1;
-            }
-            if (label !== prevLabel)
-            {
-                m.push({ position: pos, until: pos + cellSize - 1, label: label, index: itemIdx });
-                prevLabel = label;
-            }
-            pos += cellSize;
-        }
+        const targetCount = target.count;
+        const getLabel = indexScroller.getLabel;
         
-        // remove exceeding items, but not the first or the last
-        while (m.length > 0 &amp;&amp; maxItems > 1 &amp;&amp; m.length > maxItems)
+        unresolved
         {
-            const tooMany = m.length - maxItems;
-
-            const sizes = m
-            .map((item, idx) => { return { size: item.until - item.position, index: idx }; })
-            .slice(1, -1)
-            .sort((itemA, itemB) => itemA.size - itemB.size);
-
-            const toRemove = sizes
-            .slice(0, tooMany)
-            .map(item => item.index);
-
-            if (toRemove.length === 0)
+            for (let i = 0; i &lt; targetCount; i += itemsPerRow)
             {
-                break;
+                const itemIdx = i &lt; targetCount - itemsPerRow ? (i === 0 ? 0 : i + itemsPerRow - 1)
+                                                              : targetCount - 1;
+                const label = getLabel(itemIdx);
+
+                if (m.length > 0)
+                {
+                    m[m.length - 1].until = pos - 1;
+                }
+                if (label !== prevLabel)
+                {
+                    m.push({ position: pos, until: pos + cellSize - 1, label: label, index: itemIdx });
+                    prevLabel = label;
+                }
+                pos += cellSize;
             }
 
-            m = m.filter((nil, idx) => toRemove.indexOf(idx) === -1);
+            // remove exceeding items, but not the first or the last
+            while (m.length > 0 &amp;&amp; maxItems > 1 &amp;&amp; m.length > maxItems)
+            {
+                const tooMany = m.length - maxItems;
+
+                const sizes = m
+                .map((item, idx) => { return { size: item.until - item.position, index: idx }; })
+                .slice(1, -1)
+                .sort((itemA, itemB) => itemA.size - itemB.size);
+
+                const toRemove = sizes
+                .slice(0, tooMany)
+                .map(item => item.index);
+
+                if (toRemove.length === 0)
+                {
+                    break;
+                }
+
+                m = m.filter((nil, idx) => toRemove.indexOf(idx) === -1);
+            }
         }
 
         const newSetup = JSON.stringify(m);
@@ -5903,7 +5974,7 @@ MouseBox {
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Mon Jun 26 2023 17:54:11 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sat Jul 15 2023 08:28:18 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>

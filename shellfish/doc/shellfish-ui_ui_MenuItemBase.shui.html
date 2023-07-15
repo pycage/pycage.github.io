@@ -78,6 +78,8 @@
             
                 <li class="parent  " data-name="core.dumpStatus"><a href="core.html#.dumpStatus">dumpStatus</a></li>
             
+                <li class="parent  " data-name="core.generateUid"><a href="core.html#.generateUid">generateUid</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -687,6 +689,50 @@
             </ul>
             
             <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
+        <li class="item" data-name="core.InertialEngine">
+            <span class="title  ">
+                
+                
+                    <a href="core.InertialEngine.html">core.InertialEngine</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="core.InertialEngine#reset"><a href="core.InertialEngine.html#reset">reset</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#start"><a href="core.InertialEngine.html#start">start</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#stop"><a href="core.InertialEngine.html#stop">stop</a></li>
+            
+                <li class="parent  " data-name="core.InertialEngine#takeSample"><a href="core.InertialEngine.html#takeSample">takeSample</a></li>
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li class="parent" data-name="core.InertialEngine.event:motion"><a href="core.InertialEngine.html#.event:motion">motion</a></li>
             
             </ul>
             
@@ -4088,6 +4134,36 @@
             
         </li>
     
+        <li class="item" data-name="ui.FlickGesture">
+            <span class="title  ">
+                
+                
+                    <a href="ui.FlickGesture.html">ui.FlickGesture</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="ui.FocusIndicator">
             <span class="title  ">
                 
@@ -5670,7 +5746,6 @@ require "shellfish/ui";
  * @class
  * @extends html.MouseBox
  *
- * @property {bool} thisMenuItem - (always `true`) Sub-elements may use this property to check if they are within a menu item.
  * @property {bool} selected - (default: `false`) Whether the menu item is currently selected.
  * @property {bool} highlighted - (default: `false`) Whether the menu item is currently highlighted.
  * @property {fengshui.Template} menu - (default: `null`) A template for a submenu.
@@ -5678,8 +5753,6 @@ require "shellfish/ui";
  */
 MouseBox {
     id: item
-
-    property thisMenuItem: self
 
     property selected: false
     property highlighted: false
@@ -5732,7 +5805,7 @@ MouseBox {
                 if (ev.x >= cBox.x &amp;&amp; ev.x &lt; cBox.x + cBox.width &amp;&amp;
                     ev.y >= cBox.y &amp;&amp; ev.y &lt; cBox.y + cBox.height)
                 {
-                    if (child !== self &amp;&amp; child.thisMenuItem)
+                    if (child !== self &amp;&amp; child.selectItem)
                     {
                         child.selectItem(true);
                     }
@@ -5846,7 +5919,7 @@ MouseBox {
     {
         // unhighlight siblings and close menu
         parent.children()
-        .filter((c) => { return c !== self &amp;&amp; c.thisMenuItem; })
+        .filter((c) => { return c !== self &amp;&amp; c.selectItem; })
         .forEach((c) =>
         {
             c.selected = false;
@@ -5911,7 +5984,7 @@ MouseBox {
      */
     function toSibling(direction, f)
     {
-        const siblings = parent.children().filter((c) => { return c.thisMenuItem &amp;&amp; c.enabled; });
+        const siblings = parent.children().filter((c) => { return c.selectItem &amp;&amp; c.enabled; });
         let selfPos = -1;
         for (let i = 0; i &lt; siblings.length; ++i)
         {
@@ -6088,7 +6161,7 @@ MouseBox {
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Mon Jun 26 2023 17:54:11 GMT+0200 (Mitteleuropäische Sommerzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sat Jul 15 2023 08:28:18 GMT+0200 (Mitteleuropäische Sommerzeit)
             </div>
         </footer>
     </div>
