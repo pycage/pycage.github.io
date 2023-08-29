@@ -121,7 +121,7 @@ Page {
 
                 onClick: () =>
                 {
-                    drive.write(filesView.model.path + "/New File.txt", new Blob([""]))
+                    drive.write(filesView.model.path + "/New File.txt", new core.FileData(""))
                     .then(() =>
                     {
                         console.log("saved file");
@@ -144,7 +144,7 @@ Page {
                         for (let i = 0; i < files.length; ++i)
                         {
                             const fileItem = files[i];
-                            drive.write(filesView.model.path + "/" + fileItem.name, fileItem)
+                            drive.write(filesView.model.path + "/" + fileItem.name, new core.FileData(fileItem))
                             .then(() =>
                             {
 
@@ -234,7 +234,8 @@ Page {
                             continue;
                         }
                         const fileItem = item.getAsFile();
-                        drive.write(filesView.model.path + "/" + fileItem.name, fileItem)
+                        console.log("Drop file: " + fileItem.size);
+                        drive.write(filesView.model.path + "/" + fileItem.name, new core.FileData(fileItem))
                         .then(() =>
                         {
 
@@ -281,9 +282,9 @@ Page {
                             if (file && file.mimetype.startsWith("image/"))
                             {
                                 drive.read(file.path)
-                                .then(blob =>
+                                .then(fileData =>
                                 {
-                                    thumbnail = blobUrl(blob);
+                                    thumbnail = blobUrl(fileData.blob());
                                 })
                                 .catch(() => { });
                             }
@@ -309,9 +310,9 @@ Page {
                                 dlg.show();
                                 dlg.title = low.escapeMarkup(file.name);
                                 drive.read(file.path)
-                                .then((blob) =>
+                                .then((fileData) =>
                                 {
-                                    dlg.file = blob;
+                                    dlg.file = fileData.blob();
                                 });
                             }
                         }
