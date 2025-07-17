@@ -1,0 +1,704 @@
+require "shellfish/ui";
+require "shellfish/core/matrix" as mat;
+require "./data.js" as data;
+require "./raymarching.js" as rm;
+
+Document {
+    id: doc
+
+    property lights: new Float32Array(32 * 12)
+    property world: ({
+        objectSize: 36,
+        rotatingGlass: -1,
+        data: new Float32Array(1000 * 36),
+        size: 0
+    })
+    property materials: new Float32Array(10 * 8)
+    property jumpForce: 0.0
+
+    FpsMeter {
+        id: fpsMeter
+        running: true
+    }
+
+    function setLight(arr, n, loc, color, radius)
+    {
+        const pos = n * 12;
+        
+        arr[pos] = loc[0][0];
+        arr[pos + 1] = loc[1][0];
+        arr[pos + 2] = loc[2][0];
+
+        arr[pos + 4] = color[0][0];
+        arr[pos + 5] = color[1][0];
+        arr[pos + 6] = color[2][0];
+
+        arr[pos + 8] = radius;
+    }
+
+    function setObject(arr, n, type, trafo, radius, material)
+    {
+        const pos = n * world.objectSize;
+
+        arr[pos] = type;
+        arr[pos + 1] = radius;
+        arr[pos + 2] = material;
+        arr[pos + 3] = 0.0; // Y rotation
+
+        let t = mat.flat(mat.t(trafo));
+        arr[pos + 4] = t[0];
+        arr[pos + 5] = t[1];
+        arr[pos + 6] = t[2];
+        arr[pos + 7] = t[3];
+
+        arr[pos + 8] = t[4];
+        arr[pos + 9] = t[5];
+        arr[pos + 10] = t[6];
+        arr[pos + 11] = t[7];
+
+        arr[pos + 12] = t[8];
+        arr[pos + 13] = t[9];
+        arr[pos + 14] = t[10];
+        arr[pos + 15] = t[11];
+
+        arr[pos + 16] = t[12];
+        arr[pos + 17] = t[13];
+        arr[pos + 18] = t[14];
+        arr[pos + 19] = t[15];
+
+        t = mat.flat(mat.t(mat.inv(trafo)));
+        arr[pos + 20] = t[0];
+        arr[pos + 21] = t[1];
+        arr[pos + 22] = t[2];
+        arr[pos + 23] = t[3];
+
+        arr[pos + 24] = t[4];
+        arr[pos + 25] = t[5];
+        arr[pos + 26] = t[6];
+        arr[pos + 27] = t[7];
+
+        arr[pos + 28] = t[8];
+        arr[pos + 29] = t[9];
+        arr[pos + 30] = t[10];
+        arr[pos + 31] = t[11];
+
+        arr[pos + 32] = t[12];
+        arr[pos + 33] = t[13];
+        arr[pos + 34] = t[14];
+        arr[pos + 35] = t[15];
+
+    }
+
+    function setMaterial(arr, n, color, texture, roughness, ior)
+    {
+        const pos = n * 8;
+
+        arr[pos] = color[0][0];
+        arr[pos + 1] = color[1][0];
+        arr[pos + 2] = color[2][0];
+        arr[pos + 3] = texture;
+
+        arr[pos + 4] = roughness;
+        arr[pos + 5] = ior;
+    }
+
+    function makeLights()
+    {
+        const n = 3;
+        const arr = lights;
+
+        setLight(arr, 0, mat.vec(3.0, 6.9, 3.0), mat.vec(1.0, 1.0, 1.0), 300.0);
+        setLight(arr, 1, mat.vec(2.0, 2.5, 4.0), mat.vec(1.0, 0.0, 0.0), 20.0);
+        setLight(arr, 2, mat.vec(12.0, 2.5, 14.0), mat.vec(0.0, 0.0, 1.0), 50.0);
+
+        return arr;
+    }
+
+    function makeWorld()
+    {
+        const arr = world.data;
+
+        setObject(arr, 0, 1, mat.translationM(mat.vec(0.0, 0.7, -0.45)), 0.5, 4);
+        setObject(arr, 1, 1, mat.translationM(mat.vec(-0.2, 0.9, -0.25)), 0.2, 5);
+        setObject(arr, 2, 1, mat.translationM(mat.vec(0.2, 0.9, -0.25)), 0.2, 5);
+
+        /*
+        setObject(arr, 3, 3, mat.translationM(mat.vec(-2.0, 0.0, 3.0)), 1.0, 3);
+        setObject(arr, 4, 1, mat.translationM(mat.vec(2.0, 1.0, 4.0)), 1.7, 1);
+
+        setObject(arr, 5, 2, mat.translationM(mat.vec(2.0, 0.0, -2.0)), 2.0, 1);
+        setObject(arr, 6, 2, mat.translationM(mat.vec(5.0, 0.0, 0.0)), 2.0, 1);
+        setObject(arr, 7, 2, mat.translationM(mat.vec(12.0, 0.0, 0.0)), 2.0, 3);
+
+        */
+        setObject(arr, 3, 0, mat.translationM(mat.vec(0.0, 0.0, 1.0)), 100.0, 0);
+
+
+        const blocks = data.blocks();
+        console.log(blocks);
+        
+        let idx = 4;
+        for (let i = 0; i < blocks.length; ++i)
+        {
+            const layer = Math.floor(i / 256);
+            const x = i % 16;
+            const y = 16 - Math.floor((i % 256) / 16);
+
+            const type = blocks[i];
+            if (type === "#")
+            {
+                setObject(arr, idx, 2, mat.translationM(mat.vec(x + 0.5, layer + 0.5, y + 0.5)), 1.0, 6);
+                ++idx;
+            }
+            else if (type === "!")
+            {
+                setObject(arr, idx, 2, mat.translationM(mat.vec(x + 0.5, layer + 0.5, y + 0.5)), 1.0, 5);
+                ++idx;
+            }
+            else if (type === "O")
+            {
+                setObject(arr, idx, 1, mat.translationM(mat.vec(x + 0.5, layer + 0.5, y + 0.5)), 0.5, 1);
+                ++idx;
+            }
+            else if (type === "M")
+            {
+                setObject(arr, idx, 2, mat.translationM(mat.vec(x + 0.5, layer + 0.5, y + 0.5)), 1.0, 1);
+                ++idx;
+            }
+            else if (type === "G")
+            {
+                setObject(arr, idx, 2, mat.translationM(mat.vec(x + 0.5, layer + 0.5, y + 0.5)), 1.0, 2);
+                world.rotatingGlass = idx;
+                ++idx;
+            }
+            else if (type === "X")
+            {
+                setObject(arr, idx, 2, mat.translationM(mat.vec(x + 0.5, layer + 0.5, y + 0.5)), 1.0, 0);
+                ++idx;
+            }
+
+
+        }
+
+        world.size = idx;
+    }
+
+    function makeMaterials()
+    {
+        const n = 9;
+        const arr = materials;
+
+        // checkerboard
+        setMaterial(arr, 0, mat.vec(0, 0, 0), -1, 1.0, 0.0);
+
+        // mirror
+        setMaterial(arr, 1, mat.vec(0.8, 0.8, 0.9), 0, 0.0, 0.0);
+
+        // glass
+        setMaterial(arr, 2, mat.vec(1.0, 1.0, 1.0), 0, 0.0, 1.6);
+
+        // tinted glass
+        setMaterial(arr, 3, mat.vec(1.0, 0.9, 0.3), 0, 0.0, 1.6);
+
+        // yellow plastic
+        setMaterial(arr, 4, mat.vec(1.0, 0.7, 0.0), 0, 1.0, 0.0);
+
+        // shiny black
+        setMaterial(arr, 5, mat.vec(0.3, 0.3, 0.3), 0, 0.9, 0.0);
+
+        // bricks
+        setMaterial(arr, 6, mat.vec(0.0, 0.0, 0.0), -2, 1.0, 0.0);
+
+        // wood
+        setMaterial(arr, 7, mat.vec(0.0, 0.0, 0.0), -4, 1.0, 0.0);
+
+        return arr;
+    }
+
+    MouseBox {
+        id: mb
+
+        property mouseX: 0
+        property mouseY: bboxHeight / 2
+        property mouseZ: 0
+
+        fillWidth: true
+        height: doc.bboxHeight
+
+        /*
+        onPointerMove: ev =>
+        {
+            mouseX = ev.x;
+            mouseY = ev.y;
+        }
+        */
+
+        onWheel: ev =>
+        {
+            //mouseZ = Math.max(0, mouseZ + (ev.deltaY > 0 ? -0.1 : 0.1));
+            //const dir = ev.deltaY > 0 ? -0.1 : 0.1;
+            //canvas.cameraLocation = mat.add(canvas.cameraLocation, mat.vec(0, dir, 0))
+            canvas.rotX += ev.deltaY > 0 ? -0.01 : 0.01;
+        }
+
+        Box {
+            fillWidth: true
+            height: theme.itemHeightMedium
+
+            layout: "center-row"
+
+            Label {
+                marginLeft: theme.paddingSmall
+                bold: true
+                text: "GPU Ray Marching"
+            }
+
+            Label {
+                marginLeft: theme.paddingLarge
+                text: "Quality"
+            }
+
+            SelectionBox {
+                id: qualitySelector
+                marginLeft: theme.paddingSmall
+                model: ListModel { data: ["Ultra", "High", "Medium", "Low", "Ugly"] }
+                selection: 2
+            }
+
+            Label {
+                marginLeft: theme.paddingLarge
+                text: "Marching Depth"
+            }
+
+            Slider {
+                id: marchingDepthSlider
+                marginLeft: theme.paddingSmall
+                minValue: 1
+                maxValue: 2048
+                stepSize: 1
+                value: 1024
+            }
+
+            Label {
+                marginLeft: theme.paddingSmall
+                text: canvas.marchingDepth
+            }
+
+            Label {
+                marginLeft: theme.paddingLarge
+                text: "Ray Tracing Depth"
+            }
+
+            Slider {
+                id: tracingDepthSlider
+                marginLeft: theme.paddingSmall
+                minValue: 1
+                maxValue: 32
+                stepSize: 1
+                value: 16
+            }
+
+            Label {
+                marginLeft: theme.paddingSmall
+                text: canvas.tracingDepth
+            }
+
+            Label {
+                marginLeft: theme.paddingLarge
+                text: "Path Tracing Depth"
+            }
+
+            Slider {
+                id: pathTracingDepthSlider
+                marginLeft: theme.paddingSmall
+                minValue: 0
+                maxValue: 256
+                stepSize: 1
+                value: 0
+            }
+
+            Label {
+                marginLeft: theme.paddingSmall
+                text: canvas.pathTracingDepth
+            }
+
+            CheckBox {
+                id: shadingCheckBox
+                marginLeft: theme.paddingLarge
+                checked: true
+            }
+
+            Label {
+                marginLeft: theme.paddingSmall
+                text: "Shading"
+            }
+
+            CheckBox {
+                id: toonEffectCheckBox
+                marginLeft: theme.paddingLarge
+                checked: false
+            }
+
+            Label {
+                marginLeft: theme.paddingSmall
+                text: "Toon Effect"
+            }
+
+            Box { fillWidth: true }
+
+            Label {
+                marginRight: theme.paddingSmall
+                text: "FPS: " + Math.floor(fpsMeter.fps)
+            }
+        }
+
+        Canvas {
+            id: canvas
+
+            property resolution: qualitySelector.selection
+
+            property marchingDepth: Math.floor(marchingDepthSlider.value)
+            property tracingDepth: Math.floor(tracingDepthSlider.value)
+            property pathTracingDepth: Math.floor(pathTracingDepthSlider.value)
+
+            property enablePhongShading: shadingCheckBox.checked
+            property enableToonEffect: toonEffectCheckBox.checked
+
+            property cameraLocation: mat.vec(7.0, 1.0, 7.0)
+            property cameraRotationY: 0
+            property cameraRotationZ: 0
+            property cameraDirection: mat.swizzle(mat.mul(mat.rotationM(mat.vec(1, 0, 0, 0), mat.vec(0, 0, 1, 0), cameraRotationY), mat.vec(0, 0, 1, 1)), "xyz")
+            property cameraDirectionRight: mat.swizzle(mat.mul(mat.rotationM(mat.vec(1, 0, 0, 0), mat.vec(0, 0, 1, 0), cameraRotationY), mat.vec(1, 0, 0, 1), ), "xyz")
+
+            property keysPressed: new Set()
+
+            function loadImage(source)
+            {
+                return new Promise((resolve, reject) =>
+                {
+                    const img = new Image();
+                    img.onload = () =>
+                    {
+                        resolve(img);
+                    };
+                    img.onerror = (err) =>
+                    {
+                        reject(err);
+                    };
+                    img.src = shRequire.resource(source);
+                });
+            }
+
+            function bindUniform(prop, type)
+            {
+                setUniform(type, prop, canvas[prop]);
+                let uprop = prop[0].toUpperCase() + prop.substr(1);
+                canvas.set("on" + uprop + "Changed", () =>
+                {
+                    setUniform(type, prop, canvas[prop]);
+                    //console.log("set " + prop + " = " + canvas[prop]);
+                });
+            }
+
+            property cameraTrafo: mat.mul(
+                mat.translationM(cameraLocation),
+                mat.mul(
+                    mat.rotationM(mat.vec(cameraDirection, 0), mat.vec(0, 1, 0, 0), (0.5 - rotX) * 180),
+                    mat.mul(
+                        mat.rotationM(mat.vec(cameraDirectionRight, 0), mat.vec(0, 1, 0, 0), cameraRotationZ),
+                        mat.rotationM(mat.vec(1, 0, 0, 0), mat.vec(0, 0, 1, 0), cameraRotationY)
+                    )
+                )
+            )
+
+            property mouseX: Math.min(1.0, mb.mouseX / bboxWidth)
+            property mouseY: Math.min(1.0, mb.mouseY / bboxHeight)
+            property aspect: bboxHeight > 0 ? bboxWidth / bboxHeight : 1.0
+            property rotX: 0.5
+
+            fillWidth: true
+            fillHeight: true
+
+            originalWidth: bboxWidth / Math.pow(2, resolution)
+            originalHeight: bboxHeight / Math.pow(2, resolution)
+
+            canFocus: true
+
+            function handleKey(key)
+            {
+                if (jump.busy)
+                {
+                    return;
+                }
+
+                let newCameraLocation = null;
+                let newCameraLocationJump = null;
+
+                switch (key)
+                {
+                case "w":
+                    newCameraLocation = mat.add(cameraLocation, mat.mul(cameraDirection, 0.1));
+                    newCameraLocationJump = mat.add(newCameraLocation, mat.vec(0.0, 1.0, 0.0));
+                    break;
+                case "s":
+                    newCameraLocation = mat.add(cameraLocation, mat.mul(cameraDirection, -0.1));
+                    break;
+                case "a":
+                    cameraRotationY = (cameraRotationY + 360 + 3) % 360;
+                    break;
+                case "d":
+                    cameraRotationY = (cameraRotationY + 360 - 3) % 360;
+                    break;
+                case "q":
+                    /*
+                    if (! sideRollLeft.busy)
+                    {
+                        sideRollLeft.start();
+                    }
+                    */
+                    newCameraLocation = mat.add(cameraLocation, mat.mul(cameraDirectionRight, -0.1));
+                    break;
+                case "e":
+                    /*
+                    if (! sideRollRight.busy)
+                    {
+                        sideRollRight.start();
+                    }
+                    */
+                    newCameraLocation = mat.add(cameraLocation, mat.mul(cameraDirectionRight, 0.1));
+                    break;
+                case " ":
+                    if (doc.jumpForce <= 0.001)
+                    {
+                        doc.jumpForce = 2.0;
+                    }
+                }
+
+                if (newCameraLocation)
+                {
+                    const objAndDist = rm.nearestObject(world, newCameraLocation);
+                    const objType = objAndDist.obj !== -1 ? world.data[world.objectSize * objAndDist.obj] : -1;
+                    if (objAndDist.distance > 0.0)
+                    {
+                        cameraLocation = newCameraLocation;
+                    }
+                    else if (objType === 2 && newCameraLocationJump &&
+                            rm.nearestObject(world, newCameraLocationJump).distance > 0.0)
+                    {
+                        // maybe we can jump
+                        jumpForce = 1.0;
+                    }
+                }
+            }
+
+            onKeyDown: ev =>
+            {
+                if (! keysPressed.has(ev.key))
+                {
+                    //console.log("Key pressed: " + ev.key);
+                    keysPressed.add(ev.key);
+                    keysPressedChanged();
+                }
+            }
+
+            onCameraTrafoChanged: () =>
+            {
+                setObject(world.data, 0, 1, mat.mul(cameraTrafo, mat.translationM(mat.vec(0.0, -0.4, -0.45))), 0.5, 4);
+                setObject(world.data, 1, 1, mat.mul(cameraTrafo, mat.translationM(mat.vec(-0.2, -0.2, -0.25))), 0.2, 5);
+                setObject(world.data, 2, 1, mat.mul(cameraTrafo, mat.translationM(mat.vec(0.2, -0.2, -0.25))),  0.2, 5);
+                //setLight(lights, 0, mat.swizzle(mat.mul(cameraTrafo, mat.vec(0.0, 1.0, -0.45, 1.0)), "xyz"), mat.vec(1.0, 1.0, 1.0), 10.0);
+            }
+
+            onKeyUp: ev =>
+            {
+                console.log("Key released: " + ev.key);
+                keysPressed.delete(ev.key);
+                keysPressedChanged();
+            }
+
+            onInitialization: async () =>
+            {
+                canvas.get().css("image-rendering", "pixelated");
+
+                const response = await doc.httpRequest("raymarcher.glsl").send();
+                const data = await response.text();
+                const sky = await loadImage("skybox.jpg");
+
+                fragmentShader = data;
+
+                makeWorld();
+                console.log("Objects: " + world.size);
+
+                setUniform("texture", "skyTexture", sky);
+                setUniform("int", "numLights", 3);
+                setUniform("int", "numObjects", world.size);
+                setUniform("textureFloat32", "materialsData", makeMaterials());
+                setUniform("textureFloat32", "lightsData", makeLights());
+                setUniform("textureFloat32", "worldData", world.data);
+
+                bindUniform("marchingDepth", "int");
+                bindUniform("tracingDepth", "int");
+                bindUniform("pathTracingDepth", "int");
+                bindUniform("enablePhongShading", "int");
+                bindUniform("enableToonEffect", "int");
+                bindUniform("aspect", "float");
+                bindUniform("cameraTrafo", "mat4");
+                
+                get().get().focus();
+            }
+        }
+    }
+
+    Label {
+        position: "free"
+        origin: "bottom-left"
+        fontSize: 24
+        color: "white"
+        text: "WASD: move/rotate Q/R: strafe Wheel: look up/down"
+    }
+
+    Timer {
+        interval: 1000.0 / 60.0
+        running: canvas.keysPressed.size > 0
+        repeat: true
+
+        onTimeout: () =>
+        {
+            canvas.keysPressed.values().forEach(canvas.handleKey);
+        }
+    }
+
+    SequentialAction {
+        repeat: true
+
+        onInitialization: () =>
+        {
+            start();
+        }
+
+        NumberAnimation {
+            duration: 3000
+            from: 0.0
+            to: 90.0
+
+            onNext: value =>
+            {
+                world.data[world.objectSize * world.rotatingGlass + 3] = value;
+            }
+        }
+
+        NumberAnimation {
+            duration: 3000
+            from: 90.0
+            to: 0.0
+
+            onNext: value =>
+            {
+                world.data[world.objectSize * world.rotatingGlass + 3] = value;
+            }
+        }
+
+    }
+
+    NumberAnimation {
+        id: sideRollLeft
+
+        duration: 2000
+        from: 0
+        to: 360
+
+        onNext: value =>
+        {
+            canvas.cameraRotationZ = value;
+            canvas.cameraLocation = mat.add(canvas.cameraLocation, mat.mul(canvas.cameraDirectionRight, -0.1));
+        }
+    }
+
+    NumberAnimation {
+        id: sideRollRight
+
+        duration: 2000
+        from: 360
+        to: 0
+
+        onNext: value =>
+        {
+            canvas.cameraRotationZ = value;
+            canvas.cameraLocation = mat.add(canvas.cameraLocation, mat.mul(canvas.cameraDirectionRight, 0.1));
+        }
+    }
+
+    SequentialAction {
+        id: jump
+
+        NumberAnimation {
+            from: 0.0
+            to: 1.0
+
+            onNext: value =>
+            {
+                canvas.cameraLocation = mat.add(canvas.cameraLocation, mat.mul(canvas.cameraDirectionRight, 0.1));
+            }
+        }
+    }
+
+    Timer {
+        interval: 50
+        repeat: true
+        running: true
+
+        onTimeout: () =>
+        {
+            if (world.size === 0)
+            {
+                // not ready yet
+                return;
+            }
+
+            // jump?
+            if (doc.jumpForce > 0.01)
+            {
+                canvas.cameraLocation = mat.add(canvas.cameraLocation, mat.vec(0.0, doc.jumpForce * 0.3, 0.0));
+                doc.jumpForce *= 0.6;
+            }
+            else
+            {
+                doc.jumpForce = 0.0;
+            }
+
+            // check for falling
+            const feetLocation = mat.add(canvas.cameraLocation, mat.vec(0.0, -1.0, 0.0));
+            const objAndDist = rm.nearestObject(world, feetLocation);
+            if (objAndDist.distance > 0.01)
+            {
+                const amount = Math.min(0.2, objAndDist.distance);
+                const newCameraLocationFall = mat.add(canvas.cameraLocation, mat.vec(0.0, -amount, 0.0));
+                canvas.cameraLocation = newCameraLocationFall;
+            }
+
+            /*
+            const newCameraLocationFall = mat.add(canvas.cameraLocation, mat.vec(0.0, -0.2, 0.0));
+            const checkPoint = mat.add(newCameraLocationFall, mat.vec(0.0, -1.0, 0.0));
+            const objAndDist = rm.nearestObject(world, checkPoint)
+            if (objAndDist.distance > 0.2)
+            {
+                canvas.cameraLocation = newCameraLocationFall;
+            }
+            */
+        }
+    }
+
+    FrameTimer {
+        fps: 60
+        repeat: true
+        running: true
+
+        onTimeout: now =>
+        {
+            canvas.setUniform("int", "timems", Math.floor(now * 1000));
+            canvas.setUniform("textureFloat32", "worldData", world.data);
+            canvas.setUniform("textureFloat32", "lightsData", lights);
+            canvas.invalidateCanvas();
+        }
+    }
+}

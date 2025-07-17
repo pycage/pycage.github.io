@@ -1,0 +1,21 @@
+require "shellfish/server";
+
+HTTPServer {
+
+    function log(domain, level, message)
+    {
+        console.log((new Date().toISOString()) + " [" + domain + "] " + message);
+    }
+
+    port: 8001
+
+    HTTPRoute {
+        delegate: template WebSession {
+            filesystem: LocalFS { }
+            root: __dirname
+            indexFile: "index.html"
+
+            onResponseReady: r => { r.enableCrossOriginIsolation(); }
+        }
+    }
+}
