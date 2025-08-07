@@ -1,0 +1,9 @@
+LD 1.0
+LD 2.0
+test <= else
+LD 1.0
+LD 2.0
+MUL
+END
+else:
+POP

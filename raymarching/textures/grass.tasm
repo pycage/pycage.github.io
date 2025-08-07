@@ -1,0 +1,69 @@
+    LD 0.3 0.8 0.1
+    USE color
+
+    ENV distance
+    LD 64
+    TEST > near
+    ; no bump map computation for blocks in the distance
+    END
+
+near:
+    ; mf = (0 + exp(-distance / 100000)) * 0.5
+    LD 0
+    LD 0
+    ENV distance
+    SUB
+    LD 10
+    DIV
+    EXP
+    LD 0.5
+    MUL
+    SREG mf
+
+    ENV st
+    LD 32
+    GEN mipmap
+    LD -1.0 0.0
+    ADD2
+    GEN whitenoise
+    LREG mf
+    MUL
+    SREG n1
+
+    ENV st
+    LD 32
+    GEN mipmap
+    LD 1.0 0.0
+    ADD2
+    GEN whitenoise
+    LREG mf
+    MUL
+    SREG n2
+
+    ENV st
+    LD 32
+    GEN mipmap
+    LD 0.0 -1.0
+    ADD2
+    GEN whitenoise
+    LREG mf
+    MUL
+    SREG n3
+
+    ENV st
+    LD 32
+    GEN mipmap
+    LD 0.0 1.0
+    ADD2
+    GEN whitenoise
+    LREG mf
+    MUL
+    SREG n4
+
+    LREG n1
+    LREG n2
+    LREG n3
+    LREG n4
+    
+    GEN normal
+    USE normal

@@ -1,0 +1,44 @@
+LD 1.0 1.0 1.0
+USE color
+
+LD 0.0 0.0 0.0
+USE attributes
+
+
+; generate bump map
+
+ENV st
+LD 0.01 0.01
+SUB2
+LD 3.0
+ENV timems
+LD 500000.0
+DIV
+GEN cellularNoise2D
+LD 0.5 ; amplitude
+MUL
+
+SREG n1
+
+ENV st
+LD 0.01 0.01
+ADD2
+LD 3.0
+ENV timems
+LD 500000.0
+DIV
+GEN cellularNoise2D
+LD 0.5 ; amplitude
+MUL
+
+SREG n2
+
+; we really only use two height points for the normal
+
+LREG n1
+LREG n2
+LREG n1
+LREG n2
+
+GEN normal
+USE normal
