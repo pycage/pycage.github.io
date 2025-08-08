@@ -11,6 +11,7 @@ Document {
 
     property lights: new Float32Array(8192 * 8192 * 4)
     property materials: new Float32Array(8192 * 8192 * 4)
+    property maxTextureSize: 0
 
     function isLocationFree(p)
     {
@@ -539,7 +540,8 @@ Document {
                 get().get().focus();
 
                 const gl = get().get().getContext("webgl2");
-                console.log("MAX_TEXTURE_SIZE supported by this browser: " + gl.getParameter(gl.MAX_TEXTURE_SIZE));
+                doc.maxTextureSize = gl.getParameter(gl.MAX_TEXTURE_SIZE);
+                //console.log("MAX_TEXTURE_SIZE supported by this browser: " + gl.getParameter(gl.MAX_TEXTURE_SIZE));
             }
         }
     }
@@ -750,7 +752,9 @@ Document {
         color: "red"
         text: "[" + canvas.cameraLocation.flat().map(l => l.toFixed(1)).join(", ") + "] " +
               canvas.originalWidth + "x" + canvas.originalHeight +
-              " " + Math.floor(fpsMeter.fps) + " FPS"
+              " " + Math.floor(fpsMeter.fps) + " FPS\n" +
+              "GL_MAX_TEXTURE_SIZE: " + doc.maxTextureSize
+
     }
 
     Label {
@@ -840,7 +844,7 @@ Document {
         onTimeout: now =>
         {
             canvas.setUniform("int", "timems", Math.floor(now * 1000));
-            canvas.setUniform("float", "msaaLevel", [0, 2, 4, 8, 16][msaaSelector.selection]);
+            //canvas.setUniform("float", "msaaLevel", [0, 2, 4, 8, 16][msaaSelector.selection]);
             canvas.setUniform("float", "screenWidth", canvas.originalWidth);
             canvas.setUniform("float", "screenHeight", canvas.originalHeight);
             canvas.setUniform("int", "enableTasm", tasmCheckBox.checked);
