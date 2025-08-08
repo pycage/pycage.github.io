@@ -9,8 +9,8 @@ require "./world.js";
 Document {
     id: doc
 
-    property lights: new Float32Array(8192 * 8192 * 4)
-    property materials: new Float32Array(8192 * 8192 * 4)
+    property lights: new Float32Array(4096 * 4096 * 4)
+    property materials: new Float32Array(4096 * 4096 * 4)
     property maxTextureSize: 0
 
     function isLocationFree(p)
@@ -132,7 +132,7 @@ Document {
             "grass.tasm"
         ];
 
-        const arr = new Float32Array(8192 * 8192 * 4);
+        const arr = new Float32Array(4096 * 4096 * 4);
         tasmin.writeFirmware(arr);
 
         let idx = 0;
@@ -144,7 +144,7 @@ Document {
             const byteCode = tasmin.compile(data);
             for (let j = 0; j < byteCode.length; ++j)
             {
-                arr[8192 * 4 * idx + j] = byteCode[j];
+                arr[4096 * 4 * idx + j] = byteCode[j];
             }
         }
 
@@ -152,13 +152,13 @@ Document {
         let byteCode = tasmin.compile(makeSimpleMaterial(mat.vec(1.0, 0.0, 0.0), 1.0, 0.0));
         for (let j = 0; j < byteCode.length; ++j)
         {
-            arr[8192 * 4 * idx + j] = byteCode[j];
+            arr[4096 * 4 * idx + j] = byteCode[j];
         }
 
         byteCode = tasmin.compile(makeSimpleMaterial(mat.vec(0.8, 0.8, 0.8), 1.0, 0.0));
         for (let j = 0; j < byteCode.length; ++j)
         {
-            arr[8192 * 4 * idx + j] = byteCode[j];
+            arr[4096 * 4 * idx + j] = byteCode[j];
         }
         */
 
@@ -379,8 +379,26 @@ Document {
     }
 
     MouseBox {
+        id: ma
+
+        property tapSection: -1
+
         fillWidth: true
         height: doc.bboxHeight
+
+        onPointerDown: ev =>
+        {
+            const sx = Math.floor(3 * ev.x / bboxWidth);
+            const sy = Math.floor(3 * ev.y / bboxHeight);
+
+            tapSection = sy * 3 + sx;
+            console.log("Pointer down: " + section);
+        }
+
+        onPointerUp: () =>
+        {
+            tapSection = -1;
+        }
 
         onWheel: ev =>
         {
@@ -525,12 +543,12 @@ Document {
 
                 console.log("Creating textures...");
                 const tasm = await makeTasm();
-                setUniform("page64Float32", "tasmData", tasm);
+                setUniform("page16Float32", "tasmData", tasm);
 
                 setUniform("texture", "skyTexture", sky);
                 setUniform("int", "numLights", 1);
-                setUniform("page64Float32", "sekaiData", sekai.worldData);
-                setUniform("page64Float32", "lightsData", makeLights());
+                setUniform("page16Float32", "sekaiData", sekai.worldData);
+                setUniform("page16Float32", "lightsData", makeLights());
 
                 bindUniform("marchingDepth", "int");
                 bindUniform("tracingDepth", "int");
@@ -753,7 +771,7 @@ Document {
         text: "[" + canvas.cameraLocation.flat().map(l => l.toFixed(1)).join(", ") + "] " +
               canvas.originalWidth + "x" + canvas.originalHeight +
               " " + Math.floor(fpsMeter.fps) + " FPS\n" +
-              "GL_MAX_TEXTURE_SIZE: " + doc.maxTextureSize
+              "Max Texture Size: " + doc.maxTextureSize
 
     }
 
@@ -824,6 +842,31 @@ Document {
             {
                 // not ready yet
                 return;
+            }
+
+            switch (ma.tapSection)
+            {
+            case 0:
+                controls.left(1);
+                break;
+            case 1:
+                controls.forward(1);
+                break;
+            case 2:
+                controls.right(1);
+                break;
+            case 3:
+                controls.rotateLeft();
+                break;
+            case 4:
+                controls.jump();
+                break;
+            case 5:
+                controls.rotateRight();
+                break;
+            case 7:
+                controls.backward(1);
+                break;
             }
 
             // check for falling

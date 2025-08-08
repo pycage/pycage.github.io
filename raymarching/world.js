@@ -84,7 +84,7 @@ class World extends core.Object
             // - cube trafo (16)
             // - inv cube trafo (16)
             // - objects ...  [<type, material, radius, any> (1) + trafo (16) + invTrafo (16)]
-            worldData: new Float32Array(8192 * 8192 * 4),
+            worldData: new Float32Array(4096 * 4096 * 4),
             cubeSize: 4.0,
             cubeDataStride: 64 * 4,
             objectSize: 2
@@ -227,7 +227,7 @@ class World extends core.Object
     {
         const priv = d.get(this);
         const superCubeNr = makeCubeLocator(loc, 4 << level);
-        const cubeOffset = (8000 + level) * 8192 * 4 + superCubeNr;
+        const cubeOffset = (3000 + level) * 4096 * 4 + superCubeNr;
         priv.worldData[cubeOffset] = empty ? 0 : 1;
     }
 

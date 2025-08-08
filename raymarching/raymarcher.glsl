@@ -113,7 +113,7 @@ int makeSuperCubeLocator(vec3 v, int level)
 
 bool isSuperCubeEmpty(int superCubeNr, int level)
 {
-    vec4 data = texelFetch(sekaiData, ivec2(superCubeNr / 4, 8000 + level), 0);
+    vec4 data = texelFetch(sekaiData, ivec2(superCubeNr / 4, 3000 + level), 0);
     return data[superCubeNr % 4] < 0.5;
 }
 
@@ -172,8 +172,8 @@ mat4 cubeTrafoInverse(int cubeNr)
 ivec2 cubeDataOffset(int cubeNr)
 {
     return ivec2(
-        (cubeNr % 128) * 64,
-        cubeNr / 128
+        (cubeNr % 64) * 64,
+        cubeNr / 64
     );
 }
 
@@ -931,12 +931,12 @@ mat3 processTasm(int program, vec2 st, vec3 p, float travelDist)
 
         // caching these appears to add too much overhead and memory spilling, and we're generally
         // better off without caching
-        microCodeCopyReg1 = texelFetch(tasmData, ivec2(0, 8000 + opCode), 0);
-        microCodeTest = texelFetch(tasmData, ivec2(1, 8000 + opCode), 0);
-        microCodeBinOp = texelFetch(tasmData, ivec2(2, 8000 + opCode), 0);
-        microCodeGenOp = texelFetch(tasmData, ivec2(3, 8000 + opCode), 0);
-        microCodeAddReg = texelFetch(tasmData, ivec2(4, 8000 + opCode), 0);
-        microCodeCopyReg2 = texelFetch(tasmData, ivec2(5, 8000 + opCode), 0);
+        microCodeCopyReg1 = texelFetch(tasmData, ivec2(0, 3000 + opCode), 0);
+        microCodeTest = texelFetch(tasmData, ivec2(1, 3000 + opCode), 0);
+        microCodeBinOp = texelFetch(tasmData, ivec2(2, 3000 + opCode), 0);
+        microCodeGenOp = texelFetch(tasmData, ivec2(3, 3000 + opCode), 0);
+        microCodeAddReg = texelFetch(tasmData, ivec2(4, 3000 + opCode), 0);
+        microCodeCopyReg2 = texelFetch(tasmData, ivec2(5, 3000 + opCode), 0);
 
         // advance program counter
         tasmRegisters[REG_PC] += instructionSize;
@@ -1944,24 +1944,9 @@ void main()
 
     vec3 origin = vec3(0, 0, -0.1);
 
-    // MSAA
-    int sampleCount = 0;
-    float msaa = sqrt(msaaLevel);
-    vec4 samplePoint;
-    vec3 pixel = vec3(0.0);
-    for (float subX = 0.0; subX < 1.0; subX += 1.0 / msaa)
-    {
-        for (float subY = 0.0; subY < 1.0; subY += 1.0 / msaa)
-        {
-            vec2 delta = vec2((-0.5 + subX) * pixelSize.x, (-0.5 + subY) * pixelSize.y);
-            samplePoint = shootRayThroughScreen(uv + delta * 2.0, origin, aspect);
-            pixel += samplePoint.rgb;
-            ++sampleCount;
-        }
-    }
-    pixel /= float(sampleCount);
+    vec4 samplePoint = shootRayThroughScreen(uv, origin, aspect);
+    vec3 pixel = samplePoint.rgb;
     pixel *= exposure;
-    pixel = gammaCorrection(pixel);
 
     if (enableToonEffect)
     {   
@@ -1978,15 +1963,9 @@ void main()
             pixel = flattenColor(pixel, 8);
         }
     }
+    pixel = gammaCorrection(pixel);
 
     //fragColor = vec4(pixel, 1.0);
     //fragColor = vec4(objectsOnRayCount >= 5 ? 1.0 : pixel.r, pixel.g, pixel.b, 1.0);
-    if (numObjectsOnRay > 16)
-    {
-        fragColor = vec4(1.0, 0.0, 0.0, 1.0);
-    }
-    else
-    {
-        fragColor = vec4(pixel, 1.0);
-    }
+    fragColor = vec4(pixel, 1.0);
 }

@@ -8,7 +8,7 @@
     END
 
 near:
-    ; mf = (0 + exp(-distance / 100000)) * 0.5
+    ; mf = (0 + exp(-distance / 10)) * 0.5
     LD 0
     LD 0
     ENV distance
@@ -23,7 +23,7 @@ near:
     ENV st
     LD 32
     GEN mipmap
-    LD -1.0 0.0
+    LD -0.1 0.0
     ADD2
     GEN whitenoise
     LREG mf
@@ -33,7 +33,7 @@ near:
     ENV st
     LD 32
     GEN mipmap
-    LD 1.0 0.0
+    LD 0.1 0.0
     ADD2
     GEN whitenoise
     LREG mf
@@ -43,7 +43,7 @@ near:
     ENV st
     LD 32
     GEN mipmap
-    LD 0.0 -1.0
+    LD 0.0 -0.1
     ADD2
     GEN whitenoise
     LREG mf
@@ -53,7 +53,7 @@ near:
     ENV st
     LD 32
     GEN mipmap
-    LD 0.0 1.0
+    LD 0.0 0.1
     ADD2
     GEN whitenoise
     LREG mf

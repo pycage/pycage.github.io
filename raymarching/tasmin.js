@@ -98,7 +98,7 @@ function writeMicroCode(arr, opCode,
                         regAddSrcPtr, regAddAmount,
                         regCopy2N, regCopy2SrcPtr, regCopy2SrcOffset, regCopy2DestPtr, regCopy2DestOffset)
 {
-    let offset = (8000 + opCode) * 8192 * 4;
+    let offset = (3000 + opCode) * 4096 * 4;
     
     arr[offset++] = regCopyN;
     arr[offset++] = regCopySrcPtr;
