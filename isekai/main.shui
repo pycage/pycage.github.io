@@ -1,0 +1,987 @@
+require "shellfish/ui";
+require "shellfish/core/matrix" as mat;
+require "shellfish/icons/input-icons.css";
+require "shellfish/icons/map-icons.css";
+require "shellfish/icons/ui-icons.css";
+require "./GamepadMapper.shui";
+require "./GravityEngine.shui";
+require "./tasmin.js" as tasmin;
+require "./world.js";
+
+Document {
+    id: doc
+
+    property lights: new Float32Array(64 * 64 * 4)
+    property worldScale: [1.0, 2.0, 10.0, 20.0, 100.0][worldScaleSelector.selection]
+
+    function setLight(arr, n, loc, color, radius)
+    {
+        const pos = n * 12;
+        
+        arr[pos] = loc[0][0];
+        arr[pos + 1] = loc[1][0];
+        arr[pos + 2] = loc[2][0];
+        arr[pos + 3] = 1.0;
+
+        arr[pos + 4] = color[0][0];
+        arr[pos + 5] = color[1][0];
+        arr[pos + 6] = color[2][0];
+        arr[pos + 7] = 1.0;
+
+        arr[pos + 8] = radius;
+    }
+
+    function makeSimpleMaterial(color, roughness, ior)
+    {
+        let out = "";
+        
+        out += "LD " + color[0][0] + " " + color[1][0] + " " + color[2][0] + "\n";
+        out += "USE color\n";
+        out += "LD " + roughness + " " + ior + " 0.0\n";
+        out += "USE attributes;\n";
+
+        return out;
+    }
+
+    function makeLights()
+    {
+        const n = 3;
+        const arr = lights;
+
+        setLight(arr, 0, mat.vec(30.0, 20000.0, 30.0), mat.vec(1.0, 1.0, 1.0), 300000.0);
+        //setLight(arr, 1, mat.vec(12.0, 2.5, 14.5), mat.vec(0.7, 0.7, 1.0), 50.0);
+        //setLight(arr, 2, mat.vec(2.0, 2.5, 4.0), mat.vec(1.0, 0.7, 0.7), 20.0);
+
+        return arr;
+    }
+
+    async function makeTasm()
+    {
+        const files = [
+            "skybox.tasm",
+            "water.tasm",
+            "grass.tasm",
+            "sand.tasm",
+            "rocks.tasm",
+            "checkerboard.tasm"
+        ];
+
+        const arr = new Float32Array(4096 * 4096 * 4);
+        tasmin.writeFirmware(arr);
+
+        let idx = 0;
+        for (; idx < files.length; ++idx)
+        {
+            const response = await doc.httpRequest("textures/" + files[idx]).send();
+            const data = await response.text();
+            console.log("Compiling texture: " + files[idx]);
+            const byteCode = tasmin.compile(data);
+            for (let j = 0; j < byteCode.length; ++j)
+            {
+                arr[4096 * 4 * idx + j] = byteCode[j];
+            }
+        }
+
+        /*
+        let byteCode = tasmin.compile(makeSimpleMaterial(mat.vec(1.0, 0.0, 0.0), 1.0, 0.0));
+        for (let j = 0; j < byteCode.length; ++j)
+        {
+            arr[4096 * 4 * idx + j] = byteCode[j];
+        }
+
+        byteCode = tasmin.compile(makeSimpleMaterial(mat.vec(0.8, 0.8, 0.8), 1.0, 0.0));
+        for (let j = 0; j < byteCode.length; ++j)
+        {
+            arr[4096 * 4 * idx + j] = byteCode[j];
+        }
+        */
+
+        return arr;
+    }
+
+    FpsMeter {
+        id: fpsMeter
+
+        property renderTime: 0
+
+        running: true
+    }
+
+    LocalStorage {
+        id: localStorage
+
+        property controllerMapping: ({
+            "jump": 0,
+            "look": 1,
+            "run": 2,
+            "strafeLeft": 3,
+            "strafeRight": 4
+        })
+    }
+
+    GamepadMapper { id: gamepadMapper }
+
+    Gamepad {
+        id: gamePad
+
+        property enabled: true
+
+        function getAxis(name)
+        {
+            return axes[localStorage.controllerMapping[name]];
+        }
+
+        function hasButton(name)
+        {
+            return buttons[localStorage.controllerMapping[name]];
+        }
+
+        onAxesChanged: () =>
+        {
+            if (! enabled)
+            {
+                return;
+            }
+
+            //console.log("Axes: " + JSON.stringify(axes));
+            const horiz = getAxis("left");
+            const vert = getAxis("up");
+            if (horiz < -0.5)
+            {
+                controls.rotateLeft();
+            }
+            else if (horiz > 0.5)
+            {
+                controls.rotateRight();
+            }
+            if (vert < -0.5)
+            {
+                if (hasButton("look"))
+                {
+                    controls.lookDown();
+                }
+                else
+                {
+                    controls.forward(hasButton("run") ? 3 : 1);
+                }
+            }
+            else if (vert > 0.5)
+            {
+                if (hasButton("look"))
+                {
+                    controls.lookUp();
+                }
+                else
+                {
+                    controls.backward(hasButton("run") ? 3 : 1);
+                }
+            }
+        }
+
+        onButtonsChanged: () =>
+        {
+            if (! enabled)
+            {
+                return;
+            }
+
+            if (hasButton("strafeLeft"))
+            {
+                controls.left(hasButton("run") ? 3 : 1);
+            }
+            if (hasButton("strafeRight"))
+            {
+                controls.right(hasButton("run") ? 3 : 1);
+            }
+            if (hasButton("jump"))
+            {
+                controls.jump();
+            }
+        }
+    }
+
+    Object {
+        id: controls
+
+        function forward(speed)
+        {
+            const newCameraLocation = mat.add(canvas.cameraLocation, mat.mul(canvas.cameraDirection, 0.1 * doc.worldScale * speed));
+            moveCamera(newCameraLocation);
+        }
+
+        function backward(speed)
+        {
+            const newCameraLocation = mat.add(canvas.cameraLocation, mat.mul(canvas.cameraDirection, -0.1 * doc.worldScale * speed));
+            moveCamera(newCameraLocation);
+        }
+
+        function left(speed)
+        {
+            const newCameraLocation = mat.add(canvas.cameraLocation, mat.mul(canvas.cameraDirectionRight, -0.1 * doc.worldScale * speed));
+            moveCamera(newCameraLocation);
+        }
+
+        function right(speed)
+        {
+            const newCameraLocation = mat.add(canvas.cameraLocation, mat.mul(canvas.cameraDirectionRight, 0.1 * doc.worldScale * speed));
+            moveCamera(newCameraLocation);
+        }
+
+        function rotateLeft()
+        {
+            canvas.cameraRotationY = (canvas.cameraRotationY + 360 + 3) % 360;
+        }
+
+        function rotateRight()
+        {
+            canvas.cameraRotationY = (canvas.cameraRotationY + 360 - 3) % 360;
+        }
+
+        function lookUp()
+        {
+            canvas.cameraRotationX -= 0.01;
+        }
+
+        function lookDown()
+        {
+            canvas.cameraRotationX += 0.01;
+        }
+
+        function jump()
+        {
+            if (! gEngine.running)
+            {
+                gEngine.force = -6.0 * doc.worldScale;
+                gEngine.running = true;
+            }
+        }
+
+        function rise(amount)
+        {
+            let dist = 0.0;
+            const headLoc = mat.add(canvas.cameraLocation, mat.vec(0.0, 0.5, 0.0));
+
+            while (dist < amount)
+            {
+                dist += 0.01;
+                const headLocRise = mat.add(headLoc, mat.vec(0.0, dist, 0.0));
+
+                if (! world.isLocationFree(headLocRise))
+                {
+                    dist -= 0.01;
+                    gEngine.force = 0;
+                    break;
+                }
+            }
+
+            canvas.moveCamera(mat.vec(0.0, dist, 0.0));
+        }
+
+        function fall(amount)
+        {
+            let dist = 0.0;
+            const feetLoc = mat.add(canvas.cameraLocation, mat.vec(0.0, -doc.worldScale * 1.7, 0.0));
+
+            while (dist < amount)
+            {
+                dist += 0.01;
+                const feetLocFall = mat.add(feetLoc, mat.vec(0.0, -dist, 0.0));
+
+                if (! world.isLocationFree(feetLocFall) || feetLocFall[1][0] < 0.0)
+                {
+                    dist -= 0.01;
+                    gEngine.running = false;
+                    break;
+                }
+            }
+            canvas.moveCamera(mat.vec(0.0, -dist, 0.0));
+        }
+
+        function moveCamera(newCameraLocation)
+        {
+            const feetLoc = mat.add(newCameraLocation, mat.vec(0.0, -doc.worldScale * 1.7, 0.0));
+            const feetLocClimb = mat.add(newCameraLocation, mat.vec(0.0, 0.2, 0.0));
+
+            if (world.isLocationFree(feetLoc))
+            {
+                // can move here
+                canvas.moveCamera(mat.sub(newCameraLocation, canvas.cameraLocation));
+            }
+            else if (world.isLocationFree(feetLocClimb))
+            {
+                // can climp up here
+                //canvas.cameraLocation = mat.add(feetLocClimb, mat.vec(0.0, 1.0, 0.0));
+            }
+            /*
+            else if (newCameraLocationAscend && world.isLocationFree(newCameraLocationAscend))
+            {
+                canvas.moveCamera(mat.sub(newCameraLocationAcend, canvas.cameraLocation));
+            }
+            else if (newCameraLocationJump && world.isLocationFree(newCameraLocationJump))
+            {
+                // maybe we can jump
+                jumpForce = 1.0;
+            }
+            */
+        }
+    }
+
+    GravityEngine {
+        id: gEngine
+
+        gForce: gravitySlider.value * doc.worldScale
+
+        onNext: delta =>
+        {
+            if (delta > 0)
+            {
+                // rising
+                controls.rise(delta);
+            }
+            else
+            {
+                // falling
+                controls.fall(-delta);
+            }
+        }
+    }
+
+    World {
+        id: world
+    }
+
+    MouseBox {
+        id: ma
+
+        property tapSection: -1
+
+        fillWidth: true
+        height: doc.bboxHeight
+
+        onPointerDown: ev =>
+        {
+            const sx = Math.floor(3 * ev.x / bboxWidth);
+            const sy = Math.floor(3 * ev.y / bboxHeight);
+
+            tapSection = sy * 3 + sx;
+            console.log("Pointer down: " + tapSection);
+        }
+
+        onPointerUp: () =>
+        {
+            tapSection = -1;
+        }
+
+        onWheel: ev =>
+        {
+            if (ev.deltaY > 0)
+            {
+                controls.lookUp();
+            }
+            else
+            {
+                controls.lookDown();
+            }
+        }
+
+        Canvas {
+            id: canvas
+
+            property initialized: false
+
+            property resolution: qualitySelector.selection
+
+            //property universeLocation: mat.vec(-7, 0, -42)
+            property universeLocation: mat.vec(14, 1, 13)
+            property cameraLocation: mat.vec(7.1 + 104, 32.1 + 64, 7.1 + 104)
+            property cameraRotationY: 0
+            property cameraRotationZ: 0
+            property cameraDirection: mat.swizzle(mat.mul(mat.rotationM(mat.vec(1, 0, 0, 0), mat.vec(0, 0, 1, 0), cameraRotationY), mat.vec(0, 0, 1, 1)), "xyz")
+            property cameraDirectionRight: mat.swizzle(mat.mul(mat.rotationM(mat.vec(1, 0, 0, 0), mat.vec(0, 0, 1, 0), cameraRotationY), mat.vec(1, 0, 0, 1), ), "xyz")
+
+            property keysPressed: new Set()
+
+            function loadImage(source)
+            {
+                return new Promise((resolve, reject) =>
+                {
+                    const img = new Image();
+                    img.onload = () =>
+                    {
+                        resolve(img);
+                    };
+                    img.onerror = (err) =>
+                    {
+                        reject(err);
+                    };
+                    img.src = shRequire.resource(source);
+                });
+            }
+
+            function moveCamera(delta)
+            {
+                cameraLocation = mat.add(cameraLocation, delta);
+
+                const sector = world.sectorAt(cameraLocation);
+                if (sector !== world.centerSector)
+                {
+                    console.log("Entered sector " + sector);
+                    const now = Date.now();
+                    const sectorDist = world.sectorDistance(sector);
+                    console.log("SECTOR DIST: " + JSON.stringify(sectorDist));
+                    universeLocation = mat.add(universeLocation, sectorDist);
+
+                    // reset camera location (the camera must move in the opposite direction to stay put)
+                    cameraLocation = mat.add(cameraLocation, mat.mul(sectorDist, -64));
+                    world.updateHorizon(universeLocation, canvas);
+                    console.log("Shifting sectors took " + (Date.now() - now) + "ms");
+
+                    // reposition global lights
+                    setLight(doc.lights, 0, mat.add(mat.mul(universeLocation, 64), mat.vec(30.0, 500.0, 30.0)), mat.vec(1.0, 1.0, 1.0), 30000.0);
+                    setSampler("lightsData", 64, 64, doc.lights, { data: true });
+                }
+            }
+
+            property aspect: bboxHeight > 0 ? bboxWidth / bboxHeight : 1.0
+            property cameraRotationX: 0.5
+
+            fillWidth: true
+            fillHeight: true
+
+            originalWidth: bboxWidth / Math.pow(2, resolution)
+            originalHeight: bboxHeight / Math.pow(2, resolution)
+
+            canFocus: true
+
+            function handleKey(key)
+            {
+                switch (key)
+                {
+                case "w":
+                    controls.forward(1);
+                    break;
+                case "s":
+                    controls.backward(1);
+                    break;
+                case "a":
+                    controls.rotateLeft();
+                    break;
+                case "d":
+                    controls.rotateRight();
+                    break;
+                case "q":
+                    controls.left(1);
+                    break;
+                case "e":
+                    controls.right(1);
+                    break;
+                case " ":
+                    controls.jump();
+                    break;
+                }
+            }
+
+            onKeyDown: ev =>
+            {
+                if (! keysPressed.has(ev.key))
+                {
+                    //console.log("Key pressed: " + ev.key);
+                    keysPressed.add(ev.key);
+                    keysPressedChanged();
+                }
+            }
+
+            onKeyUp: ev =>
+            {
+                console.log("Key released: " + ev.key);
+                keysPressed.delete(ev.key);
+                keysPressedChanged();
+            }
+
+            onErrorMessageChanged: () =>
+            {
+                if (errorMessage !== "")
+                {
+                    showErrorDialog("Shader Compilation Error", errorMessage);
+                }
+            }
+
+            onInitialization: async () =>
+            {
+                canvas.get().css("image-rendering", "pixelated");
+
+                console.log("Loading shader code...");
+                const response = await doc.httpRequest("shader/raymarching.glsl").send();
+                const shaderData = await response.text();
+
+                // TODO: check for floatp precision and set accordingly to have it work on Android (requires highp)
+
+                console.log("Setting up shader...");
+                fragmentShader = shaderData;
+
+                console.log("Creating world...");
+                setSampler("worldData", 4096, 4096, world.worldData, { data: true });
+
+                world.updateHorizon(universeLocation, canvas);
+                world.uploadData(canvas, true);
+
+                console.log("Creating textures...");
+                const tasm = await makeTasm();
+                setSampler("tasmData", 4096, 4096, tasm, { data: true });
+
+                setUniform("int", "numLights", 1);
+                setSampler("lightsData", 64, 64, makeLights(), { data: true });
+
+                get().get().focus();
+
+                const gl = get().get().getContext("webgl2");
+                console.log("MAX_TEXTURE_SIZE supported by this browser: " + gl.getParameter(gl.MAX_TEXTURE_SIZE));
+
+                initialized = true;
+            }
+        }
+    }
+
+    Box {
+        visible: canvas.initialized
+
+        position: "free"
+        origin: "top-right"
+        y: theme.itemHeightMedium
+        width: theme.itemWidthLarge * 3
+        height: (collapserMa.checked ? 14 : 1) * (theme.itemHeightMedium + 8)
+        margins: theme.paddingLarge
+        color: theme.primaryBackgroundColor.alpha(0.7)
+        borderWidth: 1
+        borderRadius: 6
+        borderColor: "black"
+
+        heightTransition: NumberAnimation { }
+
+        layout: "column"
+
+        MouseBox {
+            id: collapserMa
+
+            property checked: false
+
+            margins: 4
+            fillWidth: true
+            height: theme.itemHeightMedium
+            layout: "center-row"
+            color: containsMouse ? theme.highlightBackgroundColor : "transparent"
+
+            onClick: () =>
+            {
+                checked = ! checked;
+            }
+
+            Label {
+                bold: true
+                color: parent.containsMouse ? theme.highlightColor : theme.primaryColor
+                text: "Menu"
+            }
+        }
+
+        Button {
+            margins: 4
+            fillWidth: true
+            height: theme.itemHeightMedium
+            icon: "ui-question"
+            text: "About"
+
+            onClick: () =>
+            {
+                showMessageDialog("About Project Isekai",
+                                  "map-earth",
+                                  "A playground project to build a voxel engine for rendering foreign worlds (jap. 異世界, isekai).\n\n" +
+                                  "Copyright (c) 2025 Martin Grimme\n" +
+                                  "MIT License\n\n" +
+                                  "Powered by Shellfish - https://github.com/pycage/shellfish",
+                                  [{ label: "Ok" }]);
+            }
+        }
+
+        Button {
+            margins: 4
+            fillWidth: true
+            height: theme.itemHeightMedium
+            icon: "input-gamecontroller"
+            text: "Setup Controller"
+
+            onClick: async () =>
+            {
+                gamePad.enabled = false;
+                const mapping = await gamepadMapper.mapButtons();
+                if (mapping)
+                {
+                    localStorage.controllerMapping = mapping;
+                }
+                gamePad.enabled = true;
+            }
+        }
+
+        Box {
+            margins: 4
+            fillWidth: true
+            height: theme.itemHeightMedium
+            layout: "center-row"
+
+            Label {
+                fillWidth: true
+                text: "Channel"
+            }
+
+            SelectionBox {
+                id: channelSelector
+                fillWidth: true
+                model: ListModel { data: ["Image", "Depth", "Normals", "Illumination", "Colors", "Outlines"] }
+                selection: 0
+            }
+        }
+
+        Box {
+            margins: 4
+            fillWidth: true
+            height: theme.itemHeightMedium
+            layout: "center-row"
+
+            Label {
+                fillWidth: true
+                text: "Render Quality"
+            }
+
+            SelectionBox {
+                id: qualitySelector
+                fillWidth: true
+                model: ListModel { data: ["Ultra", "High", "Medium", "Low", "Ugly"] }
+                selection: 2
+            }
+        }
+
+        Box {
+            margins: 4
+            fillWidth: true
+            height: theme.itemHeightMedium
+            layout: "center-row"
+
+            Label {
+                fillWidth: true
+                text: "Voxel Scale"
+            }
+
+            SelectionBox {
+                id: worldScaleSelector
+                fillWidth: true
+                model: ListModel { data: [
+                    "1m",
+                    "50cm",
+                    "10cm",
+                    "5cm",
+                    "1cm"
+                ] }
+                selection: 0
+            }
+        }
+
+        Box {
+            margins: 4
+            fillWidth: true
+            height: theme.itemHeightMedium
+            layout: "center-row"
+
+            Label {
+                fillWidth: true
+                text: "Ray DDA Depth: " + Math.floor(marchingDepthSlider.seekValue)
+            }
+
+            Slider {
+                id: marchingDepthSlider
+
+                fillWidth: true
+                minValue: 1
+                maxValue: 128
+                stepSize: 1
+                value: 128
+            }
+        }
+
+        Box {
+            margins: 4
+            fillWidth: true
+            height: theme.itemHeightMedium
+            layout: "center-row"
+
+            Label {
+                fillWidth: true
+                text: "Ray Tracing Depth: " + Math.floor(tracingDepthSlider.seekValue)
+            }
+
+            Slider {
+                id: tracingDepthSlider
+
+                fillWidth: true
+                minValue: 1
+                maxValue: 8
+                stepSize: 1
+                value: 2
+            }
+        }
+
+        Box {
+            margins: 4
+            fillWidth: true
+            height: theme.itemHeightMedium
+            layout: "center-row"
+
+            Label {
+                fillWidth: true
+                text: "Fog Density: " + Math.floor(fogDensitySlider.seekValue)
+            }
+
+            Slider {
+                id: fogDensitySlider
+
+                fillWidth: true
+                minValue: 0
+                maxValue: 256
+                stepSize: 1
+                value: 0
+            }
+        }
+
+        Box {
+            margins: 4
+            fillWidth: true
+            height: theme.itemHeightMedium
+            layout: "center-row"
+
+            Label {
+                fillWidth: true
+                text: "Gravity: " + gravitySlider.seekValue.toFixed(1) + " g"
+            }
+
+            Slider {
+                id: gravitySlider
+
+                fillWidth: true
+                minValue: 0.1
+                maxValue: 3.0
+                stepSize: 0.1
+                value: 1.0
+            }
+        }
+
+        Box {
+            margins: 4
+            fillWidth: true
+            height: theme.itemHeightMedium
+            layout: "center-row"
+
+            Label {
+                fillWidth: true
+                text: "TASM Processor"
+            }
+
+            Switch {
+                id: tasmCheckBox
+
+                checked: true
+            }
+        }
+
+        Box {
+            margins: 4
+            fillWidth: true
+            height: theme.itemHeightMedium
+            layout: "center-row"
+
+            Label {
+                fillWidth: true
+                text: "Compute Shadows"
+            }
+
+            Switch {
+                id: shadingCheckBox
+
+                checked: true
+            }
+        }
+
+        Box {
+            margins: 4
+            fillWidth: true
+            height: theme.itemHeightMedium
+            layout: "center-row"
+
+            Label {
+                fillWidth: true
+                text: "Ambient Occlusion"
+            }
+
+            Switch {
+                id: ambientOcclusionCheckBox
+
+                checked: true
+            }
+        }
+
+        Box {
+            margins: 4
+            fillWidth: true
+            height: theme.itemHeightMedium
+            layout: "center-row"
+
+            Label {
+                fillWidth: true
+                text: "Show Outlines"
+            }
+
+            Switch {
+                id: outlinesCheckBox
+
+                checked: false
+            }
+        }
+    }
+
+    Box {
+        visible: canvas.initialized
+
+        position: "free"
+        fillWidth: true
+        height: theme.itemHeightMedium
+        color: theme.primaryBackgroundColor.alpha(0.7)
+        layout: "center-row"
+
+        Label {
+            marginLeft: theme.paddingSmall
+            bold: true
+            text: "[icon:map-location_on] " + canvas.universeLocation.flat().join(", ") + " / " +
+                                              canvas.cameraLocation.flat().map(l => l.toFixed(1)).join(", ")
+        }
+
+        Box {
+            fillWidth: true
+        }
+
+        Label {
+            marginRight: theme.paddingSmall
+            bold: true
+            text: canvas.originalWidth + "x" + canvas.originalHeight + " " +
+                  Math.floor(fpsMeter.fps) + " FPS" +
+                  (fpsMeter.renderTime > 0 ? " (" + fpsMeter.renderTime + "ms)" : "")
+        }
+    }
+
+    Placeholder {
+        visible: ! canvas.initialized
+        text: "Compiling Shaders..."
+    }
+
+    Timer {
+        interval: 1000.0 / 60.0
+        running: canvas.keysPressed.size > 0
+        repeat: true
+
+        onTimeout: () =>
+        {
+            canvas.keysPressed.values().forEach(canvas.handleKey);
+        }
+    }
+
+    Timer {
+        interval: 50
+        repeat: true
+        running: canvas.initialized
+
+        onTimeout: () =>
+        {
+            switch (ma.tapSection)
+            {
+            case 0:
+                controls.left(1);
+                break;
+            case 1:
+                controls.forward(1);
+                break;
+            case 2:
+                controls.right(1);
+                break;
+            case 3:
+                controls.rotateLeft();
+                break;
+            case 4:
+                controls.jump();
+                break;
+            case 5:
+                controls.rotateRight();
+                break;
+            case 7:
+                controls.backward(1);
+                break;
+            }
+
+            // check for falling
+            const feetLoc = mat.add(canvas.cameraLocation, mat.vec(0.0, -doc.worldScale * 1.7 - 0.01, 0.0));
+            if (world.isLocationFree(feetLoc) && ! gEngine.running)
+            {
+                gEngine.force = 0;
+                gEngine.running = true;
+            }
+        }
+    }
+
+    FrameTimer {
+        property measuringPending: false
+
+        fps: 60
+        repeat: true
+        running: canvas.initialized
+
+        onTimeout: now =>
+        {
+            const cameraTrafo = mat.mul(
+                mat.translationM(canvas.cameraLocation),
+                mat.mul(
+                    mat.rotationM(mat.vec(canvas.cameraDirection, 0), mat.vec(0, 1, 0, 0), (0.5 - canvas.cameraRotationX) * 180),
+                    mat.mul(
+                        mat.rotationM(mat.vec(canvas.cameraDirectionRight, 0), mat.vec(0, 1, 0, 0), canvas.cameraRotationZ),
+                        mat.rotationM(mat.vec(1, 0, 0, 0), mat.vec(0, 0, 1, 0), canvas.cameraRotationY)
+                    )
+                )
+            );
+
+            canvas.setUniform("int", "timems", Math.floor(now * 1000));
+            canvas.setUniform("float", "screenWidth", canvas.originalWidth);
+            canvas.setUniform("float", "screenHeight", canvas.originalHeight);
+            canvas.setUniform("int", "renderChannel", channelSelector.selection);
+            canvas.setUniform("int", "enableTasm", tasmCheckBox.checked);
+            canvas.setUniform("int", "enableShadows", shadingCheckBox.checked);
+            canvas.setUniform("int", "enableAmbientOcclusion", ambientOcclusionCheckBox.checked);
+            //canvas.setUniform("float", "fogDensity", fogDensitySlider.seekValue / 10000.0);
+            canvas.setUniform("int", "marchingDepth", Math.floor(marchingDepthSlider.seekValue));
+            canvas.setUniform("int", "tracingDepth", Math.floor(tracingDepthSlider.seekValue));
+            canvas.setUniform("int", "enableOutlines", outlinesCheckBox.checked);
+            canvas.setUniform("mat4", "cameraTrafo", cameraTrafo);
+            canvas.setUniform("vec3", "universeLocation", mat.sub(canvas.universeLocation, mat.vec(128, 128, 128)));
+            
+            world.uploadData(canvas, false);
+
+            if (measuringPending)
+            {
+                canvas.renderGL(false);
+            }
+            else
+            {
+                measuringPending = true;
+                canvas.renderGL(true).then(ns =>
+                {
+                    fpsMeter.renderTime = Math.ceil(ns / 1e6);
+                    measuringPending = false;
+                });
+            }
+
+        }
+    }
+}

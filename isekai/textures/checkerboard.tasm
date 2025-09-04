@@ -1,0 +1,43 @@
+    ENV distance
+    LD 80
+    TEST > near
+
+    ;; smudge colors in the distance
+    LD 0.93, 0.72, 0.19
+    LD 0.29, 0.22, 0.06
+    ADD3
+    LD 2 2 2
+    DIV3
+    USE color
+    END
+
+near:
+    LD 0.93, 0.72, 0.19
+    SREG colorA.b
+    SREG colorA.g
+    SREG colorA.r
+
+    LD 0.29, 0.22, 0.06
+    SREG colorB.b
+    SREG colorB.g
+    SREG colorB.r
+
+    ENV st
+    GEN checkerboard 
+
+if:
+    LD 0.5
+    TEST < else
+    LREG colorA.r
+    LREG colorA.g
+    LREG colorA.b
+    JMP fi
+
+else:
+    LREG colorB.r
+    LREG colorB.g
+    LREG colorB.b
+    JMP fi
+
+fi:
+    USE color

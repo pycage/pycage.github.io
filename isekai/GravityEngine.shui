@@ -1,0 +1,66 @@
+require "shellfish/ui";
+
+/* Set a negative force to counter gravity and set running to true.
+ * Use the negative of the currentForce to bounce back;
+ */
+Object {
+    id: engine
+
+    property running: false
+    property gForce: 1.0
+    property force: 0.0
+    property currentForce: 0.0
+
+    Object {
+        id: priv
+
+        property velocity: 0.0
+        property begin: 0
+        property prevTime: 0
+
+    }
+
+    function reset()
+    {
+        priv.velocity = 0.0;
+        priv.begin = Date.now() / 1000;
+        priv.prevTime = priv.begin;
+        engine.currentForce = 0.0;
+    }
+
+
+    event next
+
+    onRunningChanged: () =>
+    {
+        if (running)
+        {
+            priv.velocity = 0.0;
+            priv.begin = Date.now() / 1000;
+            priv.prevTime = priv.begin;
+        }
+    }
+
+    FrameTimer {
+        running: engine.running
+        repeat: true
+
+        onTimeout: () =>
+        {
+            const now = Date.now() / 1000;
+            const elapsedSec = now - priv.begin;
+
+            // v = a * dt
+            priv.velocity = engine.force + (engine.gForce * 9.8 * elapsedSec);
+
+            // s = v * t
+            const delta = priv.velocity * (priv.prevTime - now);
+
+            engine.currentForce = delta / (priv.prevTime - now) - priv.velocity;
+            priv.prevTime = now;
+
+            engine.next(delta);
+        }
+    }
+
+}

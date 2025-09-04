@@ -1,0 +1,86 @@
+;; Generates a sky box (or rather plane) with gradient and moving clouds.
+;;
+
+    LD 10000         ;; maxDistance parameter
+    SREG maxDistance
+
+    LD 0.65          ;; threshold parameter
+    SREG threshold
+    LD 1.0
+    LREG threshold
+    SUB
+    SREG thresholdInv
+
+    ENV distance
+    LREG maxDistance
+    IFNOT < horizon  ;; just render the horizon in the distance
+
+    ENV st.x st.y
+    LREG maxDistance ;; scaling factor
+    DUP
+    DIV2
+    ENV timems
+    LD 600000000     ;; time factor
+    DIV
+    DUP
+    ADD2
+
+    LD 24 0
+    GEN cellularNoise2D
+    SREG value
+
+gradient:
+    LD 0.3
+    LD 0.9
+    ENV distance
+    LREG maxDistance
+    DIV
+    GEN lerp
+
+    LD 0.7
+    LD 0.9
+    ENV distance
+    LREG maxDistance
+    DIV
+    GEN lerp
+
+    LD 1.0
+
+    SREG skyB skyG skyR
+
+    LREG value
+    LREG threshold
+    IFNOT > noCloud
+
+cloud:
+    LREG value
+    LREG threshold
+    SUB
+    LREG thresholdInv
+    DIV
+    SREG value
+
+blend:
+    LREG skyR
+    LD 1.0
+    LREG value
+    GEN lerp
+
+    LREG skyG
+    LD 1.0
+    LREG value
+    GEN lerp
+
+    LREG skyB
+    
+    USE color
+    END
+
+horizon:
+    LD 0.9 0.9 1.0
+    USE color
+    END
+
+noCloud:
+    LREG skyR skyG skyB
+    USE color

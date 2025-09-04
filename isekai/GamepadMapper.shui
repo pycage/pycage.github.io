@@ -1,0 +1,137 @@
+require "shellfish/ui";
+
+Object {
+
+    async function mapButtons()
+    {
+        const mapping = { };
+
+        let aborted = false;
+
+        const dlg = showMessageDialog("Setup Controller", "input-gamecontroller", "", [
+            { label: "Cancel", callback: () => { aborted = true; } }
+        ]);
+
+        const inputs = [
+            { key: "up", name: "Up", axis: true },
+            { key: "left", name: "Left", axis: true },
+            { key: "jump", name: "Jump" },
+            { key: "look", name: "Look Around" },
+            { key: "run", name: "Run" },
+            { key: "strafeLeft", name: "Strafe Left" },
+            { key: "strafeRight", name: "Strafe Right" }
+        ];
+
+        const waitForAxis = async () =>
+        {
+            let axis = 0;
+
+            // wait for axis pressed
+            while (true)
+            {
+                const axes = gamePad.axes.map((a, idx) => a ? idx : -1).filter(idx => idx >= 0);
+
+                if (aborted)
+                {
+                    axis = -1;
+                    break;
+                }
+                else if (axes.length > 0)
+                {
+                    axis = axes[0];
+                    dlg.message += "\nAxis [" + axis + "]";
+                    break;
+                }
+
+                await wait(50);
+            }
+
+            // wait for axis released
+            if (! aborted)
+            {
+                while (true)
+                {
+                    const axes = gamePad.axes.map((a, idx) => Math.abs(a) > 0.5 ? idx : -1).filter(idx => idx >= 0);
+                    if (axes.length === 0)
+                    {
+                        break;
+                    }
+                    await wait(50);
+                }
+            }
+
+            return axis;
+        };
+
+        const waitForButton = async () =>
+        {
+            let btn = 0;
+
+            // wait for button pressed
+            while (true)
+            {
+                const btns = gamePad.buttons.map((b, idx) => b ? idx : -1).filter(idx => idx >= 0);
+
+                if (aborted)
+                {
+                    btn = -1;
+                    break;
+                }
+                else if (btns.length > 0)
+                {
+                    btn = btns[0];
+                    dlg.message += "\nButton [" + btn + "]";
+                    break;
+                }
+
+                await wait(50);
+            }
+
+            // wait for button released
+            if (! aborted)
+            {
+                while (true)
+                {
+                    const btns = gamePad.buttons.map((b, idx) => b ? idx : -1).filter(idx => idx >= 0);
+                    if (btns.length === 0)
+                    {
+                        break;
+                    }
+                    await wait(50);
+                }
+            }
+
+            return btn;
+        };
+
+        for (let i = 0; i < inputs.length; ++i)
+        {
+            const key = inputs[i].key;
+            const name = inputs[i].name;
+            const isAxis = inputs[i].axis;
+
+            dlg.message = isAxis ? "Press direction for [" + name + "]."
+                                 : "Press button for [" + name + "].";
+            const btn = await (isAxis ? waitForAxis() : waitForButton());
+            if (btn >= 0)
+            {
+                mapping[key] = btn;
+            }
+
+            if (aborted)
+            {
+                break;
+            }
+        }
+
+        if (! aborted)
+        {
+            dlg.close();
+        }
+
+        console.log(JSON.stringify(mapping));
+        return aborted ? null : mapping;
+    }
+
+    Gamepad { id: gamePad }
+}

@@ -1,0 +1,58 @@
+/* Shellfish Icons Stylesheet
+ *
+ * Powered by Webfont - Awesome generator of webfont
+ * https://github.com/itgalaxy/webfont
+ */
+
+@font-face {
+    font-family: shellfish-icons-text;
+    src: url(data:font/woff2;charset=utf-8;base64,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) format('woff2');
+}
+
+[class^="sh-icon-text"], [class*=" sh-icon-text"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: shellfish-icons-text !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.sh-icon-text-color:before { content: "\ea01"; }
+.sh-icon-text-font:before { content: "\ea02"; }
+.sh-icon-text-format:before { content: "\ea03"; }
+.sh-icon-text-format_align_center:before { content: "\ea04"; }
+.sh-icon-text-format_align_justify:before { content: "\ea05"; }
+.sh-icon-text-format_align_left:before { content: "\ea06"; }
+.sh-icon-text-format_align_right:before { content: "\ea07"; }
+.sh-icon-text-format_bold:before { content: "\ea08"; }
+.sh-icon-text-format_clear:before { content: "\ea09"; }
+.sh-icon-text-format_indent_decrease:before { content: "\ea0a"; }
+.sh-icon-text-format_indent_increase:before { content: "\ea0b"; }
+.sh-icon-text-format_italic:before { content: "\ea0c"; }
+.sh-icon-text-format_line_spacing:before { content: "\ea0d"; }
+.sh-icon-text-format_list_bulleted:before { content: "\ea0e"; }
+.sh-icon-text-format_list_numbered:before { content: "\ea0f"; }
+.sh-icon-text-format_list_numbered_rtl:before { content: "\ea10"; }
+.sh-icon-text-format_size:before { content: "\ea11"; }
+.sh-icon-text-format_strikethrough:before { content: "\ea12"; }
+.sh-icon-text-format_textdirection_l_to_r:before { content: "\ea13"; }
+.sh-icon-text-format_textdirection_r_to_l:before { content: "\ea14"; }
+.sh-icon-text-format_underlined:before { content: "\ea15"; }
+.sh-icon-text-ligature:before { content: "\ea16"; }
+.sh-icon-text-page_break:before { content: "\ea17"; }
+.sh-icon-text-quotes_left:before { content: "\ea18"; }
+.sh-icon-text-quotes_right:before { content: "\ea19"; }
+.sh-icon-text-spellcheck:before { content: "\ea1a"; }
+.sh-icon-text-toc:before { content: "\ea1b"; }
+.sh-icon-text-translate:before { content: "\ea1c"; }
+.sh-icon-text-vertical_align_bottom:before { content: "\ea1d"; }
+.sh-icon-text-vertical_align_center:before { content: "\ea1e"; }
+.sh-icon-text-vertical_align_top:before { content: "\ea1f"; }
+.sh-icon-text-wrap_text:before { content: "\ea20"; }
+

@@ -1,0 +1,66 @@
+/* Shellfish Icons Stylesheet
+ *
+ * Powered by Webfont - Awesome generator of webfont
+ * https://github.com/itgalaxy/webfont
+ */
+
+@font-face {
+    font-family: shellfish-icons-fs;
+    src: url(data:font/woff2;charset=utf-8;base64,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) format('woff2');
+}
+
+[class^="sh-icon-fs"], [class*=" sh-icon-fs"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: shellfish-icons-fs !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.sh-icon-fs-archive:before { content: "\ea01"; }
+.sh-icon-fs-cloud:before { content: "\ea02"; }
+.sh-icon-fs-cloud_done:before { content: "\ea03"; }
+.sh-icon-fs-cloud_download:before { content: "\ea04"; }
+.sh-icon-fs-cloud_off:before { content: "\ea05"; }
+.sh-icon-fs-cloud_queue:before { content: "\ea06"; }
+.sh-icon-fs-cloud_upload:before { content: "\ea07"; }
+.sh-icon-fs-download:before { content: "\ea08"; }
+.sh-icon-fs-drive:before { content: "\ea09"; }
+.sh-icon-fs-file-empty:before { content: "\ea0a"; }
+.sh-icon-fs-file-excel:before { content: "\ea0b"; }
+.sh-icon-fs-file-image:before { content: "\ea0c"; }
+.sh-icon-fs-file-music:before { content: "\ea0d"; }
+.sh-icon-fs-file-openoffice:before { content: "\ea0e"; }
+.sh-icon-fs-file-pdf:before { content: "\ea0f"; }
+.sh-icon-fs-file-play:before { content: "\ea10"; }
+.sh-icon-fs-file-text:before { content: "\ea11"; }
+.sh-icon-fs-file-video:before { content: "\ea12"; }
+.sh-icon-fs-file-word:before { content: "\ea13"; }
+.sh-icon-fs-file-zip:before { content: "\ea14"; }
+.sh-icon-fs-file_copy:before { content: "\ea15"; }
+.sh-icon-fs-file_move:before { content: "\ea16"; }
+.sh-icon-fs-file_new:before { content: "\ea17"; }
+.sh-icon-fs-files-empty:before { content: "\ea18"; }
+.sh-icon-fs-folder:before { content: "\ea19"; }
+.sh-icon-fs-folder_new:before { content: "\ea1a"; }
+.sh-icon-fs-folder_open:before { content: "\ea1b"; }
+.sh-icon-fs-folder_shared:before { content: "\ea1c"; }
+.sh-icon-fs-folder_special:before { content: "\ea1d"; }
+.sh-icon-fs-home:before { content: "\ea1e"; }
+.sh-icon-fs-insert_file:before { content: "\ea1f"; }
+.sh-icon-fs-publish:before { content: "\ea20"; }
+.sh-icon-fs-restore:before { content: "\ea21"; }
+.sh-icon-fs-save:before { content: "\ea22"; }
+.sh-icon-fs-sd_storage:before { content: "\ea23"; }
+.sh-icon-fs-share:before { content: "\ea24"; }
+.sh-icon-fs-unarchive:before { content: "\ea25"; }
+.sh-icon-fs-upload:before { content: "\ea26"; }
+.sh-icon-fs-upload_file:before { content: "\ea27"; }
+.sh-icon-fs-upload_folder:before { content: "\ea28"; }
+
