@@ -635,7 +635,7 @@ Document {
             SelectionBox {
                 id: channelSelector
                 fillWidth: true
-                model: ListModel { data: ["Image", "Depth", "Normals", "Illumination", "Colors", "Outlines"] }
+                model: ListModel { data: ["Image", "Depth", "Normals", "Illumination", "Albedo", "Outlines"] }
                 selection: 0
             }
         }
@@ -721,7 +721,7 @@ Document {
                 id: tracingDepthSlider
 
                 fillWidth: true
-                minValue: 1
+                minValue: 0
                 maxValue: 8
                 stepSize: 1
                 value: 2

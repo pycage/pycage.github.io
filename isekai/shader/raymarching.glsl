@@ -65,6 +65,12 @@ struct ObjectAndDistance
     vec3 pT;
 };
 
+struct SurfaceNormal
+{
+    vec3 straight;
+    vec3 bump;
+};
+
 struct Material
 {
     vec3 color;
@@ -138,6 +144,20 @@ const int TASM_GEN_BEGIN = 100;
 const int TASM_GEN_END = 109;
 
 
+/* Fast but less accurate sqrt approximation.
+ */
+float fastSqrt(float v)
+{
+    return v * inversesqrt(v + 0.00001);
+}
+
+/* Not as fast as fastSqrt, but gives better accuracy in the range [0, 1].
+ */
+float approxSqrt(float v)
+{
+    // 2nd-order minimax approximation of sqrt(x) on [0, 1]
+    return v * (0.41731 + v * (0.59016 - 0.06757 * v));
+}
 
 float squaredDist(vec3 p1, vec3 p2)
 {
@@ -460,7 +480,7 @@ float generateCellularNoise2D(vec2 p, int size, float variant)
             minSquaredDist = min(squaredDist, minSquaredDist);
         }
     }
-    return sqrt(minSquaredDist) / cubeSize;
+    return fastSqrt(minSquaredDist) / cubeSize;
 }
 
 float generateCellularNoise3D(vec3 p, int size)
@@ -493,7 +513,7 @@ float generateCellularNoise3D(vec3 p, int size)
             }
         }
     }
-    return sqrt(minSquaredDist) / cubeSize;
+    return fastSqrt(minSquaredDist) / cubeSize;
 }
 
 float generateCheckerboard(vec2 st)
@@ -683,7 +703,7 @@ vec3 refr(vec3 ray, vec3 surfaceNormal, float ior)
     else
     {
         vec3 t1 = ray * eta;
-        float t2 = cosi * eta + sqrt(k);
+        float t2 = cosi * eta + fastSqrt(k);
         return t1 - surfaceNormal * t2;
     }
 }
@@ -1438,123 +1458,86 @@ vec3 phongShading(vec3 origin, vec3 checkPoint, vec3 ambience, vec3 surfaceNorma
     return lighting.rgb;
 }
 
-float ambientOcclusion(vec3 checkPoint, vec3 rayDirection, WorldLocator obj, mat4 surfaceTrafo, float size)
+float ambientOcclusion(vec3 p, WorldLocator obj, mat4 surfaceTrafo, float size)
 {
-    // TODO: still have to do something about the corners
-    vec3 checkPoint2 = checkPoint - rayDirection * 0.01;
-    vec3 checkPointT2 = transformPoint(checkPoint2, obj);
-    vec3 surfacePoint = clamp((inverse(surfaceTrafo) * vec4(checkPointT2, 1.0)).xyz, -0.5, 0.5);
+    // p is in object space
+
     mat4 aoTrafo = getObjectTrafo(obj);
+
+    // move p away from the surface a bit and transform to object space
+    vec3 awayFromSurface = (surfaceTrafo * vec4(0.0, 0.0, 0.1, 1.0)).xyz;
+    vec3 pT = transformPoint(p + awayFromSurface, obj);
+
+    // p in surface space for distance computations
+    vec3 surfacePoint = (inverse(surfaceTrafo) * vec4(transformPoint(p, obj), 1.0)).xyz;
+
+    // build direction vectors in object space
     vec3 v1 = (surfaceTrafo * vec4(size, 0.0, 0.0, 1.0)).xyz;
     vec3 v2 = (surfaceTrafo * vec4(0.0, size, 0.0, 1.0)).xyz;
 
-    vec3 p1 = (aoTrafo * vec4(checkPointT2 + v1, 1.0)).xyz;
-    vec3 p2 = (aoTrafo * vec4(checkPointT2 - v1, 1.0)).xyz;
-    vec3 p3 = (aoTrafo * vec4(checkPointT2 + v2, 1.0)).xyz;
-    vec3 p4 = (aoTrafo * vec4(checkPointT2 - v2, 1.0)).xyz;
+    // compute sample points in world space
+    vec3 samplePoints[8];
+    samplePoints[0] = (aoTrafo * vec4(pT + v1, 1.0)).xyz;
+    samplePoints[1] = (aoTrafo * vec4(pT - v1, 1.0)).xyz;
+    samplePoints[2] = (aoTrafo * vec4(pT + v2, 1.0)).xyz;
+    samplePoints[3] = (aoTrafo * vec4(pT - v2, 1.0)).xyz;
 
-    vec3 p5 = (aoTrafo * vec4(checkPointT2 + v1 + v2, 1.0)).xyz;
-    vec3 p6 = (aoTrafo * vec4(checkPointT2 - v1 - v2, 1.0)).xyz;
-    vec3 p7 = (aoTrafo * vec4(checkPointT2 + v1 - v2, 1.0)).xyz;
-    vec3 p8 = (aoTrafo * vec4(checkPointT2 - v1 + v2, 1.0)).xyz;
+    samplePoints[4] = (aoTrafo * vec4(pT + v1 + v2, 1.0)).xyz;
+    samplePoints[5] = (aoTrafo * vec4(pT - v1 - v2, 1.0)).xyz;
+    samplePoints[6] = (aoTrafo * vec4(pT + v1 - v2, 1.0)).xyz;
+    samplePoints[7] = (aoTrafo * vec4(pT - v1 + v2, 1.0)).xyz;
 
-    bool hasP1 = hasObjectAt(p1);
-    bool hasP2 = hasObjectAt(p2);
-    bool hasP3 = hasObjectAt(p3);
-    bool hasP4 = hasObjectAt(p4);
+    // check for neighbors
+    bool samples[8];
+    for (int i = 0; i < 8; ++i)
+    {
+        samples[i] = hasObjectAt(samplePoints[i]);
+    }
 
-    bool hasP5 = hasObjectAt(p5);
-    bool hasP6 = hasObjectAt(p6);
-    bool hasP7 = hasObjectAt(p7);
-    bool hasP8 = hasObjectAt(p8);
-
-    /*
+    // the distance to the surface edges specifies the occlusion strength
     float dist1 = 0.5 - surfacePoint.x;
     float dist2 = surfacePoint.x + 0.5;
     float dist3 = 0.5 - surfacePoint.y;
     float dist4 = surfacePoint.y + 0.5;
-    */
 
-    float dist1 = squaredDist(vec3(0.5, surfacePoint.y, surfacePoint.z), surfacePoint);
-    float dist2 = squaredDist(vec3(-0.5, surfacePoint.y, surfacePoint.z), surfacePoint);
-    float dist3 = squaredDist(vec3(surfacePoint.x, 0.5, surfacePoint.z), surfacePoint);
-    float dist4 = squaredDist(vec3(surfacePoint.x, -0.5, surfacePoint.z), surfacePoint);
+    float shadow = ((samples[0] ? size - dist1 : 0.0) +
+                    (samples[1] ? size - dist2 : 0.0) +
+                    (samples[2] ? size - dist3 : 0.0) +
+                    (samples[3] ? size - dist4 : 0.0)) / (2.0 * size);
 
-    /*
-    float dist5 = squaredDist(vec3(0.5, 0.5, p5.z), p5);
-    float dist6 = squaredDist(vec3(-0.5, -0.5, p6.z), p6);
-    float dist7 = squaredDist(vec3(0.5, -0.5, p7.z), p7);
-    float dist8 = squaredDist(vec3(-0.5, 0.5, p8.z), p8);
-    */
-
-    float sizeSquared = size * size;
-    float shadow = ((hasP1 ? sizeSquared - dist1 : 0.0) +
-                    (hasP2 ? sizeSquared - dist2 : 0.0) +
-                    (hasP3 ? sizeSquared - dist3 : 0.0) +
-                    (hasP4 ? sizeSquared - dist4 : 0.0) //+
-                    //(hasP5 ? sizeSquared - dist5 : 0.0) +
-                    //(hasP6 ? sizeSquared - dist6 : 0.0) +
-                    //(hasP7 ? sizeSquared - dist7 : 0.0) +
-                    //(hasP8 ? sizeSquared - dist8 : 0.0)
-                    ) / (2.0 * sizeSquared);
-
-    bool hasAo = shadow > 0.2;
-    aoEdge = hasAo;
-
-    return clamp(1.0 - shadow, 0.0, 1.0);
-}
-
-float ambientOcclusion2(vec3 checkPoint, vec3 rayDirection, WorldLocator obj, mat4 surfaceTrafo, float size)
-{
-    // AO implementation by ChatGPT - not perfect, but maybe better than mine
-
-    // Slight offset to avoid self-intersection
-    vec3 offsetPoint = checkPoint - rayDirection * 0.01;
-    vec3 localPoint = transformPoint(offsetPoint, obj);
-    
-    // Inverse transform to surface local space [-0.5, 0.5]
-    vec3 surfacePoint = clamp((inverse(surfaceTrafo) * vec4(localPoint, 1.0)).xyz, -0.5, 0.5);
-    
-    mat4 aoTrafo = getObjectTrafo(obj);
-
-    // Sample directions in local tangent plane (XY plane of surface)
-    // 6 directions evenly spaced at 60 degrees, radius = size
-    const int sampleCount = 6;
-    const vec2 sampleDirs[6] = vec2[](
-        vec2(1.0, 0.0),
-        vec2(0.5, 0.866),  // cos(60), sin(60)
-        vec2(-0.5, 0.866),
-        vec2(-1.0, 0.0),
-        vec2(-0.5, -0.866),
-        vec2(0.5, -0.866)
+    // the corners in surface space
+    vec2 corners[4] = vec2[](
+        vec2(0.5, 0.5),
+        vec2(-0.5, -0.5),
+        vec2(0.5, -0.5),
+        vec2(-0.5, 0.5)
     );
 
-    float occlusionSum = 0.0;
-
-    for (int i = 0; i < sampleCount; i++)
+    float cornerShadow = 0.0;
+    bool cornerLine = false;
+    for (int i = 0; i < 4; ++i)
     {
-        // Compute offset vector in surface space, scaled by size
-        vec2 offset2D = sampleDirs[i] * size;
-
-        // Convert offset2D back to world space using surfaceTrafo
-        vec3 offsetVec = (surfaceTrafo * vec4(offset2D.x, offset2D.y, 0.0, 0.0)).xyz;
-
-        // Sample point in object space for AO check
-        vec3 samplePos = (aoTrafo * vec4(localPoint + offsetVec, 1.0)).xyz;
-
-        // Accumulate occlusion if object present
-        occlusionSum += hasObjectAt(samplePos) ? 1.0 : 0.0;
+        if (samples[i + 4])
+        {
+            float dx = corners[i].x - surfacePoint.x;
+            float dy = corners[i].y - surfacePoint.y;
+            float dist = fastSqrt(dx * dx + dy * dy);
+            cornerShadow += size - dist;
+            cornerLine = dist < 0.05;
+        }
     }
+    cornerShadow /= (2.0 * size);
 
-    // Normalize occlusion (0.0 to 1.0)
-    float ao = 1.0 - (occlusionSum / float(sampleCount));
+    shadow = max(shadow, cornerShadow);
 
-    // Optionally smooth AO to avoid hard edges
-    ao = smoothstep(0.5, 1.0, ao);
+    aoEdge = shadow > 0.01 &&
+             (cornerLine ||
+              samples[0] && dist1 < 0.05 ||
+              samples[1] && dist2 < 0.05 ||
+              samples[2] && dist3 < 0.05 ||
+              samples[3] && dist4 < 0.05);
 
-    aoEdge = (ao < 0.8); // flag edge AO if AO is strong enough
-
-    return clamp(ao, 0.0, 1.0);
+    return clamp(1.0 - shadow, 0.0, 1.0);
 }
 
 /* Determining the box normals is tricky around the edges and corners.
@@ -1661,27 +1644,30 @@ Material computeMaterial(ObjectAndDistance obj)
     return getObjectMaterial(obj.object, obj.pT, obj.p, obj.distance);
 }
 
-vec3 computeNormalVector(vec3 origin, vec3 rayDirection, ObjectAndDistance obj, vec3 bumpNormal)
+SurfaceNormal computeNormalVector(vec3 origin, vec3 rayDirection, ObjectAndDistance obj, vec3 bumpNormal)
 {
     vec3 surfaceNormal = getCorrectedBoxNormals(obj.object, obj.pT, rayDirection);
 
     mat4 surfaceTrafo = createSurfaceTrafo(surfaceNormal);
     vec3 bumpNormalT = (surfaceTrafo * vec4(bumpNormal, 1.0)).xyz;
 
-    return transformNormalOW(bumpNormalT, obj.object);
+    return SurfaceNormal(
+        transformNormalOW(surfaceNormal, obj.object),
+        transformNormalOW(bumpNormalT, obj.object)
+    );
 }
 
-vec3 computeLighting(vec3 origin, vec3 rayDirection, ObjectAndDistance obj, vec3 surfaceNormal)
+vec3 computeLighting(vec3 origin, vec3 rayDirection, ObjectAndDistance obj, SurfaceNormal surfaceNormal)
 {
-    vec3 ambience = vec3(0.2) * (enableAmbientOcclusion ? 0.3 + ambientOcclusion(obj.p, rayDirection, obj.object, createSurfaceTrafo(surfaceNormal), 0.1) * 0.5
+    vec3 ambience = vec3(0.2) * (enableAmbientOcclusion ? ambientOcclusion(obj.p, obj.object, createSurfaceTrafo(surfaceNormal.straight), 0.1)
                                                         : 1.0);
 
-    vec3 light = phongShading(origin, obj.p, ambience, surfaceNormal, 1.0);
+    vec3 light = phongShading(origin, obj.p, ambience, surfaceNormal.bump, 1.0);
 
     return light;
 }
 
-mat3 computeRayTracing(vec3 origin, vec3 rayDirection, float distance, vec3 surfaceNormal, Material material)
+mat3 computeRayTracing(vec3 origin, vec3 rayDirection, float distance, SurfaceNormal surfaceNormal, Material material)
 {
     vec3 currentOrigin = origin + rayDirection * distance;
     vec3 color = vec3(1.0);
@@ -1702,10 +1688,10 @@ mat3 computeRayTracing(vec3 origin, vec3 rayDirection, float distance, vec3 surf
         if (material.roughness < 1.0)
         {
             // we're not finished yet - reflect the ray
-            float fresnel = pow(clamp(1.0 - dot(surfaceNormal, rayDirection * -1.0), 0.5, 1.0), 1.0);
+            float fresnel = pow(clamp(1.0 - dot(surfaceNormal.bump, rayDirection * -1.0), 0.5, 1.0), 1.0);
             lighting += vec3(0.9);
             lighting *= fresnel * (1.0 - material.roughness);
-            rayDirection = reflect(rayDirection, surfaceNormal);
+            rayDirection = reflect(rayDirection, surfaceNormal.bump);
 
             // epsilon must be small for corners, or you'll get reflected far into another block
             currentOrigin = p + rayDirection * 0.01;
@@ -1719,11 +1705,11 @@ mat3 computeRayTracing(vec3 origin, vec3 rayDirection, float distance, vec3 surf
         else if (material.ior > 0.1)
         {
             // we're not finished yet - refract the ray and enter or exit the object
-            vec3 refractedRay = refr(rayDirection, surfaceNormal, material.ior);
+            vec3 refractedRay = refr(rayDirection, surfaceNormal.bump, material.ior);
             if (length(refractedRay) < 0.0001)
             {
                 // total internal reflection
-                rayDirection = normalize(reflect(rayDirection, surfaceNormal));
+                rayDirection = normalize(reflect(rayDirection, surfaceNormal.bump));
             }
             else
             {
@@ -1744,7 +1730,7 @@ mat3 computeRayTracing(vec3 origin, vec3 rayDirection, float distance, vec3 surf
             material = computeMaterial(objAndDistance);
             color = material.color;
 
-            vec3 surfaceNormal = computeNormalVector(currentOrigin, rayDirection, objAndDistance, material.normal);
+            SurfaceNormal surfaceNormal = computeNormalVector(currentOrigin, rayDirection, objAndDistance, material.normal);
             lighting *= computeLighting(currentOrigin, rayDirection, objAndDistance, surfaceNormal);
         }
         else
@@ -1830,10 +1816,10 @@ void main()
         return;
     }
 
-    vec3 surfaceNormal = computeNormalVector(origin, rayDirection, objAndDistance, material.normal);
+    SurfaceNormal surfaceNormal = computeNormalVector(origin, rayDirection, objAndDistance, material.normal);
     if (renderChannel == NORMALS_CHANNEL)
     {
-        fragColor = vec4(vec3(0.5) + surfaceNormal * 0.5, 1.0);
+        fragColor = vec4(vec3(0.5) + surfaceNormal.bump * 0.5, 1.0);
         return;
     }
 
