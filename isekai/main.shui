@@ -48,7 +48,7 @@ Document {
         const n = 3;
         const arr = lights;
 
-        setLight(arr, 0, mat.vec(30.0, 20000.0, 30.0), mat.vec(1.0, 1.0, 1.0), 300000.0);
+        setLight(arr, 0, mat.vec(30.0, 5000.0, 30.0), mat.vec(1.0, 1.0, 1.0), 300000.0);
         //setLight(arr, 1, mat.vec(12.0, 2.5, 14.5), mat.vec(0.7, 0.7, 1.0), 50.0);
         //setLight(arr, 2, mat.vec(2.0, 2.5, 4.0), mat.vec(1.0, 0.7, 0.7), 20.0);
 
@@ -185,6 +185,36 @@ Document {
                 return;
             }
 
+            if (hasButton("dpadUp"))
+            {
+                if (hasButton("look"))
+                {
+                    controls.lookDown();
+                }
+                else
+                {
+                    controls.forward(hasButton("run") ? 3 : 1);
+                }
+            }
+            if (hasButton("dpadDown"))
+            {
+                if (hasButton("look"))
+                {
+                    controls.lookUp();
+                }
+                else
+                {
+                    controls.backward(hasButton("run") ? 3 : 1);
+                }
+            }
+            if (hasButton("dpadLeft"))
+            {
+                controls.rotateLeft();
+            }
+            if (hasButton("dpadRight"))
+            {
+                controls.rotateRight();
+            }
             if (hasButton("strafeLeft"))
             {
                 controls.left(hasButton("run") ? 3 : 1);
@@ -393,7 +423,7 @@ Document {
 
             //property universeLocation: mat.vec(-7, 0, -42)
             property universeLocation: mat.vec(14, 1, 13)
-            property cameraLocation: mat.vec(7.1 + 104, 32.1 + 64, 7.1 + 104)
+            property cameraLocation: mat.add(world.sectorWorldLocation(world.centerSector), mat.vec(32, 32, 32)) //  mat.vec(7.1 + 104, 32.1 + 64, 7.1 + 104)
             property cameraRotationY: 0
             property cameraRotationZ: 0
             property cameraDirection: mat.swizzle(mat.mul(mat.rotationM(mat.vec(1, 0, 0, 0), mat.vec(0, 0, 1, 0), cameraRotationY), mat.vec(0, 0, 1, 1)), "xyz")
@@ -426,18 +456,23 @@ Document {
                 if (sector !== world.centerSector)
                 {
                     console.log("Entered sector " + sector);
-                    const now = Date.now();
                     const sectorDist = world.sectorDistance(sector);
                     console.log("SECTOR DIST: " + JSON.stringify(sectorDist));
                     universeLocation = mat.add(universeLocation, sectorDist);
 
                     // reset camera location (the camera must move in the opposite direction to stay put)
                     cameraLocation = mat.add(cameraLocation, mat.mul(sectorDist, -64));
-                    world.updateHorizon(universeLocation, canvas);
+
+                    const now = Date.now();
+                    world.updateHorizon(universeLocation, canvas.cameraDirection, canvas);
                     console.log("Shifting sectors took " + (Date.now() - now) + "ms");
 
                     // reposition global lights
-                    setLight(doc.lights, 0, mat.add(mat.mul(universeLocation, 64), mat.vec(30.0, 500.0, 30.0)), mat.vec(1.0, 1.0, 1.0), 30000.0);
+                    setLight(doc.lights,
+                             0,
+                             mat.sub(mat.vec(30.0, 5000.0, 30.0), mat.mul(universeLocation, 64)),
+                             mat.vec(1.0, 1.0, 1.0),
+                             30000.0);
                     setSampler("lightsData", 64, 64, doc.lights, { data: true });
                 }
             }
@@ -522,14 +557,14 @@ Document {
                 console.log("Creating world...");
                 setSampler("worldData", 4096, 4096, world.worldData, { data: true });
 
-                world.updateHorizon(universeLocation, canvas);
+                world.updateHorizon(universeLocation, cameraDirection, canvas);
                 world.uploadData(canvas, true);
 
                 console.log("Creating textures...");
                 const tasm = await makeTasm();
                 setSampler("tasmData", 4096, 4096, tasm, { data: true });
 
-                setUniform("int", "numLights", 1);
+                //setUniform("int", "numLights", 1);
                 setSampler("lightsData", 64, 64, makeLights(), { data: true });
 
                 get().get().focus();
@@ -549,7 +584,7 @@ Document {
         origin: "top-right"
         y: theme.itemHeightMedium
         width: theme.itemWidthLarge * 3
-        height: (collapserMa.checked ? 14 : 1) * (theme.itemHeightMedium + 8)
+        height: (collapserMa.checked ? 12 : 1) * (theme.itemHeightMedium + 8)
         margins: theme.paddingLarge
         color: theme.primaryBackgroundColor.alpha(0.7)
         borderWidth: 1
@@ -680,7 +715,7 @@ Document {
                     "5cm",
                     "1cm"
                 ] }
-                selection: 0
+                selection: 2
             }
         }
 
@@ -692,61 +727,17 @@ Document {
 
             Label {
                 fillWidth: true
-                text: "Ray DDA Depth: " + Math.floor(marchingDepthSlider.seekValue)
-            }
-
-            Slider {
-                id: marchingDepthSlider
-
-                fillWidth: true
-                minValue: 1
-                maxValue: 128
-                stepSize: 1
-                value: 128
-            }
-        }
-
-        Box {
-            margins: 4
-            fillWidth: true
-            height: theme.itemHeightMedium
-            layout: "center-row"
-
-            Label {
-                fillWidth: true
-                text: "Ray Tracing Depth: " + Math.floor(tracingDepthSlider.seekValue)
+                text: "Iterations: " + Math.floor(tracingDepthSlider.seekValue)
             }
 
             Slider {
                 id: tracingDepthSlider
 
                 fillWidth: true
-                minValue: 0
-                maxValue: 8
+                minValue: 1
+                maxValue: 16
                 stepSize: 1
-                value: 2
-            }
-        }
-
-        Box {
-            margins: 4
-            fillWidth: true
-            height: theme.itemHeightMedium
-            layout: "center-row"
-
-            Label {
-                fillWidth: true
-                text: "Fog Density: " + Math.floor(fogDensitySlider.seekValue)
-            }
-
-            Slider {
-                id: fogDensitySlider
-
-                fillWidth: true
-                minValue: 0
-                maxValue: 256
-                stepSize: 1
-                value: 0
+                value: 8
             }
         }
 
@@ -959,12 +950,10 @@ Document {
             canvas.setUniform("int", "enableTasm", tasmCheckBox.checked);
             canvas.setUniform("int", "enableShadows", shadingCheckBox.checked);
             canvas.setUniform("int", "enableAmbientOcclusion", ambientOcclusionCheckBox.checked);
-            //canvas.setUniform("float", "fogDensity", fogDensitySlider.seekValue / 10000.0);
-            canvas.setUniform("int", "marchingDepth", Math.floor(marchingDepthSlider.seekValue));
             canvas.setUniform("int", "tracingDepth", Math.floor(tracingDepthSlider.seekValue));
             canvas.setUniform("int", "enableOutlines", outlinesCheckBox.checked);
             canvas.setUniform("mat4", "cameraTrafo", cameraTrafo);
-            canvas.setUniform("vec3", "universeLocation", mat.sub(canvas.universeLocation, mat.vec(128, 128, 128)));
+            canvas.setUniform("vec3", "universeLocation", canvas.universeLocation);
             
             world.uploadData(canvas, false);
 

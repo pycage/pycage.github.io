@@ -3,15 +3,22 @@ const mat = await shRequire("shellfish/core/matrix");
 const sdf = await shRequire("./sdf.js");
 const terrain = await shRequire("./wasm/terrain.wasm");
 
-// the side-length of the horizone cube in sectors (must be odd so there is a center)
-const HORIZON_SIZE = 5;
-// the side-length of a sector in cubes
-const SECTOR_SIZE = 16;
+// the side-length of the horizon cube in sectors (must be odd so there is a center)
+const HORIZON_SIZE = 15;
+
+const DISTANCE_LODS = [0, 0, 1, 2, 2, 3, 3, 3, 4, 4, 5, 5];
+// the data stride of a sector
+const LOD_SECTOR_STRIDE = [69632 * 4, 12288 * 4, 5120 * 4, 640 * 4, 80 * 4, 10 * 4];
 // the side-length of a cube in voxels
-const CUBE_SIZE = 4;
-const SECTOR_LINES = 17;
-const VOXEL_DATA_OFFSET = SECTOR_SIZE * SECTOR_SIZE * SECTOR_SIZE;
-const CUBE_VOXEL_STRIDE = CUBE_SIZE * CUBE_SIZE * CUBE_SIZE;
+const LOD_CUBE_SIZE =   [ 4,  2,  1, 1, 1, 1, 1];
+// the side-length of a sector in cubes
+const LOD_SECTOR_SIZE = [16, 16, 16, 8, 4, 2, 1];
+// the division factor from nominal voxels to LOD voxels
+const LOD_CUBE_DIV = [1, 2, 4, 4, 4, 4, 4];
+// the division factor from nominal cubes to LOD cubes
+const LOD_SECTOR_DIV = [1, 1, 1, 2, 4, 8, 16];
+
+const INVALID_SECTOR_ADDRESS = 1;
 
 function readUint32Array(ptr, memory)
 {
@@ -42,39 +49,16 @@ function writeArrayAt(arr, pos, valueArr)
     }
 }
 
-function uniteRanges(ranges)
+function locEqual(a, b)
 {
-    let result = [];
-    for (let i = 0; i < ranges.length; ++i)
-    {
-        const [begin, end] = ranges[i];
+    return a[0][0] === b[0][0] &&
+           a[1][0] === b[1][0] &&
+           a[2][0] === b[2][0];
+}
 
-        let haveIntersections = false;
-
-        // remove all ranges that lie between begin and end
-        result = result.filter(r => r[0] < begin || r[1] > end)
-                       .map(r =>
-        {
-            if (end >= r[0] && begin <= r[1])
-            {
-                // intersection
-                haveIntersections = true;
-                return [Math.min(r[0], begin), Math.max(r[1], end)];
-            }
-            else
-            {
-                return r;
-            }
-        });
-
-        if (! haveIntersections)
-        {
-            // add, if no intersections where found
-            result.push([begin, end]);
-        }
-    }
-
-    return result;
+function locHash(loc)
+{
+  return "" + loc.flat();
 }
 
 /* Returns the sector index at the given horizon cube coordinates.
@@ -97,7 +81,7 @@ function sectorLocation(sector)
     return mat.vec(x, y, z);
 }
 
-/* Returns the level of detail for the given sector.
+/* Returns the level-of-detail for the given sector number.
  */
 function lodOfSector(sector)
 {
@@ -105,18 +89,18 @@ function lodOfSector(sector)
     const center = Math.floor(HORIZON_SIZE / 2);
     const dist = Math.max(Math.abs(x - center), Math.abs(y - center), Math.abs(z - center));
 
-    return dist < 3 ? 0 : 1;
+    return DISTANCE_LODS[dist];
 }
 
 function sectorWorldLocation(sector, cubeSize)
 {
-    const sectorLength = SECTOR_SIZE * cubeSize;
+    const sectorLength = LOD_SECTOR_SIZE[0] * cubeSize;
     return mat.mul(sectorLocation(sector), sectorLength);
 }
 
 function makeCubeLocator(loc, cubeSize)
 {
-    const sectorLength = SECTOR_SIZE * cubeSize;
+    const sectorLength = LOD_SECTOR_SIZE[0] * cubeSize;
 
     const x = Math.floor(loc[0][0] / sectorLength);
     const y = Math.floor(loc[1][0] / sectorLength);
@@ -200,7 +184,7 @@ function uploadLinearData(canvas, begin, data)
         //console.log("2: " + subBegin + " -> " + subEnd + ", " + width + " x " + height + ", " + data.subarray(subBegin, subEnd).length);
         canvas.updateSampler("worldData", 0, line2, width / 4, height, data.subarray(subBegin, subEnd));
 
-        if (line1 + 1 < line2 - 1)
+        if (line1 + 1 <= line2 - 1)
         {
             // inbetween
             width = lineLength;
@@ -227,26 +211,95 @@ class World extends core.Object
         d.set(this, {
             worldData: new Uint32Array(4096 * 4096 * 4),
             updateQueue: [],
-            sectorMap: [ ],  // array of { address, universeLocation }
-            centerSector: makeSectorIndex(horizonCenter, horizonCenter, horizonCenter)
+            sectorMap: [],  // array of { address, universeLocation }
+            centerSector: makeSectorIndex(horizonCenter, horizonCenter, horizonCenter),
+            freedAddressesPerLod: [[], [], [], [], [], []]
         });
 
-        const priv = d.get(this);
-
-        // init sector map
-        for (let i = 0; i < HORIZON_SIZE * HORIZON_SIZE * HORIZON_SIZE; ++i)
-        {
-            priv.sectorMap.push({ address: i, uloc: mat.vec(0, 0, 0) });
-        }
-
-        this.writeSectorMap();
-    }
+        this.initializeSectorMap();
+   }
 
     get worldData() { return d.get(this).worldData; }
     get sectorMap() { return d.get(this).sectorMap.map(s => s.address); }
     get centerSector() { return d.get(this).centerSector; }
 
-    /* Maps a sector to its actual physical location.
+    /* Releases a sector address for a LOD.
+     */
+    releaseSectorAddress(lod, address)
+    {
+        d.get(this).freedAddressesPerLod[lod].push(address);
+    }
+
+    /* Allocates a free sector address for a LOD.
+     */
+    allocateSectorAddress(lod)
+    {
+        if (d.get(this).freedAddressesPerLod[lod].length === 0)
+        {
+            console.error("Out of sector memory for LOD " + lod + ".");
+            throw "Out Of Sector Memory";
+        }
+        return d.get(this).freedAddressesPerLod[lod].pop();
+    }
+
+    /* Initializes the sector map.
+     */
+    initializeSectorMap()
+    {
+        const priv = d.get(this);
+
+        // count the sectors per LOD
+        let lodSectorCounts = [0, 0, 0, 0, 0, 0];
+        for (let i = 0; i < HORIZON_SIZE * HORIZON_SIZE * HORIZON_SIZE; ++i)
+        {
+            const lod = lodOfSector(i);
+            ++lodSectorCounts[lod];
+        }
+        // add some sectors for buffer
+        lodSectorCounts = lodSectorCounts.map(c => Math.ceil(c * 2.0));
+
+        console.log("LOD sector counts: " + JSON.stringify(lodSectorCounts));
+
+        // compute the LOD address offsets
+        const lodSlotSizes = [
+            lodSectorCounts[0] * LOD_SECTOR_STRIDE[0],
+            lodSectorCounts[1] * LOD_SECTOR_STRIDE[1],
+            lodSectorCounts[2] * LOD_SECTOR_STRIDE[2],
+            lodSectorCounts[3] * LOD_SECTOR_STRIDE[3],
+            lodSectorCounts[4] * LOD_SECTOR_STRIDE[4],
+            lodSectorCounts[5] * LOD_SECTOR_STRIDE[5]
+        ];
+        const lodSlotOffsets = [0];
+        let offset = 0;
+        for (let i = 0; i < lodSlotSizes.length; ++i)
+        {
+            offset += lodSlotSizes[i];
+            lodSlotOffsets.push(offset);
+        }
+        console.log("LOD slot offsets: " + JSON.stringify(lodSlotOffsets));
+
+        // create the slots
+        for (let lod = 0; lod < lodSectorCounts.length; ++lod)
+        {
+            const lodCount = lodSectorCounts[lod];
+            for (let i = 0; i < lodCount; ++i)
+            {
+                const physicalAddress = lodSlotOffsets[lod] + i * LOD_SECTOR_STRIDE[lod];
+                priv.freedAddressesPerLod[lod].push(physicalAddress);
+            }
+        }
+
+        for (let i = 0; i < HORIZON_SIZE * HORIZON_SIZE * HORIZON_SIZE; ++i)
+        {
+            const lod = lodOfSector(i);
+            const physicalAddress = this.allocateSectorAddress(lod);
+            priv.sectorMap.push({ address: physicalAddress, uloc: mat.vec(0, 0, 0), lod: lod });
+        }
+
+        this.writeSectorMap();
+    }
+
+    /* Maps a sector to its actual physical address.
      */
     mapSector(sector)
     {
@@ -257,7 +310,7 @@ class World extends core.Object
      */
     sectorDataOffset(sector)
     {
-        return SECTOR_LINES * this.mapSector(sector) * 4096 * 4;
+        return this.mapSector(sector);
     }
 
     /* Returns the data offset for accessing a cube, relative to the sector offset.
@@ -270,29 +323,20 @@ class World extends core.Object
     /* Returns the offset into the cube voxel data for the given address, relative to the
      * sector offset;
      */
-    voxelDataOffset(address)
+    voxelDataOffset(address, lod)
     {
-        return VOXEL_DATA_OFFSET + address * CUBE_VOXEL_STRIDE;
-    }
+        const sectorSize = LOD_SECTOR_SIZE[lod];
+        const cubeSize = LOD_CUBE_SIZE[lod];
 
-    cubeIndex(cube)
-    {
-        const lod = lodOfSector(cube.sector);
-        const sectorLod = Math.max(0, lod - 2);
-        const sectorSizeWithLod = SECTOR_SIZE / (1 << sectorLod);
-
-        const cx = Math.floor(cube.x / (1 << sectorLod));
-        const cy = Math.floor(cube.y / (1 << sectorLod));
-        const cz = Math.floor(cube.z / (1 << sectorLod));
-
-        return cx * sectorSizeWithLod * sectorSizeWithLod + cy * sectorSizeWithLod + cz;
+        return sectorSize * sectorSize * sectorSize * 4 +
+               address * cubeSize * cubeSize * cubeSize;
     }
 
     /* Returns the sector at the given world location.
      */
     sectorAt(loc)
     {
-        const sectorLength = SECTOR_SIZE * CUBE_SIZE;
+        const sectorLength = LOD_SECTOR_SIZE[0] * LOD_CUBE_SIZE[0];
 
         const v = mat.mul(loc, 1 / sectorLength);
         const x = Math.floor(v[0][0]);
@@ -300,6 +344,13 @@ class World extends core.Object
         const z = Math.floor(v[2][0]);
 
         return makeSectorIndex(x, y, z);
+    }
+
+    /* Returns the world location of the given sector.
+     */
+    sectorWorldLocation(sector)
+    {
+        return mat.mul(sectorLocation(sector), LOD_SECTOR_SIZE[0] * LOD_CUBE_SIZE[0]);
     }
 
     /* Returns the distance from the horizon cube center to the given sector.
@@ -316,14 +367,14 @@ class World extends core.Object
      */
     cubeOf(loc)
     {
-        return makeCubeLocator(loc, CUBE_SIZE);
+        return makeCubeLocator(loc, LOD_CUBE_SIZE[0]);
     }
 
     /* Returns the world location of the given cube.
      */
     cubeLocation(cube)
     {
-        return resolveCubeLocator(cube, CUBE_SIZE);
+        return resolveCubeLocator(cube, LOD_CUBE_SIZE[0]);
     }
 
     /* Returns the cube to world transformation matrix of the given cube.
@@ -344,7 +395,8 @@ class World extends core.Object
      */
     cubesOnRay(origin, rayDirection)
     {
-        const cubeSize = CUBE_SIZE;
+        // FIXME: unused
+        const nominalCubeSize = LOD_CUBE_SIZE[0];
 
         const cubes = [];
 
@@ -354,33 +406,33 @@ class World extends core.Object
 
         //console.log("ray: " + rayDirection.flat().map(c => c.toFixed(2)));
 
-        const scaleX = rayDirection[0][0] != 0.0 ? cubeSize / Math.abs(rayDirection[0][0]) : 9999999.0;
-        const scaleY = rayDirection[1][0] != 0.0 ? cubeSize / Math.abs(rayDirection[1][0]) : 9999999.0;
-        const scaleZ = rayDirection[2][0] != 0.0 ? cubeSize / Math.abs(rayDirection[2][0]) : 9999999.0;
+        const scaleX = rayDirection[0][0] != 0.0 ? nominalCubeSize / Math.abs(rayDirection[0][0]) : 9999999.0;
+        const scaleY = rayDirection[1][0] != 0.0 ? nominalCubeSize / Math.abs(rayDirection[1][0]) : 9999999.0;
+        const scaleZ = rayDirection[2][0] != 0.0 ? nominalCubeSize / Math.abs(rayDirection[2][0]) : 9999999.0;
 
         //console.log("scale: " + mat.vec(scaleX, scaleY, scaleZ).flat().map(c => c.toFixed(2)));
 
-        let gridX = cubeSize * Math.floor((p[0][0]) / cubeSize);
-        let gridY = cubeSize * Math.floor((p[1][0]) / cubeSize);
-        let gridZ = cubeSize * Math.floor((p[2][0]) / cubeSize);
+        let gridX = nominalCubeSize * Math.floor((p[0][0]) / nominalCubeSize);
+        let gridY = nominalCubeSize * Math.floor((p[1][0]) / nominalCubeSize);
+        let gridZ = nominalCubeSize * Math.floor((p[2][0]) / nominalCubeSize);
 
         if (rayDirection[0][0] > 0.0)
         {
-            gridX += cubeSize;
+            gridX += nominalCubeSize;
         }
         if (rayDirection[1][0] > 0.0)
         {
-            gridY += cubeSize;
+            gridY += nominalCubeSize;
         }
         if (rayDirection[2][0] > 0.0)
         {
-            gridZ += cubeSize;
+            gridZ += nominalCubeSize;
         }
         //console.log("grid: " + mat.vec(gridX, gridY, gridZ).flat().map(c => c.toFixed(2)));
 
-        let distX = Math.abs(gridX - p[0][0]) / cubeSize;
-        let distY = Math.abs(gridY - p[1][0]) / cubeSize;
-        let distZ = Math.abs(gridZ - p[2][0]) / cubeSize;
+        let distX = Math.abs(gridX - p[0][0]) / nominalCubeSize;
+        let distY = Math.abs(gridY - p[1][0]) / nominalCubeSize;
+        let distZ = Math.abs(gridZ - p[2][0]) / nominalCubeSize;
 
         //console.log("dist: " + mat.vec(distX, distY, distZ).flat().map(c => c.toFixed(2)));
 
@@ -397,21 +449,21 @@ class World extends core.Object
             let newOrigin = origin;
             if (rayLengthX <= rayLengthY && rayLengthX <= rayLengthZ)
             {
-                moveX = Math.sign(rayDirection[0][0]) * cubeSize;
+                moveX = Math.sign(rayDirection[0][0]) * nominalCubeSize;
                 distX += 1.0;
                 //console.log("rayLength " + rayLengthX);
                 newOrigin = mat.add(origin, mat.mul(rayDirection, rayLengthX));
             }
             else if (rayLengthY <= rayLengthX && rayLengthY <= rayLengthZ)
             {
-                moveY = Math.sign(rayDirection[1][0]) * cubeSize;
+                moveY = Math.sign(rayDirection[1][0]) * nominalCubeSize;
                 distY += 1.0;
                 //console.log("rayLength " + rayLengthY);
                 newOrigin = mat.add(origin, mat.mul(rayDirection, rayLengthY));
             }
             else if (rayLengthZ <= rayLengthX && rayLengthZ <= rayLengthY)
             {
-                moveZ = Math.sign(rayDirection[2][0]) * cubeSize;
+                moveZ = Math.sign(rayDirection[2][0]) * nominalCubeSize;
                 distZ += 1.0;
                 //console.log("rayLength " + rayLengthZ);
                 newOrigin = mat.add(origin, mat.mul(rayDirection, rayLengthZ));
@@ -431,35 +483,42 @@ class World extends core.Object
         return cubes;
     }
 
-    /* Returns the list of objects in the given cube.
+    /* Returns the list of voxels in the given cube.
      */
-    objectsInCube(cube)
+    voxelsInCube(cube)
     {
         const priv = d.get(this);
 
-        const lod = lodOfSector(cube.sector);
-        const cubeLod = Math.min(lod, 2);
-        const bitsPerCoord = 2 / (1 << cubeLod);
-        
-        const cubeIndex = this.cubeIndex(cube);
+        const lod = priv.sectorMap[cube.sector].lod;
+        const nominalCubeSize = LOD_CUBE_SIZE[0];
+        const sectorSize = LOD_SECTOR_SIZE[lod];
+        const cubeSize = LOD_CUBE_SIZE[lod];
+        const bitsPerCoord = cubeSize == 4 ? 2 : 1;
+
+        const cubeX = Math.floor(cube.x / LOD_SECTOR_DIV[lod]);
+        const cubeY = Math.floor(cube.y / LOD_SECTOR_DIV[lod]);
+        const cubeZ = Math.floor(cube.z / LOD_SECTOR_DIV[lod]);
+        const cubeIndex = cubeX * sectorSize * sectorSize +
+                          cubeY * sectorSize +
+                          cubeZ;
         const sectorOffset = this.sectorDataOffset(cube.sector);
         const cubeOffset = sectorOffset + this.cubeDataOffset(cubeIndex);
         let patternHi = priv.worldData[cubeOffset];
         let patternLo = priv.worldData[cubeOffset + 1];
         const address = priv.worldData[cubeOffset + 2];
 
-        const voxelOffset = this.voxelDataOffset(address);
+        const voxelOffset = this.voxelDataOffset(address, lod);
 
         let objects = [];
-        for (let x = 0; x < 4; ++x)
+        for (let x = 0; x < nominalCubeSize; ++x)
         {
-            for (let y = 0; y < 4; ++y)
+            for (let y = 0; y < nominalCubeSize; ++y)
             {
-                for (let z = 0; z < 4; ++z)
+                for (let z = 0; z < nominalCubeSize; ++z)
                 {
-                    const lx = x / (1 << cubeLod);
-                    const ly = y / (1 << cubeLod);
-                    const lz = z / (1 << cubeLod);
+                    const lx = Math.floor(x / LOD_CUBE_DIV[lod]);
+                    const ly = Math.floor(y / LOD_CUBE_DIV[lod]);
+                    const lz = Math.floor(z / LOD_CUBE_DIV[lod]);
 
                     const idx = (lx << (bitsPerCoord + bitsPerCoord)) +
                                 (ly << bitsPerCoord) +
@@ -502,7 +561,7 @@ class World extends core.Object
         const cube = this.cubeOf(p);
         const cm = this.cubeTrafoInverse(cube);
 
-        const hits = this.objectsInCube(cube).map(obj =>
+        const hits = this.voxelsInCube(cube).map(obj =>
         {
             const pT = mat.swizzle(mat.mul(mat.mul(cm, obj.trafoInverse), mat.vec(p, 1.0)), "xyz");
             return sdf.sdfBox(pT);
@@ -530,35 +589,43 @@ class World extends core.Object
         //console.log("Generating sector " + sector + " around " + JSON.stringify(universeLocation) + " with LOD " + lod);
         const ptr = terrain.generateSector(universeLocation[0][0], universeLocation[1][0], universeLocation[2][0], lod);
         const sectorData = readUint32Array(ptr, terrain.memory);
-        const sectorLine = SECTOR_LINES * this.mapSector(sector);
-        d.get(this).worldData.set(sectorData, sectorLine * 4096 * 4);
+        const sectorDataOffset = this.sectorDataOffset(sector);
+
+        d.get(this).worldData.set(sectorData, sectorDataOffset);
         return {
-            begin: sectorLine * 4096 * 4,
-            end: sectorLine * 4096 * 4 + sectorData.length,
+            offset: sectorDataOffset,
             data: sectorData
         };
     }
 
     /* Updates the horizon cube around the given universe location.
      */
-    updateHorizon(universeLocation, canvas)
+    updateHorizon(universeLocation, viewingDirection, canvas)
     {
         const priv = d.get(this);
 
         // flush pending uploads first
+        let now = Date.now();
         this.uploadData(canvas, true);
+        console.log("Flushing queue took " + (Date.now() - now) + "ms");
 
         // make a deep copy
-        const sectorMap = priv.sectorMap.map(entry =>
+        now = Date.now();
+        const sectorMapIndex = new Map();
+        const sectorMap = priv.sectorMap.map((entry, idx) =>
         {
-            return { address: entry.address, uloc: mat.vec(...entry.uloc.flat()) };
+            sectorMapIndex.set(locHash(entry.uloc), idx);
+            return { address: entry.address, uloc: entry.uloc.slice(), lod: entry.lod };
         });
+        console.log("Making deep copy took " + (Date.now() - now) + "ms");
 
         console.log("Updating horizon around: " + JSON.stringify(universeLocation));
         const halfSize = Math.floor(HORIZON_SIZE / 2);
         const requiredSectors = [];
-        const freedAddressesPerLod = [[], [], [], [], []];
+        const requiredSectorsIndex = new Map();
 
+        // find the sectors that are required
+        now = Date.now();
         for (let y = 0; y < HORIZON_SIZE; ++y)
         {
             for (let z = 0; z < HORIZON_SIZE; ++z)
@@ -571,61 +638,78 @@ class World extends core.Object
                         universeLocation,
                         mat.vec(x - halfSize, y - halfSize, z - halfSize)
                     );
+                    requiredSectorsIndex.set(locHash(loc), requiredSectors.length);
                     requiredSectors.push({ sector, loc, lod });
                 }
             }
         }
+        console.log("Getting required sectors took " + (Date.now() - now) + "ms");
 
         // collect the addresses that became free
-        for (let i = 0; i < priv.sectorMap.length; ++i)
+        now = Date.now();
+        priv.sectorMap.forEach(entry =>
         {
-            const lod = lodOfSector(i);
-            const uloc = priv.sectorMap[i].uloc;
-            const idx = requiredSectors.findIndex(s => "" + s.loc === "" + uloc && s.lod === lod);
-            if (idx === -1)
+            const idx = requiredSectorsIndex.get(locHash(entry.uloc));
+            if (idx === undefined)
             {
-                // this address is free
-                freedAddressesPerLod[lod].push(priv.sectorMap[i].address);
+                // this address is free, because it doesn't move from one
+                // sector to another
+                this.releaseSectorAddress(entry.lod, entry.address);
             }
-        }
+        });
+        console.log("Collecting free addresses took " + (Date.now() - now) + "ms");
 
-        //console.log(JSON.stringify(freedAddressesPerLod));
-        //console.log(freedAddressesPerLod[0].length);
         //console.log(JSON.stringify(priv.sectorMap));
 
         // either move or create the sectors
-        let dataRanges = [];
-        for (let i = 0; i < requiredSectors.length; ++i)
+        now = Date.now();
+        requiredSectors.forEach(entry =>
         {
-            const entry = requiredSectors[i];
-
-            const idx = sectorMap.findIndex((s, idx) => idx !== entry.sector && "" + s.uloc === "" + entry.loc && lodOfSector(idx) === entry.lod);
-            if (idx === -1)
+            const idx = sectorMapIndex.get(locHash(entry.loc));
+            if (idx === undefined)
             {
                 // this is a new entry
                 //console.log("New Entry, sector: " + entry.sector + ", uloc: " + entry.loc);
-                priv.sectorMap[entry.sector].uloc = entry.loc;
-                priv.sectorMap[entry.sector].address = freedAddressesPerLod[entry.lod].shift() + 100000 /* mark as empty until uploaded */;
-                //console.log("use free address: " + sectorMap[entry.sector].address);
+                priv.sectorMap[entry.sector].address = -1;
                 priv.updateQueue.push(entry);
             }
             else
             {
                 // move entry
-                //console.log("Move Entry, sector: " + idx + " -> " + entry.sector);
-                priv.sectorMap[entry.sector].uloc = sectorMap[idx].uloc;
-                priv.sectorMap[entry.sector].address = sectorMap[idx].address;
+                priv.sectorMap[entry.sector] = sectorMap[idx];
+
+                // update LOD
+                if (entry.lod !== priv.sectorMap[entry.sector].lod)
+                {
+                    entry.isUpdate = true;
+                    priv.updateQueue.push(entry);
+                }
             }
-        }
+        });
+        console.log("Moving/creating sectors took " + (Date.now() - now) + "ms");
+
+        now = Date.now();
+        const center = Math.floor(HORIZON_SIZE / 2);
+        priv.updateQueue.sort((a, b) =>
+        {
+            const aDot = mat.dot(viewingDirection, a.loc);
+            const bDot = mat.dot(viewingDirection, b.loc);
+            if (aDot < 0.0) return 1;
+            if (bDot < 0.0) return -1;
+            const [x1, y1, z1] = a.loc.flat();
+            const [x2, y2, z2] = b.loc.flat();
+            const dist1 = Math.max(Math.abs(x1 - center), Math.abs(y1 - center), Math.abs(z1 - center));
+            const dist2 = Math.max(Math.abs(x2 - center), Math.abs(y2 - center), Math.abs(z2 - center));
+
+            return dist1 - dist2;
+        });
+        console.log("Sorting update queue by distance took " + (Date.now() - now) + "ms");
                
-        //console.log("AFTER: " + JSON.stringify(freedAddressesPerLod));
         //console.log(JSON.stringify(priv.sectorMap.map((m, idx) => [idx, m])));
         
+        now = Date.now();
         this.uploadData(canvas, false);
-
-        // write sector map
-        //this.writeSectorMap();
-        //canvas.updateSampler("worldData", 0, 4095, 4096, 1, priv.worldData.subarray(4095 * 4096 * 4));
+        console.log("Initial upload took " + (Date.now() - now) + "ms");
     }
 
     uploadData(canvas, flush)
@@ -643,15 +727,24 @@ class World extends core.Object
         while (priv.updateQueue.length > 0)
         {
             const entry = priv.updateQueue.shift();
-            priv.sectorMap[entry.sector].address -= 100000;
-            const sectorData = this.generateSector(entry.sector, entry.loc, entry.lod);
-           
-            uploadLinearData(canvas, sectorData.begin, sectorData.data);
 
-            duration += Date.now() - now;
+            if (entry.isUpdate)
+            {
+                this.releaseSectorAddress(priv.sectorMap[entry.sector].lod, priv.sectorMap[entry.sector].address);
+            }
+            priv.sectorMap[entry.sector].uloc = entry.loc;
+            priv.sectorMap[entry.sector].address = this.allocateSectorAddress(entry.lod);
+            priv.sectorMap[entry.sector].lod = entry.lod;
+
+            const sectorData = this.generateSector(entry.sector, entry.loc, entry.lod);
+            //console.log("Generated sector " + entry.sector + ", LOD: " + entry.lod + ", offset: " + sectorData.offset + ", size: " + sectorData.data.length);
+
+            uploadLinearData(canvas, sectorData.offset, sectorData.data);
+
+            duration = Date.now() - now;
             ++count;
 
-            if (! flush && duration > 10)
+            if (! flush && duration > 5)
             {
                 break;
             }
@@ -665,7 +758,13 @@ class World extends core.Object
     writeSectorMap()
     {
         const priv = d.get(this);
-        writeArrayAt(priv.worldData, 4096 * 4 * 4095, priv.sectorMap.map(s => s.address));
+        const data = priv.sectorMap.map(s =>
+        {
+            // divide address by 4 to get pixel address
+            const addr = s.address < 0 ? INVALID_SECTOR_ADDRESS : s.address >> 2;
+            return (addr << 3) + s.lod;
+        });
+        writeArrayAt(priv.worldData, 4096 * 4 * 4095, data);
     }
 };
 exports.World = World;

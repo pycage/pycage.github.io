@@ -1,10 +1,10 @@
 ;; Generates a sky box (or rather plane) with gradient and moving clouds.
 ;;
 
-    LD 10000         ;; maxDistance parameter
+    LD 20000         ;; maxDistance parameter
     SREG maxDistance
 
-    LD 0.65          ;; threshold parameter
+    LD 0.55          ;; threshold parameter
     SREG threshold
     LD 1.0
     LREG threshold
@@ -16,11 +16,15 @@
     IFNOT < horizon  ;; just render the horizon in the distance
 
     ENV st.x st.y
+    ENV universe_x universe_z  ;; apply universe location offset
+    LD 64 64                   ;; voxels per sector
+    MUL2
+    ADD2
     LREG maxDistance ;; scaling factor
     DUP
     DIV2
     ENV timems
-    LD 600000000     ;; time factor
+    LD 300000000     ;; time factor
     DIV
     DUP
     ADD2
