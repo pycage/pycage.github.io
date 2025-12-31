@@ -1,6 +1,6 @@
 /*******************************************************************************
 This file is part of the Shellfish UI toolkit.
-Copyright (c) 2017 - 2023 Martin Grimme <martin.grimme@gmail.com>
+Copyright (c) 2017 - 2024 Martin Grimme <martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -366,14 +366,23 @@ const shRequire = (function ()
                 scriptNode.async = loadAsync;
                 const codeUrl = URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
               
-                scriptNode.addEventListener("error", function ()
+                const errorCb = () =>
                 {
                     URL.revokeObjectURL(codeUrl);
                     log("", "error", `Failed to import script.`);
                     shRequire.registerCallback(scriptId, null);
                     resolve(false);
-                }, false);
-        
+                };
+
+                const loadCb = () =>
+                {
+                    scriptNode.removeEventListener("load", loadCb);
+                    scriptNode.removeEventListener("error", errorCb);
+                };
+
+                scriptNode.addEventListener("error", errorCb, false);
+                scriptNode.addEventListener("load", loadCb);
+
                 scriptNode.src = codeUrl;
                 document.head.appendChild(scriptNode);
             }
@@ -518,7 +527,7 @@ const shRequire = (function ()
         }
         else if (bundle.version === 2)
         {
-            let js = "";
+            let js = "\"use strict\";";
             const scriptId = idCounter;
             ++idCounter;
 
@@ -546,19 +555,22 @@ const shRequire = (function ()
                     {
                         // collect all JavaScript files wrapped in loader functions in a single module
                         js += `
-                            origRequire = shRequire;
-                            shRequire.registerLoader("${resUrl}", async (exports, __dirname, __filename) =>
+                            (() =>
                             {
-                                let reqQueue = [];
-                                const shRequire = origRequire.withQueue(reqQueue);
+                                const origRequire = shRequire;
+                                shRequire.registerLoader("${resUrl}", async (exports, __dirname, __filename) =>
+                                {
+                                    let reqQueue = [];
+                                    const shRequire = origRequire.withQueue(reqQueue);
 
-                                ${bundle.resources[resUrl]}
-                                const mod = typeof Module !== "undefined" ? Module : exports;
-                                shRequire.registerModule("${resUrl}", mod);
+                                    ${bundle.resources[resUrl]}
+                                    const mod = typeof Module !== "undefined" ? Module : exports;
+                                    shRequire.registerModule("${resUrl}", mod);
 
-                                while (reqQueue.length > 0) await reqQueue.shift();
-                            });
-                            origRequire.invokeCallback(${scriptId});
+                                    while (reqQueue.length > 0) await reqQueue.shift();
+                                });
+                                origRequire.invokeCallback(${scriptId});
+                            })();
                         `;
                     }
                     else
@@ -670,10 +682,11 @@ const shRequire = (function ()
             link.setAttribute("type", "text/css");
             link.setAttribute("rel", "stylesheet");
             link.setAttribute("href", url);
-            link.onload = () =>
+
+            link.addEventListener("load", () =>
             {
                 resolve(null);
-            };
+            }, { once: true });
             document.head.appendChild(link);
         });
     }
@@ -778,6 +791,7 @@ const shRequire = (function ()
             ++idCounter;
 
             const js = `/* Module ${url} */
+                "use strict";
                 (() =>
                 {
                     const origRequire = typeof shRequire !== "undefined" ? shRequire : undefined;
@@ -975,9 +989,10 @@ const shRequire = (function ()
     /**
      * Imports a list of modules.
      * 
-     * @param {string} urls - The URLs of the modules to import.
-     * @param {function} callback - A callback with the imported modules as parameters.
+     * @param {string[]} urls - The URLs of the modules to import. If this is a `string` instead of an `array`, the return value will be a single module.
+     * @param {function} [callback] - A callback with the imported modules as parameters.
      * @param {function} [processor = null] - An optional code processor.
+     * @returns {Promise<string[]>} - The list of modules.
      */
     async function __require(urls, callback, processor)
     {
@@ -1001,7 +1016,7 @@ const shRequire = (function ()
             }
             return mod;
         }
-        else
+        else if (Array.isArray(urls))
         {
             let modules = [];
             for (let i = 0; i < urls.length; ++i)
@@ -1046,6 +1061,7 @@ const shRequire = (function ()
         f.resource = __require.resource;
         f.selfUrl = __require.selfUrl;
         f.environment = __require.environment;
+        f.deviceMemory = __require.deviceMemory;
 
         return f;
     };
@@ -1082,6 +1098,30 @@ const shRequire = (function ()
         else
         {
             return "web";
+        }
+    })();
+
+    /**
+     * Holds the amount of Gigabytes of total device RAM detected. This may be
+     * a very imprecise value due to browser security restrictions and is only
+     * available in secure contexts. Not all browsers support this, either.
+     * 
+     * The value is `-1` if it could not be detected.
+     */
+    __require.deviceMemory = (() =>
+    {
+        if (typeof navigator !== "undefined" && navigator.deviceMemory)
+        {
+            return navigator.deviceMemory;
+        }
+        else if (isNode)
+        {
+            const os = require("os");
+            return Math.floor(os.totalmem() / (1024 * 1024 * 1024));
+        }
+        else
+        {
+            return -1;
         }
     })();
 
@@ -1305,7 +1345,8 @@ const shRequire = (function ()
         })();
     }// if (hasDom)
 
-    log("", "debug", "Initialized Shellfish module manager. Detected environment: " + __require.environment);
+    log("", "debug", "Initialized Shellfish module manager. Detected environment: " + __require.environment +
+         ", RAM: " + (__require.deviceMemory > 0 ? ">= " + __require.deviceMemory + " G" : "unknown"));
 
     // In order to support both module systems, ESM and CJS, exports are not used.
     // Instead, we assign the Shellfish environment to a certain variable in scope,
