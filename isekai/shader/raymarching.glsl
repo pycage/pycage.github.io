@@ -47,14 +47,13 @@ struct Channels
     bool final;
     int bounces;
     float totalDistance;
+    vec3 origin;
     vec3 rayDirection;
     vec3 p;
     vec3 indirectP;
     vec3 light;
     vec3 albedo;
     vec3 surfaceNormal;
-    float roughness;
-    float ior;
     bool outline;
 };
 
@@ -62,42 +61,6 @@ struct SectorMapEntry
 {
     uint address;
     int lod;
-};
-
-struct CubeLocator
-{
-    int x;
-    int y;
-    int z;
-    int sector;
-};
-
-struct ObjectLocator
-{
-    int x;
-    int y;
-    int z;
-};
-
-struct WorldLocator
-{
-    CubeLocator cube;
-    ObjectLocator object;
-};
-
-struct ObjectAndDistance
-{
-    bool hit;
-    WorldLocator object;
-    float distance;
-    vec3 p;
-    vec3 pT;
-};
-
-struct SurfaceNormal
-{
-    vec3 straight;
-    vec3 bump;
 };
 
 struct Material
@@ -212,99 +175,9 @@ ivec2 textureAddress(uint address)
     );
 }
 
-ivec3 sectorLocation(int sector)
-{
-    int y = sector / (HORIZON_SIZE * HORIZON_SIZE);
-    int z = (sector % (HORIZON_SIZE * HORIZON_SIZE)) / HORIZON_SIZE;
-    int x = sector % HORIZON_SIZE;
-
-    return ivec3(x, y, z);
-}
-
-vec3 resolveCubeLocator(CubeLocator cube)
-{
-    const int sectorSize = LOD_SECTOR_SIZE[0];
-    const int cubeSize = LOD_CUBE_SIZE[0];
-    return vec3(sectorLocation(cube.sector)) * float(sectorSize * cubeSize) + vec3(
-        float(cube.x * cubeSize),
-        float(cube.y * cubeSize),
-        float(cube.z * cubeSize)
-    );
-}
-
-CubeLocator makeSuperCubeLocator(vec3 v, int level)
-{
-    const int sectorSize = LOD_SECTOR_SIZE[0];
-    const int cubeSize = LOD_CUBE_SIZE[0];
-    v = clamp(v, 0.0, float(sectorSize * HORIZON_SIZE * cubeSize - 1));
-    int superCubeSize = cubeSize << level;
-    int sectorLength = sectorSize * superCubeSize;
-
-    ivec3 sectorLoc = ivec3(v) / sectorLength;
-    int sector = sectorLoc.y * (HORIZON_SIZE * HORIZON_SIZE) + sectorLoc.z * HORIZON_SIZE + sectorLoc.x;
-
-    vec3 t = (v - vec3(sectorLoc * sectorLength)) / float(superCubeSize);
-
-    return CubeLocator(int(t.x), int(t.y), int(t.z), sector);
-}
-
-bool isSuperCubeEmpty(CubeLocator superCube, int level)
-{
-    const int sectorSize = LOD_SECTOR_SIZE[0];
-    const int cubeSize = LOD_CUBE_SIZE[0];
-    int index = superCube.x * sectorSize * sectorSize + superCube.y * sectorSize + superCube.z;
-    uvec4 data = texelFetch(worldData, ivec2(index / 4, 3000 + level), 0);
-    return data[index % 4] == 0u;
-}
-
-ObjectLocator makeObjectLocator(vec3 locInCube)
-{
-    //locInCube = clamp(locInCube, 0.0, 4.0);
-    int ox = int(floor(locInCube.x));
-    int oy = int(floor(locInCube.y));
-    int oz = int(floor(locInCube.z));
-    return ObjectLocator(ox, oy, oz);
-}
-
-vec3 resolveObjectLocator(ObjectLocator obj)
-{
-    return vec3(
-        float(obj.x) + 0.5,
-        float(obj.y) + 0.5,
-        float(obj.z) + 0.5
-    );
-}
-
-WorldLocator makeWorldLocator(CubeLocator cube, ObjectLocator obj)
-{
-    return WorldLocator(cube, obj);
-}
-
-mat4 cubeTrafo(CubeLocator cube)
-{
-    vec3 p = resolveCubeLocator(cube);
-    return mat4(
-        vec4(1.0, 0.0, 0.0, 0.0),
-        vec4(0.0, 1.0, 0.0, 0.0),
-        vec4(0.0, 0.0, 1.0, 0.0),
-        vec4(p, 1.0)
-    );
-}
-
-mat4 cubeTrafoInverse(CubeLocator cube)
-{
-    vec3 p = resolveCubeLocator(cube);
-    return mat4(
-        vec4(1.0, 0.0, 0.0, 0.0),
-        vec4(0.0, 1.0, 0.0, 0.0),
-        vec4(0.0, 0.0, 1.0, 0.0),
-        vec4(-p, 1.0)
-    );
-}
-
 /* Returns the data offset for the given sector.
  */
-SectorMapEntry sectorDataOffset(int sector)
+SectorMapEntry readSectorMapEntry(int sector)
 {
     int value = int(texelFetch(worldData, ivec2(sector / 4, WORLD_PAGE_SIZE - 1), 0)[sector % 4]);
     return SectorMapEntry(
@@ -313,75 +186,178 @@ SectorMapEntry sectorDataOffset(int sector)
     );
 }
 
-/* Returns the data offset for the given cube within a sector.
+/* Returns the sector at the given world point.
  */
-uint cubeDataOffset(CubeLocator cube, int lod)
+int sectorAt(vec3 p)
 {
-    int sectorSize = LOD_SECTOR_SIZE[lod];
-
-    ivec3 cubeLoc = ivec3(cube.x, cube.y, cube.z);
-    cubeLoc /= LOD_SECTOR_DIV[lod];
-
-    int index = cubeLoc.x * sectorSize * sectorSize +
-                cubeLoc.y * sectorSize +
-                cubeLoc.z;
-    
-    return uint(index);
+    int sectorLength = LOD_SECTOR_SIZE[0] * LOD_CUBE_SIZE[0];
+    ivec3 sectorLoc = ivec3(p) / sectorLength;
+    return sectorLoc.y * (HORIZON_SIZE * HORIZON_SIZE) +
+           sectorLoc.z * HORIZON_SIZE +
+           sectorLoc.x;
 }
 
-/* Returns the data offset for the voxels of a cube.
+/* Returns the cube at the given point in a sector.
  */
-uint voxelDataOffset(uint address, int lod)
+int cubeAt(int sector, vec3 pInSector)
 {
+    const int sectorSize0 = LOD_SECTOR_SIZE[0];
+    const int cubeSize0 = LOD_CUBE_SIZE[0];
+
+    ivec3 cubeLoc = ivec3(pInSector) / cubeSize0;
+    int cube = cubeLoc.x * (sectorSize0 * sectorSize0) +
+               cubeLoc.y * sectorSize0 +
+               cubeLoc.z;
+    return cube;
+}
+
+/* Returns the origin of the given sector in world coordinates.
+ */
+vec3 sectorOrigin(int sector)
+{
+    const int sectorSize = LOD_SECTOR_SIZE[0];
+    const int cubeSize = LOD_CUBE_SIZE[0];
+
+    int y = sector / (HORIZON_SIZE * HORIZON_SIZE);
+    int z = (sector % (HORIZON_SIZE * HORIZON_SIZE)) / HORIZON_SIZE;
+    int x = sector % HORIZON_SIZE;
+
+    return vec3(float(x), float(y), float(z)) * float(sectorSize * cubeSize);
+}
+
+/* Returns the origin of the given cube in world coordinates.
+ */
+vec3 cubeOrigin(int sector, int cube)
+{
+    SectorMapEntry sectorMapEntry = readSectorMapEntry(sector);
+    int lod = sectorMapEntry.lod;
+
+    // get the cube at p - sectorOrigin
+    int sectorSize = LOD_SECTOR_SIZE[lod];
+    int cubeSize = LOD_CUBE_SIZE[0];
+
+    int x = cube / (sectorSize * sectorSize);
+    int y = (cube % (sectorSize * sectorSize) / sectorSize);
+    int z = cube % sectorSize;
+
+    vec3 origin = sectorOrigin(sector) +
+                  vec3(float(x), float(y), float(z)) * float(cubeSize);
+
+    return origin;
+}
+
+uvec4 readCubeEntry(vec3 p)
+{
+    const int sectorSize0 = LOD_SECTOR_SIZE[0];
+    const int cubeSize0 = LOD_CUBE_SIZE[0];
+    const int sectorLength = sectorSize0 * cubeSize0;
+
+    p = clamp(p, 0.0, float(HORIZON_SIZE * sectorLength - 1));
+
+    // get the sector at p
+    ivec3 sectorLoc = ivec3(p) / sectorLength;
+    int sector = sectorLoc.y * (HORIZON_SIZE * HORIZON_SIZE) +
+                 sectorLoc.z * HORIZON_SIZE +
+                 sectorLoc.x;
+    vec3 sectorOrigin = vec3(sectorLoc * sectorLength);
+
+    SectorMapEntry sectorMapEntry = readSectorMapEntry(sector);
+    int lod = sectorMapEntry.lod;
+
+    // get the cube at p - sectorOrigin
+    int sectorSize = LOD_SECTOR_SIZE[lod];
     int cubeSize = LOD_CUBE_SIZE[lod];
-    int sectorSize = LOD_SECTOR_SIZE[lod];
+    vec3 pInSector = p - sectorOrigin;
+    ivec3 cubeLoc = ivec3(pInSector) / cubeSize0;
+    ivec3 lodCubeLoc = cubeLoc / LOD_SECTOR_DIV[lod];
+    int lodCube = lodCubeLoc.x * (sectorSize * sectorSize) +
+                  lodCubeLoc.y * sectorSize +
+                  lodCubeLoc.z;
 
-    if (cubeSize > 1)
-    {
-        uint size = cubeSize == 4 ? 16u
-                                  : 2u;
-        return uint(sectorSize * sectorSize * sectorSize) + address * size;
-    }
-    else
-    {
-        return uint(sectorSize * sectorSize * sectorSize) + address / 4u;
-    }
+    // get the cube data offset and voxel payload address
+    uint cubeDataOffset = sectorMapEntry.address + uint(lodCube * 1);
+    return texelFetch(worldData, textureAddress(cubeDataOffset), 0);
 }
 
-uint voxelType(WorldLocator worldLoc)
+/* Returns the type of voxel at the given world position, or 0 if the
+ * location is empty.
+ */
+uint voxelType(vec3 p)
 {
-    SectorMapEntry sectorMapEntry = sectorDataOffset(worldLoc.cube.sector);
+    const int sectorSize0 = LOD_SECTOR_SIZE[0];
+    const int cubeSize0 = LOD_CUBE_SIZE[0];
+    const int sectorLength = sectorSize0 * cubeSize0;
+
+    p = clamp(p, 0.0, float(HORIZON_SIZE * sectorLength - 1));
+
+    // get the sector at p
+    ivec3 sectorLoc = ivec3(p) / sectorLength;
+    int sector = sectorLoc.y * (HORIZON_SIZE * HORIZON_SIZE) +
+                 sectorLoc.z * HORIZON_SIZE +
+                 sectorLoc.x;
+    vec3 sectorOrigin = vec3(sectorLoc * sectorLength);
+
+    SectorMapEntry sectorMapEntry = readSectorMapEntry(sector);
     if (sectorMapEntry.address == INVALID_SECTOR_ADDRESS)
     {
         //debug = 2;
         return 0u;
     }
-
     int lod = sectorMapEntry.lod;
-    int cubeSize = LOD_CUBE_SIZE[lod];
+
+    // get the cube at p - sectorOrigin
     int sectorSize = LOD_SECTOR_SIZE[lod];
+    int cubeSize = LOD_CUBE_SIZE[lod];
+    vec3 pInSector = p - sectorOrigin;
+    ivec3 cubeLoc = ivec3(pInSector) / cubeSize0;
+    ivec3 lodCubeLoc = cubeLoc / LOD_SECTOR_DIV[lod];
+    int cube = cubeLoc.x * (sectorSize0 * sectorSize0) +
+               cubeLoc.y * sectorSize0 +
+               cubeLoc.z;
+    int lodCube = lodCubeLoc.x * (sectorSize * sectorSize) +
+                  lodCubeLoc.y * sectorSize +
+                  lodCubeLoc.z;
+    vec3 cubeOrigin = vec3(cubeLoc * cubeSize0);
 
-    ivec3 loc = ivec3(worldLoc.object.x, worldLoc.object.y, worldLoc.object.z);
-    loc /= LOD_CUBE_DIV[lod];
-    loc /= LOD_SECTOR_DIV[lod];
+    // get the voxel payload address
+    uint cubeDataAddress = readCubeEntry(p).b;
 
-    uint cubeOffset = sectorMapEntry.address + cubeDataOffset(worldLoc.cube, sectorMapEntry.lod);
-    uint address = texelFetch(worldData, textureAddress(cubeOffset), 0).b;
+    vec3 pInCube = pInSector - cubeOrigin; 
+    ivec3 voxelLoc = ivec3(pInCube);
+    ivec3 lodVoxelLoc = voxelLoc / LOD_CUBE_DIV[lod];
+    int voxel = voxelLoc.x * (cubeSize0 * cubeSize0) +
+                voxelLoc.y * cubeSize0 +
+                voxelLoc.z;
+    int lodVoxel = lodVoxelLoc.x * cubeSize * cubeSize +
+                   lodVoxelLoc.y * cubeSize +
+                   lodVoxelLoc.z;
 
-    if (cubeSize > 1)
+    int cubesPerSector = sectorSize * sectorSize * sectorSize;
+    int voxelsPerCube = cubeSize * cubeSize * cubeSize;
+    if (cubeSize == 4)
     {
-        int bitsPerCoord = cubeSize == 4 ? 2 : 1;
-        int voxelIndex = (loc.x << (bitsPerCoord + bitsPerCoord)) +
-                         (loc.y << bitsPerCoord) +
-                         loc.z;
-        uint voxelOffset = sectorMapEntry.address + voxelDataOffset(address, lod);
-
-        return texelFetch(worldData, textureAddress(voxelOffset + uint(voxelIndex / 4)), 0)[voxelIndex % 4];
+        uint size = cubeSize == 4 ? 16u
+                                  : 2u;
+        uint voxelAddress = sectorMapEntry.address +
+                            uint(cubesPerSector) +
+                            cubeDataAddress * 16u +
+                            uint(lodVoxel / 4);
+        return texelFetch(worldData, textureAddress(voxelAddress), 0)[lodVoxel % 4];
+    }
+    else if (cubeSize == 2)
+    {
+        uint voxelAddress = sectorMapEntry.address +
+                            uint(cubesPerSector) +
+                            cubeDataAddress * 2u +
+                            uint(lodVoxel / 4);
+        return texelFetch(worldData, textureAddress(voxelAddress), 0)[lodVoxel % 4];
     }
     else
     {
-        uint voxelOffset = sectorMapEntry.address + voxelDataOffset(address, lod);
-        return texelFetch(worldData, textureAddress(voxelOffset), 0)[address % 4u];
+        uint voxelAddress = sectorMapEntry.address +
+                            uint(cubesPerSector) +
+                            cubeDataAddress  / 4u;
+        return texelFetch(worldData, textureAddress(voxelAddress), 0)[cubeDataAddress % 4u];
     }
 }
 
@@ -736,34 +712,6 @@ float getLightRange(int n)
     return texelFetch(lightsData, ivec2(pos + 2, 0), 0).r;
 }
 
-mat4 getObjectTrafo(WorldLocator loc)
-{
-    mat4 cm = cubeTrafo(loc.cube);
-    vec3 p = resolveObjectLocator(loc.object);
-    mat4 om = mat4(
-        vec4(1.0, 0.0, 0.0, 0.0),
-        vec4(0.0, 1.0, 0.0, 0.0),
-        vec4(0.0, 0.0, 1.0, 0.0),
-        vec4(p, 1.0)
-    );
-
-    return cm * om;
-}
-
-mat4 getObjectInverseTrafo(WorldLocator loc)
-{
-    mat4 cm = cubeTrafoInverse(loc.cube);
-    vec3 p = resolveObjectLocator(loc.object);
-    mat4 om = mat4(
-        vec4(1.0, 0.0, 0.0, 0.0),
-        vec4(0.0, 1.0, 0.0, 0.0),
-        vec4(0.0, 0.0, 1.0, 0.0),
-        vec4(-p, 1.0)
-    );
-
-    return cm * om;
-}
-
 vec3 refr(vec3 ray, vec3 surfaceNormal, float ior)
 {
     float eta = 1.0 / ior;
@@ -792,24 +740,6 @@ vec3 refr(vec3 ray, vec3 surfaceNormal, float ior)
         float t2 = cosi * eta + fastSqrt(k);
         return t1 - surfaceNormal * t2;
     }
-}
-
-/* Transforms a world-space point into object space.
- */
-vec3 transformPoint(vec3 p, WorldLocator obj)
-{
-    mat4 m = getObjectInverseTrafo(obj);
-    return (m * vec4(p, 1.0)).xyz;    
-}
-
-/* Transforms a surface normal in object space into world space.
- */
-vec3 transformNormalOW(vec3 normal, WorldLocator obj)
-{
-    mat4 trafo = getObjectTrafo(obj);
-    vec3 objLocW = (trafo * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
-    vec3 surfaceLocW = (trafo * vec4(normal, 1.0)).xyz;
-    return normalize(surfaceLocW - objLocW);
 }
 
 /*
@@ -1089,50 +1019,16 @@ bool isEdgeX(vec3 p, float epsilon)
     return p.y > 0.5 - epsilon && abs(p.y - p.z) < epsilon;
 }
 
-vec3 getSurfaceNormal(vec3 p)
-{
-    // p is in object space
-
-    vec3 d = abs(p);
-    if (d.x > d.y && d.x > d.z)
-    {
-        return vec3(sign(p.x), 0.0, 0.0);
-    }
-    if (d.y > d.z)
-    {
-        return vec3(0.0, sign(p.y), 0.0);
-    }
-    return vec3(0.0, 0.0, sign(p.z));
-
-
-    // this gives rounded edges...
-    /*
-    // move p a step away from the surface to not fall into the object
-    p *= 1.001;
-    float epsilon = 0.05;
-    return normalize(
-        vec3(
-            sdfBox(p + vec3(epsilon, 0.0, 0.0)) - sdfBox(p + vec3(-epsilon, 0.0, 0.0)),
-            sdfBox(p + vec3(0.0, epsilon, 0.0)) - sdfBox(p + vec3(0.0, -epsilon, 0.0)),
-            sdfBox(p + vec3(0.0, 0.0, epsilon)) - sdfBox(p + vec3(0.0, 0.0, -epsilon))
-        )
-    );
-    */
-}
-
-/* Returns the surface material at the given location as a mat3:
- *
- * - vec3: color
- * - vec3: normal vector (z pointing upwards)
- * - vec3: roughness, ior, volumetric
+/* Returns the surface material at the given location.
  */
-Material getObjectMaterial(WorldLocator obj, vec3 p, vec3 worldP, float travelDist)
+Material getObjectMaterial(vec3 p, float dist, vec3 surfaceNormal)
 {
-    int materialId = int(voxelType(obj));
+    int materialId = int(voxelType(p));
+
     vec2 st = p.xy;
 
     // position texture on cube
-    vec3 n = getSurfaceNormal(p);
+    vec3 n = surfaceNormal;
     vec3 p2 = abs(n.y) > 0.0 ? n.zxy : n.zyx;
     float dp = dot(n, p2);
     vec3 axis1 = normalize(p2 - dp * n);
@@ -1143,7 +1039,7 @@ Material getObjectMaterial(WorldLocator obj, vec3 p, vec3 worldP, float travelDi
 
     if (enableTasm)
     {
-        return processTasm(materialId, st, worldP, travelDist);
+        return processTasm(materialId, st, p, dist);
     }
     else
     {
@@ -1156,7 +1052,7 @@ Material getObjectMaterial(WorldLocator obj, vec3 p, vec3 worldP, float travelDi
     }
 }
 
-bool cubeHasVoxel(ObjectLocator objLoc, uvec2 pattern, int lod)
+bool cubeHasVoxel(vec3 pInCube, uvec2 pattern, int lod)
 {
     int cubeSize = LOD_CUBE_SIZE[lod];
 
@@ -1165,7 +1061,7 @@ bool cubeHasVoxel(ObjectLocator objLoc, uvec2 pattern, int lod)
 
     if (cubeSize > 1)
     {
-        ivec3 loc = ivec3(objLoc.x, objLoc.y, objLoc.z);
+        ivec3 loc = ivec3(pInCube);
         loc /= LOD_CUBE_DIV[lod];
         int bitsPerCoord = cubeSize == 4 ? 2 : 1;
         int n = (loc.x << (bitsPerCoord + bitsPerCoord)) +
@@ -1242,48 +1138,49 @@ bool mayHitVoxels(vec3 entryPoint, vec3 exitPoint, uvec2 pattern, int lod)
 
 bool hasVoxelAt(vec3 p)
 {
-    CubeLocator cube = makeSuperCubeLocator(p, 0);
-    mat4 m = cubeTrafoInverse(cube);
-    vec3 pT = (m * vec4(p, 1.0)).xyz;
-    ObjectLocator objLoc = makeObjectLocator(pT);
+    int sector = sectorAt(p);
+    vec3 sectorOrgn = sectorOrigin(sector);
+    int cubeIdx = cubeAt(sector, p - sectorOrgn);
+    vec3 cubeOrgn = cubeOrigin(sector, cubeIdx);
+    vec3 pT = p - cubeOrgn;
 
-    SectorMapEntry sectorMapEntry = sectorDataOffset(cube.sector);
+    SectorMapEntry sectorMapEntry = readSectorMapEntry(sector);
     if (sectorMapEntry.address == INVALID_SECTOR_ADDRESS)
     {
         //debug = 2;
         return false;
     }
-    uint offset = sectorMapEntry.address + cubeDataOffset(cube, sectorMapEntry.lod);
-    uvec4 patternAndAddress = texelFetch(worldData, textureAddress(offset), 0);
+    uvec4 patternAndAddress = readCubeEntry(p);
 
-    return cubeHasVoxel(objLoc, patternAndAddress.rg, sectorMapEntry.lod);
+    return cubeHasVoxel(pT, patternAndAddress.rg, sectorMapEntry.lod);
 }
 
-ObjectAndDistance raymarchVoxels(CubeLocator cube, vec3 origin, vec3 entryPoint, vec3 rayDirection)
+vec4 raymarchVoxels(vec3 initProbePoint, vec3 origin, vec3 entryPoint, vec3 rayDirection)
 {
-    WorldLocator noObject;
+    int sector = sectorAt(initProbePoint);
+    vec3 sectorOrgn = sectorOrigin(sector);
+    int cubeIdx = cubeAt(sector, initProbePoint - sectorOrgn);
+    vec3 cubeOrgn = cubeOrigin(sector, cubeIdx);
 
-    SectorMapEntry sectorMapEntry = sectorDataOffset(cube.sector);
+    SectorMapEntry sectorMapEntry = readSectorMapEntry(sector);
     int lod = sectorMapEntry.lod;
     if (sectorMapEntry.address == INVALID_SECTOR_ADDRESS)
     {
         // this sector is empty
         //debug = 2;
-        return ObjectAndDistance(false, noObject, fastDistance(origin, entryPoint), entryPoint, vec3(0.0));
+        return vec4(entryPoint, 0.0);
     }
-    uint offset = sectorMapEntry.address + cubeDataOffset(cube, sectorMapEntry.lod);
-    uvec4 patternAndAddress = texelFetch(worldData, textureAddress(offset), 0);
+    uvec4 patternAndAddress = readCubeEntry(initProbePoint);
     
     vec3 exitPoint = entryPoint + rayDirection * 8.0;
 
-    mat4 m = cubeTrafoInverse(cube);
-    vec3 entryPointT = (m * vec4(entryPoint, 1.0)).xyz;
-    vec3 exitPointT = (m * vec4(exitPoint, 1.0)).xyz;
+    vec3 entryPointT = entryPoint - cubeOrgn;
+    vec3 exitPointT = exitPoint - cubeOrgn;
 
     if (! mayHitVoxels(entryPointT, exitPointT, patternAndAddress.rg, lod))
     {
         ++skipCount;
-        return ObjectAndDistance(false, noObject, fastDistance(origin, entryPoint), entryPoint, vec3(0.0));
+        return vec4(entryPoint, 0.0);
     }
 
     vec3 p = entryPoint;
@@ -1293,11 +1190,9 @@ ObjectAndDistance raymarchVoxels(CubeLocator cube, vec3 origin, vec3 entryPoint,
     const float gridSize = 1.0;
     //float gridSize = 1.0 * float(LOD_CUBE_SIZE[0] / LOD_CUBE_SIZE[lod]);
 
-    ObjectLocator objLoc = makeObjectLocator(probePoint);
-    if (cubeHasVoxel(objLoc, patternAndAddress.rg, lod))
+    if (cubeHasVoxel(probePoint, patternAndAddress.rg, lod))
     {
-        WorldLocator obj = makeWorldLocator(cube, objLoc);
-        return ObjectAndDistance(true, obj, fastDistance(origin, p), p, transformPoint(p, obj));
+        return vec4(p, 1.0);
     }
 
     vec3 invRayDirection = 1.0 / abs(rayDirection);
@@ -1375,22 +1270,17 @@ ObjectAndDistance raymarchVoxels(CubeLocator cube, vec3 origin, vec3 entryPoint,
             break;
         }
 
-        ObjectLocator objLoc = makeObjectLocator(probePoint);
-        if (cubeHasVoxel(objLoc, patternAndAddress.rg, lod))
+        if (cubeHasVoxel(probePoint, patternAndAddress.rg, lod))
         {
-            WorldLocator obj = makeWorldLocator(cube, objLoc);
-            return ObjectAndDistance(true, obj, fastDistance(origin, p), p, transformPoint(p, obj));
+            return vec4(p + advanceVec * 0.01, 1.0);
         }
     }
 
-    return ObjectAndDistance(false, noObject, fastDistance(origin, p), p, vec3(0.0));
+    return vec4(p, 0.0);
 }
 
-ObjectAndDistance raymarchCubes(vec3 origin, vec3 rayDirection, float maxDistance)
+vec4 raymarchCubes(vec3 origin, vec3 rayDirection, float maxDistance)
 {
-    WorldLocator noObject;
-    ObjectAndDistance result;
-
     const int sectorSize = LOD_SECTOR_SIZE[0];
     const int cubeSize = LOD_CUBE_SIZE[0];
 
@@ -1398,17 +1288,16 @@ ObjectAndDistance raymarchCubes(vec3 origin, vec3 rayDirection, float maxDistanc
     vec3 p = origin;
     vec3 probePoint = origin;
 
-    CubeLocator originCube = makeSuperCubeLocator(probePoint, 0);
-    result = raymarchVoxels(originCube, origin, p, rayDirection);
-    if (result.hit)
+    vec4 result = raymarchVoxels(probePoint, origin, p, rayDirection);
+    if (result.w > 0.0)
     {
         return result;
     }
 
-    int currentSector = originCube.sector;
-    int lod = sectorDataOffset(currentSector).lod;
-    //const float gridSize = 4.0;
-    float gridSize = lod == 0 ? 4.0 : 4.0 * float(LOD_SECTOR_SIZE[0] / LOD_SECTOR_SIZE[lod - 1]);
+    int sector = sectorAt(probePoint);
+    int lod = readSectorMapEntry(sector).lod;
+    float gridSize = lod == 0 ? 4.0
+                              : 4.0 * float(LOD_SECTOR_SIZE[0] / LOD_SECTOR_SIZE[lod - 1]);
 
     vec3 invRayDirection = 1.0 / abs(rayDirection);
     vec3 rayDirectionSigns = sign(rayDirection);
@@ -1481,8 +1370,7 @@ ObjectAndDistance raymarchCubes(vec3 origin, vec3 rayDirection, float maxDistanc
             squaredDist(p, origin) > maxDistanceSquared)
         {
             // out of range
-            //result = ObjectAndDistance(false, noObject, p, vec3(0.0), maxDistance);
-            result.p = p;
+            result = vec4(p, 0.0);
             break;
         }
 
@@ -1493,22 +1381,17 @@ ObjectAndDistance raymarchCubes(vec3 origin, vec3 rayDirection, float maxDistanc
             clamp(p.y, probePointFloored.y, probePointFloored.y + 3.9999),
             clamp(p.z, probePointFloored.z, probePointFloored.z + 3.9999)
         );
-        CubeLocator cube = makeSuperCubeLocator(probePoint, 0);
-        result = raymarchVoxels(cube, origin, p, rayDirection);
-        if (result.hit)
+        result = raymarchVoxels(probePoint, origin, p, rayDirection);
+        if (result.w > 0.0)
         {
             break;
-        }
-        else
-        {
-            result.p = p;
         }
     }
 
     return result;
 }
 
-ObjectAndDistance raymarch(vec3 origin, vec3 rayDirection, float maxDistance)
+vec4 raymarch(vec3 origin, vec3 rayDirection, float maxDistance)
 {
     return raymarchCubes(origin, rayDirection, maxDistance);
 }
@@ -1552,8 +1435,8 @@ vec3 phongShading(int lightSource, vec3 origin, vec3 checkPoint, vec3 ambience, 
     {
         // we may not have to go all the way to the light to know if it reaches (it may be far far away)
         float optimizedLightDistance = min(lightDistance, 100.0);
-        ObjectAndDistance hitSample = raymarch(checkPoint + directionToLight * 0.1, directionToLight, optimizedLightDistance);
-        if (hitSample.hit)
+        vec4 hitSample = raymarch(checkPoint + directionToLight * 0.1, directionToLight, optimizedLightDistance);
+        if (hitSample.w > 0.0)
         {
             // nope
             return lighting;
@@ -1586,34 +1469,36 @@ vec3 phongShading(int lightSource, vec3 origin, vec3 checkPoint, vec3 ambience, 
     return lighting.rgb;
 }
 
-float ambientOcclusion(vec3 p, WorldLocator obj, mat4 surfaceTrafo, float size)
+float ambientOcclusion(vec3 p, mat4 surfaceTrafo, float size)
 {
-    // p is in object space
+    // p is in world space
 
-    mat4 aoTrafo = getObjectTrafo(obj);
+    vec3 tangent = surfaceTrafo[0].xyz;
+    vec3 bitangent = surfaceTrafo[1].xyz;
+    vec3 surfaceNormal = surfaceTrafo[2].xyz; 
 
-    // move p away from the surface a bit and transform to object space
-    vec3 awayFromSurface = (surfaceTrafo * vec4(0.0, 0.0, 0.1, 1.0)).xyz;
-    vec3 pT = transformPoint(p + awayFromSurface, obj);
+    // move p away from the surface a bit
+    p += surfaceNormal * 0.1;
 
     // p in surface space for distance computations
-    vec3 surfacePoint = (inverse(surfaceTrafo) * vec4(transformPoint(p, obj), 1.0)).xyz;
+    vec3 surfacePoint = (inverse(surfaceTrafo) * vec4(mod(p, 1.0), 1.0)).xyz;
 
-    // build direction vectors in object space
-    vec3 v1 = (surfaceTrafo * vec4(size, 0.0, 0.0, 1.0)).xyz;
-    vec3 v2 = (surfaceTrafo * vec4(0.0, size, 0.0, 1.0)).xyz;
+    // build direction vectors
+    vec3 v1 = tangent * size;
+    vec3 v2 = bitangent * size;
 
     // compute sample points in world space
     vec3 samplePoints[8];
-    samplePoints[0] = (aoTrafo * vec4(pT + v1, 1.0)).xyz;
-    samplePoints[1] = (aoTrafo * vec4(pT - v1, 1.0)).xyz;
-    samplePoints[2] = (aoTrafo * vec4(pT + v2, 1.0)).xyz;
-    samplePoints[3] = (aoTrafo * vec4(pT - v2, 1.0)).xyz;
+    samplePoints[0] = p + v1; 
+    samplePoints[1] = p - v1;
+    samplePoints[2] = p + v2;
+    samplePoints[3] = p - v2;
 
-    samplePoints[4] = (aoTrafo * vec4(pT + v1 + v2, 1.0)).xyz;
-    samplePoints[5] = (aoTrafo * vec4(pT - v1 - v2, 1.0)).xyz;
-    samplePoints[6] = (aoTrafo * vec4(pT + v1 - v2, 1.0)).xyz;
-    samplePoints[7] = (aoTrafo * vec4(pT - v1 + v2, 1.0)).xyz;
+    // diagonal samples
+    samplePoints[4] = p + v1 + v2;
+    samplePoints[5] = p - v1 - v2; 
+    samplePoints[6] = p + v1 - v2;
+    samplePoints[7] = p - v1 + v2;
 
     // check for neighbors
     bool samples[8];
@@ -1623,10 +1508,12 @@ float ambientOcclusion(vec3 p, WorldLocator obj, mat4 surfaceTrafo, float size)
     }
 
     // the distance to the surface edges specifies the occlusion strength
-    float dist1 = 0.5 - surfacePoint.x;
-    float dist2 = surfacePoint.x + 0.5;
-    float dist3 = 0.5 - surfacePoint.y;
-    float dist4 = surfacePoint.y + 0.5;
+    float dist1 = 0.1; //abs(1.0 - surfacePoint.x);
+    float dist2 = 0.1; //abs(0.0 - surfacePoint.x);
+    float dist3 = 0.1; //abs(1.0 - surfacePoint.y);
+    float dist4 = 0.1; //abs(0.0 - surfacePoint.y);
+
+    //if (abs(0.5 - surfacePoint.x) < 0.1 || abs(0.5 - surfacePoint.y) < 0.1 || abs(0.5 - surfacePoint.z) < 0.1) debug = 2;
 
     float shadow = ((samples[0] ? size - dist1 : 0.0) +
                     (samples[1] ? size - dist2 : 0.0) +
@@ -1635,10 +1522,10 @@ float ambientOcclusion(vec3 p, WorldLocator obj, mat4 surfaceTrafo, float size)
 
     // the corners in surface space
     vec2 corners[4] = vec2[](
-        vec2(0.5, 0.5),
-        vec2(-0.5, -0.5),
-        vec2(0.5, -0.5),
-        vec2(-0.5, 0.5)
+        vec2(1.0, 1.0),
+        vec2(0.0, 0.0),
+        vec2(1.0, 0.0),
+        vec2(0.0, 1.0)
     );
 
     float cornerShadow = 0.0;
@@ -1649,14 +1536,14 @@ float ambientOcclusion(vec3 p, WorldLocator obj, mat4 surfaceTrafo, float size)
         {
             float dx = corners[i].x - surfacePoint.x;
             float dy = corners[i].y - surfacePoint.y;
-            float dist = fastSqrt(dx * dx + dy * dy);
+            float dist = 0.1; //fastSqrt(dx * dx + dy * dy);
             cornerShadow += size - dist;
             cornerLine = dist < 0.05;
         }
     }
     cornerShadow /= (2.0 * size);
 
-    shadow = max(shadow, cornerShadow);
+    shadow = max(abs(shadow), abs(cornerShadow));
 
     aoEdge = shadow > 0.01 &&
              (cornerLine ||
@@ -1671,22 +1558,23 @@ float ambientOcclusion(vec3 p, WorldLocator obj, mat4 surfaceTrafo, float size)
 /* Determining the box normals is tricky around the edges and corners.
  * To get this right, we have to check their surroundings.
  */
-vec3 getCorrectedBoxNormals(WorldLocator obj, vec3 p, vec3 rayDirection)
+vec3 getCorrectedBoxNormals(vec3 p, vec3 rayDirection)
 {
-    // p is in object space
+    // p is in world space
 
     // we have to check the neighbors to resolve surface normal ambiguities at the edges
-    vec3 centerPoint = (getObjectTrafo(obj) * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
+    vec3 centerPoint = vec3(ivec3(p)) + 0.5;
+    vec3 pT = p - centerPoint;
 
     // the three normals facing towards the camera
-    vec3 surfaceNormalX = vec3(sign(p.x), 0.0, 0.0);
-    vec3 surfaceNormalY = vec3(0.0, sign(p.y), 0.0);
-    vec3 surfaceNormalZ = vec3(0.0, 0.0, sign(p.z));
+    vec3 surfaceNormalX = vec3(sign(pT.x), 0.0, 0.0);
+    vec3 surfaceNormalY = vec3(0.0, sign(pT.y), 0.0);
+    vec3 surfaceNormalZ = vec3(0.0, 0.0, sign(pT.z));
 
     // we have to check the dot products for negativity to filter out normals facing away
     float dotX = dot(surfaceNormalX, -rayDirection);
     float dotY = dot(surfaceNormalY, -rayDirection);
-    // dotZ not required
+    float dotZ = dot(surfaceNormalZ, -rayDirection);
 
     // check if there are neighbors on sides facing to the camera,
     // as these sides cannot be visible
@@ -1695,15 +1583,14 @@ vec3 getCorrectedBoxNormals(WorldLocator obj, vec3 p, vec3 rayDirection)
     bool hasZNeighbor = hasVoxelAt(centerPoint + surfaceNormalZ);
 
     // the interesting (because ambiguous) places are the edges and corners
-    bool nearEdgeX = isEdgeX(p, 0.05);
-    bool nearEdgeY = isEdgeY(p, 0.05);
-    bool nearEdgeZ = isEdgeZ(p, 0.05);
-    
-    
-    bool edgeX = nearEdgeX && isEdgeX(p, 0.0001);
-    bool edgeY = nearEdgeY && isEdgeY(p, 0.0001);
-    bool edgeZ = nearEdgeZ && isEdgeZ(p, 0.0001);
-    
+    bool nearEdgeX = isEdgeX(pT, 0.05);
+    bool nearEdgeY = isEdgeY(pT, 0.05);
+    bool nearEdgeZ = isEdgeZ(pT, 0.05);
+
+    bool edgeX = nearEdgeX && isEdgeX(pT, 0.03);
+    bool edgeY = nearEdgeY && isEdgeY(pT, 0.03);
+    bool edgeZ = nearEdgeZ && isEdgeZ(pT, 0.03);
+
     // side-computation: only free edges may show outlines
     freeEdge = nearEdgeX && (! hasYNeighbor && ! hasZNeighbor) ||
                nearEdgeY && (! hasXNeighbor && ! hasZNeighbor) ||
@@ -1711,86 +1598,82 @@ vec3 getCorrectedBoxNormals(WorldLocator obj, vec3 p, vec3 rayDirection)
 
     vec3 surfaceNormal;
 
-    // the easy case: two normals blocked, only one left
-    if (hasXNeighbor && hasZNeighbor)
-    {
-        surfaceNormal = surfaceNormalY;
-    }
-    else if (hasXNeighbor && hasYNeighbor)
-    {
-        surfaceNormal = surfaceNormalZ;
-    }
-    else if (hasYNeighbor && hasZNeighbor)
-    {
-        surfaceNormal = surfaceNormalX;
-    }
+    bool mayUseX = true;
+    bool mayUseY = true;
+    bool mayUseZ = true;
 
-    // where two edges meet, there is a corner
+    // sort out the obvious cases
+    if (hasXNeighbor) mayUseX = false;
+    if (hasYNeighbor) mayUseY = false;
+    if (hasZNeighbor) mayUseZ = false;
+
+    // sort ouf what's facing away
+    if (dotX <= 0.0) mayUseX = false;
+    if (dotY <= 0.0) mayUseY = false;
+    if (dotZ <= 0.0) mayUseZ = false;
+
+    if (! edgeX && ! edgeY && ! edgeZ)
+    {
+        // sort out non-edges
+        vec3 d = abs(pT);
+        if (d.x > d.y && d.x > d.z)
+        {
+            mayUseY = false;
+            mayUseZ = false;
+        }
+        else if (d.y > d.x && d.y > d.z)
+        {
+            mayUseX = false;
+            mayUseZ = false;
+        }
+        else if (d.z > d.x && d.z > d.y)
+        {
+            mayUseX = false;
+            mayUseY = false;
+        }
+    }
     else if (edgeX && edgeY || edgeY && edgeZ || edgeX && edgeZ)
     {
+        // sort out corners
         if (hasXNeighbor)
         {
-            surfaceNormal = dotY > 0.0 && ! hasYNeighbor ? surfaceNormalY : surfaceNormalZ;
+            if (! hasYNeighbor && dotY > 0.0) mayUseZ = false;
+            else mayUseY = false;
         }
-        else if (hasYNeighbor)
+        if (hasYNeighbor)
         {
-            surfaceNormal = dotX > 0.0 && ! hasXNeighbor ? surfaceNormalX : surfaceNormalZ;
+            if (! hasXNeighbor && dotX > 0.0) mayUseZ = false;
+            else mayUseX = false;
         }
-        else if (hasZNeighbor)
+        if (hasZNeighbor)
         {
-            surfaceNormal = dotX > 0.0 && ! hasXNeighbor ? surfaceNormalX : surfaceNormalY;
+            if (! hasXNeighbor && dotX > 0.0) mayUseY = false;
+            else mayUseX = false;
         }
-        else
-        {
-            surfaceNormal = dotX > 0.0 ? surfaceNormalX : dotY > 0.0 ? surfaceNormalY : surfaceNormalZ;
-        }
-    }
-    else if (edgeZ)
-    {
-        //debug = 2;
-        surfaceNormal = hasXNeighbor || dotX <= 0.0 ? surfaceNormalY : surfaceNormalX;
-    }
-    else if (edgeX)
-    {
-        surfaceNormal = hasYNeighbor || dotY <= 0.0 ? surfaceNormalZ : surfaceNormalY;
-    }
-    else if (edgeY)
-    {
-        surfaceNormal = hasXNeighbor || dotX <= 0.0 ? surfaceNormalZ : surfaceNormalX;
     }
     else
     {
-        //debug = 2;
-        surfaceNormal = getSurfaceNormal(p);
+        // sort out edges
+        if (edgeX) mayUseX = false;
+        if (edgeY) mayUseY = false;
+        if (edgeZ) mayUseZ = false;
     }
 
-    return surfaceNormal;
+    if (mayUseX) return surfaceNormalX;
+    if (mayUseY) return surfaceNormalY;
+    if (mayUseZ) return surfaceNormalZ;
+
+    // this should not happen (no normal left to use)
+    debug = 2;
+    return surfaceNormalX;
 }
 
-Material computeMaterial(ObjectAndDistance obj)
+vec3 computeLighting(vec3 origin, vec3 rayDirection, vec3 p, vec3 surfaceNormal)
 {
-    return getObjectMaterial(obj.object, obj.pT, obj.p, obj.distance);
-}
-
-SurfaceNormal computeNormalVector(vec3 origin, vec3 rayDirection, ObjectAndDistance obj, vec3 bumpNormal)
-{
-    vec3 surfaceNormal = getCorrectedBoxNormals(obj.object, obj.pT, rayDirection);
-
-    mat4 surfaceTrafo = createSurfaceTrafo(surfaceNormal);
-    vec3 bumpNormalT = (surfaceTrafo * vec4(bumpNormal, 1.0)).xyz;
-
-    return SurfaceNormal(
-        transformNormalOW(surfaceNormal, obj.object),
-        transformNormalOW(bumpNormalT, obj.object)
-    );
-}
-
-vec3 computeLighting(vec3 origin, vec3 rayDirection, ObjectAndDistance obj, SurfaceNormal surfaceNormal)
-{
-    vec3 ambience = vec3(0.2) * (enableAmbientOcclusion && obj.distance < 100.0 ? ambientOcclusion(obj.p, obj.object, createSurfaceTrafo(surfaceNormal.straight), 0.1)
-                                                                                : 1.0);
-
-    vec3 light = phongShading(0, origin, obj.p, ambience, surfaceNormal.bump, 1.0);
+    vec3 ambience = vec3(0.2) * (enableAmbientOcclusion && fastDistance(p, origin) < 100.0
+                    ? ambientOcclusion(p, createSurfaceTrafo(surfaceNormal), 0.2)
+                    : 1.0);
+    vec3 light = phongShading(0, origin, p, ambience, surfaceNormal, 1.0);
 
     return light;
 }
@@ -1809,27 +1692,30 @@ Channels processChannels(Channels channels)
     vec3 origin = channels.indirectP;
     vec3 incomingRayDirection = channels.rayDirection;
 
-    ObjectAndDistance objAndDistance = raymarch(origin, channels.rayDirection, 9999.0);
+    vec4 depthPoint = raymarch(origin, channels.rayDirection, 9999.0);
     if (channels.bounces == 0)
     {
-        channels.p = objAndDistance.p;
-        channels.indirectP = objAndDistance.p;
+        channels.p = depthPoint.xyz;
+        channels.indirectP = depthPoint.xyz;
     }
     else
     {
-        channels.indirectP = objAndDistance.p;
+        channels.indirectP = depthPoint.xyz;
     }
-    channels.totalDistance += objAndDistance.distance;
+    channels.totalDistance += fastDistance(origin, depthPoint.xyz);
 
-    if (objAndDistance.hit)
+    if (depthPoint.w > 0.0)
     {
-        Material material = computeMaterial(objAndDistance);
-        SurfaceNormal surfaceNormal = computeNormalVector(origin, channels.rayDirection, objAndDistance, material.normal);
-        channels.surfaceNormal = surfaceNormal.bump;
-        channels.roughness = material.roughness;
-        channels.ior = material.ior;
+        uint vtype = voxelType(depthPoint.xyz);
+
+        float dist = channels.totalDistance;
+        vec3 surfaceNormal = getCorrectedBoxNormals(depthPoint.xyz, channels.rayDirection);
+        Material material = getObjectMaterial(depthPoint.xyz, dist, surfaceNormal);
+        vec3 bumpNormal = (createSurfaceTrafo(surfaceNormal) * vec4(material.normal, 1.0)).xyz;
+
+        channels.surfaceNormal = bumpNormal;
+        channels.light += computeLighting(channels.origin, channels.rayDirection, depthPoint.xyz, bumpNormal);
         channels.albedo *= material.color;
-        //channels.light += computeLighting(origin, channels.rayDirection, objAndDistance, surfaceNormal);
 
         if (material.roughness < 1.0)
         {
@@ -1849,14 +1735,16 @@ Channels processChannels(Channels channels)
                 channels.indirectP += channels.rayDirection * 0.01;
             }
 
+            // TODO: do something with the roughness
             float fresnel = pow(clamp(1.0 - dot(channels.surfaceNormal, channels.rayDirection * -1.0), 0.5, 1.0), 1.0);
-            channels.light += (1.0 - material.roughness) * computeLighting(origin, incomingRayDirection, objAndDistance, surfaceNormal) * fresnel;
+            channels.light *= fresnel;
 
+            channels.origin = channels.indirectP;
             ++channels.bounces;
         }
         else if (material.ior > 0.0)
         {
-            vec3 refractedRay = refr(channels.rayDirection, channels.surfaceNormal, channels.ior);
+            vec3 refractedRay = refr(channels.rayDirection, channels.surfaceNormal, material.ior);
             if (length(refractedRay) < 0.0001)
             {
                 // total internal reflection
@@ -1868,13 +1756,12 @@ Channels processChannels(Channels channels)
                 channels.rayDirection = normalize(refractedRay);
             }
             channels.indirectP += channels.rayDirection * 0.01;
-            channels.light += computeLighting(origin, incomingRayDirection, objAndDistance, surfaceNormal);
 
+            channels.origin = channels.indirectP;
             ++channels.bounces;
         }
         else
         {
-            channels.light += computeLighting(origin, incomingRayDirection, objAndDistance, surfaceNormal);
             channels.final = true;
         }
     }
@@ -1914,15 +1801,16 @@ void main()
     vec3 cameraPosition = vec3(0, 0, -0.1);
 
     // transform the camera location and orientation
-    vec3 origin = (cameraTrafo * vec4(cameraPosition, 1.0)).xyz;
+    vec3 viewOrigin = (cameraTrafo * vec4(cameraPosition, 1.0)).xyz;
     vec3 screenPoint = (cameraTrafo * vec4(uv.x, uv.y / aspect, 1.0, 1.0)).xyz;
     // shoot a ray from the camera onto the near plane (screen)
-    vec3 rayDirection = normalize(screenPoint - origin);
+    vec3 rayDirection = normalize(screenPoint - viewOrigin);
 
     Channels channels;
-    vec3 currentOrigin = origin;
+    vec3 currentOrigin = viewOrigin;
 
-    channels.indirectP = origin;
+    channels.origin = viewOrigin;
+    channels.indirectP = viewOrigin;
     channels.rayDirection = rayDirection;
     channels.albedo = vec3(1.0);
     channels.light = vec3(0.0);
@@ -1946,7 +1834,7 @@ void main()
     }
     channels.outline = freeEdge || aoEdge;
 
-    float dist = fastDistance(origin, channels.indirectP);
+    float dist = fastDistance(viewOrigin, channels.indirectP);
 
     if (tasmProgramTooLong)
     {
@@ -1990,7 +1878,7 @@ void main()
 
         // apply distance fog
         float clampedDist = clamp(dist, 0.0, 400.0);
-        float heightDensity = max(0.0, (500.0 - abs(origin.y - channels.indirectP.y)) / 500.0);
+        float heightDensity = max(0.0, (500.0 - abs(viewOrigin.y - channels.indirectP.y)) / 500.0);
         float fogDensity = min(1.0, max(0.0, clampedDist - 350.0) * 0.02 * heightDensity);
         composed = vec3(
             lerp(composed.r, DISTANCE_FOG_COLOR.r, fogDensity),
