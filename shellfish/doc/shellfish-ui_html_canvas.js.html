@@ -82,6 +82,8 @@
             
                 <li class="parent  " data-name="core.generateUid"><a href="core.html#.generateUid">generateUid</a></li>
             
+                <li class="parent  " data-name="core.temporaryFilePath"><a href="core.html#.temporaryFilePath">temporaryFilePath</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -336,6 +338,8 @@
             
                 <li class="parent  " data-name="matrix.det"><a href="matrix.html#.det">det</a></li>
             
+                <li class="parent  " data-name="matrix.distance"><a href="matrix.html#.distance">distance</a></li>
+            
                 <li class="parent  " data-name="matrix.dot"><a href="matrix.html#.dot">dot</a></li>
             
                 <li class="parent  " data-name="matrix.elementWise"><a href="matrix.html#.elementWise">elementWise</a></li>
@@ -354,6 +358,8 @@
             
                 <li class="parent  " data-name="matrix.mul"><a href="matrix.html#.mul">mul</a></li>
             
+                <li class="parent  " data-name="matrix.normalize"><a href="matrix.html#.normalize">normalize</a></li>
+            
                 <li class="parent  " data-name="matrix.perspectiveM"><a href="matrix.html#.perspectiveM">perspectiveM</a></li>
             
                 <li class="parent  " data-name="matrix.rotationM"><a href="matrix.html#.rotationM">rotationM</a></li>
@@ -365,6 +371,8 @@
                 <li class="parent  " data-name="matrix.shape"><a href="matrix.html#.shape">shape</a></li>
             
                 <li class="parent  " data-name="matrix.sub"><a href="matrix.html#.sub">sub</a></li>
+            
+                <li class="parent  " data-name="matrix.swizzle"><a href="matrix.html#.swizzle">swizzle</a></li>
             
                 <li class="parent  " data-name="matrix.t"><a href="matrix.html#.t">t</a></li>
             
@@ -690,6 +698,12 @@
             
                 <li class="parent  " data-name="core.Filesystem#search"><a href="core.Filesystem.html#search">search</a></li>
             
+                <li class="parent  " data-name="core.Filesystem#vfsFileInfo"><a href="core.Filesystem.html#vfsFileInfo">vfsFileInfo</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#vfsList"><a href="core.Filesystem.html#vfsList">vfsList</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#vfsRead"><a href="core.Filesystem.html#vfsRead">vfsRead</a></li>
+            
                 <li class="parent  " data-name="core.Filesystem#write"><a href="core.Filesystem.html#write">write</a></li>
             
             </ul>
@@ -727,6 +741,8 @@
                 <li class="parent  " data-name="core.Filesystem.FileData#arrayBuffer"><a href="core.Filesystem.FileData.html#arrayBuffer">arrayBuffer</a></li>
             
                 <li class="parent  " data-name="core.Filesystem.FileData#blob"><a href="core.Filesystem.FileData.html#blob">blob</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem.FileData#materialized"><a href="core.Filesystem.FileData.html#materialized">materialized</a></li>
             
                 <li class="parent  " data-name="core.Filesystem.FileData#slice"><a href="core.Filesystem.FileData.html#slice">slice</a></li>
             
@@ -1661,6 +1677,16 @@
             </ul>
             
             <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.Canvas#renderGL"><a href="html.Canvas.html#renderGL">renderGL</a></li>
+            
+                <li class="parent  " data-name="html.Canvas#setSampler"><a href="html.Canvas.html#setSampler">setSampler</a></li>
+            
+                <li class="parent  " data-name="html.Canvas#setUniform"><a href="html.Canvas.html#setUniform">setUniform</a></li>
+            
+                <li class="parent  " data-name="html.Canvas#updateSampler"><a href="html.Canvas.html#updateSampler">updateSampler</a></li>
             
             </ul>
             
@@ -5560,6 +5586,36 @@
             
         </li>
     
+        <li class="item" data-name="VirtualFS">
+            <span class="title  ">
+                
+                
+                    <a href="VirtualFS.html">VirtualFS</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="Warehouse">
             <span class="title  ">
                 
@@ -6109,7 +6165,7 @@
         <article>
             <pre id="source-code" class="prettyprint source "><code>/*******************************************************************************
 This file is part of the Shellfish UI toolkit.
-Copyright (c) 2021 - 2023 Martin Grimme &lt;martin.grimme@gmail.com>
+Copyright (c) 2021 - 2025 Martin Grimme &lt;martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -6131,12 +6187,70 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 "use strict";
 
-shRequire(["shellfish/low", __dirname + "/item.js"], function (low, item)
+shRequire(["shellfish/low", __dirname + "/item.js", "shellfish/core/matrix"], function (low, item, mat)
 {
+    const simpleVertexShader = `#version 300 es
+        in vec2 position;
+        out vec2 uv;
+
+        void main()
+        {
+            uv = position;
+            gl_Position = vec4(position, 0.0, 1.0);
+        }
+    `;
+
+    function loadImage(source)
+    {
+        return new Promise((resolve, reject) =>
+        {
+            const img = new Image();
+            img.onload = () =>
+            {
+                resolve(img);
+            };
+            img.onerror = (err) =>
+            {
+                reject(err);
+            };
+            img.src = shRequire.resource(source);
+        });
+    }
+
+    function createTexture(gl, image)
+    {
+        const texture = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+        if (image.width !== undefined &amp;&amp; image.height !== undefined &amp;&amp; image.data !== undefined)
+        {
+            // this is an ImageData-like structure ({ width, height, data })
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, image.width, image.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, image.data);
+        }
+        else
+        {
+            // this is an Image object
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+        }
+        gl.generateMipmap(gl.TEXTURE_2D)
+        //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+        //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+        gl.bindTexture(gl.TEXTURE_2D, null);
+
+        return texture;
+    }
+
+
+    let glTimerExtUnsupported = false;
+
     const d = new WeakMap();
 
     /**
-     * Class representing a HTML5 canvas.
+     * Class representing a HTML5 canvas. It provides a `context2d` property
+     * for using the HTML5 Canvas API, and a `fragmentShader` property for GPU-driven
+     * rendering using a GLSL fragment shader.
      * 
      * @extends html.Item
      * @memberof html
@@ -6144,6 +6258,8 @@ shRequire(["shellfish/low", __dirname + "/item.js"], function (low, item)
      * @property {object} context2d - [readonly] The 2D canvas context.
      * @property {number} originalHeight - (default: `100`) The original unscaled height.
      * @property {number} originalWidth - (default: `100`) The original unscaled width.
+     * @property {string} fragmentShader - (default: `""`) An optional GLSL fragment shader for rendering directly into the canvas.
+     * @property {string} errorMessage - (default: `""`) A shader-related error message.
      */
     class Canvas extends item.Item
     {
@@ -6157,11 +6273,460 @@ shRequire(["shellfish/low", __dirname + "/item.js"], function (low, item)
                     .attr("height", "100")
                     //.style("pointer-events", "none")
                     .html()
-                )
+                ),
+                gl: null,
+                programId: 0,
+                shader: "",
+                textures: [],
+                errorMessage: ""
             });
 
             this.notifyable("originalWidth");
             this.notifyable("originalHeight");
+            this.notifyable("fragmentShader");
+            this.notifyable("errorMessage");
+        }
+
+        updateContentSize()
+        {
+            this.renderGL();
+        }
+
+        /**
+         * Sets a uniform value to pass to the fragment shader.
+         * 
+         * When passing vectors and matrices, they must be of the form created
+         * by Shellfish's {@link core.matrix matrix} tools.
+         * 
+         * @param {string} type - The type of uniform. Supported types are: `float|int|mat3|mat4|vec2|vec3|vec4`
+         * @param {string} name - The name of the uniform. It must be defined by that name in the shader.
+         * @param {any} value - The value to set.
+         * @see {@link core.matrix matrix}
+         */
+        setUniform(type, name, value)
+        {
+            const priv = d.get(this);
+            const gl = priv.gl;
+            if (! gl)
+            {
+                return;
+            }
+
+            const uniformLocation = gl.getUniformLocation(priv.programId, name);
+            if (! uniformLocation)
+            {
+                console.error("Cannot find uniform in shader: " + name);
+                return;
+            }
+
+            if (type === "float")
+            {
+                gl.uniform1f(uniformLocation, value);
+            }
+            else if (type === "int")
+            {
+                gl.uniform1i(uniformLocation, value);
+            }
+            else if (type === "mat3")
+            {
+                // transpose for OpenGL
+                gl.uniformMatrix3fv(uniformLocation, false, new Float32Array(mat.flat(mat.t(value))));
+            }    
+            else if (type === "mat4")
+            {
+                // transpose for OpenGL
+                gl.uniformMatrix4fv(uniformLocation, false, new Float32Array(mat.flat(mat.t(value))));
+            }
+            else if (type === "vec2")
+            {
+                gl.uniform2fv(uniformLocation, new Float32Array(mat.flat(value)));
+            }
+            else if (type === "vec3")
+            {
+                gl.uniform3fv(uniformLocation, new Float32Array(mat.flat(value)));
+            }
+            else if (type === "vec4")
+            {
+                gl.uniform4fv(uniformLocation, new Float32Array(mat.flat(value)));
+            }
+        }
+
+        /**
+         * Sets a 2D sampler (texture) value to pass to the fragment shader.
+         * 
+         * The `parameters` dictionary may contain these string entries:
+         * 
+         * * `wrap`: `[repeat|clamp|mirror, repeat|clamp|mirror]`
+         * * `filter`: `[linear|nearest, linear|nearest]`
+         * * `mipmap`: `[true|false]` (Generate mipmap textures)
+         * * `data`: `[true|false]` (Use this for storing data textures)
+         * 
+         * @param {string} name - The name of the uniform. It must be defined by that name in the shader.
+         * @param {number} width - The width of the texture. This value is ignored if `value` is an image type.
+         * @param {number} height - The height of the texture. This value is ignored if `value` is an image type.
+         * @param {any} value - The texture value to set. Either an image type, or a `Float32Array` or a `Int32Array`.
+         * @param {object} parameters - A dictionary of parameters.
+         */
+        setSampler(name, width, height, value, parameters)
+        {
+            const priv = d.get(this);
+            const gl = priv.gl;
+            if (! gl)
+            {
+                return;
+            }
+
+            const uniformLocation = gl.getUniformLocation(priv.programId, name);
+            if (! uniformLocation)
+            {
+                console.error("Cannot find sampler uniform in shader: " + name);
+                return;
+            }
+
+            let texIndex = priv.textures.findIndex(tex => tex.uniform === name);
+            if (texIndex === -1)
+            {
+                // this is a new texture
+                texIndex = priv.textures.length;
+                const texHandle = gl.createTexture();
+                gl.uniform1i(uniformLocation, texIndex);
+
+                priv.textures.push({
+                    uniform: name,
+                    texture: texHandle
+                });
+            }
+
+            // use that texture
+            gl.activeTexture(gl.TEXTURE0 + texIndex);
+            gl.bindTexture(gl.TEXTURE_2D, priv.textures[texIndex].texture);
+
+            let generateMipMap = false;
+
+            if (parameters)
+            {
+                const valueMap = {
+                    "linear": gl.LINEAR,
+                    "nearest": gl.NEAREST,
+                    "repeat": gl.REPEAT,
+                    "clamp": gl.CLAMP_TO_EDGE,
+                    "mirror": gl.MIRRORED_REPEAT,
+                    "nearestMipmapNearest": gl.NEAREST_MIPMAP_NEAREST,
+                    "nearestMipmapLinear": gl.NEAREST_MIPMAP_LINEAR,
+                    "linearMipmapNearest": gl.LINEAR_MIPMAP_NEAREST,
+                    "linearMipmaplinear": gl.LINEAR_MIPMAP_LINEAR
+                };
+
+                for (let key in parameters)
+                {
+                    const param = parameters[key];
+                    if (key === "wrap")
+                    {
+                        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, valueMap[param[0]] || gl.REPEAT);
+                        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, valueMap[param[1]] || gl.REPEAT);
+                    }
+                    else if (key == "filter")
+                    {
+                        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, valueMap[param[0]] || gl.LINEAR);
+                        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, valueMap[param[1]] || gl.LINEAR);
+                    }
+                    else if (key == "mipmap")
+                    {
+                        generateMipMap = param;
+                    }
+                    else if (key == "data" &amp;&amp; param)
+                    {
+                        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+                        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+                        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+                        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+                        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_BASE_LEVEL, 0);
+                        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAX_LEVEL, 0);
+                    }
+                }
+            }
+
+            let internalFormat = gl.RGBA;
+            let dataFormat = gl.RGBA;
+            let dataType = gl.UNSIGNED_BYTE;
+            let data = value;
+
+            // analyze data
+            if (data.data)
+            {
+                data = value.data;
+            }
+            else if (data instanceof Float32Array)
+            {
+                gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+                internalFormat = gl.RGBA32F;
+                dataFormat = gl.RGBA;
+                dataType = gl.FLOAT;
+            }
+            else if (data instanceof Int32Array)
+            {
+                gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+                internalFormat = gl.RGBA32I;
+                dataFormat = gl.RGBA_INTEGER;
+                dataType = gl.INT;
+            }
+            else if (data instanceof Uint32Array)
+            {
+                gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+                internalFormat = gl.RGBA32UI;
+                dataFormat = gl.RGBA_INTEGER;
+                dataType = gl.UNSIGNED_INT;
+            }
+            else
+            {
+                gl.texImage2D(gl.TEXTURE_2D, 0, internalFormat, dataFormat, dataType, value);
+                return;
+            }
+
+            gl.texImage2D(gl.TEXTURE_2D, 0, internalFormat, width, height, 0, dataFormat, dataType, data);
+
+            if (generateMipMap)
+            {
+                gl.generateMipmap(gl.TEXTURE_2D);
+            }
+        }
+
+        /**
+         * Updates an area of a sampler (texture). This allows updating a part
+         * of a texture without having to re-upload the full texture to the GPU.
+         * 
+         * @param {string} name - The name of the uniform. It must be defined by that name in the shader.
+         * @param {number} width - The width of the new area.
+         * @param {number} height - The height of the new area.
+         * @param {any} value - The texture value to set. Either an image type, or a `Float32Array` or a `Int32Array`.
+         */
+        updateSampler(name, x, y, width, height, value)
+        {
+            const priv = d.get(this);
+            const gl = priv.gl;
+            if (! gl)
+            {
+                return;
+            }
+
+            const uniformLocation = gl.getUniformLocation(priv.programId, name);
+            if (! uniformLocation)
+            {
+                console.error("Cannot find sampler uniform in shader: " + name);
+                return;
+            }
+
+            let texIndex = priv.textures.findIndex(tex => tex.uniform === name);
+            if (texIndex === -1)
+            {
+                console.error("Cannot update non-existing texture: " + name);
+                return;
+            }
+
+            // use that texture
+            gl.activeTexture(gl.TEXTURE0 + texIndex);
+            gl.bindTexture(gl.TEXTURE_2D, priv.textures[texIndex].texture);
+
+            let dataFormat = gl.RGBA;
+            let dataType = gl.UNSIGNED_BYTE;
+            let data = value;
+
+            // analyze data
+            if (data.data)
+            {
+                data = value.data;
+            }
+            else if (data instanceof Float32Array)
+            {
+                dataFormat = gl.RGBA;
+                dataType = gl.FLOAT;
+            }
+            else if (data instanceof Int32Array)
+            {
+                dataFormat = gl.RGBA_INTEGER;
+                dataType = gl.INT;
+            }
+            else if (data instanceof Uint32Array)
+            {
+                dataFormat = gl.RGBA_INTEGER;
+                dataType = gl.UNSIGNED_INT;
+            }
+
+            gl.texSubImage2D(gl.TEXTURE_2D, 0, x, y, width, height, dataFormat, dataType, data);
+        }
+
+        initShader()
+        {
+            const priv = d.get(this);
+            const gl = this.get().getContext("webgl2");
+
+            const vShaderId = gl.createShader(gl.VERTEX_SHADER);
+            const fShaderId = gl.createShader(gl.FRAGMENT_SHADER);
+            gl.shaderSource(vShaderId, simpleVertexShader);
+            
+            gl.compileShader(vShaderId);
+            if (! gl.getShaderParameter(vShaderId, gl.COMPILE_STATUS))
+            {
+                const info = gl.getShaderInfoLog(vShaderId);
+                console.error(info);
+                priv.errorMessage = info;
+                this.errorMessageChanged();
+                //throw "Failed to compile vertex shader: " + info;
+                return;;
+            }
+                
+            gl.shaderSource(fShaderId, priv.fragmentShader);
+            gl.compileShader(fShaderId);
+            if (! gl.getShaderParameter(fShaderId, gl.COMPILE_STATUS))
+            {
+                const info = gl.getShaderInfoLog(fShaderId);
+                console.error(info);
+                priv.errorMessage = info;
+                this.errorMessageChanged();
+                //throw "Failed to compile fragment shader: " + info;
+                return;
+            }
+
+            const programId = gl.createProgram();
+            gl.attachShader(programId, vShaderId);
+            gl.attachShader(programId, fShaderId);
+            gl.linkProgram(programId);
+            if (! gl.getProgramParameter(programId, gl.LINK_STATUS))
+            {
+                const info = gl.getProgramInfoLog(programId);
+                console.error(info);
+                priv.errorMessage = info;
+                this.errorMessageChanged();
+                //throw "Failed to link GLSL program: " + info;
+                return;
+            }
+
+            gl.useProgram(programId);
+            console.log(gl.getShaderInfoLog(fShaderId));
+
+            const positionAttrib = gl.getAttribLocation(programId, "position");
+
+            const vertices = [
+                -1.0, -1.0,
+                1.0, -1.0,
+                -1.0, 1.0,
+                1.0, -1.0,
+                1.0, 1.0,
+                -1.0, 1.0
+            ];
+
+            const vbo = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+            
+            gl.vertexAttribPointer(positionAttrib, 2, gl.FLOAT, false, 0, 0);
+            gl.enableVertexAttribArray(positionAttrib);
+
+            priv.gl = gl;
+            priv.programId = programId;
+        }
+        
+        /**
+         * Renders using the configured fragment shader and returns the rendering time in nanoseconds
+         * precison, if measuring was requested and the platform supports it. Not all browsers
+         * may support the timer extension for measuring on all platforms, though.
+         * 
+         * @param {bool} measure - Whether to measure the rendering time.
+         * @return {number} The rendering time in nanoseconds, if measuring was requested. This value is `-1` if not supported by platform, or measuring was not requested.
+         */
+        async renderGL(measure)
+        {
+            const priv = d.get(this);
+            if (! priv.gl)
+            {
+                return 0;
+            }
+
+            const gl = priv.gl;
+
+            let timerExt = null;
+            let glVersion = 0;
+            if (measure &amp;&amp; ! glTimerExtUnsupported)
+            {
+                timerExt = gl.getExtension("EXT_disjoint_timer_query_webgl2");
+                if (timerExt)
+                {
+                    glVersion = 2;
+                }
+                else
+                {
+                    timerExt = gl.getExtension("EXT_disjoint_timer_query");
+                    if (timerExt)
+                    {
+                        glVersion = 1;
+                    }
+                    else
+                    {
+                        glTimerExtUnsupported = true;
+                    }
+                }
+            }
+
+            let timerQuery = null;
+            if (timerExt)
+            {
+                if (glVersion === 2)
+                {
+                    timerQuery = gl.createQuery();
+                    gl.beginQuery(timerExt.TIME_ELAPSED_EXT, timerQuery);
+                }
+                else
+                {
+                    timerQuery = gl.createQueryEXT();
+                    timerExt.beginQueryEXT(timerExt.TIME_ELAPSED_EXT, timerQuery);
+                }
+            }
+
+            gl.viewport(0, 0, this.originalWidth, this.originalHeight);
+            gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+            if (timerExt)
+            {
+                if (glVersion === 2)
+                {
+                    gl.endQuery(timerExt.TIME_ELAPSED_EXT);
+                }
+                else
+                {
+                    timerExt.endQueryEXT(timerExt.TIME_ELAPSED_EXT);
+                }
+
+                const pollForResult = async () =>
+                {
+                    for (let tries = 0; tries &lt; 50; ++tries)
+                    {
+                        if (glVersion === 2)
+                        {
+                            if (gl.getQueryParameter(timerQuery, gl.QUERY_RESULT_AVAILABLE) &amp;&amp;
+                                ! gl.getParameter(timerExt.GPU_DISJOINT_EXT))
+                            {
+                                return gl.getQueryParameter(timerQuery, gl.QUERY_RESULT);
+                            }
+                        }
+                        else
+                        {
+                            if (timerExt.getQueryObjectEXT(timerQuery, gl.QUERY_RESULT_AVAILABLE_EXT) &amp;&amp;
+                                ! gl.getParameter(timerExt.GPU_DISJOINT_EXT))
+                            {
+                                return timerExt.getQueryObjectEXT(timerQuery, gl.QUERY_RESULT_EXT);
+                            }
+                        }
+                        await this.wait(10);
+                    }
+                    return -1;
+                };
+    
+                return await pollForResult();
+            }
+            else
+            {
+                return -1;
+            }
         }
 
         get context2d() { return this.get().getContext("2d"); }
@@ -6186,6 +6751,22 @@ shRequire(["shellfish/low", __dirname + "/item.js"], function (low, item)
             this.originalHeightChanged();
         }
 
+        get fragmentShader() { return d.get(this).fragmentShader; }
+        set fragmentShader(s)
+        {
+            if (s !== d.get(this).fragmentShader)
+            {
+                d.get(this).fragmentShader = s;
+                if (s !== "")
+                {
+                    this.initShader();
+                }
+                this.fragmentShaderChanged();
+            }
+        }
+
+        get errorMessage() { return d.get(this).errorMessage; }
+
         get()
         {
             return d.get(this).item;
@@ -6206,7 +6787,7 @@ shRequire(["shellfish/low", __dirname + "/item.js"], function (low, item)
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Thu Jan 09 2025 09:25:07 GMT+0100 (Mitteleuropäische Normalzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Wed Dec 31 2025 11:48:31 GMT+0100 (Mitteleuropäische Normalzeit)
             </div>
         </footer>
     </div>

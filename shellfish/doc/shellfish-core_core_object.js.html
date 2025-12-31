@@ -82,6 +82,8 @@
             
                 <li class="parent  " data-name="core.generateUid"><a href="core.html#.generateUid">generateUid</a></li>
             
+                <li class="parent  " data-name="core.temporaryFilePath"><a href="core.html#.temporaryFilePath">temporaryFilePath</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -336,6 +338,8 @@
             
                 <li class="parent  " data-name="matrix.det"><a href="matrix.html#.det">det</a></li>
             
+                <li class="parent  " data-name="matrix.distance"><a href="matrix.html#.distance">distance</a></li>
+            
                 <li class="parent  " data-name="matrix.dot"><a href="matrix.html#.dot">dot</a></li>
             
                 <li class="parent  " data-name="matrix.elementWise"><a href="matrix.html#.elementWise">elementWise</a></li>
@@ -354,6 +358,8 @@
             
                 <li class="parent  " data-name="matrix.mul"><a href="matrix.html#.mul">mul</a></li>
             
+                <li class="parent  " data-name="matrix.normalize"><a href="matrix.html#.normalize">normalize</a></li>
+            
                 <li class="parent  " data-name="matrix.perspectiveM"><a href="matrix.html#.perspectiveM">perspectiveM</a></li>
             
                 <li class="parent  " data-name="matrix.rotationM"><a href="matrix.html#.rotationM">rotationM</a></li>
@@ -365,6 +371,8 @@
                 <li class="parent  " data-name="matrix.shape"><a href="matrix.html#.shape">shape</a></li>
             
                 <li class="parent  " data-name="matrix.sub"><a href="matrix.html#.sub">sub</a></li>
+            
+                <li class="parent  " data-name="matrix.swizzle"><a href="matrix.html#.swizzle">swizzle</a></li>
             
                 <li class="parent  " data-name="matrix.t"><a href="matrix.html#.t">t</a></li>
             
@@ -690,6 +698,12 @@
             
                 <li class="parent  " data-name="core.Filesystem#search"><a href="core.Filesystem.html#search">search</a></li>
             
+                <li class="parent  " data-name="core.Filesystem#vfsFileInfo"><a href="core.Filesystem.html#vfsFileInfo">vfsFileInfo</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#vfsList"><a href="core.Filesystem.html#vfsList">vfsList</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#vfsRead"><a href="core.Filesystem.html#vfsRead">vfsRead</a></li>
+            
                 <li class="parent  " data-name="core.Filesystem#write"><a href="core.Filesystem.html#write">write</a></li>
             
             </ul>
@@ -727,6 +741,8 @@
                 <li class="parent  " data-name="core.Filesystem.FileData#arrayBuffer"><a href="core.Filesystem.FileData.html#arrayBuffer">arrayBuffer</a></li>
             
                 <li class="parent  " data-name="core.Filesystem.FileData#blob"><a href="core.Filesystem.FileData.html#blob">blob</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem.FileData#materialized"><a href="core.Filesystem.FileData.html#materialized">materialized</a></li>
             
                 <li class="parent  " data-name="core.Filesystem.FileData#slice"><a href="core.Filesystem.FileData.html#slice">slice</a></li>
             
@@ -1661,6 +1677,16 @@
             </ul>
             
             <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.Canvas#renderGL"><a href="html.Canvas.html#renderGL">renderGL</a></li>
+            
+                <li class="parent  " data-name="html.Canvas#setSampler"><a href="html.Canvas.html#setSampler">setSampler</a></li>
+            
+                <li class="parent  " data-name="html.Canvas#setUniform"><a href="html.Canvas.html#setUniform">setUniform</a></li>
+            
+                <li class="parent  " data-name="html.Canvas#updateSampler"><a href="html.Canvas.html#updateSampler">updateSampler</a></li>
             
             </ul>
             
@@ -5560,6 +5586,36 @@
             
         </li>
     
+        <li class="item" data-name="VirtualFS">
+            <span class="title  ">
+                
+                
+                    <a href="VirtualFS.html">VirtualFS</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="Warehouse">
             <span class="title  ">
                 
@@ -6109,7 +6165,7 @@
         <article>
             <pre id="source-code" class="prettyprint source "><code>/*******************************************************************************
 This file is part of the Shellfish UI toolkit.
-Copyright (c) 2017 - 2024 Martin Grimme &lt;martin.grimme@gmail.com>
+Copyright (c) 2017 - 2025 Martin Grimme &lt;martin.grimme@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -6133,6 +6189,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 shRequire([__dirname + "/util/color.js", __dirname + "/util/vec.js"], (colUtil, vec) =>
 {
+    const modFs = shRequire.environment === "node" ? require("node:fs") : null;
+    const modOs = shRequire.environment === "node" ? require("node:os") : null;
+    const modPath = shRequire.environment === "node" ? require("node:path") : null;
 
     /**
      * Class representing a hub of the event connections.
@@ -6908,8 +6967,48 @@ shRequire([__dirname + "/util/color.js", __dirname + "/util/vec.js"], (colUtil, 
     let idCounter = 0;
     const allInstances = new Set();
     const generatedUids = new Set();
+    const tempDir = modFs ? modFs.mkdtempSync(modPath.join(modOs.tmpdir(), "shellfish-")) : "";
+    const exitHandlers = [];
+
     const d = new WeakMap();
 
+    if (modFs &amp;&amp; tempDir !== "")
+    {
+        exitHandlers.push(() =>
+        {
+            console.log("Removing temp dir: " + tempDir);
+            modFs.rmdirSync(tempDir, { recursive: true });
+            console.log("OK");
+        });
+
+        process.on("exit", () =>
+        {
+            console.log("Invoking exit handlers...");
+            exitHandlers.forEach(f => f());
+        });
+
+        [
+            "SIGABRT",
+            "SIGBUS",
+            "SIGFPE",
+            "SIGHUP",
+            "SIGILL",
+            "SIGINT",
+            "SIGQUIT",
+            "SIGSEGV",
+            "SIGTERM",
+            "SIGTRAP",
+            "SIGUSR1",
+            "SIGUSR2"
+        ].forEach((sig) =>
+        {
+            process.on(sig, () =>
+            {
+                console.log("Received signal: " + sig);
+                process.exit(1);
+            });
+        });
+    }
 
     class ProtoObject {
         customProperties()
@@ -8109,6 +8208,26 @@ shRequire([__dirname + "/util/color.js", __dirname + "/util/vec.js"], (colUtil, 
     exports.generateUid = generateUid;
 
     /**
+     * Provides a temporary file path.
+     *
+     * @memberof core
+     * 
+     * @returns {string} A temporary file path you may use for creating a file.
+     */
+    function temporaryFilePath()
+    {
+        if (modPath)
+        {
+            return modPath.join(tempDir, generateUid());
+        }
+        else
+        {
+            return "";
+        }
+    }
+    exports.temporaryFilePath = temporaryFilePath;
+
+    /**
      * Formats a bytes number to a string.
      * 
      * @memberof core
@@ -8301,7 +8420,7 @@ exports.dbgctx = { location: "&lt;no information>" };
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Thu Jan 09 2025 09:25:07 GMT+0100 (Mitteleuropäische Normalzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Wed Dec 31 2025 11:48:31 GMT+0100 (Mitteleuropäische Normalzeit)
             </div>
         </footer>
     </div>

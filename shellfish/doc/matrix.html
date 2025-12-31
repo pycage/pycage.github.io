@@ -82,6 +82,8 @@
             
                 <li class="parent  " data-name="core.generateUid"><a href="core.html#.generateUid">generateUid</a></li>
             
+                <li class="parent  " data-name="core.temporaryFilePath"><a href="core.html#.temporaryFilePath">temporaryFilePath</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -336,6 +338,8 @@
             
                 <li class="parent  " data-name="matrix.det"><a href="matrix.html#.det">det</a></li>
             
+                <li class="parent  " data-name="matrix.distance"><a href="matrix.html#.distance">distance</a></li>
+            
                 <li class="parent  " data-name="matrix.dot"><a href="matrix.html#.dot">dot</a></li>
             
                 <li class="parent  " data-name="matrix.elementWise"><a href="matrix.html#.elementWise">elementWise</a></li>
@@ -354,6 +358,8 @@
             
                 <li class="parent  " data-name="matrix.mul"><a href="matrix.html#.mul">mul</a></li>
             
+                <li class="parent  " data-name="matrix.normalize"><a href="matrix.html#.normalize">normalize</a></li>
+            
                 <li class="parent  " data-name="matrix.perspectiveM"><a href="matrix.html#.perspectiveM">perspectiveM</a></li>
             
                 <li class="parent  " data-name="matrix.rotationM"><a href="matrix.html#.rotationM">rotationM</a></li>
@@ -365,6 +371,8 @@
                 <li class="parent  " data-name="matrix.shape"><a href="matrix.html#.shape">shape</a></li>
             
                 <li class="parent  " data-name="matrix.sub"><a href="matrix.html#.sub">sub</a></li>
+            
+                <li class="parent  " data-name="matrix.swizzle"><a href="matrix.html#.swizzle">swizzle</a></li>
             
                 <li class="parent  " data-name="matrix.t"><a href="matrix.html#.t">t</a></li>
             
@@ -690,6 +698,12 @@
             
                 <li class="parent  " data-name="core.Filesystem#search"><a href="core.Filesystem.html#search">search</a></li>
             
+                <li class="parent  " data-name="core.Filesystem#vfsFileInfo"><a href="core.Filesystem.html#vfsFileInfo">vfsFileInfo</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#vfsList"><a href="core.Filesystem.html#vfsList">vfsList</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#vfsRead"><a href="core.Filesystem.html#vfsRead">vfsRead</a></li>
+            
                 <li class="parent  " data-name="core.Filesystem#write"><a href="core.Filesystem.html#write">write</a></li>
             
             </ul>
@@ -727,6 +741,8 @@
                 <li class="parent  " data-name="core.Filesystem.FileData#arrayBuffer"><a href="core.Filesystem.FileData.html#arrayBuffer">arrayBuffer</a></li>
             
                 <li class="parent  " data-name="core.Filesystem.FileData#blob"><a href="core.Filesystem.FileData.html#blob">blob</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem.FileData#materialized"><a href="core.Filesystem.FileData.html#materialized">materialized</a></li>
             
                 <li class="parent  " data-name="core.Filesystem.FileData#slice"><a href="core.Filesystem.FileData.html#slice">slice</a></li>
             
@@ -1661,6 +1677,16 @@
             </ul>
             
             <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.Canvas#renderGL"><a href="html.Canvas.html#renderGL">renderGL</a></li>
+            
+                <li class="parent  " data-name="html.Canvas#setSampler"><a href="html.Canvas.html#setSampler">setSampler</a></li>
+            
+                <li class="parent  " data-name="html.Canvas#setUniform"><a href="html.Canvas.html#setUniform">setUniform</a></li>
+            
+                <li class="parent  " data-name="html.Canvas#updateSampler"><a href="html.Canvas.html#updateSampler">updateSampler</a></li>
             
             </ul>
             
@@ -5560,6 +5586,36 @@
             
         </li>
     
+        <li class="item" data-name="VirtualFS">
+            <span class="title  ">
+                
+                
+                    <a href="VirtualFS.html">VirtualFS</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="Warehouse">
             <span class="title  ">
                 
@@ -6210,7 +6266,7 @@ Object {
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line259">matrix.js:259</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line367">matrix.js:367</a>
         </div>
         
     </div>
@@ -6398,7 +6454,7 @@ Object {
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line408">matrix.js:408</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line516">matrix.js:516</a>
         </div>
         
     </div>
@@ -6547,6 +6603,191 @@ for square matrices.</p>
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id=".distance">
+            <a class="share-icon" href="#.distance"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                matrix.distance
+            </span>
+            <span class="signature">(p1, p2)</span><span class="type-signature">number</span>
+            
+            <span class="access-signature">static</span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="shellfish-core_core_util_matrix.js.html#line310">matrix.js:310</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Returns the distance between two points in n-dimensional space represented by column-vectors.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>p1</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="matrix.html#.Matrix">matrix.Matrix</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The first point.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>p2</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="matrix.html#.Matrix">matrix.Matrix</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The second point.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    <h5>Throws:</h5>
+    
+            
+
+    <div class="param-desc">
+    
+        <p>Throws an error if the matrix is not a vector.</p>
+    
+    </div>
+
+
+        
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        number
+                        
+                    
+            </td>
+            <td class="description last">The distance between the points.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id=".dot">
             <a class="share-icon" href="#.dot"><span class="glyphicon glyphicon-link"></span></a>
             <span class="">
@@ -6561,7 +6802,7 @@ for square matrices.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line312">matrix.js:312</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line420">matrix.js:420</a>
         </div>
         
     </div>
@@ -6747,7 +6988,7 @@ same dimensions.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line98">matrix.js:98</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line102">matrix.js:102</a>
         </div>
         
     </div>
@@ -6758,9 +6999,10 @@ same dimensions.</p>
     
     
     <div class="description">
-        <p>Performs an element-wise operator with a scalar on a matrix.</p>
-<p>The element-wise operators <code>PLUS</code>, <code>MINUS</code>, and <code>MULTIPLY</code> are available as
-predefined functions in the <code>matrix</code> module.</p>
+        <p>Performs an element-wise operator with a scalar or another matrix on a matrix.
+If using two matrices, they must be of the same shape.</p>
+<p>The element-wise operators <code>PLUS</code>, <code>MINUS</code>, <code>MULTIPLY</code>, <code>ABS</code>, <code>MIN</code>, <code>MAX</code>
+are available as predefined functions in the <code>matrix</code> module.</p>
     </div>
     
 
@@ -6945,7 +7187,7 @@ predefined functions in the <code>matrix</code> module.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line188">matrix.js:188</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line264">matrix.js:264</a>
         </div>
         
     </div>
@@ -7095,7 +7337,7 @@ predefined functions in the <code>matrix</code> module.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line162">matrix.js:162</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line238">matrix.js:238</a>
         </div>
         
     </div>
@@ -7268,7 +7510,7 @@ predefined functions in the <code>matrix</code> module.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line493">matrix.js:493</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line601">matrix.js:601</a>
         </div>
         
     </div>
@@ -7418,7 +7660,7 @@ predefined functions in the <code>matrix</code> module.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line441">matrix.js:441</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line549">matrix.js:549</a>
         </div>
         
     </div>
@@ -7581,7 +7823,7 @@ determinant != 0 have an inverse.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line212">matrix.js:212</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line288">matrix.js:288</a>
         </div>
         
     </div>
@@ -7743,7 +7985,7 @@ determinant != 0 have an inverse.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line383">matrix.js:383</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line491">matrix.js:491</a>
         </div>
         
     </div>
@@ -7939,7 +8181,7 @@ determinant != 0 have an inverse.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line341">matrix.js:341</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line449">matrix.js:449</a>
         </div>
         
     </div>
@@ -8114,6 +8356,168 @@ a scalar.</p>
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id=".normalize">
+            <a class="share-icon" href="#.normalize"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                matrix.normalize
+            </span>
+            <span class="signature">(v)</span><span class="type-signature"><a href="matrix.html#.Matrix">matrix.Matrix</a></span>
+            
+            <span class="access-signature">static</span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="shellfish-core_core_util_matrix.js.html#line325">matrix.js:325</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Normalizes the given column-vector.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="matrix.html#.Matrix">matrix.Matrix</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The vector.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    <h5>Throws:</h5>
+    
+            
+
+    <div class="param-desc">
+    
+        <p>Throws an error if the matrix is not a vector.</p>
+    
+    </div>
+
+
+        
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="matrix.html#.Matrix">matrix.Matrix</a>
+                        
+                    
+            </td>
+            <td class="description last">The normalized vector.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id=".perspectiveM">
             <a class="share-icon" href="#.perspectiveM"><span class="glyphicon glyphicon-link"></span></a>
             <span class="">
@@ -8128,7 +8532,7 @@ a scalar.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line639">matrix.js:639</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line747">matrix.js:747</a>
         </div>
         
     </div>
@@ -8278,7 +8682,7 @@ a scalar.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line541">matrix.js:541</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line649">matrix.js:649</a>
         </div>
         
     </div>
@@ -8474,7 +8878,7 @@ a scalar.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line611">matrix.js:611</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line719">matrix.js:719</a>
         </div>
         
     </div>
@@ -8672,7 +9076,7 @@ Quaternion-rotations do not induce a <a target="_blank" href="https://en.wikiped
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line587">matrix.js:587</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line695">matrix.js:695</a>
         </div>
         
     </div>
@@ -8822,7 +9226,7 @@ Quaternion-rotations do not induce a <a target="_blank" href="https://en.wikiped
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line77">matrix.js:77</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line80">matrix.js:80</a>
         </div>
         
     </div>
@@ -8974,7 +9378,7 @@ Quaternion-rotations do not induce a <a target="_blank" href="https://en.wikiped
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line295">matrix.js:295</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line403">matrix.js:403</a>
         </div>
         
     </div>
@@ -9136,6 +9540,182 @@ Quaternion-rotations do not induce a <a target="_blank" href="https://en.wikiped
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id=".swizzle">
+            <a class="share-icon" href="#.swizzle"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                matrix.swizzle
+            </span>
+            <span class="signature">(v, what)</span><span class="type-signature"><a href="matrix.html#.Matrix">matrix.Matrix</a> | number</span>
+            
+            <span class="access-signature">static</span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="shellfish-core_core_util_matrix.js.html#line168">matrix.js:168</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Extracts parts of a column-vector to form a new column-vector.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="matrix.html#.Matrix">matrix.Matrix</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The vector.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>what</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The parts to extract. A composition of <code>x|y|z|w|u|v|r|g|b|a</code>.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="matrix.html#.Matrix">matrix.Matrix</a>
+                         | 
+                    
+                        number
+                        
+                    
+            </td>
+            <td class="description last">The new vector, or a number if only a single part was extracted.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id=".t">
             <a class="share-icon" href="#.t"><span class="glyphicon glyphicon-link"></span></a>
             <span class="">
@@ -9150,7 +9730,7 @@ Quaternion-rotations do not induce a <a target="_blank" href="https://en.wikiped
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line233">matrix.js:233</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line341">matrix.js:341</a>
         </div>
         
     </div>
@@ -9301,7 +9881,7 @@ creates a row-vector and vice versa.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line518">matrix.js:518</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line626">matrix.js:626</a>
         </div>
         
     </div>
@@ -9452,7 +10032,7 @@ The dimension of the translation matrix is one higher than of the vector.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_util_matrix.js.html#line122">matrix.js:122</a>
+            <a href="shellfish-core_core_util_matrix.js.html#line141">matrix.js:141</a>
         </div>
         
     </div>
@@ -9463,7 +10043,8 @@ The dimension of the translation matrix is one higher than of the vector.</p>
     
     
     <div class="description">
-        <p>Creates a column-vector of the given values.</p>
+        <p>Creates a column-vector of the given values.
+If the first value is a column-vector, the vector will be expanded with more dimensions.</p>
     </div>
     
 
@@ -9517,7 +10098,7 @@ The dimension of the translation matrix is one higher than of the vector.</p>
                         <span class="repeatable">repeatable</span>
                     
                 
-                <p>The values.</p></td>
+                <p>The values. The first element may be a column-vector.</p></td>
         </tr>
 	
 	
@@ -9672,7 +10253,7 @@ column or one row.</p>
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Thu Jan 09 2025 09:25:08 GMT+0100 (Mitteleuropäische Normalzeit)
+                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Wed Dec 31 2025 11:48:32 GMT+0100 (Mitteleuropäische Normalzeit)
             </div>
         </footer>
     </div>

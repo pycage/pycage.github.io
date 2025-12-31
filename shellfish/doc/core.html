@@ -82,6 +82,8 @@
             
                 <li class="parent  " data-name="core.generateUid"><a href="core.html#.generateUid">generateUid</a></li>
             
+                <li class="parent  " data-name="core.temporaryFilePath"><a href="core.html#.temporaryFilePath">temporaryFilePath</a></li>
+            
             </ul>
             
             <ul class="events itemMembers">
@@ -336,6 +338,8 @@
             
                 <li class="parent  " data-name="matrix.det"><a href="matrix.html#.det">det</a></li>
             
+                <li class="parent  " data-name="matrix.distance"><a href="matrix.html#.distance">distance</a></li>
+            
                 <li class="parent  " data-name="matrix.dot"><a href="matrix.html#.dot">dot</a></li>
             
                 <li class="parent  " data-name="matrix.elementWise"><a href="matrix.html#.elementWise">elementWise</a></li>
@@ -354,6 +358,8 @@
             
                 <li class="parent  " data-name="matrix.mul"><a href="matrix.html#.mul">mul</a></li>
             
+                <li class="parent  " data-name="matrix.normalize"><a href="matrix.html#.normalize">normalize</a></li>
+            
                 <li class="parent  " data-name="matrix.perspectiveM"><a href="matrix.html#.perspectiveM">perspectiveM</a></li>
             
                 <li class="parent  " data-name="matrix.rotationM"><a href="matrix.html#.rotationM">rotationM</a></li>
@@ -365,6 +371,8 @@
                 <li class="parent  " data-name="matrix.shape"><a href="matrix.html#.shape">shape</a></li>
             
                 <li class="parent  " data-name="matrix.sub"><a href="matrix.html#.sub">sub</a></li>
+            
+                <li class="parent  " data-name="matrix.swizzle"><a href="matrix.html#.swizzle">swizzle</a></li>
             
                 <li class="parent  " data-name="matrix.t"><a href="matrix.html#.t">t</a></li>
             
@@ -690,6 +698,12 @@
             
                 <li class="parent  " data-name="core.Filesystem#search"><a href="core.Filesystem.html#search">search</a></li>
             
+                <li class="parent  " data-name="core.Filesystem#vfsFileInfo"><a href="core.Filesystem.html#vfsFileInfo">vfsFileInfo</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#vfsList"><a href="core.Filesystem.html#vfsList">vfsList</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem#vfsRead"><a href="core.Filesystem.html#vfsRead">vfsRead</a></li>
+            
                 <li class="parent  " data-name="core.Filesystem#write"><a href="core.Filesystem.html#write">write</a></li>
             
             </ul>
@@ -727,6 +741,8 @@
                 <li class="parent  " data-name="core.Filesystem.FileData#arrayBuffer"><a href="core.Filesystem.FileData.html#arrayBuffer">arrayBuffer</a></li>
             
                 <li class="parent  " data-name="core.Filesystem.FileData#blob"><a href="core.Filesystem.FileData.html#blob">blob</a></li>
+            
+                <li class="parent  " data-name="core.Filesystem.FileData#materialized"><a href="core.Filesystem.FileData.html#materialized">materialized</a></li>
             
                 <li class="parent  " data-name="core.Filesystem.FileData#slice"><a href="core.Filesystem.FileData.html#slice">slice</a></li>
             
@@ -1661,6 +1677,16 @@
             </ul>
             
             <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li class="parent  " data-name="html.Canvas#renderGL"><a href="html.Canvas.html#renderGL">renderGL</a></li>
+            
+                <li class="parent  " data-name="html.Canvas#setSampler"><a href="html.Canvas.html#setSampler">setSampler</a></li>
+            
+                <li class="parent  " data-name="html.Canvas#setUniform"><a href="html.Canvas.html#setUniform">setUniform</a></li>
+            
+                <li class="parent  " data-name="html.Canvas#updateSampler"><a href="html.Canvas.html#updateSampler">updateSampler</a></li>
             
             </ul>
             
@@ -5560,6 +5586,36 @@
             
         </li>
     
+        <li class="item" data-name="VirtualFS">
+            <span class="title  ">
+                
+                
+                    <a href="VirtualFS.html">VirtualFS</a>
+                
+            </span>
+            
+            <ul class="members itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            
+            <ul class="methods itemMembers">
+            
+            </ul>
+            
+            <ul class="events itemMembers">
+            
+            </ul>
+            
+        </li>
+    
         <li class="item" data-name="Warehouse">
             <span class="title  ">
                 
@@ -6249,7 +6305,7 @@
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line2102">object.js:2102</a>
+            <a href="shellfish-core_core_object.js.html#line2165">object.js:2165</a>
         </div>
         
     </div>
@@ -6391,7 +6447,7 @@ subject to change.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line2010">object.js:2010</a>
+            <a href="shellfish-core_core_object.js.html#line2073">object.js:2073</a>
         </div>
         
     </div>
@@ -6541,7 +6597,7 @@ subject to change.</p>
     
         
         <div class="tag-source">
-            <a href="shellfish-core_core_object.js.html#line1986">object.js:1986</a>
+            <a href="shellfish-core_core_object.js.html#line2029">object.js:2029</a>
         </div>
         
     </div>
@@ -6619,6 +6675,111 @@ environment where it was generated.</p>
                     
             </td>
             <td class="description last">The generated UID.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".temporaryFilePath">
+            <a class="share-icon" href="#.temporaryFilePath"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                core.temporaryFilePath
+            </span>
+            <span class="signature">()</span><span class="type-signature">string</span>
+            
+            <span class="access-signature">static</span>
+            
+            
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="shellfish-core_core_object.js.html#line2052">object.js:2052</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Provides a temporary file path.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            <td class="description last">A temporary file path you may use for creating a file.</td>
         </tr>
     
     </tbody>
@@ -7396,7 +7557,7 @@ environment where it was generated.</p>
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Thu Jan 09 2025 09:25:08 GMT+0100 (Mitteleuropäische Normalzeit)
+                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Wed Dec 31 2025 11:48:32 GMT+0100 (Mitteleuropäische Normalzeit)
             </div>
         </footer>
     </div>

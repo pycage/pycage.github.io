@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Class: HTTPSession</title>
+    <title>Source: shellfish-core/core/virtualfs.js</title>
     
     
     
@@ -6151,796 +6151,351 @@
 </div>
 
     <div class="main">
-        <h1 class="page-title" data-filename="server.HTTPSession.html">Class: HTTPSession</h1>
+        <h1 class="page-title" data-filename="shellfish-core_core_virtualfs.js.html">Source: shellfish-core/core/virtualfs.js</h1>
         
 
 
+    
+    <section>
+        <header>
+            <div class="header content-size">
+                <h2>shellfish-core/core/virtualfs.js</h2>
+            </div>
+        </header>
+        <article>
+            <pre id="source-code" class="prettyprint source "><code>/*******************************************************************************
+This file is part of the Shellfish UI toolkit.
+Copyright (c) 2025 Martin Grimme &lt;martin.grimme@gmail.com>
 
-<section>
-    
-<header>
-    <div class="header content-size">
-        <h2><span class="ancestors"><a href="server.html">server</a>.</span>HTTPSession
-        </h2>
-        
-            <div class="class-description"><p>Base class representing a HTTP session. Connect to the <code>request</code> event
-in order to handle HTTP requests.</p>
-<p>A session is identified by a session ID.</p></div>
-        
-    </div>
-</header>  
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
-<article class="content-size">
-    
-        <div class="container-overview">
-        
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="HTTPSession">
-            <a class="share-icon" href="#HTTPSession"><span class="glyphicon glyphicon-link"></span></a>
-            <span class="">
-                new server.HTTPSession
-            </span>
-            <span class="signature">()</span>
-            
-            
-            
-            
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="shellfish-server_server_httpsession.js.html#line339">httpsession.js:339</a>
-        </div>
-        
-    </div>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*******************************************************************************/
 
-    
-</dt>
-<dd>
-    
-    
+shRequire([__dirname + "/filesystem.js", __dirname + "/util/mime.js"], (fs, mime) =>
+{
+    const d = new WeakMap();
 
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-        <h5 class="subsection-title">Properties:</h5>
-        
-        <dl>
-
-<table class="props">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>sessionId</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"><p>[readonly] The ID that identifies this session. The ID is assigned by the <a href="server.HTTPServer.html">HTTP server</a>.</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>user</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"><p>[readonly] The user ID associated with this session.</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>timeout</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"><p>(default: <code>60000</code>) The session inactivity timeout in ms. The session closes automatically after this time of inactivity.</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>urlMapper</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"><p>(default: <code>url =&gt; url</code>) A function for mapping the request URL.</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table></dl>
-        
-    
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-
-    
-    <pre class="prettyprint"><code>HTTPSession {
-
-    onRequest: req =>
+    /**
+     * Class for combining multiple filesystem implementations into one.
+     * This allows, e.g., to handle archive files just like (read-only) directories.
+     * 
+     * The virtual filesystem uses a base filesystem as its entry and a number
+     * of child filesystems for handling selected MIME types.
+     * 
+     * Attach the property `vfsMimeTypes` to the child filesystems to assign
+     * filesystems to MIME types.
+     * 
+     * @extends core.Filesystem
+     * 
+     * @property {core.Filesystem} filesystem - The base file system.
+     */
+    class VirtualFS extends fs.Filesystem
     {
-        if (req.method === "GET")
+        constructor()
         {
-            req.response(200, "OK")
-            .body("You requested " + req.url.href)
-            .send();
+            super();
+            d.set(this, {
+                filesystem: null
+            });
+
+            this.notifyable("filesystem");
         }
-        else
+
+        get filesystem() { return d.get(this).filesystem; }
+        set filesystem(f)
         {
-            req.response(404, "Not Found")
-            .send();
+            d.get(this).filesystem = f;
+            this.filesystemChanged();
+        }
+
+        /**
+         * Analyzes the given path to find the innermost virtual filesystem, if
+         * any, and splits the path into the external and internal components.
+         * 
+         * @private
+         * 
+         * @param {string} path - The path to analyze.
+         * @returns {object} - The info object `{fs, path1, path2 }`
+         */
+        analyzePath(path)
+        {
+            const parts = path.split("/");
+            //console.log("VFS ANALYZE " + JSON.stringify(parts));
+            let idx = -1;
+            let mimeType = "";
+            let fs = null;
+
+            for (let i = parts.length - 2; i >= 0; --i)
+            {
+                mimeType = mime.mimeType(parts[i]);
+                fs = this.filesystemFor(mimeType);
+                if (fs)
+                {
+                    idx = i;
+                    break;
+                }
+            }
+
+            if (idx != -1)
+            {
+                const outerPath = parts.slice(0, idx + 1).join("/");
+                const innerPath = parts.slice(idx + 1).join("/");
+
+                return {
+                    fs: fs,
+                    path1: outerPath,
+                    path2: innerPath[0] !== "/" ? "/" + innerPath : innerPath
+                };
+            }
+            else
+            {
+                return {
+                    fs: null,
+                    path1: path,
+                    path2: ""
+                };
+            }
+        }
+
+        /**
+         * Returns the child filesystem to be used for the given MIME type, or
+         * `null` if no child filesystem handles that type.
+         * 
+         * @private
+         * 
+         * @param {string} mimeType - The MIME type.
+         * @returns {core.Filesystem} The filesystem handling the given MIME type.
+         */
+        filesystemFor(mimeType)
+        {
+            return this.children.find(c => c.vfsMimeTypes.includes(mimeType));
+        }
+
+        /**
+         * Reads data from the given path by recursively resolving the stacked
+         * filesystems.
+         * 
+         * @private
+         * 
+         * @param {string} dataPath - The path to read.
+         * @returns {ArrayBuffer} - The data.
+         */
+        async readVfsData(dataPath)
+        {
+            const priv = d.get(this);
+
+            const pathInfo = this.analyzePath(dataPath);
+            let data = null;
+            if (! pathInfo.fs)
+            {
+                data = await priv.filesystem.read(dataPath);
+            }
+            else
+            {
+                const vfsData = await this.readVfsData(pathInfo.path1);
+                const fileData = await pathInfo.fs.vfsRead(vfsData, pathInfo.path2);
+                data = fileData;
+            }
+
+            data.explicitPath = dataPath;
+            return data;
+        }
+
+        async fileInfo(path)
+        {
+            const priv = d.get(this);
+
+            if (! priv.filesystem)
+            {
+                return [];
+            }
+
+            const pathInfo = this.analyzePath(path);
+            if (! pathInfo.fs)
+            {
+                return await priv.filesystem.fileInfo(path);
+            }
+            else
+            {
+                const vfsData = await this.readVfsData(pathInfo.path1);
+                return await pathInfo.fs.vfsFileInfo(vfsData, pathInfo.path2);
+            }
+        }
+
+        async list(path)
+        {
+            const priv = d.get(this);
+
+            if (! priv.filesystem)
+            {
+                return [];
+            }
+
+            const mimeType = mime.mimeType(path);
+            if (this.filesystemFor(mimeType))
+            {
+                path += "/";
+            }
+
+            const pathInfo = this.analyzePath(path);
+            if (! pathInfo.fs)
+            {
+                return await priv.filesystem.list(path);
+            }
+            else
+            {
+                const vfsData = await this.readVfsData(pathInfo.path1);
+                const items = await pathInfo.fs.vfsList(vfsData, pathInfo.path2);
+                items.forEach(item =>
+                {
+                    item.path = this.pathJoin(pathInfo.path1, item.path);
+                    item.dir = this.pathJoin(pathInfo.path1, item.dir);
+                });
+                return items;
+            }
+        }
+
+        async mkdir(path, name)
+        {
+            const priv = d.get(this);
+
+            if (! priv.filesystem)
+            {
+                return;
+            }
+
+            const pathInfo = this.analyzePath(path);
+            if (! pathInfo.fs)
+            {
+                return await priv.filesystem.mkdir(path, name);
+            }
+            else
+            {
+                throw "Not supported";
+            }
+        }
+
+        async move(sourcePath, destPath)
+        {
+            const priv = d.get(this);
+
+            if (! priv.filesystem)
+            {
+                return;
+            }
+
+            const pathInfo = this.analyzePath(sourcePath);
+            if (! pathInfo.fs)
+            {
+                return await priv.filesystem.move(sourcePath, destPath);
+            }
+            else
+            {
+                throw "Not supported";
+            }
+        }
+
+        async copy(sourcePath, destPath)
+        {
+            const priv = d.get(this);
+
+            if (! priv.filesystem)
+            {
+                return;
+            }
+
+            const pathInfo = this.analyzePath(sourcePath);
+            if (! pathInfo.fs)
+            {
+                return await priv.filesystem.copy(sourcePath, destPath);
+            }
+            else
+            {
+                throw "Not supported";
+            }
+        }
+
+        async remove(path)
+        {
+            const priv = d.get(this);
+
+            if (! priv.filesystem)
+            {
+                return;
+            }
+
+            const pathInfo = this.analyzePath(path);
+            if (! pathInfo.fs)
+            {
+                return await priv.filesystem.remove(path);
+            }
+            else
+            {
+                throw "Not supported";
+            }
+        }
+
+        async read(path)
+        {
+            const priv = d.get(this);
+
+            if (! priv.filesystem)
+            {
+                return [];
+            }
+
+            const pathInfo = this.analyzePath(path);
+            if (! pathInfo.fs)
+            {
+                return await priv.filesystem.read(path);
+            }
+            else
+            {
+                const vfsData = await this.readVfsData(pathInfo.path1);
+                return await pathInfo.fs.vfsRead(vfsData, pathInfo.path2);
+            }
+        }
+
+        async write(path, fileData)
+        {
+            const priv = d.get(this);
+
+            if (! priv.filesystem)
+            {
+                return;
+            }
+
+            const pathInfo = this.analyzePath(path);
+            if (! pathInfo.fs)
+            {
+                return await priv.filesystem.write(path, fileData);
+            }
+            else
+            {
+                throw "Not supported";
+            }
         }
     }
+    exports.VirtualFS = VirtualFS;
+});
+    </code></pre>
+        </article>
+    </section>
 
-}</code></pre>
-    
-
-    
-</dd>
-
-        
-        </div>
-    
-    
-    
-        <h3 class="subsection-title">Extends</h3>
-        
-        <ul>
-            <li><a href="core.Object.html">core.Object</a></li>
-        </ul>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        <h3 class="subsection-title">Methods</h3>
-        
-        <dl class="list-methods">
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="close">
-            <a class="share-icon" href="#close"><span class="glyphicon glyphicon-link"></span></a>
-            <span class="">
-                close
-            </span>
-            <span class="signature">()</span>
-            
-            
-            
-            
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="shellfish-server_server_httpsession.js.html#line465">httpsession.js:465</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        <p>Closes this session. This removes this particular session instance
-from the parent HTTP server.</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="response">
-            <a class="share-icon" href="#response"><span class="glyphicon glyphicon-link"></span></a>
-            <span class="status-deprecated">
-                response
-            </span>
-            <span class="signature">(code, status)</span><span class="type-signature"><a href="server.HTTPResponse.html">server.HTTPResponse</a></span>
-            
-                <span class="access-signature deprecated">Deprecated
-                    : <span class="deprecated-info">Use the `response` method of <a href="server.HTTPServer.html#.HTTPRequestEvent">server.HTTPServer.HTTPRequestEvent</a> instead.</span>
-                    
-                </span>
-            
-            
-            
-            
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="shellfish-server_server_httpsession.js.html#line441">httpsession.js:441</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        <p>Creates and returns a response object.</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>code</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>The HTTP status code.</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>status</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>The HTTP status text.</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="server.HTTPResponse.html">server.HTTPResponse</a>
-                        
-                    
-            </td>
-            <td class="description last">The response object.</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        </dl>
-    
-    
-    
-    
-    
-
-    
-        <h3 class="subsection-title">Events</h3>
-        
-        <dl class="list-events">
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".event:request">
-            <a class="share-icon" href="#.event:request"><span class="glyphicon glyphicon-link"></span></a>
-            <span class="">
-                server.HTTPSession.event:request
-            </span>
-            
-            
-            
-            
-            
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="shellfish-server_server_httpsession.js.html#line358">httpsession.js:358</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        <p>Is triggered when a request comes in.</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>request</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="server.HTTPServer.html#.HTTPRequestEvent">server.HTTPServer.HTTPRequestEvent</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>The request event.</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".event:responseReady">
-            <a class="share-icon" href="#.event:responseReady"><span class="glyphicon glyphicon-link"></span></a>
-            <span class="">
-                server.HTTPSession.event:responseReady
-            </span>
-            
-            
-            
-            
-            
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="shellfish-server_server_httpsession.js.html#line368">httpsession.js:368</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        <p>Is triggered when a response is ready to be sent. This allows to make modifications
-to the response before sending.</p>
-<h3>Example</h3>
-<pre class="prettyprint source"><code>WebSession {
-   filesystem: localFs
-   root: &quot;/var/www&quot;
-   indexFile: &quot;index.html&quot;
-
-   onResponseReady: r => { r.enableCrossOriginIsolation(); }
-}
-</code></pre>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>response</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="server.HTTPResponse.html">server.HTTPResponse</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>The response object.</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        </dl>
-    
-</article>
-
-</section>  
 
 
 
@@ -6950,7 +6505,7 @@ to the response before sending.</p>
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Wed Dec 31 2025 11:48:32 GMT+0100 (Mitteleuropäische Normalzeit)
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Wed Dec 31 2025 11:48:32 GMT+0100 (Mitteleuropäische Normalzeit)
             </div>
         </footer>
     </div>
