@@ -49,8 +49,7 @@ struct Channels
     float totalDistance;
     vec3 origin;
     vec3 rayDirection;
-    vec3 p;
-    vec3 indirectP;
+    vec3 iterationP;
     vec3 light;
     vec3 albedo;
     vec3 surfaceNormal;
@@ -769,7 +768,7 @@ float sdfBox(vec3 p)
 
 /* Processes a set of TASM instructions to generate a texture.
  */
-Material processTasm(int program, vec2 st, vec3 p, float travelDist)
+Material processTasm(uint program, vec2 st, vec3 p, float travelDist)
 {
     // Since the GPU is quite limited on what it can do, implementing the
     // TASM instruction set might be too heavy for it. Therefore, all TASM
@@ -847,7 +846,7 @@ Material processTasm(int program, vec2 st, vec3 p, float travelDist)
             break;
         }
 
-        instruction = texelFetch(tasmData, ivec2(pc, program), 0);
+        instruction = texelFetch(tasmData, ivec2(pc, int(program)), 0);
 
         opCode = int(instruction.r);
         instructionSize = instruction.g;
@@ -1023,7 +1022,7 @@ bool isEdgeX(vec3 p, float epsilon)
  */
 Material getObjectMaterial(vec3 p, float dist, vec3 surfaceNormal)
 {
-    int materialId = int(voxelType(p));
+    uint materialId = voxelType(p);
 
     vec2 st = p.xy;
 
@@ -1052,6 +1051,9 @@ Material getObjectMaterial(vec3 p, float dist, vec3 surfaceNormal)
     }
 }
 
+/* Checks if a cube has a voxel at the given point in cube-local coordinates
+ * according to the bit pattern.
+ */
 bool cubeHasVoxel(vec3 pInCube, uvec2 pattern, int lod)
 {
     int cubeSize = LOD_CUBE_SIZE[lod];
@@ -1077,6 +1079,7 @@ bool cubeHasVoxel(vec3 pInCube, uvec2 pattern, int lod)
 }
 
 /* Checks the cube's bit pattern to see if the ray may hit any voxel.
+ * This may give false positives but no false negatives.
  */
 bool mayHitVoxels(vec3 entryPoint, vec3 exitPoint, uvec2 pattern, int lod)
 {
@@ -1136,14 +1139,18 @@ bool mayHitVoxels(vec3 entryPoint, vec3 exitPoint, uvec2 pattern, int lod)
     return bits.r > 0u || bits.g > 0u;
 }
 
+/* Checks if there is a voxel at the given point in world coordinates.
+ */
 bool hasVoxelAt(vec3 p)
 {
+    // locate sector and cube
     int sector = sectorAt(p);
     vec3 sectorOrgn = sectorOrigin(sector);
     int cubeIdx = cubeAt(sector, p - sectorOrgn);
     vec3 cubeOrgn = cubeOrigin(sector, cubeIdx);
     vec3 pT = p - cubeOrgn;
 
+    // read bit pattern of cube
     SectorMapEntry sectorMapEntry = readSectorMapEntry(sector);
     if (sectorMapEntry.address == INVALID_SECTOR_ADDRESS)
     {
@@ -1152,6 +1159,7 @@ bool hasVoxelAt(vec3 p)
     }
     uvec4 patternAndAddress = readCubeEntry(p);
 
+    // test against bit pattern
     return cubeHasVoxel(pT, patternAndAddress.rg, sectorMapEntry.lod);
 }
 
@@ -1401,7 +1409,7 @@ vec4 skyBox(vec3 origin, vec3 rayDirection)
     vec3 hitPoint = abs(rayDirection.y) > 0.001 ? origin + rayDirection * ((1000.0 - origin.y) / rayDirection.y)
                                                 : origin + rayDirection;
 
-    vec3 color = enableTasm && rayDirection.y > 0.0 ? processTasm(0, hitPoint.xz, hitPoint, fastDistance(origin, hitPoint)).color
+    vec3 color = enableTasm && rayDirection.y > 0.0 ? processTasm(0u, hitPoint.xz, hitPoint, fastDistance(origin, hitPoint)).color
                                                     : DISTANCE_FOG_COLOR;
 
     return vec4(color, 1.0);
@@ -1668,53 +1676,31 @@ vec3 getCorrectedBoxNormals(vec3 p, vec3 rayDirection)
     return surfaceNormalX;
 }
 
-vec3 computeLighting(vec3 origin, vec3 rayDirection, vec3 p, vec3 surfaceNormal)
-{
-    vec3 ambience = vec3(0.2) * (enableAmbientOcclusion && fastDistance(p, origin) < 100.0
-                    ? ambientOcclusion(p, createSurfaceTrafo(surfaceNormal), 0.2)
-                    : 1.0);
-    vec3 light = phongShading(0, origin, p, ambience, surfaceNormal, 1.0);
-
-    return light;
-}
-
 /* Processes the channels for composing the final image. This method can be called repeatedly
  * for deeper ray tracing and viewing depth.
  */
 Channels processChannels(Channels channels)
 {
-    if (channels.final)
-    {
-        // this pixel is final and doesn't need further processing
-        return channels;
-    }
-
-    vec3 origin = channels.indirectP;
+    vec3 iterationOrigin = channels.iterationP;
     vec3 incomingRayDirection = channels.rayDirection;
 
-    vec4 depthPoint = raymarch(origin, channels.rayDirection, 9999.0);
-    if (channels.bounces == 0)
-    {
-        channels.p = depthPoint.xyz;
-        channels.indirectP = depthPoint.xyz;
-    }
-    else
-    {
-        channels.indirectP = depthPoint.xyz;
-    }
-    channels.totalDistance += fastDistance(origin, depthPoint.xyz);
+    vec4 depthPoint = raymarch(iterationOrigin, channels.rayDirection, 9999.0);
+    channels.iterationP = depthPoint.xyz;
+    channels.totalDistance += fastDistance(iterationOrigin, depthPoint.xyz);
 
     if (depthPoint.w > 0.0)
     {
-        uint vtype = voxelType(depthPoint.xyz);
-
         float dist = channels.totalDistance;
         vec3 surfaceNormal = getCorrectedBoxNormals(depthPoint.xyz, channels.rayDirection);
         Material material = getObjectMaterial(depthPoint.xyz, dist, surfaceNormal);
-        vec3 bumpNormal = (createSurfaceTrafo(surfaceNormal) * vec4(material.normal, 1.0)).xyz;
+        mat4 surfaceTrafo = createSurfaceTrafo(surfaceNormal);
+        vec3 bumpNormal = (surfaceTrafo * vec4(material.normal, 1.0)).xyz;
 
         channels.surfaceNormal = bumpNormal;
-        channels.light += computeLighting(channels.origin, channels.rayDirection, depthPoint.xyz, bumpNormal);
+        vec3 ambience = vec3(0.2) * (enableAmbientOcclusion && fastDistance(depthPoint.xyz, channels.origin) < 100.0
+                        ? ambientOcclusion(depthPoint.xyz, surfaceTrafo, 0.2)
+                        : 1.0);
+        channels.light += phongShading(0, channels.origin, depthPoint.xyz, ambience, bumpNormal, material.roughness);
         channels.albedo *= material.color;
 
         if (material.roughness < 1.0)
@@ -1723,23 +1709,23 @@ Channels processChannels(Channels channels)
             channels.rayDirection = reflect(channels.rayDirection, channels.surfaceNormal);
 
             // epsilon must be small for corners, or you'll get reflected far into another block
-            channels.indirectP += channels.rayDirection * 0.01;
+            channels.iterationP += channels.rayDirection * 0.01;
 
-            if (hasVoxelAt(channels.indirectP))
+            if (hasVoxelAt(channels.iterationP))
             {
                 // stuck in an object, not good...
                 //debug = 2;
                 // this is a workaround suitable for water...
-                channels.indirectP -= channels.rayDirection * 0.01;
+                channels.iterationP -= channels.rayDirection * 0.01;
                 channels.rayDirection.y *= -1.0;
-                channels.indirectP += channels.rayDirection * 0.01;
+                channels.iterationP += channels.rayDirection * 0.01;
             }
 
             // TODO: do something with the roughness
             float fresnel = pow(clamp(1.0 - dot(channels.surfaceNormal, channels.rayDirection * -1.0), 0.5, 1.0), 1.0);
             channels.light *= fresnel;
 
-            channels.origin = channels.indirectP;
+            channels.origin = channels.iterationP;
             ++channels.bounces;
         }
         else if (material.ior > 0.0)
@@ -1755,9 +1741,9 @@ Channels processChannels(Channels channels)
                 //insideObject = ! insideObject;
                 channels.rayDirection = normalize(refractedRay);
             }
-            channels.indirectP += channels.rayDirection * 0.01;
+            channels.iterationP += channels.rayDirection * 0.01;
 
-            channels.origin = channels.indirectP;
+            channels.origin = channels.iterationP;
             ++channels.bounces;
         }
         else
@@ -1810,7 +1796,7 @@ void main()
     vec3 currentOrigin = viewOrigin;
 
     channels.origin = viewOrigin;
-    channels.indirectP = viewOrigin;
+    channels.iterationP = viewOrigin;
     channels.rayDirection = rayDirection;
     channels.albedo = vec3(1.0);
     channels.light = vec3(0.0);
@@ -1824,7 +1810,7 @@ void main()
         else if (i >= tracingDepth)
         {
             // hit the sky
-            channels.albedo *= skyBox(channels.indirectP, channels.rayDirection).rgb;
+            channels.albedo *= skyBox(channels.iterationP, channels.rayDirection).rgb;
             channels.light += getLightColor(0);
 
             break;
@@ -1834,7 +1820,7 @@ void main()
     }
     channels.outline = freeEdge || aoEdge;
 
-    float dist = fastDistance(viewOrigin, channels.indirectP);
+    float dist = fastDistance(viewOrigin, channels.iterationP);
 
     if (tasmProgramTooLong)
     {
@@ -1878,7 +1864,7 @@ void main()
 
         // apply distance fog
         float clampedDist = clamp(dist, 0.0, 400.0);
-        float heightDensity = max(0.0, (500.0 - abs(viewOrigin.y - channels.indirectP.y)) / 500.0);
+        float heightDensity = max(0.0, (500.0 - abs(viewOrigin.y - channels.iterationP.y)) / 500.0);
         float fogDensity = min(1.0, max(0.0, clampedDist - 350.0) * 0.02 * heightDensity);
         composed = vec3(
             lerp(composed.r, DISTANCE_FOG_COLOR.r, fogDensity),
